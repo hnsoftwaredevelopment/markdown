@@ -8,17 +8,17 @@ I'm the author of alive-progress, a new kind of Progress Bar for python like you
 
 It's also very easy to use and feature-packed, take a look!
 
-![alive-main.gif](.attachments/f03b474b30124ca4b0c3383b655afd62.gif)
+![alive-main.gif](attachments/f03b474b30124ca4b0c3383b655afd62.gif)
 
 There's a plethora of builtin spinner styles to choose from!
 
-![showtime-spinners.gif](.attachments/3376ca8f766244ecaa7e77ca763b9848.gif)
+![showtime-spinners.gif](attachments/3376ca8f766244ecaa7e77ca763b9848.gif)
 
 And you can easily create your own, there's builtin support for several special effects like frames, scrolling, bouncing, delayed and compound spinners! Get creative!
 
 Also bar styles!
 
-![showtime-bars.gif](.attachments/5eef141167f04d3d8e9701b1ae2fa30b.gif)
+![showtime-bars.gif](attachments/5eef141167f04d3d8e9701b1ae2fa30b.gif)
 
 To install, just:
 

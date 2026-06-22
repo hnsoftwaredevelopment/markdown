@@ -30,7 +30,7 @@ sdn-demo => Currently in prodution
 Login as: addisonadmin
 
 
-![MicrosoftTeams-image.png](.attachments/1d982cfa670340be9b508e2e1df5edae.png)
+![MicrosoftTeams-image.png](attachments/1d982cfa670340be9b508e2e1df5edae.png)
 
 
 |Accounts TWF-Integration with TWF and OneClick/Mobile App access|

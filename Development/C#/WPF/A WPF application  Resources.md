@@ -25,7 +25,7 @@ Download & run this example
 </Window>
 ```
 
-![dea06efe676de6efbfa7270408c43bba.png](.attachments/e71066bc3e284cc4b3b2f8ffa8c2559b.png)!
+![dea06efe676de6efbfa7270408c43bba.png](attachments/e71066bc3e284cc4b3b2f8ffa8c2559b.png)!
 
 ## A simple resource sample
 
@@ -73,7 +73,7 @@ Download & run this example
 </Window>
 ```
 
-![f52f561d2e59f7e5b834306116fc1e48.png](.attachments/6a9791711dd8438eab8b98bab99f10c7.png)
+![f52f561d2e59f7e5b834306116fc1e48.png](attachments/6a9791711dd8438eab8b98bab99f10c7.png)
 
 A more advanced example with several resource types This time, we've added a couple of extra resources, so that our Window now contains a simple string, an array of strings and a LinearGradientBrush. The string is used for the label, the array of strings is used as items for the ComboBox control and the gradient brush is used as background for the entire window. So, as you can see, pretty much anything can be stored as a resource.
 
@@ -192,7 +192,7 @@ namespace WpfTutorialSamples.WPF_Application
 }
 ```
 
-![d1cb68aae36fa113fd79243270bf0fca.png](.attachments/dcd852d25d534eb9a1dfd9e73fb34d78.png)
+![d1cb68aae36fa113fd79243270bf0fca.png](attachments/dcd852d25d534eb9a1dfd9e73fb34d78.png)
 
 Resources grabbed from Code-behind So, as you can see, we store three different "Hello, world!" messages: One in App.xaml, one inside the window, and one locally for the main panel. The interface consists of a button and a ListBox.
 

@@ -12,7 +12,7 @@ Manage Storage Account Release Tools
 Provides a possibility to create storage account and a single table on a Release pipeline, before application deployment.
 
 **Configure the task.**
-![a08a848928d826cd33e0fcb7054ba1ab.png](.attachments/e36264f63f31495caffb0c8980f50dbf.png)
+![a08a848928d826cd33e0fcb7054ba1ab.png](attachments/e36264f63f31495caffb0c8980f50dbf.png)
 
 - Select an AzureRM subscription connection - use service principal scoped to one resource group
 - Set the storage account name, if not exist it will be created
@@ -25,7 +25,7 @@ Provides a possibility to create storage account and a single table on a Release
 Want to be sure that connection string to your storage account is securely stored in key vault? This task will help.
 Configure the task.
 
-![6f291e4894c095e69b32e71293fae8f1.png](.attachments/5f91dd67a23e49f5989c45bbad560a0e.png)
+![6f291e4894c095e69b32e71293fae8f1.png](attachments/5f91dd67a23e49f5989c45bbad560a0e.png)
 
 - Select an AzureRM subscription connection - use service principal scoped to one resource group
 - Set the storage account name, which connection string you want to store
@@ -59,7 +59,7 @@ Task support flat key/value list, only.
 
 **Configure the task.**
 
-![a4fe39e0cdd6c336123af61c17ea6a1a.png](.attachments/f6596890ce58402cb3b05009981a9d70.png)
+![a4fe39e0cdd6c336123af61c17ea6a1a.png](attachments/f6596890ce58402cb3b05009981a9d70.png)
 - Select an AzureRM subscription connection - use service principal scoped to one resource group
 - Set the storage account name, which you want to seed
 - Set the table name, which you want to seed
@@ -70,7 +70,7 @@ Task support flat key/value list, only.
 Based on existing environment variables on release agent, overwrite json file properties with the same name. Setting prefix is optional. Environment variables on an Azure DevOps are set on configuring release in a variables tab, or linked from variable group.
 
 **Configure the task.**
-![e39a4a1a482756437d38009effc361ae.png](.attachments/49d2508cf5d547f1aa732ce6b79046a4.png)
+![e39a4a1a482756437d38009effc361ae.png](attachments/49d2508cf5d547f1aa732ce6b79046a4.png)
 
 - Select Json File path, it should be made of a list of flat key / value objects, PartitionKey and RowKey are required
 - Optionally set prefix by which variables will be selected

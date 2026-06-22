@@ -1,7 +1,7 @@
 Barst uit je voegen met Burst Mode
 
 Breng zelfs de fast & the furious tot stilstand met je smartphone!
-![870dbb787cb7349162a155fa3555a47d.png](.attachments/21235c92e6bd49348a97aff97b53a25f.png)
+![870dbb787cb7349162a155fa3555a47d.png](attachments/21235c92e6bd49348a97aff97b53a25f.png)
 
 ## De shot? 
 

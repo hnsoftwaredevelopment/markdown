@@ -1,8 +1,8 @@
 Spiegeltje, spiegeltje aan de wand met Reflections
 
 Verbaas je volgers met mysterieuze smartphone reflecties!
-![a7d64d0ec9f206733455ded212fd375d.png](.attachments/076da4c13c554692bee917253972f04e.png)
-![59bbee78f65a127b0077714821700336.png](.attachments/16b3c5a2578e41caa7c0b9fb19dc111f.png)
+![a7d64d0ec9f206733455ded212fd375d.png](attachments/076da4c13c554692bee917253972f04e.png)
+![59bbee78f65a127b0077714821700336.png](attachments/16b3c5a2578e41caa7c0b9fb19dc111f.png)
 
 ## De shot? 
 

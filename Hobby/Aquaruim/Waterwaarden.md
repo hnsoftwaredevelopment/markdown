@@ -16,7 +16,7 @@ iedere stap op de schaal maakt het water 10x zuurder of base
 pH8 is 10 keer meer basisch dat pH7, pH9 10x meer basisch dan pH8 enz.
 pH 6 is 10x zuurder dan pH7, pH5 10x zuurder dan pH6.
 
-![61b08928219c0fb22a677a08e0e645f7.png](.attachments/734c4d6e99984d5db6319cee86035692.png)
+![61b08928219c0fb22a677a08e0e645f7.png](attachments/734c4d6e99984d5db6319cee86035692.png)
 
 ### pH waarden en vissen
 Voor vissen is de pH waarde belangrijk, iedere vissoorrt vind een eigen pH waarde het prettigst. Het is daarom belangrijk om vissen te kiezen binnen hetzelfde pH bereik.
@@ -28,7 +28,7 @@ een pH waarde tussen de 6,8 en 7,5 is ideaal voor een gezelschapsaquarium.
 ## kH (alkaliet hardheid)
 De kH waarde is 1 van de 2 waarden die de hardheid van water aangeven op een schaal van 0-20, waarbij 0 zeer zacht water is en 20 erg hard.
 
-![84167966961c1302021b6a7e2eb7a0c4.png](.attachments/bc3d39a4c7354a878760731cab30fec6.png)
+![84167966961c1302021b6a7e2eb7a0c4.png](attachments/bc3d39a4c7354a878760731cab30fec6.png)
 
 Een kH waarde tussen de 3 en 8 is ideaal voor een gezelschaps aquarium.
 Discusvissen prevereren een waarde van 0-2, Malawi 5-8 en Tanganjika 15-18. die 3 samen in 1 bak zal dus niet gaan.
@@ -98,7 +98,7 @@ Ideale waterwaarde niet hoger dan 1 mg/l (beter: max. 0,5 mg/l PO4)
 Een aantal druppeltestkoffers bevatten ook een test voor het CO<sub>2</sub> gehalte in je water deze druppeltests voegen niet zo heel veel toe.
 
 Beter is een continue test in de vorm van een dropchecker
-![95a685cbb682233c2b2bd36f495d42f3.png](.attachments/fcaf64b75c984e73a82d68d6eb782f6f.png)
+![95a685cbb682233c2b2bd36f495d42f3.png](attachments/fcaf64b75c984e73a82d68d6eb782f6f.png)
 
 [Planted box drop checker](https://planted-box.com/product/drop-co2-tester/)
 
@@ -108,10 +108,10 @@ Er zijn verschillende test kits verkrijgbaar, waarbij druppel tests de voorkeur 
 De Fosfaat test kan ook los gekocht worden bij prolemen met de planten.  En de wanneer er een testkit is met of alleen een kH of alleen een gH heeft kH de voorkeur.
 
 De Colombo testlab heeft akke hier genoemde tests en kost rond de € 35.
-![ddb81e6a1ab07b41f72722df04a5b631.png](.attachments/819c39472853428884c73ce1bf382ca5.png)
+![ddb81e6a1ab07b41f72722df04a5b631.png](attachments/819c39472853428884c73ce1bf382ca5.png)
 
 Alternatief is de JBL ProAquaTest Combi Set Marin van rond de € 53,=
-![1e61fa7a75d4e060afb437798c7d2c65.png](.attachments/7beb054c222c4048a830b09db8ea4cdc.png)
+![1e61fa7a75d4e060afb437798c7d2c65.png](attachments/7beb054c222c4048a830b09db8ea4cdc.png)
 
 
 

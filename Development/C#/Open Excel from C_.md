@@ -4,7 +4,7 @@ Open Excel from C#
 Add a reference of the type COM using the solution Explorer, right click on References an select "Add reference"
 
 Then select the Microsoft Excel Object Library
-![750f9f85db1bc74ab5cc7986c036e266.png](.attachments/7e5c5e2803474f3e8dd2db7a16cae502.png)
+![750f9f85db1bc74ab5cc7986c036e266.png](attachments/7e5c5e2803474f3e8dd2db7a16cae502.png)
 
 In the project create a new class named Excel.cs
 ```C# 

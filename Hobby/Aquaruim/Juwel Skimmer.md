@@ -16,5 +16,5 @@ Een skimmer reinig het wateroppervlak, hierdoor komt er meer licht in het aquari
 |Kabellengte|238 cm|
 |Website|[Juwel website](https://www.juwel-aquarium.de/index.php?cl=alist&cnid=301c51c6f85450a6a3bb6d6cfea4892d&lang=4)|
 
-![c66affdbe7acdb3dbea1d77c3eccb9dc.png](.attachments/08e10a6e033743d4a6e842b15f8dc72f.png)
+![c66affdbe7acdb3dbea1d77c3eccb9dc.png](attachments/08e10a6e033743d4a6e842b15f8dc72f.png)
 
