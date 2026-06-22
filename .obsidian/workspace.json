@@ -11,24 +11,14 @@
             "id": "4768523287705d1b",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "split-diff-view",
               "state": {
-                "file": "Markdown cheatsheets/Emoji cheatsheet.md",
-                "mode": "source",
-                "source": true,
-                "backlinks": true,
-                "backlinkOpts": {
-                  "collapseAll": false,
-                  "extraContext": false,
-                  "sortOrder": "alphabetical",
-                  "showSearch": false,
-                  "searchQuery": "",
-                  "backlinkCollapsed": false,
-                  "unlinkedCollapsed": true
-                }
+                "aFile": "Markdown cheatsheets/Emoji cheatsheet.md",
+                "bFile": "Markdown cheatsheets/Emoji cheatsheet.md",
+                "aRef": ""
               },
-              "icon": "lucide-file",
-              "title": "Emoji cheatsheet"
+              "icon": "diff",
+              "title": "Diff: Emoji cheatsheet  (Working Tree)"
             }
           }
         ]
@@ -243,6 +233,7 @@
   },
   "active": "4768523287705d1b",
   "lastOpenFiles": [
+    "Markdown cheatsheets/Emoji cheatsheet.md",
     "Markdown cheatsheets/Basic MarkDown Elements.md",
     "Hobby/Aquaruim/Juwel Amorax.md",
     "Development/C#/Java/Get Jira issues.md",
@@ -279,7 +270,6 @@
     "Hobby/Modelbouw/Schepen/Sergal_Baleniera.md",
     "Hobby/Modelbouw/Schepen/Panart_HMS_Victory.md",
     "Hobby/Modelbouw/Schepen/Ocre_Montanes.md",
-    "Hobby/Modelbouw/Schepen/Model_Shipways_USS_Constitution.md",
     "Hobby/Modelbouw/Verf",
     "Hobby/Modelbouw/Schepen",
     "Hobby/Modelbouw/Tips",
