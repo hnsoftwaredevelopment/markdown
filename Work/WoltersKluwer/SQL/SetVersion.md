@@ -1,0 +1,8 @@
+SetVersion
+
+```sql
+USE Alure
+SELECT * FROM VERSIECONTROLE
+UPDATE VERSIECONTROLE SET dbver = 10.4
+```
+

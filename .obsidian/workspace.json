@@ -1,0 +1,269 @@
+{
+  "main": {
+    "id": "30bf61be65d072a5",
+    "type": "split",
+    "children": [
+      {
+        "id": "87b1c2edb9100c17",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "4768523287705d1b",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Hobby/Aquaruim/Juwel Amorax.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": true,
+                "backlinkOpts": {
+                  "collapseAll": false,
+                  "extraContext": false,
+                  "sortOrder": "alphabetical",
+                  "showSearch": false,
+                  "searchQuery": "",
+                  "backlinkCollapsed": false,
+                  "unlinkedCollapsed": true
+                }
+              },
+              "icon": "lucide-file",
+              "title": "Juwel Amorax"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "7c05ae1ce1f195c9",
+    "type": "split",
+    "children": [
+      {
+        "id": "2540150cab0fa8de",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "efa57b48cf581284",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "9cd60c4cddbc261d",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "40a4bf6edde45176",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "bc13cd1b6ba6f691",
+    "type": "split",
+    "children": [
+      {
+        "id": "a0382a3ef7ce5f3b",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "5bff03d77416bc86",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Hobby/Aquaruim/Juwel Amorax.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for Juwel Amorax"
+            }
+          },
+          {
+            "id": "f66851ec630daeec",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Hobby/Aquaruim/Juwel Amorax.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from Juwel Amorax"
+            }
+          },
+          {
+            "id": "3518bfd038da7531",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "f55841bf1e31bb5d",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          },
+          {
+            "id": "498e5eba7dc8933d",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Hobby/Aquaruim/Juwel Amorax.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of Juwel Amorax"
+            }
+          },
+          {
+            "id": "7378967faeeaa4d8",
+            "type": "leaf",
+            "state": {
+              "type": "footnotes",
+              "state": {
+                "file": "Hobby/Aquaruim/Juwel Amorax.md"
+              },
+              "icon": "lucide-file-signature",
+              "title": "Footnotes"
+            }
+          },
+          {
+            "id": "723d560b4ffbbcd0",
+            "type": "leaf",
+            "state": {
+              "type": "calendar",
+              "state": {},
+              "icon": "calendar-with-checkmark",
+              "title": "Calendar"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "workspaces:Manage workspace layouts": false,
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false,
+      "table-editor-obsidian:Advanced Tables Toolbar": false
+    }
+  },
+  "active": "4768523287705d1b",
+  "lastOpenFiles": [
+    "Development/C#/Java/Get Jira issues.md",
+    "Development/C#/Java/DriverHelper.md",
+    "Development/C#/Java/C  Jira 02 - Issues  Get Field.md",
+    "Development/C#/Java/C  Jira 01 - Issues  Search for issues assigned to.md",
+    "Development/C#/Java/C  Jira 00 - !Tool go generate C Code from URL.md",
+    "Development/C#/Java/Another example to connect to .md",
+    "Development/C#/Cefsharp/Install nuget_ cefsharp WinForms.md",
+    "Development/C#/WPF/Introduction to WPF panels.md",
+    "fcaf64b75c984e73a82d68d6eb782f6f.png",
+    "f9ccbdaa39a74fb89f31f09909f1621d.png",
+    "f74e52817af5400bbfa462a31cab5f05.png",
+    "f6596890ce58402cb3b05009981a9d70.png",
+    "f23e51e92bc0415da4e3adaf2350882b.png",
+    "f0f12597daac4fe8a4d8bebf7fed85e3.png",
+    "f03b474b30124ca4b0c3383b655afd62.gif",
+    "ecc25aecb9074b96832c514e5f973f0a.png",
+    "ea2a46a1dcff43d3bdf0884ae614240b.png",
+    "e7507353231b4339879db42056ee2ce6.png",
+    "Hobby/Aquaruim/Juwel Achterwand Filter.md",
+    "Hobby/Aquaruim/Juwel Achterwand.md",
+    "Markdown cheatsheets/epsilon.md",
+    "Work/Voortman/Testplan 631.md",
+    "Work/Voortman",
+    "Prive/Verzekeringen.md",
+    "Prive/Vulpen.md",
+    "Hobby/Modelbouw/Verf/Humbrol Conversie Lijst.md",
+    "Hobby/Modelbouw/Schepen/Sergal_Sovereign_of_the_seas.md",
+    "Hobby/Modelbouw/Schepen/Sergal_Vasa.md",
+    "Hobby/Modelbouw/Schepen/Sergal_Le_Soleil_Royal.md",
+    "Hobby/Modelbouw/Schepen/Sergal_HMS_Victory.md",
+    "Hobby/Modelbouw/Schepen/Panart_S.Felipe.md",
+    "Hobby/Modelbouw/Schepen/Sergal_Baleniera.md",
+    "Hobby/Modelbouw/Schepen/Panart_HMS_Victory.md",
+    "Hobby/Modelbouw/Schepen/Ocre_Montanes.md",
+    "Hobby/Modelbouw/Schepen/Model_Shipways_USS_Constitution.md",
+    "Hobby/Modelbouw/Schepen/Caldercraft_HMS_Diana.md",
+    "Hobby/Modelbouw/Schepen/Caldercraft_HMB_Endeavour.md",
+    "Hobby/Modelbouw/Verf",
+    "Hobby/Modelbouw/Schepen",
+    "Hobby/Modelbouw/Tips",
+    "Hobby/Modelbouw/Gereedschap (1)",
+    "Hobby/KHM/Teksten",
+    "Hobby/KHZV/Capella_werkgroep",
+    "Hobby/Modelbouw",
+    "Hobby/KHM",
+    "Hobby/S21+"
+  ]
+}

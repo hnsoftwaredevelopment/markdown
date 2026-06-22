@@ -1,0 +1,13 @@
+LocalAdmin
+
+# Add local admin to a Windows computer
+
+![1550227914660](images/1550227914660.png)
+
+
+
+![1550227939158](images/1550227939158.png)
+
+![1550227973613](images/1550227973613.png)
+
+![1550228001390](images/1550228001390.png)
