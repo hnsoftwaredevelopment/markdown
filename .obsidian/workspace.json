@@ -13,9 +13,9 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Hobby/Aquaruim/Juwel Amorax.md",
+                "file": "Markdown cheatsheets/Emoji cheatsheet.md",
                 "mode": "source",
-                "source": false,
+                "source": true,
                 "backlinks": true,
                 "backlinkOpts": {
                   "collapseAll": false,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "Juwel Amorax"
+              "title": "Emoji cheatsheet"
             }
           }
         ]
@@ -196,16 +196,40 @@
               "icon": "calendar-with-checkmark",
               "title": "Calendar"
             }
+          },
+          {
+            "id": "c254c64030e33ff4",
+            "type": "leaf",
+            "state": {
+              "type": "advanced-tables-toolbar",
+              "state": {},
+              "icon": "spreadsheet",
+              "title": "Advanced Tables"
+            }
+          },
+          {
+            "id": "1c5b3e69e978c4c8",
+            "type": "leaf",
+            "state": {
+              "type": "git-view",
+              "state": {},
+              "icon": "git-pull-request",
+              "title": "Source Control"
+            }
           }
-        ]
+        ],
+        "currentTab": 8
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "left-ribbon": {
     "hiddenItems": {
+      "realclaudian:Open Claudian": false,
+      "obsidian-excalidraw-plugin:New drawing": false,
+      "obsidian-git:Open Git source control": false,
+      "obsidian-kanban:Create new board": false,
       "workspaces:Manage workspace layouts": false,
       "switcher:Open quick switcher": false,
       "graph:Open graph view": false,
@@ -219,6 +243,8 @@
   },
   "active": "4768523287705d1b",
   "lastOpenFiles": [
+    "Markdown cheatsheets/Basic MarkDown Elements.md",
+    "Hobby/Aquaruim/Juwel Amorax.md",
     "Development/C#/Java/Get Jira issues.md",
     "Development/C#/Java/DriverHelper.md",
     "Development/C#/Java/C  Jira 02 - Issues  Get Field.md",
@@ -254,8 +280,6 @@
     "Hobby/Modelbouw/Schepen/Panart_HMS_Victory.md",
     "Hobby/Modelbouw/Schepen/Ocre_Montanes.md",
     "Hobby/Modelbouw/Schepen/Model_Shipways_USS_Constitution.md",
-    "Hobby/Modelbouw/Schepen/Caldercraft_HMS_Diana.md",
-    "Hobby/Modelbouw/Schepen/Caldercraft_HMB_Endeavour.md",
     "Hobby/Modelbouw/Verf",
     "Hobby/Modelbouw/Schepen",
     "Hobby/Modelbouw/Tips",

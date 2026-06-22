@@ -9,14 +9,16 @@ Amorax is een uiterst efficiënt filtermedium bestaande uit natuurlijke zeoliet.
 - Bevordert de plantengroei
 - Geschikt voor zoet en zout water
 
-| :--- | ---:|
-|Productnummer|88054|
-|Productnaam|Amorax M|
-|Productsoort|Biologisch filtermateriaal|
-|Afmetingen| 9,5 x 9,5 x 4,5 cm|
-|Website|[Juwel website](https://www.juwel-aquarium.de/nl/Producten/Filtering/Filtermedia/Amorax/)|
 
-![fb16a6aa3dc923c9ab5ecfe17af755c9.png](.attachments/f0f12597daac4fe8a4d8bebf7fed85e3.png)
+| Productnummer | 88054                                                                                     |
+| ------------- | ----------------------------------------------------------------------------------------- |
+| Productnaam   | Amorax M                                                                                  |
+| Productsoort  | Biologisch filtermateriaal                                                                |
+| Afmetingen    | 9,5 x 9,5 x 4,5 cm                                                                        |
+| Website       | [Juwel website](https://www.juwel-aquarium.de/nl/Producten/Filtering/Filtermedia/Amorax/) |
+
+
+![f0f12597daac4fe8a4d8bebf7fed85e3.png](.attachments/f0f12597daac4fe8a4d8bebf7fed85e3.png)
 
 ![de87c153034d76a65616e5de96c408f9.png](.attachments/c667636915ae403f827a296bfd7f297a.png)
 
