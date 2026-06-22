@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Hobby/Aquaruim/Waterplanten.md",
+                "file": "Prive/Apparaten/4. Tips 💡.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "Waterplanten"
+              "title": "4. Tips 💡"
             }
           }
         ]
@@ -54,7 +54,7 @@
                 "autoReveal": false
               },
               "icon": "lucide-folder-closed",
-              "title": "Files"
+              "title": "Verkenner"
             }
           },
           {
@@ -91,7 +91,7 @@
               "type": "empty",
               "state": {},
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "Nieuw tabblad"
             }
           },
           {
@@ -246,42 +246,48 @@
   },
   "left-ribbon": {
     "hiddenItems": {
+      "switcher:Open snel wisselen": false,
+      "graph:Open grafiek weergave": false,
+      "canvas:Nieuw doek aanmaken": false,
+      "daily-notes:Open de notitie van vandaag": false,
+      "templates:Sjabloon invoegen": false,
+      "command-palette:Open opdrachtenpaneel": false,
+      "workspaces:Beheer werkblad lay-outs": false,
+      "bases:Nieuwe basis maken": false,
+      "obsidian-excalidraw-plugin:Create new drawing": false,
       "realclaudian:Open Claudian": false,
-      "obsidian-excalidraw-plugin:New drawing": false,
       "obsidian-git:Open Git source control": false,
-      "obsidian-kanban:Create new board": false,
-      "workspaces:Manage workspace layouts": false,
-      "switcher:Open quick switcher": false,
-      "graph:Open graph view": false,
-      "canvas:Create new canvas": false,
-      "daily-notes:Open today's daily note": false,
-      "templates:Insert template": false,
-      "command-palette:Open command palette": false,
-      "bases:Create new base": false,
-      "table-editor-obsidian:Advanced Tables Toolbar": false
+      "obsidian-kanban:Create new board": false
     }
   },
-  "active": "1c5b3e69e978c4c8",
+  "active": "4768523287705d1b",
   "lastOpenFiles": [
+    "Hobby/Modelbouw/Websites.md",
+    "Hobby/Modelbouw/Kwaliteit_fabrikanten.md",
+    "Hobby/Modelbouw/Verf/Humbrol Conversie Lijst.md",
+    "Hobby/Modelbouw/Tips/Woordenlijst.md",
+    "Hobby/Modelbouw/Tips/Zelf_profielmes_maken.md",
+    "Hobby/Modelbouw/Tips/Touw_om_nagels.md",
+    "Hobby/Modelbouw/Schepen/Caldercraft_HMB_Endeavour.md",
+    "Hobby/Modelbouw/Schepen/Caldercraft_HMAV_Bounty.md",
+    "Hobby/Modelbouw/Gereedschap (1)/Micro_Shaper_A.md",
+    "Hobby/KHZV/Capella_werkgroep/20190131.md",
+    "Hobby/S21+/Spiegeltje, spiegeltje aan de wand met Reflections.md",
+    "Hobby/S21+/Barst uit je voegen met Burst Mode.md",
+    "Hobby/KHM/Tempi.md",
+    "Hobby/KHM/Website.md",
+    "Hobby/KHM/114 Cantique de Jean Racine.md",
+    "Hobby/Gereedschap/Bovenfrees.md",
+    "Hobby/Gereedschap/Bandschuurmachine.md",
+    "Hobby/Box/Onderplaat.md",
+    "Hobby/Box/Box ontwerp.md",
+    "Hobby/Box/Booschappen.md",
+    "Hobby/Aquaruim/Waterplanten.md",
+    "Juwel Rio 125$20LED.md",
     "Hobby/Aquaruim/Waterwaarden.md",
     "Hobby/Aquaruim/Tetra MyFeeder.md",
     "Hobby/Aquaruim/Prijsvergelijking.md",
     "Hobby/Aquaruim/Juwel Smartfeed.md",
-    "Hobby/Aquaruim/Aquarium wensen lijst.md",
-    "Hobby/Aquaruim/Juwel Rio 125 LED.md",
-    "Hobby/Aquaruim/Juwel OxyPlus O2 diffusor.md",
-    "Hobby/Aquaruim/Juwel Amorax.md",
-    "Hobby/Aquaruim/Juwel Achterwand Poster.md",
-    "Hobby/Aquaruim/Juwel Achterwand Filter.md",
-    "Hobby/Aquaruim/Juwel Achterwand.md",
-    "Hobby/Aquaruim/Juwel Skimmer.md",
-    "Juwel Rio 125$20LED.md",
-    "Development/C#/Create JSON from an Anonymous Type.md",
-    "Development/C#/Code to add checkboxes automaticly inside a for lo.md",
-    "Development/C#/Add Microsoft Nugetpackeges to the project.md",
-    "Development/C#/Add Binding for toolbar.md",
-    "Development/C#/Cefsharp/Install nuget_ cefsharp WinForms.md",
-    "ICT/CorelCad/Afstand BaseLine maten.md",
     "attachments/fcaf64b75c984e73a82d68d6eb782f6f.png",
     "attachments/f9ccbdaa39a74fb89f31f09909f1621d.png",
     "attachments/f23e51e92bc0415da4e3adaf2350882b.png",
@@ -293,13 +299,6 @@
     "attachments/ea2a46a1dcff43d3bdf0884ae614240b.png",
     "attachments/e7507353231b4339879db42056ee2ce6.png",
     "attachments",
-    "ICT/gmail/SMTPAuthentication.md",
-    "ICT/Android/Scanbot.md",
-    "ICT/DOS (cmd.exe)/15 Usefull DOS commands.md",
-    "ICT/gmail/GmailGerard.md",
-    "Development/C.md",
-    "Prive/Games/RoR_1.md",
-    "Markdown cheatsheets/Obsidian Markdown Spiekbriefje.md",
     "Work/Voortman",
     "Hobby/Modelbouw/Verf",
     "Hobby/Modelbouw/Schepen",

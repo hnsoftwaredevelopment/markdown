@@ -2,7 +2,42 @@ Waterplanten
 
 # Waterplanten
 ```insta-toc
+---
+title:
+  name:
+  level:
+  center:
+exclude:
+style:
+  listType:
+omit:
+levels:
+  min:
+  max:
+---
 
+# Inhoudsopgave
+
+- Waterplanten
+    - Plattegrond
+    - Achtergrond
+        - Hygrophilia Guanensis
+        - Limnophilia Heterophylla
+        - Alternanthera rosaefolia
+        - Echinodorus bleheri
+        - Hygrophilia polysperma
+    - Midden
+        - Sterrekruid
+        - Ludwigia sp. Mini Super Red
+    - Voor
+        - Cryptocoryne wendtii (Groen)
+        - Cryptocoryne wendtii (Bruin)
+        - Vallisneria Spiralis
+        - Staurogyne sp. repens
+        - Lobelia cardinalis mini
+    - Mos
+        - Christmas mos
+        - Java mos
 ```
 
 ## Plattegrond
