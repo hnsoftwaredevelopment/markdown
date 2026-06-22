@@ -1,0 +1,24 @@
+{
+  "settings": {
+    "bulletType": "disc",
+    "excludedChars": [
+      "*",
+      "_",
+      "`",
+      "==",
+      "~~",
+      "{",
+      "}",
+      "#",
+      "\\"
+    ],
+    "excludedHeadingLevels": [],
+    "excludedHeadingText": [],
+    "indentSize": 2,
+    "tocTitle": "Inhoudsopgave",
+    "tocTitleLevel": 1,
+    "updateDelay": 2000
+  },
+  "tocBlockCollapseState": {},
+  "tocFoldState": {}
+}

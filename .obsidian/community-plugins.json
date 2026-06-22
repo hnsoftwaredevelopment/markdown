@@ -7,5 +7,10 @@
   "obsidian-icon-folder",
   "obsidian-kanban",
   "obsidian-mind-map",
-  "obsidian-style-settings"
+  "obsidian-style-settings",
+  "theme-picker",
+  "smart-table",
+  "obsidian-plugin-toc",
+  "dynamic-outline",
+  "insta-toc"
 ]

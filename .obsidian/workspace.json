@@ -11,14 +11,24 @@
             "id": "4768523287705d1b",
             "type": "leaf",
             "state": {
-              "type": "split-diff-view",
+              "type": "markdown",
               "state": {
-                "aFile": "Markdown cheatsheets/Emoji cheatsheet.md",
-                "bFile": "Markdown cheatsheets/Emoji cheatsheet.md",
-                "aRef": ""
+                "file": "Development/C.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": true,
+                "backlinkOpts": {
+                  "collapseAll": false,
+                  "extraContext": false,
+                  "sortOrder": "alphabetical",
+                  "showSearch": false,
+                  "searchQuery": "",
+                  "backlinkCollapsed": false,
+                  "unlinkedCollapsed": true
+                }
               },
-              "icon": "diff",
-              "title": "Diff: Emoji cheatsheet  (Working Tree)"
+              "icon": "lucide-file",
+              "title": "C"
             }
           }
         ]
@@ -233,6 +243,11 @@
   },
   "active": "4768523287705d1b",
   "lastOpenFiles": [
+    "Development/C.md",
+    "Prive/Games/RoR_1.md",
+    "Markdown cheatsheets/Obsidian Markdown Spiekbriefje.md",
+    "Development/Github/Github Cheat sheet.md",
+    "Development/Github/Github recovery codes.md",
     "Markdown cheatsheets/Emoji cheatsheet.md",
     "Markdown cheatsheets/Basic MarkDown Elements.md",
     "Hobby/Aquaruim/Juwel Amorax.md",
@@ -265,11 +280,6 @@
     "Hobby/Modelbouw/Schepen/Sergal_Sovereign_of_the_seas.md",
     "Hobby/Modelbouw/Schepen/Sergal_Vasa.md",
     "Hobby/Modelbouw/Schepen/Sergal_Le_Soleil_Royal.md",
-    "Hobby/Modelbouw/Schepen/Sergal_HMS_Victory.md",
-    "Hobby/Modelbouw/Schepen/Panart_S.Felipe.md",
-    "Hobby/Modelbouw/Schepen/Sergal_Baleniera.md",
-    "Hobby/Modelbouw/Schepen/Panart_HMS_Victory.md",
-    "Hobby/Modelbouw/Schepen/Ocre_Montanes.md",
     "Hobby/Modelbouw/Verf",
     "Hobby/Modelbouw/Schepen",
     "Hobby/Modelbouw/Tips",
