@@ -11,8 +11,11 @@
   "theme-picker",
   "smart-table",
   "obsidian-plugin-toc",
-  "dynamic-outline",
   "insta-toc",
   "awesome-image",
-  "better-image-tag"
+  "better-image-tag",
+  "obsidian-advanced-uri",
+  "cmdr",
+  "dataview",
+  "link-favicon"
 ]

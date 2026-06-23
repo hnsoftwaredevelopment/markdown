@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Prive/Apparaten/4. Tips 💡.md",
+                "file": "Development/WPF Handboek/00 Start/Leeswijzer.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "4. Tips 💡"
+              "title": "Leeswijzer"
             }
           }
         ]
@@ -100,8 +100,8 @@
             "state": {
               "type": "tag-manager-view",
               "state": {},
-              "icon": "tags",
-              "title": "Tag manager"
+              "icon": "lucide-ghost",
+              "title": "tag-manager-view"
             }
           }
         ]
@@ -213,8 +213,8 @@
             "state": {
               "type": "calendar",
               "state": {},
-              "icon": "calendar-with-checkmark",
-              "title": "Calendar"
+              "icon": "lucide-ghost",
+              "title": "calendar"
             }
           },
           {
@@ -223,8 +223,8 @@
             "state": {
               "type": "advanced-tables-toolbar",
               "state": {},
-              "icon": "spreadsheet",
-              "title": "Advanced Tables"
+              "icon": "lucide-ghost",
+              "title": "advanced-tables-toolbar"
             }
           },
           {
@@ -254,40 +254,53 @@
       "command-palette:Open opdrachtenpaneel": false,
       "workspaces:Beheer werkblad lay-outs": false,
       "bases:Nieuwe basis maken": false,
-      "obsidian-excalidraw-plugin:Create new drawing": false,
       "realclaudian:Open Claudian": false,
+      "obsidian-excalidraw-plugin:Create new drawing": false,
       "obsidian-git:Open Git source control": false,
-      "obsidian-kanban:Create new board": false
+      "obsidian-kanban:Create new board": false,
+      "cmdr:Toggle stacked tabs": false,
+      "obsidian-excalidraw-plugin:New drawing": false
     }
   },
   "active": "4768523287705d1b",
   "lastOpenFiles": [
-    "Hobby/Modelbouw/Websites.md",
-    "Hobby/Modelbouw/Kwaliteit_fabrikanten.md",
-    "Hobby/Modelbouw/Verf/Humbrol Conversie Lijst.md",
-    "Hobby/Modelbouw/Tips/Woordenlijst.md",
-    "Hobby/Modelbouw/Tips/Zelf_profielmes_maken.md",
-    "Hobby/Modelbouw/Tips/Touw_om_nagels.md",
-    "Hobby/Modelbouw/Schepen/Caldercraft_HMB_Endeavour.md",
-    "Hobby/Modelbouw/Schepen/Caldercraft_HMAV_Bounty.md",
-    "Hobby/Modelbouw/Gereedschap (1)/Micro_Shaper_A.md",
-    "Hobby/KHZV/Capella_werkgroep/20190131.md",
-    "Hobby/S21+/Spiegeltje, spiegeltje aan de wand met Reflections.md",
-    "Hobby/S21+/Barst uit je voegen met Burst Mode.md",
-    "Hobby/KHM/Tempi.md",
-    "Hobby/KHM/Website.md",
-    "Hobby/KHM/114 Cantique de Jean Racine.md",
-    "Hobby/Gereedschap/Bovenfrees.md",
-    "Hobby/Gereedschap/Bandschuurmachine.md",
-    "Hobby/Box/Onderplaat.md",
-    "Hobby/Box/Box ontwerp.md",
-    "Hobby/Box/Booschappen.md",
-    "Hobby/Aquaruim/Waterplanten.md",
-    "Juwel Rio 125$20LED.md",
-    "Hobby/Aquaruim/Waterwaarden.md",
-    "Hobby/Aquaruim/Tetra MyFeeder.md",
-    "Hobby/Aquaruim/Prijsvergelijking.md",
-    "Hobby/Aquaruim/Juwel Smartfeed.md",
+    "Development/WPF Handboek/00 Start/Inleiding.md",
+    "Development/WPF Handboek/WPF Handboek.md",
+    "Prive/Apparaten/4. Tips 💡.md",
+    "Development/WPF Handboek/07 Styling en resources/Triggers.md",
+    "Development/WPF Handboek/07 Styling en resources/Templates.md",
+    "Development/WPF Handboek/07 Styling en resources/Styles.md",
+    "Development/WPF Handboek/07 Styling en resources/Resources.md",
+    "Development/WPF Handboek/07 Styling en resources/Brushes.md",
+    "Development/WPF Handboek/08 Binding en data/DataContext.md",
+    "Development/WPF Handboek/08 Binding en data/Converters.md",
+    "Development/WPF Handboek/08 Binding en data/Commands.md",
+    "Development/WPF Handboek/08 Binding en data/Binding.md",
+    "Development/WPF Handboek/99 Templates/Component template.md",
+    "Development/WPF Handboek/90 Bijlagen/XAML basis.md",
+    "Development/WPF Handboek/90 Bijlagen/Veelgebruikte properties.md",
+    "Development/WPF Handboek/90 Bijlagen/Property value syntax.md",
+    "Development/WPF Handboek/90 Bijlagen/Layout begrippen.md",
+    "Development/WPF Handboek/90 Bijlagen/Binding overzicht.md",
+    "Development/WPF Handboek/06 Afbeeldingen en media/Viewbox.md",
+    "Development/WPF Handboek/06 Afbeeldingen en media/MediaElement.md",
+    "Development/WPF Handboek/06 Afbeeldingen en media/Image.md",
+    "Development/WPF Handboek/05 Menu en navigatie/ToolBar.md",
+    "Development/WPF Handboek/05 Menu en navigatie/TabControl.md",
+    "Development/WPF Handboek/05 Menu en navigatie/Separator.md",
+    "Development/WPF Handboek/05 Menu en navigatie/Menu.md",
+    "Development/WPF Handboek/05 Menu en navigatie/ContextMenu.md",
+    "Development/WPF Handboek/01 Layout containers/Pasted image 20260527195416.png",
+    "Development/WPF Handboek/08 Binding en data",
+    "Development/WPF Handboek/99 Templates",
+    "Development/WPF Handboek/90 Bijlagen",
+    "Development/WPF Handboek/07 Styling en resources",
+    "Development/WPF Handboek/06 Afbeeldingen en media",
+    "Development/WPF Handboek/05 Menu en navigatie",
+    "Development/WPF Handboek/04 Lijsten en data",
+    "Development/WPF Handboek/03 Knoppen en keuzes",
+    "Development/WPF Handboek/02 Tekst",
+    "Development/WPF Handboek/01 Layout containers",
     "attachments/fcaf64b75c984e73a82d68d6eb782f6f.png",
     "attachments/f9ccbdaa39a74fb89f31f09909f1621d.png",
     "attachments/f23e51e92bc0415da4e3adaf2350882b.png",
@@ -296,17 +309,6 @@
     "attachments/f6596890ce58402cb3b05009981a9d70.png",
     "attachments/ecc25aecb9074b96832c514e5f973f0a.png",
     "attachments/f03b474b30124ca4b0c3383b655afd62.gif",
-    "attachments/ea2a46a1dcff43d3bdf0884ae614240b.png",
-    "attachments/e7507353231b4339879db42056ee2ce6.png",
-    "attachments",
-    "Work/Voortman",
-    "Hobby/Modelbouw/Verf",
-    "Hobby/Modelbouw/Schepen",
-    "Hobby/Modelbouw/Tips",
-    "Hobby/Modelbouw/Gereedschap (1)",
-    "Hobby/KHM/Teksten",
-    "Hobby/KHZV/Capella_werkgroep",
-    "Hobby/Modelbouw",
-    "Hobby/KHM"
+    "attachments/ea2a46a1dcff43d3bdf0884ae614240b.png"
   ]
 }
