@@ -234,5 +234,7 @@
   "anuppuccin-theme-settings@@anp-simple-rainbow-title-toggle": true,
   "anuppuccin-theme-settings@@anp-simple-rainbow-indentation-toggle": true,
   "anuppuccin-theme-settings@@anp-border-radius": 16,
-  "anuppuccin-theme-settings@@anp-border-padding": 20
+  "anuppuccin-theme-settings@@anp-border-padding": 20,
+  "soft-paper-dark-settings@@sp-status-bar-blue": true,
+  "soft-paper-dark-settings@@sp-rainbow-folders": true
 }

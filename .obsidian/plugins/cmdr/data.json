@@ -7,6 +7,12 @@
       "id": "workspace:toggle-stacked-tabs",
       "icon": "lucide-layers",
       "name": "Toggle stacked tabs",
+      "mode": "desktop"
+    },
+    {
+      "id": "omnisearch:show-modal",
+      "icon": "lucide-a-arrow-down",
+      "name": "Omnisearch: Vault search",
       "mode": "any"
     }
   ],
@@ -16,6 +22,12 @@
       "id": "workspace:toggle-stacked-tabs",
       "icon": "lucide-layers",
       "name": "Toggle stacked tabs",
+      "mode": "any"
+    },
+    {
+      "id": "omnisearch:show-modal",
+      "icon": "lucide-search",
+      "name": "Omnisearch: Vault search",
       "mode": "any"
     }
   ],

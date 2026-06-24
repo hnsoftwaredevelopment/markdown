@@ -1,8 +1,6 @@
 # Uitprobeersels
 Uitprobeersels
 
-#Uitprobeersels
-
 ## Werkende Countrypage
 
 ```
@@ -176,7 +174,7 @@ Uitprobeersels
 
 ## Dit is een nettere test van de CurrencyPAge alleen de orientatie is nog niet helemaal goed
 
-```
+```yaml
 <Page x:Class="ModelbouwBeheer.PageCurrencies"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"

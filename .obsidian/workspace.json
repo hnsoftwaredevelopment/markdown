@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Development/WPF Handboek/00 Start/Leeswijzer.md",
+                "file": "Work/Voortman/BT1-2161 - Testing VB_StandardStandalone templates using DNA/0. BT1-2161 - Testing VB_StandardStandalone templates using DNA.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,10 +28,35 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "Leeswijzer"
+              "title": "0. BT1-2161 - Testing VB_StandardStandalone templates using DNA"
+            }
+          },
+          {
+            "id": "494935f81d63ff20",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Work/Voortman/BT1-2161 - Testing VB_StandardStandalone templates using DNA/3. Test plan.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": true,
+                "backlinkOpts": {
+                  "collapseAll": false,
+                  "extraContext": false,
+                  "sortOrder": "alphabetical",
+                  "showSearch": false,
+                  "searchQuery": "",
+                  "backlinkCollapsed": false,
+                  "unlinkedCollapsed": true
+                }
+              },
+              "icon": "lucide-file",
+              "title": "3. Test plan"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -63,7 +88,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "tag:#vb-standard",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -71,7 +96,7 @@
                 "sortOrder": "alphabetical"
               },
               "icon": "lucide-search",
-              "title": "Search"
+              "title": "Zoeken"
             }
           },
           {
@@ -104,7 +129,8 @@
               "title": "tag-manager-view"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -163,7 +189,7 @@
                 "searchQuery": ""
               },
               "icon": "lucide-tags",
-              "title": "Tags"
+              "title": "Labels"
             }
           },
           {
@@ -246,23 +272,35 @@
   },
   "left-ribbon": {
     "hiddenItems": {
-      "switcher:Open snel wisselen": false,
+      "cmdr:Omnisearch: Vault search": false,
+      "omnisearch:Omnisearch": false,
+      "switcher:Open snel wisselen": true,
+      "templates:Sjabloon invoegen": false,
+      "obsidian-git:Open Git source control": false,
       "graph:Open grafiek weergave": false,
       "canvas:Nieuw doek aanmaken": false,
       "daily-notes:Open de notitie van vandaag": false,
-      "templates:Sjabloon invoegen": false,
       "command-palette:Open opdrachtenpaneel": false,
       "workspaces:Beheer werkblad lay-outs": false,
       "bases:Nieuwe basis maken": false,
       "realclaudian:Open Claudian": false,
       "obsidian-excalidraw-plugin:New drawing": false,
-      "obsidian-git:Open Git source control": false,
       "obsidian-kanban:Create new board": false,
       "cmdr:Toggle stacked tabs": false
     }
   },
-  "active": "4768523287705d1b",
+  "active": "494935f81d63ff20",
   "lastOpenFiles": [
+    "Work/Voortman/BT1-2161 - Testing VB_StandardStandalone templates using DNA/2. Risk analysis.md",
+    "Development/C#/WPF/Uitprobeersels.md",
+    "ICT/Emoji_s.md",
+    "ICT/Download and install Extensions manualy.md",
+    "Work/Voortman/BT1-2161 - Testing VB_StandardStandalone templates using DNA/3. Test plan.md",
+    "Work/Voortman/BT1-2161 - Testing VB_StandardStandalone templates using DNA/1. Summary.md",
+    "Work/Voortman/BT1-2161 - Testing VB_StandardStandalone templates using DNA/0. BT1-2161 - Testing VB_StandardStandalone templates using DNA.md",
+    "Naamloos.md",
+    "Work/Voortman/BT1-2161 - Testing VB_StandardStandalone templates using DNA",
+    "Development/WPF Handboek/00 Start/Leeswijzer.md",
     "Development/WPF Handboek/00 Start/Inleiding.md",
     "Development/WPF Handboek/WPF Handboek.md",
     "Prive/Apparaten/4. Tips 💡.md",
@@ -280,15 +318,6 @@
     "Development/WPF Handboek/90 Bijlagen/Veelgebruikte properties.md",
     "Development/WPF Handboek/90 Bijlagen/Property value syntax.md",
     "Development/WPF Handboek/90 Bijlagen/Layout begrippen.md",
-    "Development/WPF Handboek/90 Bijlagen/Binding overzicht.md",
-    "Development/WPF Handboek/06 Afbeeldingen en media/Viewbox.md",
-    "Development/WPF Handboek/06 Afbeeldingen en media/MediaElement.md",
-    "Development/WPF Handboek/06 Afbeeldingen en media/Image.md",
-    "Development/WPF Handboek/05 Menu en navigatie/ToolBar.md",
-    "Development/WPF Handboek/05 Menu en navigatie/TabControl.md",
-    "Development/WPF Handboek/05 Menu en navigatie/Separator.md",
-    "Development/WPF Handboek/05 Menu en navigatie/Menu.md",
-    "Development/WPF Handboek/05 Menu en navigatie/ContextMenu.md",
     "Development/WPF Handboek/01 Layout containers/Pasted image 20260527195416.png",
     "Development/WPF Handboek/08 Binding en data",
     "Development/WPF Handboek/99 Templates",
@@ -299,7 +328,6 @@
     "Development/WPF Handboek/04 Lijsten en data",
     "Development/WPF Handboek/03 Knoppen en keuzes",
     "Development/WPF Handboek/02 Tekst",
-    "Development/WPF Handboek/01 Layout containers",
     "attachments/fcaf64b75c984e73a82d68d6eb782f6f.png",
     "attachments/f9ccbdaa39a74fb89f31f09909f1621d.png",
     "attachments/f23e51e92bc0415da4e3adaf2350882b.png",

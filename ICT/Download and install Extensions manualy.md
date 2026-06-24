@@ -1,6 +1,6 @@
 Download and install Extensions manualy
 
-#Download and install Extensions manualy
+Download and install Extensions manualy
 Download CRX files from the Chrome webstore manual
 https://crxextractor.com/
 
