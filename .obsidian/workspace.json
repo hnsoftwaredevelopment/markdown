@@ -255,11 +255,10 @@
       "workspaces:Beheer werkblad lay-outs": false,
       "bases:Nieuwe basis maken": false,
       "realclaudian:Open Claudian": false,
-      "obsidian-excalidraw-plugin:Create new drawing": false,
+      "obsidian-excalidraw-plugin:New drawing": false,
       "obsidian-git:Open Git source control": false,
       "obsidian-kanban:Create new board": false,
-      "cmdr:Toggle stacked tabs": false,
-      "obsidian-excalidraw-plugin:New drawing": false
+      "cmdr:Toggle stacked tabs": false
     }
   },
   "active": "4768523287705d1b",
