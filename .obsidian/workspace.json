@@ -4,17 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "2c002eedebbb3374",
+        "id": "7904833fe1a828e1",
         "type": "tabs",
         "children": [
           {
-            "id": "fa5978b20c0129db",
+            "id": "993c3b0c97e20c43",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
                 "file": "Untitled.md",
-                "mode": "preview",
+                "mode": "source",
                 "source": false,
                 "backlinks": true,
                 "backlinkOpts": {
@@ -31,7 +31,8 @@
               "title": "Untitled"
             }
           }
-        ]
+        ],
+        "stacked": true
       }
     ],
     "direction": "vertical"
@@ -362,10 +363,11 @@
       "modalforms:Edit forms": false
     }
   },
-  "active": "fa5978b20c0129db",
+  "active": "993c3b0c97e20c43",
   "lastOpenFiles": [
-    "templates/DevNote.md",
     "Untitled.md",
+    "templates/DevNote.md",
+    "ICT/Markdown/Epic.md",
     "Untitled.canvas",
     "attachments/profile_pictures/profile-2026-07-22-15-13-10.png.svg",
     "attachments/profile_pictures",
@@ -377,7 +379,6 @@
     "Development/Code",
     "Development/Projects/Untitled.md",
     "templates/Engineering/bug-report.md",
-    "ICT/Markdown/Epic.md",
     "ICT/Windows/ASCII - Table.md",
     "ICT/Windows/ASCII.md",
     "Development/Environment/Visual Studio/Add Microsoft Nugetpackeges to the project.md",
