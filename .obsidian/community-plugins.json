@@ -19,7 +19,11 @@
   "dataview",
   "link-favicon",
   "obsidian-tasks-plugin",
-  "tag-wrangler",
   "obsidian-paste-image-rename",
-  "omnisearch"
+  "omnisearch",
+  "notebook-navigator",
+  "templater-obsidian",
+  "cornell-notes",
+  "enhanced-tables",
+  "markdown-table-editor"
 ]

@@ -1,3 +1,8 @@
+---
+tags:
+  - wpf
+icon: bi-filetype-xml
+---
 # Uitprobeersels
 Uitprobeersels
 

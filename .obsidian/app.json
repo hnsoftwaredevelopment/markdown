@@ -7,5 +7,6 @@
   "deleteUnlinkedAttachments": "always",
   "userIgnoreFilters": [
     "attachments/"
-  ]
+  ],
+  "showInlineTitle": true
 }

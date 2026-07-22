@@ -1,3 +1,8 @@
+---
+tags:
+  - wpf
+icon: bi-filetype-xml
+---
 # Introduction to WPF panels
 Introduction to WPF panels
 

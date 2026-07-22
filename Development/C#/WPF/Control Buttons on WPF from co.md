@@ -1,3 +1,8 @@
+---
+tags:
+  - wpf
+icon: bi-filetype-xml
+---
 # Control Buttons on WPF from code
 Control Buttons on WPF from code
 

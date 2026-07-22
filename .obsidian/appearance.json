@@ -1,6 +1,6 @@
 {
   "accentColor": "#0d21ba",
-  "cssTheme": "Soft Paper",
+  "cssTheme": "Typora-Vue",
   "theme": "moonstone",
   "translucency": false,
   "baseFontSize": 16,
@@ -30,7 +30,11 @@
     "MCL Wide Views",
     "MCL Multi Column",
     "MCL Gallery Cards",
-    "nick-milo-callouts"
+    "nick-milo-callouts",
+    "Cornell",
+    "cornell-banner-nick1",
+    "cornell-main-nick1",
+    "Quotebook"
   ],
   "textFontFamily": "",
   "interfaceFontFamily": "",

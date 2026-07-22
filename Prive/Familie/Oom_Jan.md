@@ -2,7 +2,7 @@ Oom_Jan
 
 # Man ernstig gewond bij steekpartij in Rijssen 
 
-<http://www.rtvoost.nl/pl.aspx?nid=188508> #rtvoost
+<http://www.rtvoost.nl/pl.aspx?nid=188508> #familie
 
 
   

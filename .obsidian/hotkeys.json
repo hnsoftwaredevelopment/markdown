@@ -101,15 +101,7 @@
       "key": "Backspace"
     }
   ],
-  "editor:open-link-in-new-leaf": [
-    {
-      "modifiers": [
-        "Alt",
-        "Mod"
-      ],
-      "key": "Enter"
-    }
-  ],
+  "editor:open-link-in-new-leaf": [],
   "note-refactor-obsidian:app:extract-selection-first-line": [
     {
       "modifiers": [
@@ -173,24 +165,6 @@
         "Alt"
       ],
       "key": "Escape"
-    }
-  ],
-  "editor:focus-left": [
-    {
-      "modifiers": [
-        "Alt",
-        "Mod"
-      ],
-      "key": "ArrowLeft"
-    }
-  ],
-  "editor:focus-right": [
-    {
-      "modifiers": [
-        "Alt",
-        "Mod"
-      ],
-      "key": "ArrowRight"
     }
   ],
   "pane-relief:swap-next": [
@@ -747,12 +721,6 @@
       "key": "D"
     }
   ],
-  "omnisearch:show-modal": [
-    {
-      "modifiers": [
-        "Mod"
-      ],
-      "key": "O"
-    }
-  ]
+  "obsidian-excalidraw-plugin:save": [],
+  "editor:insert-link": []
 }

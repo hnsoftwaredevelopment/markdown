@@ -1,3 +1,8 @@
+---
+tags:
+  - wpf
+icon: bi-filetype-xml
+---
 # A WPF application  Resources
 A WPF application: Resources
 
