@@ -27,7 +27,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "ICT/Markdown/Epic.md",
+                "file": "templates/Cornell Template.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -42,7 +42,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "Epic"
+              "title": "Cornell Template"
             }
           }
         ],
@@ -274,7 +274,7 @@
             }
           }
         ],
-        "currentTab": 8
+        "currentTab": 9
       }
     ],
     "direction": "horizontal",
@@ -301,17 +301,29 @@
       "obsidian-kanban:Create new board": false,
       "templater-obsidian:Templater": false,
       "cmdr:Toggle stacked tabs": false,
-      "cmdr:Omnisearch: Vault search": false
+      "cmdr:Omnisearch: Vault search": false,
+      "modalforms:Edit forms": false
     }
   },
-  "active": "a76ab09dac4b2700",
+  "active": "528118691c9a17f3",
   "lastOpenFiles": [
+    "templates/DevNote.md",
+    "Development/Code/C#/Create JSON declaratively with LINQ.md",
+    "Development/Code/C#/Code to add checkboxes automaticly inside a for lo.md",
+    "Untitled.canvas",
+    "templates/Cornell Template.md",
+    "Development/Projects/Music tools/Projecten die Music XML onders.md",
+    "Development/Environment",
+    "Development/Code",
+    "Development/Projects/Untitled.md",
+    "templates/Engineering/bug-report.md",
+    "ICT/Markdown/Epic.md",
     "ICT/Windows/ASCII - Table.md",
     "ICT/Windows/ASCII.md",
-    "Development/Visual Studio/Add Microsoft Nugetpackeges to the project.md",
-    "Development/Visual Studio",
+    "Development/Environment/Visual Studio/Add Microsoft Nugetpackeges to the project.md",
+    "Development/Environment/Visual Studio",
     "Development/C#/Add Binding for toolbar 1.md",
-    "Development/C#/WPF/Add Binding for toolbar.md",
+    "Development/Code/C#/WPF/Add Binding for toolbar.md",
     "ICT/Windows/Download and install Extensions manualy.md",
     "ICT/Windows/Download and install Chrome extenntions manualy.md",
     "ICT/Windows/Kali Linux On Windows.md",
@@ -324,15 +336,6 @@
     "ICT/Markdown/Obsidian Markdown Spiekbriefje.md",
     "ICT/Markdown/Emoji cheatsheet.md",
     "Markdown cheatsheets/epsilon.md",
-    "ICT/gmail/SMTPAuthentication.md",
-    "ICT/DOS (cmd.exe)/15 Usefull DOS commands.md",
-    "ICT/CorelCad/Afstand BaseLine maten.md",
-    "ICT/Android/Scanbot.md",
-    "ICT/Windows/Error_On_PDF_Preview_(Adobe64b).md",
-    "ICT/Windows/LocalAdmin.md",
-    "ICT/Windows/Windows short keys.md",
-    "Work/Voortman/TestCases/ProbeTruck_Manual_Release_TestCases.md",
-    "Work/Voortman/TestCases/Release testing ProbeTruck.md",
     "Work/Voortman/TestCases",
     "attachments/Epic-1.svg",
     "attachments/Epic-1.png",
@@ -343,8 +346,6 @@
     "templates/Finance",
     "templates/Healthcare & Science",
     "templates/Data & Analytics",
-    "templates/Infrastructure",
-    "templates/Education & Research",
     "attachments/BT1-2161-3.png",
     "attachments/BT1-2161-2.png",
     "attachments/BT1-2161-1.png",

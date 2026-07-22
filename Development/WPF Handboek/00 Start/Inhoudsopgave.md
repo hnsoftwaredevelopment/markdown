@@ -28,7 +28,7 @@ In Obsidian kun je vanuit deze pagina snel naar alle onderdelen navigeren.
 - [[CheckBox]]
 - [[RadioButton]]
 - [[ToggleButton]]
-- [[ComboBox]]
+- [[Development/Code/C#/WPF/ComboBox]]
 
 ## 04 Lijsten en data
 
@@ -65,7 +65,7 @@ In Obsidian kun je vanuit deze pagina snel naar alle onderdelen navigeren.
 - [[Binding]]
 - [[DataContext]]
 - [[Converters]]
-- [[Commands]]
+- [[Development/Code/C#/WPF/commands]]
 
 ## 90 Bijlagen
 
