@@ -25,14 +25,24 @@
             "id": "d9228b0270e85ef7",
             "type": "leaf",
             "state": {
-              "type": "split-diff-view",
+              "type": "markdown",
               "state": {
-                "aFile": "Development/C#/Add Binding for toolbar.md",
-                "bFile": "Development/C#/Add Binding for toolbar.md",
-                "aRef": ""
+                "file": "ICT/Markdown/Epic.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": true,
+                "backlinkOpts": {
+                  "collapseAll": false,
+                  "extraContext": false,
+                  "sortOrder": "alphabetical",
+                  "showSearch": false,
+                  "searchQuery": "",
+                  "backlinkCollapsed": false,
+                  "unlinkedCollapsed": true
+                }
               },
-              "icon": "diff",
-              "title": "Diff: Add Binding for toolbar  (Working Tree)"
+              "icon": "lucide-file",
+              "title": "Epic"
             }
           }
         ],
@@ -294,7 +304,7 @@
       "cmdr:Omnisearch: Vault search": false
     }
   },
-  "active": "d9228b0270e85ef7",
+  "active": "a76ab09dac4b2700",
   "lastOpenFiles": [
     "ICT/Windows/ASCII - Table.md",
     "ICT/Windows/ASCII.md",
