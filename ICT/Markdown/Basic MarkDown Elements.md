@@ -51,7 +51,9 @@ Note: Preceding blank line is necessary. Task Lists - \[x\] Completed task item
 - [ ] Unfinished task item
 - [ ] (Optional) Mark parentheses to be ignored Mention You can mention @users and @teams on GitHub. Mainly useful when submitting or commenting on bugs and issues. Emoji :emojicode:
 
-Note: Emoji codes can be found in the emoji cheat sheet.
+Notes and related documents: 
+[Link to Emoji's document](obsidian://adv-uri?vault=Obsidian&filepath=ICT%2FWindows%2FEmoji's.md)
+[Obsidian Markdown Spiekbriefje](Obsidian%20Markdown%20Spiekbriefje.md)
 
-/fas:Android
+
 
