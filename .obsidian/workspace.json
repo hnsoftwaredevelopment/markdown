@@ -4,31 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "d07a2fcc7db7c672",
+        "id": "2c002eedebbb3374",
         "type": "tabs",
         "children": [
           {
-            "id": "a2a9affcf91b1116",
-            "type": "leaf",
-            "state": {
-              "type": "split-diff-view",
-              "state": {
-                "aFile": "Development/C#/Add Binding for toolbar 1.md",
-                "bFile": "Development/C#/Add Binding for toolbar 1.md",
-                "aRef": ""
-              },
-              "icon": "diff",
-              "title": "Diff: Add Binding for toolbar 1  (Working Tree)"
-            }
-          },
-          {
-            "id": "d9228b0270e85ef7",
+            "id": "fa5978b20c0129db",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "templates/Cornell Template.md",
-                "mode": "source",
+                "file": "Untitled.md",
+                "mode": "preview",
                 "source": false,
                 "backlinks": true,
                 "backlinkOpts": {
@@ -42,11 +28,10 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "Cornell Template"
+              "title": "Untitled"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -272,9 +257,81 @@
               "icon": "bot",
               "title": "Claudian"
             }
+          },
+          {
+            "id": "d1925a2edbea560c",
+            "type": "leaf",
+            "state": {
+              "type": "modal-form-manage-forms-view",
+              "state": {},
+              "icon": "documents",
+              "title": "Manage forms"
+            }
+          },
+          {
+            "id": "c65c127f787ae865",
+            "type": "leaf",
+            "state": {
+              "type": "modal-form-template-builder-view",
+              "state": {
+                "title": "DevNote",
+                "name": "DevNote",
+                "version": "1",
+                "fields": [
+                  {
+                    "name": "Subject",
+                    "label": "",
+                    "description": "What's up?",
+                    "input": {
+                      "type": "text",
+                      "allowUnknownValues": false,
+                      "hidden": false
+                    },
+                    "isRequired": true
+                  },
+                  {
+                    "name": "Project",
+                    "label": "",
+                    "description": "",
+                    "input": {
+                      "type": "text",
+                      "allowUnknownValues": false,
+                      "hidden": false
+                    },
+                    "isRequired": false
+                  },
+                  {
+                    "name": "Date",
+                    "label": "",
+                    "description": "",
+                    "input": {
+                      "type": "date",
+                      "allowUnknownValues": false,
+                      "hidden": false
+                    },
+                    "isRequired": false
+                  },
+                  {
+                    "name": "Note",
+                    "label": "",
+                    "description": "What is on your mind",
+                    "input": {
+                      "type": "markdown_block",
+                      "allowUnknownValues": false,
+                      "hidden": false,
+                      "body": ""
+                    },
+                    "isRequired": false
+                  }
+                ],
+                "customClassname": "DevNote"
+              },
+              "icon": "lucide-file",
+              "title": "Template Builder"
+            }
           }
         ],
-        "currentTab": 9
+        "currentTab": 11
       }
     ],
     "direction": "horizontal",
@@ -305,13 +362,16 @@
       "modalforms:Edit forms": false
     }
   },
-  "active": "528118691c9a17f3",
+  "active": "fa5978b20c0129db",
   "lastOpenFiles": [
     "templates/DevNote.md",
+    "Untitled.md",
+    "Untitled.canvas",
+    "attachments/profile_pictures/profile-2026-07-22-15-13-10.png.svg",
+    "attachments/profile_pictures",
+    "templates/Cornell Template.md",
     "Development/Code/C#/Create JSON declaratively with LINQ.md",
     "Development/Code/C#/Code to add checkboxes automaticly inside a for lo.md",
-    "Untitled.canvas",
-    "templates/Cornell Template.md",
     "Development/Projects/Music tools/Projecten die Music XML onders.md",
     "Development/Environment",
     "Development/Code",
@@ -335,7 +395,6 @@
     "ICT/Markdown/Basic MarkDown Elements.md",
     "ICT/Markdown/Obsidian Markdown Spiekbriefje.md",
     "ICT/Markdown/Emoji cheatsheet.md",
-    "Markdown cheatsheets/epsilon.md",
     "Work/Voortman/TestCases",
     "attachments/Epic-1.svg",
     "attachments/Epic-1.png",
@@ -345,14 +404,12 @@
     "templates/Legal",
     "templates/Finance",
     "templates/Healthcare & Science",
-    "templates/Data & Analytics",
     "attachments/BT1-2161-3.png",
     "attachments/BT1-2161-2.png",
     "attachments/BT1-2161-1.png",
     "Development/WPF Handboek/01 Layout containers/Pasted image 20260527195416.png",
     "attachments/fcaf64b75c984e73a82d68d6eb782f6f.png",
     "attachments/f9ccbdaa39a74fb89f31f09909f1621d.png",
-    "attachments/f23e51e92bc0415da4e3adaf2350882b.png",
-    "attachments/f0f12597daac4fe8a4d8bebf7fed85e3.png"
+    "attachments/f23e51e92bc0415da4e3adaf2350882b.png"
   ]
 }
