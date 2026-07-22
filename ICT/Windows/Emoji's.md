@@ -1,8 +1,14 @@
-Emoji's
+* * *
+Inhoudsopgave
 
-# Emoji's
-[TOC]
-* * * 
+- [😃 Smileys & People](#%F0%9F%98%83%20Smileys%20&%20People)
+- [🐻 Animals & Nature](#%F0%9F%90%BB%20Animals%20&%20Nature)
+- [🍔 Food & Drink](#%F0%9F%8D%94%20Food%20&%20Drink)
+- [⚽ Activity](#%E2%9A%BD%20Activity)
+- [🌇 Travel & Places](#%F0%9F%8C%87%20Travel%20&%20Places)
+- [💡 Objects](#%F0%9F%92%A1%20Objects)
+- [🔣 Symbols](#%F0%9F%94%A3%20Symbols)
+
 
 ## 😃 Smileys & People
 Emojis for smileys, people, families, hand gestures, clothing and accessories.

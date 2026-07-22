@@ -208,7 +208,7 @@
   "showAllPropertiesFolder": true,
   "scopePropertiesToCurrentContext": false,
   "defaultListMode": "standard",
-  "includeDescendantNotes": false,
+  "includeDescendantNotes": true,
   "defaultFolderSort": "modified-desc",
   "propertySortKey": "",
   "propertySortSecondary": "title",
@@ -497,7 +497,9 @@
   "customVaultName": "",
   "pinnedNotes": {},
   "collapsedPinnedContexts": {},
-  "fileIcons": {},
+  "fileIcons": {
+    "ICT/Windows/Emoji's.md": "emoji:😊"
+  },
   "fileColors": {},
   "fileBackgroundColors": {},
   "folderIcons": {},

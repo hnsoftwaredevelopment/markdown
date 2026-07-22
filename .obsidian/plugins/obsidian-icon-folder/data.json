@@ -6,6 +6,7 @@
     "emojiStyle": "native",
     "iconColor": null,
     "recentlyUsedIcons": [
+      "☺",
       "LiCircleHelp",
       "LiImages"
     ],
@@ -32,5 +33,6 @@
     "useInternalPlugins": false
   },
   "attachments": "LiImages",
-  "ICT/Windows/Windows shortkeys.md": "LiCircleHelp"
+  "ICT/Windows/Windows shortkeys.md": "LiCircleHelp",
+  "ICT/Windows/Emoji's.md": "☺"
 }
