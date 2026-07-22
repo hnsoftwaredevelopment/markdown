@@ -1,5 +1,3 @@
-# Inleiding
-
 Dit WPF-handboek is bedoeld als praktische gids bij het maken van XAML-schermen in WPF.
 Het doel is niet om Microsoft Learn volledig te vervangen, maar om per component duidelijk te maken:
 
@@ -19,7 +17,7 @@ De uitleg is zoveel mogelijk in het Nederlands geschreven. Engelse termen blijve
 
 Het handboek is opgebouwd per onderwerp en per component.
 Layout-containers zoals `Grid`, `StackPanel` en `DockPanel` staan bij elkaar.
-Tekstcontrols, knoppen, lijsten, styling en binding krijgen elk hun eigen hoofdstukken.
+Tekst controls, knoppen, lijsten, styling en binding krijgen elk hun eigen hoofdstukken.
 
 Voor elk component wordt dezelfde basisstructuur gebruikt:
 

@@ -1,5 +1,3 @@
-# Leeswijzer
-
 Dit document is de centrale inhoudsopgave van het WPF-handboek.
 In Obsidian kun je vanuit deze pagina snel naar alle onderdelen navigeren.
 

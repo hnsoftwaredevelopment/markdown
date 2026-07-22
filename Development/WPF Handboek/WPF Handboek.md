@@ -7,7 +7,7 @@ Gebruik deze pagina als startpunt van de Obsidian-vault.
 ## Begin hier
 
 - [[Inleiding]]
-- [[Leeswijzer]]
+- [[Inhoudsopgave]]
 
 ## Snelle routes
 

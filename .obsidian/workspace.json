@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "ICT/Markdown/Basic MarkDown Elements.md",
+                "file": "ICT/Windows/Download and install Extensions manualy.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "Basic MarkDown Elements"
+              "title": "Download and install Extensions manualy"
             }
           }
         ]
@@ -259,12 +259,11 @@
             }
           }
         ],
-        "currentTab": 7
+        "currentTab": 8
       }
     ],
     "direction": "horizontal",
-    "width": 666.5,
-    "collapsed": true
+    "width": 666.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -290,20 +289,25 @@
       "cmdr:Omnisearch: Vault search": false
     }
   },
-  "active": "a76ab09dac4b2700",
+  "active": "efa57b48cf581284",
   "lastOpenFiles": [
-    "ICT/Markdown/Obsidian Markdown Spiekbriefje.md",
-    "ICT/Markdown/Basic MarkDown Elements.md",
+    "ICT/Windows/Download and install Chrome extenntions manualy.md",
+    "Development/C#/Add Binding for toolbar 1.md",
+    "ICT/Windows/Kali Linux On Windows.md",
+    "Development/WPF Handboek/00 Start/Inleiding.md",
+    "Development/WPF Handboek/WPF Handboek.md",
+    "Development/WPF Handboek/00 Start/Inhoudsopgave.md",
+    "Inhoudsopgave.md",
     "ICT/Windows/Emoji's.md",
-    "Development/WPF Handboek/00 Start/Leeswijzer.md",
+    "ICT/Markdown/Basic MarkDown Elements.md",
+    "ICT/Markdown/Obsidian Markdown Spiekbriefje.md",
     "ICT/Markdown/Emoji cheatsheet.md",
     "Markdown cheatsheets/epsilon.md",
     "ICT/gmail/SMTPAuthentication.md",
     "ICT/DOS (cmd.exe)/15 Usefull DOS commands.md",
     "ICT/CorelCad/Afstand BaseLine maten.md",
     "ICT/Android/Scanbot.md",
-    "ICT/Error_On_PDF_Preview_(Adobe64b).md",
-    "ICT/Kali Linux On Windows.md",
+    "ICT/Windows/Error_On_PDF_Preview_(Adobe64b).md",
     "ICT/Windows/LocalAdmin.md",
     "ICT/Windows/ASCII.md",
     "ICT/Windows/Windows short keys.md",
@@ -317,11 +321,6 @@
     "templates/Cornell Template.md",
     "templates/Cornell Template.md.crdownload",
     "templates/Product & Design/user-interview-script.md",
-    "templates/Product & Design/usability-test-plan.md",
-    "templates/Product & Design/wireframe-notes.md",
-    "templates/Product & Design/user-story-map.md",
-    "templates/Personal/vision-board.md",
-    "templates/Engineering/code-review-checklist.md",
     "Naamloos.canvas",
     "templates/Personal",
     "templates/Legal",

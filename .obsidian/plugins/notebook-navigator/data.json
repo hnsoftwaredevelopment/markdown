@@ -4,7 +4,44 @@
       "id": "default",
       "name": "Default",
       "fileVisibility": "supported",
-      "propertyKeys": [],
+      "propertyKeys": [
+        {
+          "key": "assignee",
+          "showInNavigation": true,
+          "showInList": true,
+          "showInFileMenu": true
+        },
+        {
+          "key": "created",
+          "showInNavigation": true,
+          "showInList": true,
+          "showInFileMenu": false
+        },
+        {
+          "key": "icon",
+          "showInNavigation": true,
+          "showInList": true,
+          "showInFileMenu": false
+        },
+        {
+          "key": "priority",
+          "showInNavigation": true,
+          "showInList": true,
+          "showInFileMenu": false
+        },
+        {
+          "key": "status",
+          "showInNavigation": true,
+          "showInList": true,
+          "showInFileMenu": true
+        },
+        {
+          "key": "tags",
+          "showInNavigation": true,
+          "showInList": true,
+          "showInFileMenu": true
+        }
+      ],
       "hiddenFolders": [],
       "hiddenTags": [],
       "hiddenFileNames": [],
@@ -14,11 +51,11 @@
       "periodicNotesFolder": "",
       "shortcuts": [],
       "navRainbow": {
-        "mode": "none",
+        "mode": "foreground",
         "balanceHueLuminance": true,
         "separateThemeColors": false,
         "shortcuts": {
-          "enabled": false,
+          "enabled": true,
           "firstColor": "#ef4444",
           "lastColor": "#8b5cf6",
           "darkFirstColor": "#ef4444",
@@ -26,7 +63,7 @@
           "transitionStyle": "rgb"
         },
         "recent": {
-          "enabled": false,
+          "enabled": true,
           "firstColor": "#ef4444",
           "lastColor": "#8b5cf6",
           "darkFirstColor": "#ef4444",
@@ -43,7 +80,7 @@
           "scope": "root"
         },
         "tags": {
-          "enabled": false,
+          "enabled": true,
           "firstColor": "#ef4444",
           "lastColor": "#8b5cf6",
           "darkFirstColor": "#fb7185",
@@ -52,7 +89,7 @@
           "scope": "root"
         },
         "properties": {
-          "enabled": false,
+          "enabled": true,
           "firstColor": "#ef4444",
           "lastColor": "#8b5cf6",
           "darkFirstColor": "#fb7185",
@@ -105,21 +142,21 @@
   "shiftEnterOpenContext": "tab",
   "cmdCtrlEnterOpenContext": "split",
   "mouseBackForwardAction": "history",
-  "startView": "files",
+  "startView": "navigation",
   "showInfoButtons": true,
   "homepage": {
     "source": "none",
     "file": null,
     "createMissingPeriodicNote": true
   },
-  "dualPane": false,
+  "dualPane": true,
   "dualPaneOrientation": "horizontal",
   "narrowSidebarLayout": "singlePane",
   "narrowSidebarTriggerMode": "fitPanes",
   "narrowSidebarCustomWidth": 350,
-  "showTooltips": false,
+  "showTooltips": true,
   "showTooltipPath": true,
-  "showTooltipWordCount": false,
+  "showTooltipWordCount": true,
   "desktopBackground": "separate",
   "desktopScale": 1,
   "mobileScale": 1,
@@ -129,24 +166,32 @@
       "toggleDualPane": true,
       "expandCollapse": true,
       "calendar": true,
-      "hiddenItems": true,
+      "hiddenItems": false,
       "rootReorder": true,
       "newFolder": true
     },
     "list": {
       "back": true,
       "search": true,
-      "reveal": false,
+      "reveal": true,
       "descendants": true,
       "sort": true,
       "appearance": true,
       "newNote": true
     }
   },
-  "interfaceIcons": {},
-  "colorIconOnly": false,
-  "dateFormat": "MMM D, YYYY",
-  "timeFormat": "h:mm a",
+  "interfaceIcons": {
+    "nav-profile-chevron": "arrow-big-down-dash",
+    "nav-shortcuts": "keyboard",
+    "nav-tree-expand": "arrow-big-right-dash",
+    "nav-tree-collapse": "arrow-big-down-dash",
+    "nav-property": "list-check",
+    "nav-property-value": "code",
+    "list-pinned": "pin"
+  },
+  "colorIconOnly": true,
+  "dateFormat": "YYYY MMM D",
+  "timeFormat": "HH:mm",
   "calendarTemplateFolder": "",
   "confirmBeforeDelete": true,
   "deleteAttachments": "ask",
@@ -167,7 +212,7 @@
   "excludeVaultRootFromCollapse": false,
   "collapseOtherBranchesOnExpand": false,
   "autoSelectFirstFileOnFocusChange": false,
-  "autoExpandNavItems": false,
+  "autoExpandNavItems": true,
   "springLoadedFolders": true,
   "springLoadedFoldersInitialDelay": 0.5,
   "springLoadedFoldersSubsequentDelay": 0.5,
@@ -183,7 +228,7 @@
   "showRootFolder": true,
   "inheritFolderColors": true,
   "folderSortOrder": "alpha-asc",
-  "enableFolderNotes": false,
+  "enableFolderNotes": true,
   "folderNoteType": "markdown",
   "folderNoteName": "",
   "folderNoteNamePattern": "",
@@ -209,7 +254,7 @@
   "scopePropertiesToCurrentContext": false,
   "defaultListMode": "standard",
   "includeDescendantNotes": true,
-  "defaultFolderSort": "modified-desc",
+  "defaultFolderSort": "filename-asc",
   "propertySortKey": "",
   "propertySortSecondary": "title",
   "manualSortPropertyKey": "sort_index",
