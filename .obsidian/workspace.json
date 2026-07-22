@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Untitled.md",
+                "file": "templates/DevNote.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "Untitled"
+              "title": "DevNote"
             }
           }
         ],
@@ -363,8 +363,9 @@
       "modalforms:Edit forms": false
     }
   },
-  "active": "993c3b0c97e20c43",
+  "active": "a76ab09dac4b2700",
   "lastOpenFiles": [
+    "Untitled 1.md",
     "Untitled.md",
     "templates/DevNote.md",
     "ICT/Markdown/Epic.md",

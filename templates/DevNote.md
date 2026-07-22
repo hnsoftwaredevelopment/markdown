@@ -1,8 +1,13 @@
 <% "---" %>
 <%*
+const values = 
+	{
+		title: "Developer Note",
+		description: result.get("Project")
+	};
+
   const modalForm = app.plugins.plugins.modalforms.api;
   const result = await modalForm.openForm("DevNote");
-  
 -%>
 <% "---" %>
 ![](Epic-1.svg)  
