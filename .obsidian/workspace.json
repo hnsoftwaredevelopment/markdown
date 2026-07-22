@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "templates/DevNote.md",
+                "file": "templates/DevNote2.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,11 +28,10 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "DevNote"
+              "title": "DevNote2"
             }
           }
-        ],
-        "stacked": true
+        ]
       }
     ],
     "direction": "vertical"
@@ -64,7 +63,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "tag:#standalone",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -365,9 +364,11 @@
   },
   "active": "a76ab09dac4b2700",
   "lastOpenFiles": [
+    "Untitled 2.md",
     "Untitled 1.md",
-    "Untitled.md",
+    "templates/DevNote2.md",
     "templates/DevNote.md",
+    "Untitled.md",
     "ICT/Markdown/Epic.md",
     "Untitled.canvas",
     "attachments/profile_pictures/profile-2026-07-22-15-13-10.png.svg",
@@ -395,8 +396,6 @@
     "Inhoudsopgave.md",
     "ICT/Windows/Emoji's.md",
     "ICT/Markdown/Basic MarkDown Elements.md",
-    "ICT/Markdown/Obsidian Markdown Spiekbriefje.md",
-    "ICT/Markdown/Emoji cheatsheet.md",
     "Work/Voortman/TestCases",
     "attachments/Epic-1.svg",
     "attachments/Epic-1.png",

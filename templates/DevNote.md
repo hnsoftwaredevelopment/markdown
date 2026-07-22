@@ -1,22 +1,16 @@
 <% "---" %>
 <%*
-const values = 
-	{
-		title: "Developer Note",
-		description: result.get("Project")
-	};
-
   const modalForm = app.plugins.plugins.modalforms.api;
   const result = await modalForm.openForm("DevNote");
 -%>
 <% "---" %>
 ![](Epic-1.svg)  
-#Developer Note: <% result.get("Project") %> / <% result.get("Date") %>
+# Developer Note: <% result.get("Project") %> / <% result.get("Date") %>
 
-*Subject:*
+**Subject:**
 <% result.get("Subject") %>
 
-*Notes:*
----
-<% result.get("Note") %>
+**Notes:**
 
+-----------------
+	<% result.get("Note") %>
