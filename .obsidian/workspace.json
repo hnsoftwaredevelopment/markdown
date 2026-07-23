@@ -11,10 +11,24 @@
             "id": "58ed1f6b8f856743",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "conflict-files-obsidian-git.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": true,
+                "backlinkOpts": {
+                  "collapseAll": false,
+                  "extraContext": false,
+                  "sortOrder": "alphabetical",
+                  "showSearch": false,
+                  "searchQuery": "",
+                  "backlinkCollapsed": false,
+                  "unlinkedCollapsed": true
+                }
+              },
               "icon": "lucide-file",
-              "title": "Nieuw tabblad"
+              "title": "conflict-files-obsidian-git"
             }
           }
         ]
@@ -49,7 +63,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "commit",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -228,11 +242,11 @@
   },
   "active": "18c144d0712fe031",
   "lastOpenFiles": [
+    "conflict-files-obsidian-git.md",
     "Development/C.md",
     "Untitled.md",
     "Untitled 1.md",
     "Naamloos.md",
-    "conflict-files-obsidian-git.md",
     "Developer Note Zomaar - 2026-07-22.md"
   ]
 }
