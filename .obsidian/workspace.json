@@ -4,31 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "dceaa15192459617",
+        "id": "813f706d46671cfa",
         "type": "tabs",
         "children": [
           {
-            "id": "58ed1f6b8f856743",
+            "id": "b88549dbbfeaf35d",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "conflict-files-obsidian-git.md",
-                "mode": "source",
-                "source": false,
-                "backlinks": true,
-                "backlinkOpts": {
-                  "collapseAll": false,
-                  "extraContext": false,
-                  "sortOrder": "alphabetical",
-                  "showSearch": false,
-                  "searchQuery": "",
-                  "backlinkCollapsed": false,
-                  "unlinkedCollapsed": true
-                }
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "conflict-files-obsidian-git"
+              "title": "Nieuw tabblad"
             }
           }
         ]
@@ -63,7 +49,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "commit",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -95,7 +81,7 @@
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 3
       }
     ],
     "direction": "horizontal",
@@ -240,7 +226,7 @@
       "iconic:Open rulebook": false
     }
   },
-  "active": "18c144d0712fe031",
+  "active": "78d9ef7ddd1c7dc2",
   "lastOpenFiles": [
     "conflict-files-obsidian-git.md",
     "Development/C.md",
