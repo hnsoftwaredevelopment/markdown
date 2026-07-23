@@ -4,7 +4,7 @@ Native Windows desktop ebook library manager built with .NET 10, WPF, SQLite, Co
 
 ## Current Status
 
-Milestone 3 builds on version `0.1` with Calibre metadata import and metadata-quality improvements.
+Milestone 9 builds on version `0.1` with a DataGrid makeover, starting with a cleaner Syncfusion-based List view and shared grouping foundations for grid views.
 
 - portable local ebook libraries with `library.db`
 - import pipeline with duplicate detection
@@ -35,12 +35,27 @@ Milestone 3 builds on version `0.1` with Calibre metadata import and metadata-qu
 - structured settings foundation for metadata preferences
 - settings-driven author sorting without per-book author-sort metadata
 - reusable language display normalization
+- explicit language-code normalization for supported Saga languages
+- localized language filter and details display while preserving stable stored language codes
+- read-only details display for date added and last modified system metadata
+- per-format details rows with managed file sizes
+- per-format open-file action from the details pane
+- per-format open-folder action from the details pane
+- per-format save actions from the details pane with localized feedback
+- per-format remove action that never deletes the last remaining book format
+- iconized per-format context menu with warning color for destructive actions
+- description cleanup for common HTML-like metadata
+- standard metadata search across language display names, dates, series numbers, formats, and system dates
+- sectioned settings foundation for duplicates and diagnostics preferences
+- duplicate merge default actions prepared in Settings and applied to merge previews
+- delete actions continue removing library records when managed file cleanup reports a warning
 - filter context-menu cleanup for authors, series, tags, and languages
 - WPF workspace with bookshelf, detailed grid, and list views
 - light, dark, sepia, blue, and red themes
-- English and Dutch selectable UI localization
+- English, Dutch, German, French, Spanish, and Italian selectable UI localization
 - toolbar and details action icons with localized tooltips
-- prepared fallback resource files for German, French, Spanish, and Italian
+- Syncfusion-based compact List view with real columns, sorting, and grouping surface
+- Detailed view exposes the standard details-pane metadata fields as grid columns
 
 ## Prerequisites
 
@@ -111,6 +126,11 @@ Use these manual test checklists:
 - [docs/manual-tests/milestone-3-checklist.md](docs/manual-tests/milestone-3-checklist.md)
 - [docs/manual-tests/milestone-3-1-checklist.md](docs/manual-tests/milestone-3-1-checklist.md)
 - [docs/manual-tests/milestone-4-checklist.md](docs/manual-tests/milestone-4-checklist.md)
+- [docs/manual-tests/milestone-5-checklist.md](docs/manual-tests/milestone-5-checklist.md)
+- [docs/manual-tests/milestone-6-checklist.md](docs/manual-tests/milestone-6-checklist.md)
+- [docs/manual-tests/milestone-7-checklist.md](docs/manual-tests/milestone-7-checklist.md)
+- [docs/manual-tests/milestone-8-checklist.md](docs/manual-tests/milestone-8-checklist.md)
+- [docs/manual-tests/milestone-9-checklist.md](docs/manual-tests/milestone-9-checklist.md)
 
 ## Later-Version Candidates
 
@@ -123,6 +143,7 @@ The following remain later-version candidates:
 - details-pane cover picker for CBR files that can extract the first image from the archive and use it as cover
 - optional cloud-file hydration for OneDrive files that are not available locally
 - richer metadata cleanup tools, including duplicate-aware merge flows and more bulk-edit diagnostics
+- DataGrid makeover with Saga-aware column sorting, grouping, and view-specific grid behavior
 - user-defined views
 - ebook conversion
 - full-text search inside book contents
