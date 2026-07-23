@@ -11,10 +11,24 @@
             "id": "b88549dbbfeaf35d",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "Development/HNSoftwareDevelopment/Saga/docs/metadata/saga-standard-metadata-inventory.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": true,
+                "backlinkOpts": {
+                  "collapseAll": false,
+                  "extraContext": false,
+                  "sortOrder": "alphabetical",
+                  "showSearch": false,
+                  "searchQuery": "",
+                  "backlinkCollapsed": false,
+                  "unlinkedCollapsed": true
+                }
+              },
               "icon": "lucide-file",
-              "title": "Nieuw tabblad"
+              "title": "saga-standard-metadata-inventory"
             }
           }
         ]
@@ -226,8 +240,29 @@
       "iconic:Open rulebook": false
     }
   },
-  "active": "78d9ef7ddd1c7dc2",
+  "active": "b88549dbbfeaf35d",
   "lastOpenFiles": [
+    "Development/HNSoftwareDevelopment/Saga/docs/manual-tests/milestone-9-checklist.md",
+    "Development/HNSoftwareDevelopment/Saga/docs/feature-requests/datagrid-makeover.md",
+    "Development/HNSoftwareDevelopment/Saga/docs/architecture/settings-behavior.md",
+    "Development/HNSoftwareDevelopment/Saga/docs/feature-requests",
+    "Development/HNSoftwareDevelopment/Saga/docs/architecture",
+    "Development/HNSoftwareDevelopment/Saga/docs/superpowers/plans/2026-07-10-saga-milestone-4-metadata-settings-foundation.md",
+    "Development/HNSoftwareDevelopment/Saga/docs/superpowers/specs/2026-07-10-saga-milestone-4-metadata-settings-design.md",
+    "Development/HNSoftwareDevelopment/Saga/docs/superpowers/feature-requests/duplicate-merge.md",
+    "Development/HNSoftwareDevelopment/Saga/docs/superpowers/plans",
+    "Development/HNSoftwareDevelopment/Saga/docs/superpowers/specs",
+    "Development/HNSoftwareDevelopment/Saga/docs/superpowers/feature-requests",
+    "Development/HNSoftwareDevelopment/Saga/docs/metadata/saga-standard-metadata-inventory.md",
+    "Development/HNSoftwareDevelopment/Saga/docs/manual-tests/milestone-4-checklist.md",
+    "Development/HNSoftwareDevelopment/Saga/docs/manual-tests/milestone-3-1-checklist.md",
+    "Development/HNSoftwareDevelopment/Saga/docs/superpowers",
+    "Development/HNSoftwareDevelopment/Saga/docs/metadata",
+    "Development/HNSoftwareDevelopment/Saga/docs/project-preferences.md",
+    "Development/HNSoftwareDevelopment/Saga/docs/manual-tests",
+    "Development/HNSoftwareDevelopment/Saga/README.md",
+    "Development/HNSoftwareDevelopment/Saga/docs",
+    "Development/HNSoftwareDevelopment/Saga",
     "conflict-files-obsidian-git.md",
     "Development/C.md",
     "Untitled.md",
