@@ -1,14 +1,14 @@
 {
   "biggerIcons": "mobile",
-  "clickableIcons": "desktop",
-  "showAllFileIcons": false,
-  "showAllFolderIcons": false,
+  "clickableIcons": "on",
+  "showAllFileIcons": true,
+  "showAllFolderIcons": true,
   "minimalFolderIcons": true,
   "showMarkdownTabIcons": true,
   "showTitleIcons": true,
-  "showTagPillIcons": false,
+  "showTagPillIcons": true,
   "showMenuActions": true,
-  "showSuggestionIcons": false,
+  "showSuggestionIcons": true,
   "showQuickSwitcherIcons": true,
   "showMoveFileIcons": true,
   "showItemName": "desktop",
@@ -23,12 +23,16 @@
   "maxBackups": 2,
   "dialogState": {
     "iconMode": true,
-    "emojiMode": false,
+    "emojiMode": true,
     "rulePage": "file"
   },
   "appIcons": {},
   "tabIcons": {},
-  "fileIcons": {},
+  "fileIcons": {
+    "ICT/Android": {
+      "icon": "📱"
+    }
+  },
   "bookmarkIcons": {},
   "tagIcons": {},
   "propertyIcons": {},
