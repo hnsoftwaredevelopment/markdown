@@ -1,34 +1,20 @@
 {
   "main": {
-    "id": "189383c9db4044e3",
+    "id": "30bf61be65d072a5",
     "type": "split",
     "children": [
       {
-        "id": "813f706d46671cfa",
+        "id": "7d7cac82261fb600",
         "type": "tabs",
         "children": [
           {
-            "id": "b88549dbbfeaf35d",
+            "id": "70113ba83b033f0d",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Development/HNSoftwareDevelopment/Saga/docs/metadata/saga-standard-metadata-inventory.md",
-                "mode": "source",
-                "source": false,
-                "backlinks": true,
-                "backlinkOpts": {
-                  "collapseAll": false,
-                  "extraContext": false,
-                  "sortOrder": "alphabetical",
-                  "showSearch": false,
-                  "searchQuery": "",
-                  "backlinkCollapsed": false,
-                  "unlinkedCollapsed": true
-                }
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "saga-standard-metadata-inventory"
+              "title": "New tab"
             }
           }
         ]
@@ -37,15 +23,15 @@
     "direction": "vertical"
   },
   "left": {
-    "id": "5cd5a7305ad6f54d",
+    "id": "7c05ae1ce1f195c9",
     "type": "split",
     "children": [
       {
-        "id": "32c4d6470fe40f03",
+        "id": "2540150cab0fa8de",
         "type": "tabs",
         "children": [
           {
-            "id": "52c6f50c57f376ef",
+            "id": "efa57b48cf581284",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
@@ -54,11 +40,11 @@
                 "autoReveal": false
               },
               "icon": "lucide-folder-closed",
-              "title": "Verkenner"
+              "title": "Files"
             }
           },
           {
-            "id": "18c144d0712fe031",
+            "id": "9cd60c4cddbc261d",
             "type": "leaf",
             "state": {
               "type": "search",
@@ -71,21 +57,41 @@
                 "sortOrder": "alphabetical"
               },
               "icon": "lucide-search",
-              "title": "Zoeken"
+              "title": "Search"
             }
           },
           {
-            "id": "cb26b1c6b4ed92cf",
+            "id": "40a4bf6edde45176",
             "type": "leaf",
             "state": {
               "type": "bookmarks",
               "state": {},
               "icon": "lucide-bookmark",
-              "title": "Bladwijzers"
+              "title": "Bookmarks"
             }
           },
           {
-            "id": "78d9ef7ddd1c7dc2",
+            "id": "b2d28124e6db839b",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "New tab"
+            }
+          },
+          {
+            "id": "a341fcbaf451d527",
+            "type": "leaf",
+            "state": {
+              "type": "tag-manager-view",
+              "state": {},
+              "icon": "lucide-ghost",
+              "title": "tag-manager-view"
+            }
+          },
+          {
+            "id": "a76ab09dac4b2700",
             "type": "leaf",
             "state": {
               "type": "notebook-navigator",
@@ -95,27 +101,27 @@
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 5
       }
     ],
     "direction": "horizontal",
-    "width": 471.5
+    "width": 762.5
   },
   "right": {
-    "id": "7771a6d34457910b",
+    "id": "bc13cd1b6ba6f691",
     "type": "split",
     "children": [
       {
-        "id": "0449404fe33810d7",
+        "id": "a0382a3ef7ce5f3b",
         "type": "tabs",
         "children": [
           {
-            "id": "aeee6f1783cd2021",
+            "id": "5bff03d77416bc86",
             "type": "leaf",
             "state": {
               "type": "backlink",
               "state": {
-                "file": "conflict-files-obsidian-git.md",
+                "file": "Hobby/Aquaruim/Juwel Amorax.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -125,25 +131,25 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Terugverwijzingen voor conflict-files-obsidian-git"
+              "title": "Backlinks for Juwel Amorax"
             }
           },
           {
-            "id": "4a1228529bd8c92e",
+            "id": "f66851ec630daeec",
             "type": "leaf",
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "conflict-files-obsidian-git.md",
+                "file": "Hobby/Aquaruim/Juwel Amorax.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Uitgaande verwijzingen van conflict-files-obsidian-git"
+              "title": "Outgoing links from Juwel Amorax"
             }
           },
           {
-            "id": "8aee50ed52c627be",
+            "id": "3518bfd038da7531",
             "type": "leaf",
             "state": {
               "type": "tag",
@@ -154,11 +160,11 @@
                 "searchQuery": ""
               },
               "icon": "lucide-tags",
-              "title": "Labels"
+              "title": "Tags"
             }
           },
           {
-            "id": "73d7478ded732413",
+            "id": "f55841bf1e31bb5d",
             "type": "leaf",
             "state": {
               "type": "all-properties",
@@ -168,36 +174,58 @@
                 "searchQuery": ""
               },
               "icon": "lucide-archive",
-              "title": "Alle eigenschappen"
+              "title": "All properties"
             }
           },
           {
-            "id": "feb01ecba913096c",
+            "id": "498e5eba7dc8933d",
             "type": "leaf",
             "state": {
               "type": "outline",
               "state": {
-                "file": "conflict-files-obsidian-git.md",
+                "file": "Hobby/Aquaruim/Waterplanten.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Overzicht van conflict-files-obsidian-git"
+              "title": "Outline of Waterplanten"
             }
           },
           {
-            "id": "cf34f11c869cbdb7",
+            "id": "7378967faeeaa4d8",
+            "type": "leaf",
+            "state": {
+              "type": "footnotes",
+              "state": {
+                "file": "Hobby/Aquaruim/Juwel Amorax.md"
+              },
+              "icon": "lucide-file-signature",
+              "title": "Footnotes"
+            }
+          },
+          {
+            "id": "723d560b4ffbbcd0",
             "type": "leaf",
             "state": {
               "type": "calendar",
               "state": {},
-              "icon": "calendar-with-checkmark",
-              "title": "Calendar"
+              "icon": "lucide-ghost",
+              "title": "calendar"
             }
           },
           {
-            "id": "41120b0866fba928",
+            "id": "c254c64030e33ff4",
+            "type": "leaf",
+            "state": {
+              "type": "advanced-tables-toolbar",
+              "state": {},
+              "icon": "spreadsheet",
+              "title": "Advanced Tables"
+            }
+          },
+          {
+            "id": "1c5b3e69e978c4c8",
             "type": "leaf",
             "state": {
               "type": "git-view",
@@ -205,70 +233,171 @@
               "icon": "git-pull-request",
               "title": "Source Control"
             }
+          },
+          {
+            "id": "528118691c9a17f3",
+            "type": "leaf",
+            "state": {
+              "type": "claudian-view",
+              "state": {},
+              "icon": "bot",
+              "title": "Claudian"
+            }
+          },
+          {
+            "id": "d1925a2edbea560c",
+            "type": "leaf",
+            "state": {
+              "type": "modal-form-manage-forms-view",
+              "state": {},
+              "icon": "documents",
+              "title": "Manage forms"
+            }
+          },
+          {
+            "id": "c65c127f787ae865",
+            "type": "leaf",
+            "state": {
+              "type": "modal-form-template-builder-view",
+              "state": {
+                "title": "DevNote",
+                "name": "DevNote",
+                "version": "1",
+                "fields": [
+                  {
+                    "name": "Subject",
+                    "label": "",
+                    "description": "What's up?",
+                    "input": {
+                      "type": "text",
+                      "allowUnknownValues": false,
+                      "hidden": false
+                    },
+                    "isRequired": true
+                  },
+                  {
+                    "name": "Project",
+                    "label": "",
+                    "description": "",
+                    "input": {
+                      "type": "text",
+                      "allowUnknownValues": false,
+                      "hidden": false
+                    },
+                    "isRequired": false
+                  },
+                  {
+                    "name": "Date",
+                    "label": "",
+                    "description": "",
+                    "input": {
+                      "type": "date",
+                      "allowUnknownValues": false,
+                      "hidden": false
+                    },
+                    "isRequired": false
+                  },
+                  {
+                    "name": "Note",
+                    "label": "",
+                    "description": "What is on your mind",
+                    "input": {
+                      "type": "markdown_block",
+                      "allowUnknownValues": false,
+                      "hidden": false,
+                      "body": ""
+                    },
+                    "isRequired": false
+                  }
+                ],
+                "customClassname": "DevNote"
+              },
+              "icon": "lucide-file",
+              "title": "Template Builder"
+            }
           }
         ],
-        "currentTab": 6
+        "currentTab": 8
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 666.5
   },
   "left-ribbon": {
     "hiddenItems": {
-      "notebook-navigator:Notebook Navigator": false,
-      "obsidian-kanban:Create new board": false,
-      "markdown-table-editor:Open Markdown Table Editor": false,
-      "modalforms:Edit forms": false,
       "quickadd:QuickAdd": false,
-      "omnisearch:Omnisearch": false,
-      "templater-obsidian:Templater": false,
-      "switcher:Open snel wisselen": false,
-      "graph:Open grafiek weergave": false,
-      "canvas:Nieuw doek aanmaken": false,
-      "daily-notes:Open de notitie van vandaag": false,
-      "templates:Sjabloon invoegen": false,
-      "command-palette:Open opdrachtenpaneel": false,
-      "workspaces:Beheer werkblad lay-outs": false,
-      "bases:Nieuwe basis maken": false,
+      "iconic:Open rulebook": false,
       "table-editor-obsidian:Advanced Tables Toolbar": false,
+      "markdown-table-editor:Open Markdown Table Editor": false,
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "workspaces:Manage workspace layouts": false,
+      "bases:Create new base": false,
+      "notebook-navigator:Notebook Navigator": false,
+      "omnisearch:Omnisearch": false,
+      "obsidian-git:Open Git source control": false,
       "realclaudian:Open Claudian": false,
+      "obsidian-excalidraw-plugin:New drawing": false,
+      "obsidian-kanban:Create new board": false,
+      "templater-obsidian:Templater": false,
       "cmdr:Toggle stacked tabs": false,
       "cmdr:Omnisearch: Vault search": false,
-      "obsidian-excalidraw-plugin:New drawing": false,
-      "obsidian-git:Open Git source control": false,
-      "iconic:Open rulebook": false
+      "modalforms:Edit forms": false
     }
   },
-  "active": "b88549dbbfeaf35d",
+  "active": "a76ab09dac4b2700",
   "lastOpenFiles": [
-    "Development/HNSoftwareDevelopment/Saga/qa/look-mechanics.md",
-    "Development/HNSoftwareDevelopment/Saga/qa",
-    "Development/HNSoftwareDevelopment/Saga/docs/manual-tests/milestone-9-checklist.md",
-    "Development/HNSoftwareDevelopment/Saga/docs/feature-requests/datagrid-makeover.md",
-    "Development/HNSoftwareDevelopment/Saga/docs/architecture/settings-behavior.md",
-    "Development/HNSoftwareDevelopment/Saga/docs/feature-requests",
-    "Development/HNSoftwareDevelopment/Saga/docs/architecture",
+    "conflict-files-obsidian-git.md",
+    "Development/HNSoftwareDevelopment/Saga/docs/superpowers/feature-requests/duplicate-merge.md",
     "Development/HNSoftwareDevelopment/Saga/docs/superpowers/plans/2026-07-10-saga-milestone-4-metadata-settings-foundation.md",
     "Development/HNSoftwareDevelopment/Saga/docs/superpowers/specs/2026-07-10-saga-milestone-4-metadata-settings-design.md",
-    "Development/HNSoftwareDevelopment/Saga/docs/superpowers/feature-requests/duplicate-merge.md",
-    "Development/HNSoftwareDevelopment/Saga/docs/superpowers/plans",
-    "Development/HNSoftwareDevelopment/Saga/docs/superpowers/specs",
     "Development/HNSoftwareDevelopment/Saga/docs/superpowers/feature-requests",
+    "Development/HNSoftwareDevelopment/Saga/docs/superpowers/plans",
+    "Development/HNSoftwareDevelopment/Saga/docs/feature-requests/datagrid-makeover.md",
+    "Development/HNSoftwareDevelopment/Saga/docs/superpowers/specs",
     "Development/HNSoftwareDevelopment/Saga/docs/metadata/saga-standard-metadata-inventory.md",
+    "Development/HNSoftwareDevelopment/Saga/docs/manual-tests/milestone-9-checklist.md",
+    "Development/HNSoftwareDevelopment/Saga/docs/manual-tests/milestone-8-checklist.md",
+    "Development/HNSoftwareDevelopment/Saga/docs/manual-tests/milestone-7-checklist.md",
+    "Development/HNSoftwareDevelopment/Saga/docs/manual-tests/milestone-6-checklist.md",
+    "Development/HNSoftwareDevelopment/Saga/docs/manual-tests/milestone-5-checklist.md",
     "Development/HNSoftwareDevelopment/Saga/docs/manual-tests/milestone-4-checklist.md",
     "Development/HNSoftwareDevelopment/Saga/docs/manual-tests/milestone-3-1-checklist.md",
+    "Development/HNSoftwareDevelopment/Saga/docs/architecture/settings-behavior.md",
+    "Development/HNSoftwareDevelopment/Saga/qa/look-mechanics.md",
     "Development/HNSoftwareDevelopment/Saga/docs/superpowers",
-    "Development/HNSoftwareDevelopment/Saga/docs/metadata",
     "Development/HNSoftwareDevelopment/Saga/docs/project-preferences.md",
+    "Development/HNSoftwareDevelopment/Saga/docs/feature-requests",
+    "Development/HNSoftwareDevelopment/Saga/docs/metadata",
     "Development/HNSoftwareDevelopment/Saga/docs/manual-tests",
+    "Development/HNSoftwareDevelopment/Saga/docs/architecture",
     "Development/HNSoftwareDevelopment/Saga/README.md",
+    "Development/HNSoftwareDevelopment/Saga/qa",
     "Development/HNSoftwareDevelopment/Saga/docs",
-    "conflict-files-obsidian-git.md",
-    "Development/C.md",
-    "Untitled.md",
-    "Untitled 1.md",
-    "Naamloos.md",
-    "Developer Note Zomaar - 2026-07-22.md"
+    "Development/HNSoftwareDevelopment/Saga/AGENTS.md",
+    "Development/HNSoftwareDevelopment/hnsoftwaredevelopment/docs/superpowers/specs/2026-07-09-product-website-design.md",
+    "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-07-10-saga-milestone-4-metadata-settings-design.md",
+    "Development/HNSoftwareDevelopment/hnsoftwaredevelopment/docs/superpowers/plans/2026-07-09-product-website.md",
+    "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/plans/2026-07-10-saga-milestone-4-metadata-settings-foundation.md",
+    "Development/HNSoftwareDevelopment/Deckplanking/docs/superpowers/specs/2026-06-25-stern-rounding-design.md",
+    "Development/HNSoftwareDevelopment/Deckplanking/docs/superpowers/specs/2026-06-25-bow-rounding-design.md",
+    "Development/HNSoftwareDevelopment/Deckplanking/docs/superpowers/specs/2026-06-25-about-feedback-design.md",
+    "Development/HNSoftwareDevelopment/Deckplanking/docs/superpowers/specs/2026-06-23-deck-contour-v1-design.md",
+    "Untitled.canvas",
+    "attachments/profile_pictures/profile-2026-07-22-15-13-10.png.svg",
+    "attachments/Epic-1.svg",
+    "attachments/Epic-1.png",
+    "Naamloos.canvas",
+    "attachments/BT1-2161-3.png",
+    "attachments/BT1-2161-2.png",
+    "attachments/BT1-2161-1.png",
+    "Development/WPF Handboek/01 Layout containers/Pasted image 20260527195416.png",
+    "attachments/fcaf64b75c984e73a82d68d6eb782f6f.png",
+    "attachments/f9ccbdaa39a74fb89f31f09909f1621d.png",
+    "attachments/f23e51e92bc0415da4e3adaf2350882b.png"
   ]
 }
