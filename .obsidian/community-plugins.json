@@ -26,9 +26,9 @@
   "quickadd",
   "obsidian-style-settings",
   "omnisearch",
-  "notebook-navigator",
   "obsidian-plugin-toc",
   "theme-picker",
   "obsidian-tasks-plugin",
-  "templater-obsidian"
+  "templater-obsidian",
+  "notebook-navigator"
 ]

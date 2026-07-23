@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "29d79ed1aa58e7f5",
+        "id": "dceaa15192459617",
         "type": "tabs",
         "children": [
           {
-            "id": "6998b80c77c07307",
+            "id": "58ed1f6b8f856743",
             "type": "leaf",
             "state": {
               "type": "empty",
@@ -69,12 +69,23 @@
               "icon": "lucide-bookmark",
               "title": "Bladwijzers"
             }
+          },
+          {
+            "id": "78d9ef7ddd1c7dc2",
+            "type": "leaf",
+            "state": {
+              "type": "notebook-navigator",
+              "state": {},
+              "icon": "notebook-navigator",
+              "title": "Notebook Navigator"
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 471.5
   },
   "right": {
     "id": "7771a6d34457910b",
@@ -186,10 +197,12 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
+      "notebook-navigator:Notebook Navigator": false,
       "obsidian-kanban:Create new board": false,
       "markdown-table-editor:Open Markdown Table Editor": false,
       "modalforms:Edit forms": false,
@@ -213,8 +226,9 @@
       "iconic:Open rulebook": false
     }
   },
-  "active": "52c6f50c57f376ef",
+  "active": "18c144d0712fe031",
   "lastOpenFiles": [
+    "Development/C.md",
     "Untitled.md",
     "Untitled 1.md",
     "Naamloos.md",
