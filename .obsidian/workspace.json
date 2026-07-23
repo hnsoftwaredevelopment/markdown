@@ -1,19 +1,19 @@
 {
   "main": {
-    "id": "30bf61be65d072a5",
+    "id": "189383c9db4044e3",
     "type": "split",
     "children": [
       {
-        "id": "7904833fe1a828e1",
+        "id": "0d0a3d51b0551716",
         "type": "tabs",
         "children": [
           {
-            "id": "993c3b0c97e20c43",
+            "id": "b22392ef7a2f45b2",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "templates/DevNote2.md",
+                "file": "conflict-files-obsidian-git.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "DevNote2"
+              "title": "conflict-files-obsidian-git"
             }
           }
         ]
@@ -37,15 +37,15 @@
     "direction": "vertical"
   },
   "left": {
-    "id": "7c05ae1ce1f195c9",
+    "id": "5cd5a7305ad6f54d",
     "type": "split",
     "children": [
       {
-        "id": "2540150cab0fa8de",
+        "id": "32c4d6470fe40f03",
         "type": "tabs",
         "children": [
           {
-            "id": "efa57b48cf581284",
+            "id": "52c6f50c57f376ef",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
@@ -54,11 +54,11 @@
                 "autoReveal": false
               },
               "icon": "lucide-folder-closed",
-              "title": "Files"
+              "title": "Verkenner"
             }
           },
           {
-            "id": "9cd60c4cddbc261d",
+            "id": "18c144d0712fe031",
             "type": "leaf",
             "state": {
               "type": "search",
@@ -71,71 +71,40 @@
                 "sortOrder": "alphabetical"
               },
               "icon": "lucide-search",
-              "title": "Search"
+              "title": "Zoeken"
             }
           },
           {
-            "id": "40a4bf6edde45176",
+            "id": "cb26b1c6b4ed92cf",
             "type": "leaf",
             "state": {
               "type": "bookmarks",
               "state": {},
               "icon": "lucide-bookmark",
-              "title": "Bookmarks"
-            }
-          },
-          {
-            "id": "b2d28124e6db839b",
-            "type": "leaf",
-            "state": {
-              "type": "empty",
-              "state": {},
-              "icon": "lucide-file",
-              "title": "New tab"
-            }
-          },
-          {
-            "id": "a341fcbaf451d527",
-            "type": "leaf",
-            "state": {
-              "type": "tag-manager-view",
-              "state": {},
-              "icon": "lucide-ghost",
-              "title": "tag-manager-view"
-            }
-          },
-          {
-            "id": "a76ab09dac4b2700",
-            "type": "leaf",
-            "state": {
-              "type": "notebook-navigator",
-              "state": {},
-              "icon": "notebook-navigator",
-              "title": "Notebook Navigator"
+              "title": "Bladwijzers"
             }
           }
-        ],
-        "currentTab": 5
+        ]
       }
     ],
     "direction": "horizontal",
-    "width": 762.5
+    "width": 300
   },
   "right": {
-    "id": "bc13cd1b6ba6f691",
+    "id": "7771a6d34457910b",
     "type": "split",
     "children": [
       {
-        "id": "a0382a3ef7ce5f3b",
+        "id": "0449404fe33810d7",
         "type": "tabs",
         "children": [
           {
-            "id": "5bff03d77416bc86",
+            "id": "aeee6f1783cd2021",
             "type": "leaf",
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Hobby/Aquaruim/Juwel Amorax.md",
+                "file": "conflict-files-obsidian-git.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -145,25 +114,25 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for Juwel Amorax"
+              "title": "Terugverwijzingen voor conflict-files-obsidian-git"
             }
           },
           {
-            "id": "f66851ec630daeec",
+            "id": "4a1228529bd8c92e",
             "type": "leaf",
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Hobby/Aquaruim/Juwel Amorax.md",
+                "file": "conflict-files-obsidian-git.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from Juwel Amorax"
+              "title": "Uitgaande verwijzingen van conflict-files-obsidian-git"
             }
           },
           {
-            "id": "3518bfd038da7531",
+            "id": "8aee50ed52c627be",
             "type": "leaf",
             "state": {
               "type": "tag",
@@ -174,11 +143,11 @@
                 "searchQuery": ""
               },
               "icon": "lucide-tags",
-              "title": "Tags"
+              "title": "Labels"
             }
           },
           {
-            "id": "f55841bf1e31bb5d",
+            "id": "73d7478ded732413",
             "type": "leaf",
             "state": {
               "type": "all-properties",
@@ -188,229 +157,68 @@
                 "searchQuery": ""
               },
               "icon": "lucide-archive",
-              "title": "All properties"
+              "title": "Alle eigenschappen"
             }
           },
           {
-            "id": "498e5eba7dc8933d",
+            "id": "feb01ecba913096c",
             "type": "leaf",
             "state": {
               "type": "outline",
               "state": {
-                "file": "Hobby/Aquaruim/Waterplanten.md",
+                "file": "conflict-files-obsidian-git.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of Waterplanten"
+              "title": "Overzicht van conflict-files-obsidian-git"
             }
           },
           {
-            "id": "7378967faeeaa4d8",
-            "type": "leaf",
-            "state": {
-              "type": "footnotes",
-              "state": {
-                "file": "Hobby/Aquaruim/Juwel Amorax.md"
-              },
-              "icon": "lucide-file-signature",
-              "title": "Footnotes"
-            }
-          },
-          {
-            "id": "723d560b4ffbbcd0",
+            "id": "cf34f11c869cbdb7",
             "type": "leaf",
             "state": {
               "type": "calendar",
               "state": {},
-              "icon": "lucide-ghost",
-              "title": "calendar"
-            }
-          },
-          {
-            "id": "c254c64030e33ff4",
-            "type": "leaf",
-            "state": {
-              "type": "advanced-tables-toolbar",
-              "state": {},
-              "icon": "spreadsheet",
-              "title": "Advanced Tables"
-            }
-          },
-          {
-            "id": "1c5b3e69e978c4c8",
-            "type": "leaf",
-            "state": {
-              "type": "git-view",
-              "state": {},
-              "icon": "git-pull-request",
-              "title": "Source Control"
-            }
-          },
-          {
-            "id": "528118691c9a17f3",
-            "type": "leaf",
-            "state": {
-              "type": "claudian-view",
-              "state": {},
-              "icon": "bot",
-              "title": "Claudian"
-            }
-          },
-          {
-            "id": "d1925a2edbea560c",
-            "type": "leaf",
-            "state": {
-              "type": "modal-form-manage-forms-view",
-              "state": {},
-              "icon": "documents",
-              "title": "Manage forms"
-            }
-          },
-          {
-            "id": "c65c127f787ae865",
-            "type": "leaf",
-            "state": {
-              "type": "modal-form-template-builder-view",
-              "state": {
-                "title": "DevNote",
-                "name": "DevNote",
-                "version": "1",
-                "fields": [
-                  {
-                    "name": "Subject",
-                    "label": "",
-                    "description": "What's up?",
-                    "input": {
-                      "type": "text",
-                      "allowUnknownValues": false,
-                      "hidden": false
-                    },
-                    "isRequired": true
-                  },
-                  {
-                    "name": "Project",
-                    "label": "",
-                    "description": "",
-                    "input": {
-                      "type": "text",
-                      "allowUnknownValues": false,
-                      "hidden": false
-                    },
-                    "isRequired": false
-                  },
-                  {
-                    "name": "Date",
-                    "label": "",
-                    "description": "",
-                    "input": {
-                      "type": "date",
-                      "allowUnknownValues": false,
-                      "hidden": false
-                    },
-                    "isRequired": false
-                  },
-                  {
-                    "name": "Note",
-                    "label": "",
-                    "description": "What is on your mind",
-                    "input": {
-                      "type": "markdown_block",
-                      "allowUnknownValues": false,
-                      "hidden": false,
-                      "body": ""
-                    },
-                    "isRequired": false
-                  }
-                ],
-                "customClassname": "DevNote"
-              },
-              "icon": "lucide-file",
-              "title": "Template Builder"
+              "icon": "calendar-with-checkmark",
+              "title": "Calendar"
             }
           }
-        ],
-        "currentTab": 11
+        ]
       }
     ],
     "direction": "horizontal",
-    "width": 666.5
+    "width": 300,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
-      "iconic:Open rulebook": false,
-      "table-editor-obsidian:Advanced Tables Toolbar": false,
-      "markdown-table-editor:Open Markdown Table Editor": false,
-      "switcher:Open quick switcher": false,
-      "graph:Open graph view": false,
-      "canvas:Create new canvas": false,
-      "daily-notes:Open today's daily note": false,
-      "templates:Insert template": false,
-      "command-palette:Open command palette": false,
-      "workspaces:Manage workspace layouts": false,
-      "bases:Create new base": false,
-      "notebook-navigator:Notebook Navigator": false,
-      "omnisearch:Omnisearch": false,
-      "obsidian-git:Open Git source control": false,
-      "realclaudian:Open Claudian": false,
-      "obsidian-excalidraw-plugin:New drawing": false,
       "obsidian-kanban:Create new board": false,
+      "markdown-table-editor:Open Markdown Table Editor": false,
+      "modalforms:Edit forms": false,
+      "quickadd:QuickAdd": false,
+      "omnisearch:Omnisearch": false,
       "templater-obsidian:Templater": false,
+      "switcher:Open snel wisselen": false,
+      "graph:Open grafiek weergave": false,
+      "canvas:Nieuw doek aanmaken": false,
+      "daily-notes:Open de notitie van vandaag": false,
+      "templates:Sjabloon invoegen": false,
+      "command-palette:Open opdrachtenpaneel": false,
+      "workspaces:Beheer werkblad lay-outs": false,
+      "bases:Nieuwe basis maken": false,
+      "table-editor-obsidian:Advanced Tables Toolbar": false,
+      "realclaudian:Open Claudian": false,
       "cmdr:Toggle stacked tabs": false,
       "cmdr:Omnisearch: Vault search": false,
-      "modalforms:Edit forms": false
+      "obsidian-excalidraw-plugin:New drawing": false,
+      "obsidian-git:Open Git source control": false,
+      "iconic:Open rulebook": false
     }
   },
-  "active": "a76ab09dac4b2700",
+  "active": "b22392ef7a2f45b2",
   "lastOpenFiles": [
-    "Untitled 2.md",
-    "Untitled 1.md",
-    "templates/DevNote2.md",
-    "templates/DevNote.md",
-    "Untitled.md",
-    "ICT/Markdown/Epic.md",
-    "Untitled.canvas",
-    "attachments/profile_pictures/profile-2026-07-22-15-13-10.png.svg",
-    "attachments/profile_pictures",
-    "templates/Cornell Template.md",
-    "Development/Code/C#/Create JSON declaratively with LINQ.md",
-    "Development/Code/C#/Code to add checkboxes automaticly inside a for lo.md",
-    "Development/Projects/Music tools/Projecten die Music XML onders.md",
-    "Development/Environment",
-    "Development/Code",
-    "Development/Projects/Untitled.md",
-    "templates/Engineering/bug-report.md",
-    "ICT/Windows/ASCII - Table.md",
-    "ICT/Windows/ASCII.md",
-    "Development/Environment/Visual Studio/Add Microsoft Nugetpackeges to the project.md",
-    "Development/Environment/Visual Studio",
-    "Development/C#/Add Binding for toolbar 1.md",
-    "Development/Code/C#/WPF/Add Binding for toolbar.md",
-    "ICT/Windows/Download and install Extensions manualy.md",
-    "ICT/Windows/Download and install Chrome extenntions manualy.md",
-    "ICT/Windows/Kali Linux On Windows.md",
-    "Development/WPF Handboek/00 Start/Inleiding.md",
-    "Development/WPF Handboek/WPF Handboek.md",
-    "Development/WPF Handboek/00 Start/Inhoudsopgave.md",
-    "Inhoudsopgave.md",
-    "ICT/Windows/Emoji's.md",
-    "ICT/Markdown/Basic MarkDown Elements.md",
-    "Work/Voortman/TestCases",
-    "attachments/Epic-1.svg",
-    "attachments/Epic-1.png",
-    "templates/Cornell Template.md.crdownload",
-    "Naamloos.canvas",
-    "templates/Personal",
-    "templates/Legal",
-    "templates/Finance",
-    "templates/Healthcare & Science",
-    "attachments/BT1-2161-3.png",
-    "attachments/BT1-2161-2.png",
-    "attachments/BT1-2161-1.png",
-    "Development/WPF Handboek/01 Layout containers/Pasted image 20260527195416.png",
-    "attachments/fcaf64b75c984e73a82d68d6eb782f6f.png",
-    "attachments/f9ccbdaa39a74fb89f31f09909f1621d.png",
-    "attachments/f23e51e92bc0415da4e3adaf2350882b.png"
+    "conflict-files-obsidian-git.md"
   ]
 }

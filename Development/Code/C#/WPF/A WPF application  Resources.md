@@ -1,10 +1,21 @@
 ---
+<<<<<<< Updated upstream:Development/Code/C#/WPF/A WPF application  Resources.md
 tags:
   - wpf
 icon: bi-filetype-xml
 ---
 # A WPF application  Resources
 A WPF application: Resources
+=======
+category: WPF
+tags:
+  - resource
+  - resources
+  - library
+  - StaticResource
+  - DynamicResource
+---
+>>>>>>> Stashed changes:Development/C#/WPF/A WPF application  Resources.md
 
 ## A WPF application: Resources
 

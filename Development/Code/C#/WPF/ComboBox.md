@@ -1,10 +1,20 @@
 ---
+<<<<<<< Updated upstream:Development/Code/C#/WPF/ComboBox.md
 tags:
   - wpf
 icon: bi-filetype-xml
 ---
 # ComboBox
 \[TOC\]
+=======
+category: WPF
+tags:
+  - combobox
+---
+```insta-toc
+
+```
+>>>>>>> Stashed changes:Development/C#/WPF/ComboBox.md
 
 In this part, we’re looking at the ComboBox control in WPF. Starting from the simplest example to more complex ones.
 

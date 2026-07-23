@@ -1,10 +1,19 @@
 ---
+<<<<<<< Updated upstream:Development/Code/C#/WPF/Add buttons from code.md
 tags:
   - wpf
 icon: bi-filetype-xml
 ---
 # Add buttons from code
 Add buttons from code
+=======
+category: WPF
+tags:
+  - buttons
+  - code
+  - code-behind
+---
+>>>>>>> Stashed changes:Development/C#/WPF/Add buttons from code.md
 
 To add buttons dynamicly to a WPF you can use:
 
