@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Development/HNSoftwareDevelopment/Saga/docs/manual-tests/milestone-3-1-checklist.md",
+                "file": "Development/WPF Handboek/00 Start/Inleiding.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "milestone-3-1-checklist"
+              "title": "Inleiding"
             }
           }
         ]
@@ -365,6 +365,7 @@
   },
   "active": "70113ba83b033f0d",
   "lastOpenFiles": [
+    "Development/HNSoftwareDevelopment/Saga/docs/manual-tests/milestone-3-1-checklist.md",
     "Development/HNSoftwareDevelopment/Saga/docs/manual-tests/milestone-4-checklist.md",
     "Development/HNSoftwareDevelopment/Saga/docs/manual-tests/milestone-9-checklist.md",
     "Development/HNSoftwareDevelopment/Saga/docs/manual-tests/milestone-5-checklist.md",
@@ -380,7 +381,6 @@
     "Development/HNSoftwareDevelopment/Saga/docs/feature-requests/datagrid-makeover.md",
     "Development/HNSoftwareDevelopment/Saga/docs/superpowers/specs",
     "Development/HNSoftwareDevelopment/Saga/docs/metadata/saga-standard-metadata-inventory.md",
-    "Development/HNSoftwareDevelopment/Saga/docs/manual-tests/milestone-3-1-checklist.md",
     "Development/HNSoftwareDevelopment/Saga/docs/architecture/settings-behavior.md",
     "Development/HNSoftwareDevelopment/Saga/qa/look-mechanics.md",
     "Development/HNSoftwareDevelopment/Saga/docs/superpowers",
