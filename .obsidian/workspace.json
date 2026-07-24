@@ -11,10 +11,24 @@
             "id": "70113ba83b033f0d",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "Development/HNSoftwareDevelopment/Saga/docs/manual-tests/milestone-3-1-checklist.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": true,
+                "backlinkOpts": {
+                  "collapseAll": false,
+                  "extraContext": false,
+                  "sortOrder": "alphabetical",
+                  "showSearch": false,
+                  "searchQuery": "",
+                  "backlinkCollapsed": false,
+                  "unlinkedCollapsed": true
+                }
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "milestone-3-1-checklist"
             }
           }
         ]
@@ -349,8 +363,14 @@
       "modalforms:Edit forms": false
     }
   },
-  "active": "a76ab09dac4b2700",
+  "active": "70113ba83b033f0d",
   "lastOpenFiles": [
+    "Development/HNSoftwareDevelopment/Saga/docs/manual-tests/milestone-4-checklist.md",
+    "Development/HNSoftwareDevelopment/Saga/docs/manual-tests/milestone-9-checklist.md",
+    "Development/HNSoftwareDevelopment/Saga/docs/manual-tests/milestone-5-checklist.md",
+    "Development/HNSoftwareDevelopment/Saga/docs/manual-tests/milestone-6-checklist.md",
+    "Development/HNSoftwareDevelopment/Saga/docs/manual-tests/milestone-7-checklist.md",
+    "Development/HNSoftwareDevelopment/Saga/docs/manual-tests/milestone-8-checklist.md",
     "conflict-files-obsidian-git.md",
     "Development/HNSoftwareDevelopment/Saga/docs/superpowers/feature-requests/duplicate-merge.md",
     "Development/HNSoftwareDevelopment/Saga/docs/superpowers/plans/2026-07-10-saga-milestone-4-metadata-settings-foundation.md",
@@ -360,12 +380,6 @@
     "Development/HNSoftwareDevelopment/Saga/docs/feature-requests/datagrid-makeover.md",
     "Development/HNSoftwareDevelopment/Saga/docs/superpowers/specs",
     "Development/HNSoftwareDevelopment/Saga/docs/metadata/saga-standard-metadata-inventory.md",
-    "Development/HNSoftwareDevelopment/Saga/docs/manual-tests/milestone-9-checklist.md",
-    "Development/HNSoftwareDevelopment/Saga/docs/manual-tests/milestone-8-checklist.md",
-    "Development/HNSoftwareDevelopment/Saga/docs/manual-tests/milestone-7-checklist.md",
-    "Development/HNSoftwareDevelopment/Saga/docs/manual-tests/milestone-6-checklist.md",
-    "Development/HNSoftwareDevelopment/Saga/docs/manual-tests/milestone-5-checklist.md",
-    "Development/HNSoftwareDevelopment/Saga/docs/manual-tests/milestone-4-checklist.md",
     "Development/HNSoftwareDevelopment/Saga/docs/manual-tests/milestone-3-1-checklist.md",
     "Development/HNSoftwareDevelopment/Saga/docs/architecture/settings-behavior.md",
     "Development/HNSoftwareDevelopment/Saga/qa/look-mechanics.md",

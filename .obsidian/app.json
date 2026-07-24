@@ -8,5 +8,6 @@
   "userIgnoreFilters": [
     "attachments/"
   ],
-  "showInlineTitle": true
+  "showInlineTitle": true,
+  "propertiesInDocument": "source"
 }
