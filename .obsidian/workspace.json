@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Development/WPF Handboek/00 Start/Inleiding.md",
+                "file": "Development/WPF Handboek/01 Layout containers/Grid.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "Inleiding"
+              "title": "Grid"
             }
           }
         ]
@@ -365,6 +365,9 @@
   },
   "active": "70113ba83b033f0d",
   "lastOpenFiles": [
+    "Development/WPF Handboek/00 Start/Inhoudsopgave.md",
+    "Development/WPF Handboek/01 Layout containers/Grid.md",
+    "Development/WPF Handboek/00 Start/Inleiding.md",
     "Development/HNSoftwareDevelopment/Saga/docs/manual-tests/milestone-3-1-checklist.md",
     "Development/HNSoftwareDevelopment/Saga/docs/manual-tests/milestone-4-checklist.md",
     "Development/HNSoftwareDevelopment/Saga/docs/manual-tests/milestone-9-checklist.md",
@@ -398,9 +401,6 @@
     "Development/HNSoftwareDevelopment/hnsoftwaredevelopment/docs/superpowers/plans/2026-07-09-product-website.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/plans/2026-07-10-saga-milestone-4-metadata-settings-foundation.md",
     "Development/HNSoftwareDevelopment/Deckplanking/docs/superpowers/specs/2026-06-25-stern-rounding-design.md",
-    "Development/HNSoftwareDevelopment/Deckplanking/docs/superpowers/specs/2026-06-25-bow-rounding-design.md",
-    "Development/HNSoftwareDevelopment/Deckplanking/docs/superpowers/specs/2026-06-25-about-feedback-design.md",
-    "Development/HNSoftwareDevelopment/Deckplanking/docs/superpowers/specs/2026-06-23-deck-contour-v1-design.md",
     "Untitled.canvas",
     "attachments/profile_pictures/profile-2026-07-22-15-13-10.png.svg",
     "attachments/Epic-1.svg",
