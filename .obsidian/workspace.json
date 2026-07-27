@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Development/WPF Handboek/00 Start/Inhoudsopgave.md",
+                "file": "Development/HNSoftwareDevelopment/SVGViewer/docs/UserStories.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "Inhoudsopgave"
+              "title": "UserStories"
             }
           }
         ]
@@ -364,8 +364,12 @@
       "modalforms:Edit forms": false
     }
   },
-  "active": "a76ab09dac4b2700",
+  "active": "70113ba83b033f0d",
   "lastOpenFiles": [
+    "Development/HNSoftwareDevelopment/SVGViewer/docs/user-guide/UserGuide.nl.md",
+    "Development/HNSoftwareDevelopment/SVGViewer/docs/Architecture.md",
+    "Development/HNSoftwareDevelopment/SVGViewer/README.md",
+    "Development/WPF Handboek/00 Start/Inhoudsopgave.md",
     "Development/WPF Handboek/00 Start/Inleiding.md",
     "Development/WPF Handboek/01 Layout containers/Pasted image 20260527195416.png",
     "Development/WPF Handboek/90 Bijlagen/XAML basis.md",
@@ -374,7 +378,6 @@
     "Development/WPF Handboek/01 Layout containers/Grid.md",
     "conflict-files-obsidian-git.md",
     "Development/HNSoftwareDevelopment/Saga/docs/feature-requests/import-performance-hardening.md",
-    "Development/WPF Handboek/00 Start/Inhoudsopgave.md",
     "Development/HNSoftwareDevelopment/Saga/docs/manual-tests/milestone-3-1-checklist.md",
     "Development/HNSoftwareDevelopment/Saga/docs/manual-tests/milestone-4-checklist.md",
     "Development/HNSoftwareDevelopment/Saga/docs/manual-tests/milestone-9-checklist.md",
@@ -398,10 +401,8 @@
     "Development/HNSoftwareDevelopment/Saga/docs/metadata",
     "Development/HNSoftwareDevelopment/Saga/docs/manual-tests",
     "Development/HNSoftwareDevelopment/Saga/docs/architecture",
-    "Development/HNSoftwareDevelopment/Saga/README.md",
     "Development/HNSoftwareDevelopment/Saga/qa",
     "Development/HNSoftwareDevelopment/Saga/docs",
-    "Development/HNSoftwareDevelopment/Saga/AGENTS.md",
     "Untitled.canvas",
     "attachments/profile_pictures/profile-2026-07-22-15-13-10.png.svg",
     "attachments/Epic-1.svg",
