@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Development/WPF Handboek/01 Layout containers/Grid.md",
+                "file": "Development/WPF Handboek/00 Start/Inhoudsopgave.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "Grid"
+              "title": "Inhoudsopgave"
             }
           }
         ]
@@ -335,7 +335,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 666.5
+    "width": 666.5,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -365,12 +366,15 @@
   },
   "active": "70113ba83b033f0d",
   "lastOpenFiles": [
-    "conflict-files-obsidian-git.md",
-    "Development/WPF Handboek/01 Layout containers/Grid.md",
+    "Development/WPF Handboek/00 Start/Inleiding.md",
+    "Development/WPF Handboek/01 Layout containers/Pasted image 20260527195416.png",
+    "Development/WPF Handboek/90 Bijlagen/XAML basis.md",
+    "Development/WPF Handboek/99 Templates/Component template.md",
     "Development/HNSoftwareDevelopment/Saga/docs/manual-tests/milestone-10-checklist.md",
+    "Development/WPF Handboek/01 Layout containers/Grid.md",
+    "conflict-files-obsidian-git.md",
     "Development/HNSoftwareDevelopment/Saga/docs/feature-requests/import-performance-hardening.md",
     "Development/WPF Handboek/00 Start/Inhoudsopgave.md",
-    "Development/WPF Handboek/00 Start/Inleiding.md",
     "Development/HNSoftwareDevelopment/Saga/docs/manual-tests/milestone-3-1-checklist.md",
     "Development/HNSoftwareDevelopment/Saga/docs/manual-tests/milestone-4-checklist.md",
     "Development/HNSoftwareDevelopment/Saga/docs/manual-tests/milestone-9-checklist.md",
@@ -398,9 +402,6 @@
     "Development/HNSoftwareDevelopment/Saga/qa",
     "Development/HNSoftwareDevelopment/Saga/docs",
     "Development/HNSoftwareDevelopment/Saga/AGENTS.md",
-    "Development/HNSoftwareDevelopment/hnsoftwaredevelopment/docs/superpowers/specs/2026-07-09-product-website-design.md",
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-07-10-saga-milestone-4-metadata-settings-design.md",
-    "Development/HNSoftwareDevelopment/hnsoftwaredevelopment/docs/superpowers/plans/2026-07-09-product-website.md",
     "Untitled.canvas",
     "attachments/profile_pictures/profile-2026-07-22-15-13-10.png.svg",
     "attachments/Epic-1.svg",
@@ -409,7 +410,6 @@
     "attachments/BT1-2161-3.png",
     "attachments/BT1-2161-2.png",
     "attachments/BT1-2161-1.png",
-    "Development/WPF Handboek/01 Layout containers/Pasted image 20260527195416.png",
     "attachments/fcaf64b75c984e73a82d68d6eb782f6f.png",
     "attachments/f9ccbdaa39a74fb89f31f09909f1621d.png",
     "attachments/f23e51e92bc0415da4e3adaf2350882b.png"
