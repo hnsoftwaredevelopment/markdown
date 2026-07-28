@@ -52,13 +52,20 @@ Status-legenda: ☐ = todo · ◐ = bezig · ☑ = klaar
 - ☑ **US-3.5** — Als ontwikkelaar wil ik thumbnails cachen voor snelheid.
   *(Vector-render, dus één render dient alle groottes; cache verloopt op
   wijzigingsdatum.)*
+- ☑ **US-3.6** — Als gebruiker wil ik op een preview kunnen klikken om de SVG groot
+  te zien in een popup die ik kan in- en uitzoomen. *(Zoombare overlay: muiswiel,
+  knoppen, slepen om te verschuiven, Esc om te sluiten; blijft messcherp omdat het
+  een vector is.)*
+- ☑ **US-3.7** — Als gebruiker wil ik dat een drive-root (bijv. `C:\`) daadwerkelijk
+  de root toont en niet de werkmap van de app. *(Regressie: `C:\` mag niet tot
+  `C:` worden verkort; `NormalizeFolderPath` + 9 tests.)*
 
 ## SE-4 · SVG bewerken
 
-- ☐ **US-4.1** — Als gebruiker wil ik met dubbelklik een SVG openen in de gekoppelde
+- ☑ **US-4.1** — Als gebruiker wil ik met dubbelklik een SVG openen in de gekoppelde
   applicatie (bijv. Inkscape) via de Windows-shell.
-- ☐ **US-4.2** — Als gebruiker wil ik een nette melding als er geen app gekoppeld is.
-- ☐ **US-4.3** — Als gebruiker wil ik via rechtermuisknop "Openen met…" / "Toon in
+- ☑ **US-4.2** — Als gebruiker wil ik een nette melding als er geen app gekoppeld is.
+- ☑ **US-4.3** — Als gebruiker wil ik via rechtermuisknop "Openen met…" / "Tonen in
   Verkenner" als extra opties.
 
 ## SE-5 · Meertaligheid
