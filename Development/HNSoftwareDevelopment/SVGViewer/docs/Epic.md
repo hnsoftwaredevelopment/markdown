@@ -133,6 +133,41 @@ thumbnail-grid in SE-3) meetbaar beter zijn met Syncfusion, dan wordt een
 `LicenseManager` toegevoegd die de sleutel uit `syncfusionlicense.txt` leest.
 Gebruik in dat geval Syncfusion WPF **34.x**-pakketten, passend bij de licentie.
 
+### AD-2 · Dubbelklik opent de preview, niet de editor
+**Datum:** milestone 4 (herzien) · **Status:** aangenomen
+
+De oorspronkelijke eis F8 zei: dubbelklik opent de gekoppelde editor. Bij gebruik
+bleek een andere indeling prettiger, en de gebruiker heeft die gevraagd:
+
+- **Dubbelklik** op een thumbnail of lijstregel → opent de **zoom-preview**.
+- **Openen in de editor** (en "Openen met…", "Tonen in Verkenner") → via het
+  **contextmenu** (rechtermuisknop).
+- **Enkele klik** → bewust vrijgelaten, gereserveerd voor toekomstig
+  bestandsbeheer (slepen om te verplaatsen, selecteren) — zie SE-8.
+
+**Reden:** één klik plus dubbelklik op hetzelfde element vereiste een uitgestelde
+enkele-klik met de dubbelkliktijd, wat de preview traag liet aanvoelen en in de
+praktijk niet betrouwbaar opende. Dubbelklik = preview is direct en voorspelbaar;
+editor-acties zijn expliciet in het contextmenu.
+
+### AD-3 · Conflictafhandeling bij bestandsbewerkingen
+**Datum:** milestone 4 (vooruit vastgelegd) · **Status:** aangenomen · **Scope:** SE-8/SE-9
+
+Voor het toekomstige bestandsbeheer geldt:
+
+- **Eén bestand bestaat al** → **altijd opnieuw vragen**. Er komt bewust géén
+  persistente "altijd overschrijven"-instelling; overschrijven is per keer een
+  expliciete keuze.
+- **Meerdere bestanden verplaatsen/kopiëren** → per conflict vier keuzes:
+  *Bestand overschrijven*, *Alle bestanden overschrijven*, *Dit bestand overslaan*,
+  *Alle bestanden overslaan*. De "Alle …"-keuzes gelden **alleen binnen die ene
+  operatie**, niet persistent. Volledige teksten voor duidelijkheid; knoplabels
+  mogen korter met de volledige tekst als tooltip.
+- **Verwijderen** → met bevestiging, bij voorkeur naar de prullenbak. Deze
+  bevestiging mág wél uitgezet worden ("Niet meer tonen") en is daarna weer aan te
+  zetten via het Instellingen-menu (SE-9). Dit verschilt bewust van overschrijven:
+  verwijderen naar de prullenbak is terug te draaien, overschrijven niet.
+
 ## 12. Werkverdeling
 
 Zie [`UserStories.md`](./UserStories.md) voor de sub-epics en user stories.

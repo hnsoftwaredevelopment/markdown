@@ -52,18 +52,18 @@ Status-legenda: ☐ = todo · ◐ = bezig · ☑ = klaar
 - ☑ **US-3.5** — Als ontwikkelaar wil ik thumbnails cachen voor snelheid.
   *(Vector-render, dus één render dient alle groottes; cache verloopt op
   wijzigingsdatum.)*
-- ☑ **US-3.6** — Als gebruiker wil ik op een preview kunnen klikken om de SVG groot
-  te zien in een popup die ik kan in- en uitzoomen. *(Zoombare overlay: muiswiel,
-  knoppen, slepen om te verschuiven, Esc om te sluiten; blijft messcherp omdat het
-  een vector is.)*
+- ☑ **US-3.6** — Als gebruiker wil ik een preview groot kunnen zien in een popup
+  die ik kan in- en uitzoomen. *(Geopend met **dubbelklik**; zoombare overlay met
+  muiswiel, knoppen en slepen; blijft messcherp omdat het een vector is.)*
 - ☑ **US-3.7** — Als gebruiker wil ik dat een drive-root (bijv. `C:\`) daadwerkelijk
   de root toont en niet de werkmap van de app. *(Regressie: `C:\` mag niet tot
   `C:` worden verkort; `NormalizeFolderPath` + 9 tests.)*
 
-## SE-4 · SVG bewerken
+## SE-4 · SVG openen in editor
 
-- ☑ **US-4.1** — Als gebruiker wil ik met dubbelklik een SVG openen in de gekoppelde
-  applicatie (bijv. Inkscape) via de Windows-shell.
+- ☑ **US-4.1** — Als gebruiker wil ik een SVG openen in de gekoppelde applicatie
+  (bijv. Inkscape) via de Windows-shell. *(Via het contextmenu "Openen"; zie AD-2
+  voor waarom dit niet meer op dubbelklik zit.)*
 - ☑ **US-4.2** — Als gebruiker wil ik een nette melding als er geen app gekoppeld is.
 - ☑ **US-4.3** — Als gebruiker wil ik via rechtermuisknop "Openen met…" / "Tonen in
   Verkenner" als extra opties.
@@ -92,6 +92,46 @@ Status-legenda: ☐ = todo · ◐ = bezig · ☑ = klaar
 - ☐ **US-7.3** — Handmatige testronde over alle features/talen.
 - ☐ **US-7.4** — Echte screenshots vastleggen en in docs verwerken.
 
+## SE-8 · Bestandsbeheer (backlog, nog niet ingepland)
+
+Uit gebruik blijkt behoefte aan minimaal bestandsbeheer binnen de viewer.
+Zie [AD-3](./Epic.md#ad-3--conflictafhandeling-bij-bestandsbewerkingen) voor de
+gekozen aanpak bij naamconflicten en bevestigingen.
+
+- ☐ **US-8.1** — Als gebruiker wil ik een SVG met slepen naar een andere map
+  verplaatsen. *(Hiervoor is de enkele klik/drag gereserveerd.)*
+- ☐ **US-8.2** — Als gebruiker wil ik via het contextmenu een SVG verwijderen,
+  met bevestiging en bij voorkeur naar de prullenbak. De bevestiging heeft een
+  "Niet meer tonen"-optie; weer inschakelbaar via Instellingen (SE-9).
+- ☐ **US-8.3** — Als gebruiker wil ik via het contextmenu een SVG kopiëren
+  (en plakken in een andere map).
+- ☐ **US-8.4** — Als gebruiker wil ik via het contextmenu een SVG hernoemen.
+- ☐ **US-8.5** — Als gebruiker wil ik een nieuwe map kunnen aanmaken.
+- ☐ **US-8.6** — Als gebruiker wil ik dat de tree en preview zich verversen na een
+  bestandsbewerking.
+- ☐ **US-8.7** — Als gebruiker wil ik bij één bestand dat al bestaat, **elke keer
+  opnieuw** gevraagd worden. *(Geen persistente "altijd overschrijven"; standaard
+  is steeds vragen.)*
+- ☐ **US-8.8** — Als gebruiker wil ik bij het verplaatsen/kopiëren van **meerdere**
+  bestanden, per conflict de keuze: **Bestand overschrijven** · **Alle bestanden
+  overschrijven** · **Dit bestand overslaan** · **Alle bestanden overslaan**.
+  *(Volledige tekst voor duidelijkheid; knoplabels mogen korter met de volledige
+  tekst als tooltip. "Alle …" geldt alleen binnen de lopende operatie, niet
+  persistent.)*
+- ☐ **US-8.9** — Als gebruiker wil ik meerdere bestanden kunnen selecteren voor
+  verplaatsen/kopiëren/verwijderen. *(Voorwaarde voor US-8.8.)*
+
+## SE-9 · Instellingen (backlog, nog niet ingepland)
+
+- ☐ **US-9.1** — Als gebruiker wil ik een "Instellingen"-menu/scherm waarin mijn
+  voorkeuren bij elkaar staan.
+- ☐ **US-9.2** — Als gebruiker wil ik mijn taal in Instellingen kunnen kiezen.
+  *(Beslissen: taalkeuze verhuizen uit de toolbar naar Instellingen, of beide.)*
+- ☐ **US-9.3** — Als gebruiker wil ik de verwijder-bevestiging aan/uit kunnen
+  zetten, óók nadat ik eerder "Niet meer tonen" heb gekozen.
+- ☐ **US-9.4** — Als gebruiker wil ik dat instellingen bewaard blijven.
+  *(`SettingsService` bestaat al; uitbreiden met de nieuwe voorkeuren.)*
+
 ---
 
 ## Milestone-overzicht
@@ -100,7 +140,9 @@ Status-legenda: ☐ = todo · ◐ = bezig · ☑ = klaar
 |-----------|-----------|-------------|
 | M1 | SE-1 (deels), SE-6 (deels) | Skeleton + docs + repo-init |
 | M2 | SE-2 | Directory-navigatie |
-| M3 | SE-3 | SVG-preview |
-| M4 | SE-4 | SVG bewerken |
-| M5 | SE-5 | Meertaligheid + in-app help |
+| M3 | SE-3 | SVG-preview + zoom-popup |
+| M4 | SE-4 | SVG openen in editor |
+| M5 | SE-5 | Meertaligheid (grotendeels in M2 gedaan) |
 | M6 | SE-6, SE-7 | Documentatie compleet + afwerking |
+| M7 | SE-9 | Instellingen-menu (taal + bevestigingen) |
+| M8 | SE-8 | Bestandsbeheer |
