@@ -243,3 +243,47 @@ verversen al via het bestaande `Item[]`-signaal van `Loc`.
 
 Zie [`UserStories.md`](./UserStories.md). Eerstvolgend: SE-6 — documentatie met
 echte screenshots, in-app help in de gekozen taal, en de afwerking (SE-7).
+
+
+## In-app help (SE-6)
+
+De Help-knop in de toolbar opent de gebruikersgids van de **actieve taal**. De
+drie gidsen (`docs/user-guide/UserGuide.<taal>.md`) worden als inhoud meegeleverd
+naast de `.exe` (map `Help/`). `HelpService` kiest de gids voor de huidige taal
+(met terugval op nl), zet de Markdown om naar een gestylede HTML-pagina
+(`MarkdownToHtml`), schrijft die naar `%TEMP%\SVGViewer\` en opent 'm in de
+standaardbrowser. Dit werkt volledig offline en hangt niet af van een
+bestandskoppeling voor `.md`. Relatieve afbeeldingspaden in de gids worden
+herschreven naar absolute `file://`-paden, zodat screenshots (later toegevoegd in
+`Help/images/`) meteen laden. `MarkdownToHtml` is een compacte, zelfstandige
+omzetter (koppen, alinea's, vet/cursief, code, lijsten, citaten, links,
+afbeeldingen) — bewust geen volledige CommonMark, wél goed te testen.
+
+## App-icoon (SE-7)
+
+Het venster- en taakbalkicoon worden bij het starten geladen uit
+`Assets\appicon.ico` (via `Content` meegekopieerd naar de uitvoermap); ontbreekt
+het bestand, dan valt de app terug op het standaardicoon. Het `.exe`-icoon
+(`<ApplicationIcon>`) wordt **conditioneel** meegebouwd (`Condition="Exists(...)"`),
+zodat de build blijft werken zolang de illustratie nog niet in `Assets\` staat en
+automatisch activeert zodra dat wel zo is.
+
+
+## Over-dialoog (SE-7)
+
+De over-dialoog (`Views/AboutWindow`) toont het applicatielogo, het versienummer
+(uit de assembly) en een korte beschrijving, plus een donkere strook met het
+HN-Software-logo. Beide logo's zijn ingebakken SVG-resources die via
+`SvgResourceImage` (SharpVectors → `DrawingImage`) worden geladen; ontbreekt het
+publisher-logo, dan verbergt de dialoog die strook netjes. De dialoog opent modaal
+via de knop **Over** in de toolbar. Alle teksten zijn gelokaliseerd (nl/en/de).
+
+
+### Titelbalk-icoon op donkere thema's
+
+De titelbalk en de taakbalk delen normaal één icoon (`Window.Icon`); Windows tekent
+het alleen kleiner in de titelbalk. Op een donker, thema-gekleurd titelbalk valt een
+transparant logo weg. Daarom overschrijft `TitleBarIconFixer` na
+`OnSourceInitialized` alléén het **kleine** icoon via `WM_SETICON` (ICON_SMALL): het
+app-logo op een witte achtergrond. Het **grote** icoon (taakbalk/Alt-Tab) blijft het
+transparante `Window.Icon`. De native icon-handle wordt bij het sluiten opgeruimd.
