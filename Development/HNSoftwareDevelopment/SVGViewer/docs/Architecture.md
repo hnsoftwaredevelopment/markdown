@@ -299,3 +299,12 @@ two-way via `EnumToBooleanConverter` aan de nieuwe `PreviewSize`-enum-property o
 `MainViewModel`, die de bestaande gelokaliseerde keuze (`SelectedPreviewSize`)
 aanstuurt. De icoonkleur volgt de `Foreground` van de knop, zodat de actieve staat
 vanzelf meekleurt.
+
+
+## Toolbar-iconen (SE-7)
+
+Vernieuwen, Annuleren, Instellingen, Help en Over zijn flat icoon-knoppen. De
+glyphs komen uit het Windows-symboolfont **Segoe MDL2 Assets** (⚙ Instellingen
+`E713`, ↻ Vernieuwen `E72C`, ✕ Annuleren `E711`, ❓ Help `E897`, ℹ Over `E946`),
+gedeeld via de `ToolIconButton`-stijl: transparant met een lichte hover, en
+accentkleur bij indrukken. De tekst zit als gelokaliseerde tooltip op elke knop.
