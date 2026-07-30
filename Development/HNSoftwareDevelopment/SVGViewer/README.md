@@ -19,9 +19,15 @@ German).
 - **Multilingual UI** — Dutch (default), English, German, switchable at runtime.
 - **In‑app help** — user guide opens in the currently selected language.
 
-## Screenshot
+## Screenshots
 
-![SVG Viewer main window](TestChecklist%20Nederlands-1.png)
+Main window:
+
+![SVG Viewer main window](docs/images/Screenshot01.png)
+
+Preview window (zoom & pan):
+
+![SVG preview window](docs/images/Screenshot02.png)
 
 ## Tech stack
 
@@ -52,7 +58,7 @@ trial notice) or falls back to the standard WPF controls.
 
 ## Documentation
 
-- User guides: [`docs/user-guide/`](docs/user-guide/) — available in NL / EN / DE.
+- Quick reference: [`docs/user-guide/`](docs/user-guide/) — a short overview in NL / EN / DE (also opened by the in‑app Help button).
 - Design & planning: [`docs/Epic.md`](docs/Epic.md) and
   [`docs/UserStories.md`](docs/UserStories.md).
 
