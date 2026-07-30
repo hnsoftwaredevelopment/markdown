@@ -308,3 +308,43 @@ glyphs komen uit het Windows-symboolfont **Segoe MDL2 Assets** (⚙ Instellingen
 `E713`, ↻ Vernieuwen `E72C`, ✕ Annuleren `E711`, ❓ Help `E897`, ℹ Over `E946`),
 gedeeld via de `ToolIconButton`-stijl: transparant met een lichte hover, en
 accentkleur bij indrukken. De tekst zit als gelokaliseerde tooltip op elke knop.
+
+
+## Taalkeuze met vlaggen (SE-7)
+
+De taalkeuze in het Instellingen-scherm toont per taal een vlag naast de naam. De
+vlaggen zijn zelfgetekende SVG's (NL, DE en een vereenvoudigde Union Jack voor
+Engels) onder `Assets\flags\`, ingebakken als WPF-resource. `LanguageChoice` heeft
+een `Flag`-property die de bijbehorende vlag eenmalig via `SvgResourceImage` laadt
+(op basis van de cultuurcode). De ComboBox gebruikt een `ItemTemplate` met een klein
+omkaderd vlagje plus de taalnaam; dat geldt zowel voor de lijst als voor de selectie.
+
+
+## Eén scan per schijf, gedeeld door beide views (SE-7)
+
+De mappenscan hoort bij de **schijf**, niet bij de view. `MainViewModel` houdt één
+gedeelde `SvgFolderIndex` (`_index`) per gekozen schijf bij. `StartScanAsync` maakt
+een verse index en start één achtergrondscan (`SvgIndexService.BuildIndexAsync`);
+`ProjectView` bouwt `RootNodes` voor het huidige filter uit die index, zónder te
+scannen. Van filter wisselen roept alleen `ProjectView` aan — nooit een nieuwe scan.
+Terwijl de scan loopt werkt `RefreshActiveView` (throttled) de actieve view bij:
+markeringen verversen in "Alles", of `SvgOnlyTreeBuilder.Sync` in "Alleen SVG".
+
+Zo begint de scan niet opnieuw als de gebruiker halverwege van view wisselt; een
+lopende scan blijft beide projecties vullen. Alleen een schijfwissel of Vernieuwen
+start een nieuwe scan (oude wordt geannuleerd). Annuleren stopt de scan maar behoudt
+het tot dan gevondene, en markeert dat als "klaar" zodat view-wissels het hergebruiken.
+
+
+## Foutafhandeling & logging (SE-7)
+
+Onverwachte fouten worden centraal afgevangen in `App`: `DispatcherUnhandledException`
+(UI-thread) logt de fout, toont een nette, gelokaliseerde melding met de logmap en
+houdt de app in de lucht (`Handled = true`); `AppDomain.UnhandledException` en
+`TaskScheduler.UnobservedTaskException` loggen fouten van niet-UI-threads en
+achtergrondtaken. De `Logger` (in `Services`) is bewust licht en dependency-vrij:
+thread-safe, best-effort (logging mag de app nooit laten crashen), schrijft naar
+`%AppData%\SVGViewer\logs\app.log` en roteert naar `app.prev.log` zodra het bestand
+~1 MB passeert. Bestaande stille `catch`-blokken (o.a. `SvgResourceImage`,
+`TitleBarIconFixer`, het openen van de handleiding) loggen nu ook, zodat problemen
+bij gebruikers traceerbaar zijn zonder de werking te verstoren.

@@ -94,7 +94,11 @@ Status-legenda: ☐ = todo · ◐ = bezig · ☑ = klaar
   `.exe`; startup-splash (WPF `SplashScreen`). Over-dialoog toont het app-logo, de
   versie en een korte beschrijving, met een donkere strook voor het HN-Software-
   logo (`Assets\devicon.svg`, de witte variant).)*
-- ☐ **US-7.2** — Foutafhandeling & logging.
+- ☑ **US-7.2** — Foutafhandeling & logging. *(Globale afvang van onverwachte
+  fouten (UI-thread, achtergrondtaken, AppDomain) met een nette melding en verwijzing
+  naar het logbestand; lichte, dependency-vrije `Logger` naar
+  `%AppData%\SVGViewer\logs\app.log` met rotatie bij ~1 MB. Stille catch-blokken
+  loggen nu ook.)*
 - ☐ **US-7.3** — Handmatige testronde over alle features/talen.
 - ☐ **US-7.4** — Echte screenshots vastleggen en in docs verwerken.
 
@@ -107,7 +111,9 @@ Status-legenda: ☐ = todo · ◐ = bezig · ☑ = klaar
   Annuleren. *(Flat icoon-knoppen met Segoe MDL2-glyphs — ⚙ Instellingen, ↻
   Vernieuwen, ✕ Annuleren, en ook ❓ Help en ℹ Over — met gelokaliseerde tooltips;
   kleuren mee met de accentkleur bij hover/klik.)*
-- ☐ **US-7.7** — Talen in het Instellingen-scherm met vlaggen.
+- ☑ **US-7.7** — Talen in het Instellingen-scherm met vlaggen. *(Zelfgetekende
+  SVG-vlaggen NL/EN/DE, ingebakken als resource; de taal-ComboBox toont vlag +
+  naam via een ItemTemplate.)*
 
 ### Navigatie-verbeteringen
 - ☑ **US-7.8** — Als gebruiker wil ik dat **bovenliggende** mappen van een
@@ -123,6 +129,12 @@ Status-legenda: ☐ = todo · ◐ = bezig · ☑ = klaar
 - ☑ **US-7.11** — Als gebruiker wil ik dat de viewer altijd in **Volledig**
   opstart, zodat ik meteen structuur zie; de keuze "Alleen SVG" geldt per sessie
   en wordt niet bewaard.
+- ☑ **US-7.12** — Als gebruiker wil ik dat er **één keer** wordt gescand per
+  schijf, zodat ik tijdens een lopende scan van view kan wisselen (Alles ↔ Alleen
+  SVG) **zonder dat de scan opnieuw begint**. *(De scan hoort bij de schijf, niet
+  bij de view: één gedeelde index; van filter wisselen herprojecteert alleen. Een
+  lopende scan blijft beide views vullen. Alleen bij schijfwissel/Vernieuwen wordt
+  opnieuw gescand; Annuleren behoudt het tot dan gevondene.)*
 
 ## SE-8 · Bestandsbeheer (backlog, nog niet ingepland)
 

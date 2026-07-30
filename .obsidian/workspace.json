@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Development/HNSoftwareDevelopment/SVGViewer/docs/UserStories.md",
+                "file": "Development/HNSoftwareDevelopment/SVGViewer/docs/TestChecklist.nl 1.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "UserStories"
+              "title": "TestChecklist.nl 1"
             }
           }
         ]
@@ -364,10 +364,12 @@
       "modalforms:Edit forms": false
     }
   },
-  "active": "a76ab09dac4b2700",
+  "active": "70113ba83b033f0d",
   "lastOpenFiles": [
-    "Development/HNSoftwareDevelopment/SVGViewer/docs/Epic.md",
+    "Development/HNSoftwareDevelopment/SVGViewer/docs/TestChecklist.nl.md",
+    "Development/HNSoftwareDevelopment/SVGViewer/docs/TestChecklist.nl 1.md",
     "Development/HNSoftwareDevelopment/SVGViewer/docs/UserStories.md",
+    "Development/HNSoftwareDevelopment/SVGViewer/docs/Epic.md",
     "Development/HNSoftwareDevelopment/SVGViewer/docs/user-guide/UserGuide.nl.md",
     "Development/HNSoftwareDevelopment/SVGViewer/docs/Architecture.md",
     "Development/HNSoftwareDevelopment/SVGViewer/README.md",
@@ -394,8 +396,6 @@
     "Development/HNSoftwareDevelopment/Saga/docs/superpowers/plans",
     "Development/HNSoftwareDevelopment/Saga/docs/feature-requests/datagrid-makeover.md",
     "Development/HNSoftwareDevelopment/Saga/docs/superpowers/specs",
-    "Development/HNSoftwareDevelopment/Saga/docs/metadata/saga-standard-metadata-inventory.md",
-    "Development/HNSoftwareDevelopment/Saga/docs/architecture/settings-behavior.md",
     "Development/HNSoftwareDevelopment/Saga/docs/superpowers",
     "Development/HNSoftwareDevelopment/Saga/docs/feature-requests",
     "Development/HNSoftwareDevelopment/Saga/docs/metadata",
