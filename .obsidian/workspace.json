@@ -31,7 +31,8 @@
               "title": "TestChecklist Nederlands"
             }
           }
-        ]
+        ],
+        "stacked": true
       }
     ],
     "direction": "vertical"
@@ -364,7 +365,7 @@
       "modalforms:Edit forms": false
     }
   },
-  "active": "70113ba83b033f0d",
+  "active": "a76ab09dac4b2700",
   "lastOpenFiles": [
     "Development/HNSoftwareDevelopment/SVGViewer/docs/TestChecklist.nl.md",
     "Development/HNSoftwareDevelopment/SVGViewer/docs/TestChecklist Nederlands.md",
