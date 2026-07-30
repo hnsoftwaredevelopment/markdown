@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Development/HNSoftwareDevelopment/SVGViewer/docs/TestChecklist.nl 1.md",
+                "file": "Development/HNSoftwareDevelopment/SVGViewer/docs/TestChecklist Nederlands.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "TestChecklist.nl 1"
+              "title": "TestChecklist Nederlands"
             }
           }
         ]
@@ -367,7 +367,7 @@
   "active": "70113ba83b033f0d",
   "lastOpenFiles": [
     "Development/HNSoftwareDevelopment/SVGViewer/docs/TestChecklist.nl.md",
-    "Development/HNSoftwareDevelopment/SVGViewer/docs/TestChecklist.nl 1.md",
+    "Development/HNSoftwareDevelopment/SVGViewer/docs/TestChecklist Nederlands.md",
     "Development/HNSoftwareDevelopment/SVGViewer/docs/UserStories.md",
     "Development/HNSoftwareDevelopment/SVGViewer/docs/Epic.md",
     "Development/HNSoftwareDevelopment/SVGViewer/docs/user-guide/UserGuide.nl.md",

@@ -3,18 +3,18 @@
 Loop deze lijst af in de echte app. Vink af wat werkt, noteer afwijkingen.
 Herhaal de kernpaden in **alle drie de talen** (NL/EN/DE).
 
-- App-versie getest: `__________`
-- Datum / tester: `__________`
-- Windows-thema tijdens test (licht/donker): `__________`
+- App-versie getest: `2026.7.30.0`
+- Datum / tester: `30-07-2026 / HN`
+- Windows-thema tijdens test (licht/donker): `licht en donker`
 
 > Tip: leg tijdens het testen meteen de screenshots vast voor US-7.4
 > (PNG's in `docs\images\`): hoofdvenster (Volledig én Alleen SVG), preview met
 > thumbnails, zoomviewer, Instellingen met vlaggen, en de Over-dialoog.
 
 ## 1. Opstarten
-- [ ] Splashscreen verschijnt bij het starten en vervaagt zodra het venster laadt.
-- [ ] De app opent in de **laatst gekozen taal**.
-- [ ] De laatst gekozen schijf is voorgeselecteerd (indien eerder gekozen).
+- [x] Splashscreen verschijnt bij het starten en vervaagt zodra het venster laadt. ✅ 2026-07-30
+- [x] De app opent in de **laatst gekozen taal**. ✅ 2026-07-30
+- [x] De laatst gekozen schijf is voorgeselecteerd (indien eerder gekozen). ✅ 2026-07-30
 - [ ] Logbestand bestaat: `%AppData%\SVGViewer\logs\app.log` bevat een regel
       `... [INFO] SVG Viewer starting (v...)`. *(Bewijs dat logging werkt, zonder fout.)*
 
