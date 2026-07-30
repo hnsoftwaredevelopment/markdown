@@ -366,6 +366,11 @@
   },
   "active": "70113ba83b033f0d",
   "lastOpenFiles": [
+    "Development/HNSoftwareDevelopment/SVGViewer/docs/images/Screenshot02.png",
+    "Development/HNSoftwareDevelopment/SVGViewer/docs/images/Screenshot01.png",
+    "Development/HNSoftwareDevelopment/SVGViewer/docs/user-guide/QuickReference.nl.md",
+    "Development/HNSoftwareDevelopment/SVGViewer/docs/user-guide/QuickReference.en.md",
+    "Development/HNSoftwareDevelopment/SVGViewer/docs/user-guide/QuickReference.de.md",
     "Development/HNSoftwareDevelopment/SVGViewer/docs/images/TestChecklist Nederlands-1.png",
     "Development/HNSoftwareDevelopment/SVGViewer/docs/TestChecklist.nl.md",
     "Development/HNSoftwareDevelopment/SVGViewer/docs/TestChecklist Nederlands.md",
@@ -390,9 +395,6 @@
     "Development/HNSoftwareDevelopment/Saga/docs/manual-tests/milestone-6-checklist.md",
     "Development/HNSoftwareDevelopment/Saga/docs/manual-tests/milestone-7-checklist.md",
     "Development/HNSoftwareDevelopment/Saga/docs/manual-tests/milestone-8-checklist.md",
-    "Development/HNSoftwareDevelopment/Saga/docs/superpowers/feature-requests/duplicate-merge.md",
-    "Development/HNSoftwareDevelopment/Saga/docs/superpowers/plans/2026-07-10-saga-milestone-4-metadata-settings-foundation.md",
-    "Development/HNSoftwareDevelopment/Saga/docs/superpowers/specs/2026-07-10-saga-milestone-4-metadata-settings-design.md",
     "Development/HNSoftwareDevelopment/Saga/docs/superpowers/feature-requests",
     "Development/HNSoftwareDevelopment/Saga/docs/superpowers/plans",
     "Development/HNSoftwareDevelopment/Saga/docs/superpowers/specs",
@@ -411,8 +413,6 @@
     "attachments/BT1-2161-3.png",
     "attachments/BT1-2161-2.png",
     "attachments/BT1-2161-1.png",
-    "attachments/fcaf64b75c984e73a82d68d6eb782f6f.png",
-    "attachments/f9ccbdaa39a74fb89f31f09909f1621d.png",
-    "attachments/f23e51e92bc0415da4e3adaf2350882b.png"
+    "attachments/fcaf64b75c984e73a82d68d6eb782f6f.png"
   ]
 }
