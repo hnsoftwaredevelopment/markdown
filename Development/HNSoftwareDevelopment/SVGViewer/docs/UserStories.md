@@ -148,21 +148,39 @@ Status-legenda: ☐ = todo · ◐ = bezig · ☑ = klaar
   lopende scan blijft beide views vullen. Alleen bij schijfwissel/Vernieuwen wordt
   opnieuw gescand; Annuleren behoudt het tot dan gevondene.)*
 
-## SE-8 · Bestandsbeheer (backlog, nog niet ingepland)
+## SE-8 · Bestandsbeheer (in uitvoering)
 
 Uit gebruik blijkt behoefte aan minimaal bestandsbeheer binnen de viewer.
 Zie [AD-3](./Epic.md#ad-3--conflictafhandeling-bij-bestandsbewerkingen) voor de
 gekozen aanpak bij naamconflicten en bevestigingen.
 
-- ☐ **US-8.1** — Als gebruiker wil ik een SVG met slepen naar een andere map
-  verplaatsen. *(Hiervoor is de enkele klik/drag gereserveerd.)*
-- ☐ **US-8.2** — Als gebruiker wil ik via het contextmenu een SVG verwijderen,
+- ☑ **US-8.1** — Als gebruiker wil ik een SVG naar een andere map verplaatsen.
+  *(Twee sporen. **Knippen/plakken**: rechtsklik → "Knippen" markeert het bestand op
+  het klembord met een verplaats-effect; "Plakken" (op een map in de boom óf in de
+  geopende icon-view) verplaatst het. **Drag & drop**: sleep een SVG uit de icon-view
+  op een mapnode in de boom → verplaatsen (met **Ctrl** = kopiëren). Beide via
+  `FileOperationService.Move/Copy`; conflicten worden per bestand gevraagd (US-8.7)
+  en bron- en doelmap verversen. Geknipt-maar-nooit-geplakt laat het bestand staan.)*
+- ☑ **US-8.2** — Als gebruiker wil ik via het contextmenu een SVG verwijderen,
   met bevestiging en bij voorkeur naar de prullenbak. De bevestiging heeft een
   "Niet meer tonen"-optie; weer inschakelbaar via Instellingen (SE-9).
-- ☐ **US-8.3** — Als gebruiker wil ik via het contextmenu een SVG kopiëren
-  (en plakken in een andere map).
-- ☐ **US-8.4** — Als gebruiker wil ik via het contextmenu een SVG hernoemen.
-- ☐ **US-8.5** — Als gebruiker wil ik een nieuwe map kunnen aanmaken.
+  *(Contextmenu "Verwijderen" → eigen gelokaliseerde bevestiging met "Niet meer
+  vragen" (zet `ConfirmBeforeDelete` uit); verwijdert naar de prullenbak via
+  `FileOperationService`; preview en markering/telling verversen meteen.)*
+- ☑ **US-8.3** — Als gebruiker wil ik via het contextmenu een SVG kopiëren
+  (en plakken in een andere map). *(SVG-contextmenu "Kopiëren" zet het bestand op
+  het Windows-klembord; rechtsklik op een map → "Plakken" kopieert het erin. Werkt
+  ook van/naar de Verkenner. Bestaat de naam al in de doelmap → elke keer vragen
+  (US-8.7); plakken in dezelfde map maakt een uniek "(2)"-duplicaat.)*
+- ☑ **US-8.4** — Als gebruiker wil ik via het contextmenu een SVG hernoemen.
+  *(Contextmenu "Hernoemen" → dialoog met de nieuwe naam (extensie blijft behouden);
+  bestaat de doelnaam al dan wordt **elke keer** om overschrijven gevraagd (US-8.7);
+  daarna ververst de preview. Ongeldige namen worden netjes gemeld.)*
+- ☑ **US-8.5** — Als gebruiker wil ik een nieuwe map kunnen aanmaken.
+  *(Rechtsklik op een map in de boom → "Nieuwe map" → naamdialoog; de submap wordt
+  aangemaakt via `FileOperationService.CreateFolder` en de boom klapt open zodat de
+  nieuwe map zichtbaar is. Bestaat de naam al of is 'ie ongeldig, dan een nette
+  melding. In "Alleen SVG" verschijnt een lege nieuwe map pas als er SVG's in staan.)*
 - ☐ **US-8.6** — Als gebruiker wil ik dat de tree en preview zich verversen na een
   bestandsbewerking.
 - ☐ **US-8.7** — Als gebruiker wil ik bij één bestand dat al bestaat, **elke keer

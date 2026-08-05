@@ -359,3 +359,100 @@ gebruikers die knop intuïtief gebruiken om de preview te sluiten. Als eigen ven
 sluit de X (en Esc, en de Sluiten-knop in de viewer) alleen de preview. Het venster
 wordt niet-modaal geopend met de hoofdvenster als eigenaar; `SvgZoomViewer.Close()`
 sluit simpelweg zijn host-venster via `Window.GetWindow(this)`.
+
+
+## Bestandsbeheer: verwijderen (SE-8)
+
+Bestandsacties lopen via `FileOperationService` (achter `IFileOperationService`),
+dat uitkomsten teruggeeft (`Success` / `FileNotFound` / `Failed`) en fouten logt in
+plaats van te gooien. Verwijderen gaat naar de **prullenbak** (omkeerbaar) via
+`Microsoft.VisualBasic.FileIO.FileSystem.DeleteFile` met `RecycleOption.SendToRecycleBin`
+en zonder Windows-eigen bevestiging (`UIOption.OnlyErrorDialogs`).
+
+De bevestiging is onze eigen, gelokaliseerde dialoog (`Views/ConfirmDeleteWindow`,
+achter `IDeleteConfirmer`) met een **"Niet meer vragen"**-optie die
+`ConfirmBeforeDelete` (SE-9) uitzet; staat die uit, dan wordt niet gevraagd. Na een
+succesvolle verwijdering haalt `MainViewModel` het bestand uit de previewlijst,
+werkt de SVG-telling van de map in de index bij (`SvgFolderIndex.SetSvgCount`) en
+ververst de markeringen — een gerichte refresh zonder volledige herscan.
+
+
+## Bestandsbeheer: hernoemen (SE-8)
+
+`FileOperationService.Rename(path, newName, overwrite)` hernoemt binnen dezelfde map
+en geeft uitkomsten terug: `Success`, `FileNotFound`, `InvalidName` (lege naam of
+ongeldige tekens), `TargetExists` (doelnaam bestaat al en `overwrite` is false) en
+`Failed`. De naam-invoer gaat via `Views/RenameFileWindow` (achter `IRenameDialog`),
+dat de extensie als vaste suffix toont en behoudt, zodat het resultaat altijd een
+geldige bestandsnaam van hetzelfde type is.
+
+Conform [AD-3]/US-8.7 wordt bij één bestand **elke keer** om bevestiging gevraagd als
+de doelnaam al bestaat (geen persistente "altijd overschrijven"). Die ja/nee-vraag
+loopt via `IUserNotifier.Confirm`. Na een succesvolle hernoeming herlaadt
+`MainViewModel` de preview van de geselecteerde map, zodat de nieuwe naam en
+thumbnail verschijnen; de telling verandert niet.
+
+
+## Bestandsbeheer: nieuwe map (SE-8)
+
+`FileOperationService.CreateFolder(parentPath, name)` maakt een submap en geeft
+`Success`, `InvalidName`, `TargetExists` (naam al in gebruik) of `Failed` terug. De
+actie zit in het rechtsklik-menu van een **map in de boom** (`INewFolderDialog` /
+`Views/NewFolderWindow` voor de naam). Na aanmaken herleest de betreffende node zijn
+kinderen via `DirectoryNodeViewModel.ReloadChildren` en klapt open, zodat de nieuwe
+map meteen zichtbaar is — opnieuw een gerichte verversing zonder herscan. In het
+filter "Alleen SVG" verschijnt een lege nieuwe map pas zodra er SVG's in staan
+(consistent met de bedoeling van dat filter).
+
+
+## Bestandsbeheer: kopiëren/plakken (SE-8)
+
+Kopiëren gebruikt het **Windows-klembord** (achter `IFileClipboard`), zodat
+bestanden ook van/naar de Verkenner werken. "Kopiëren" op een SVG zet het bestand op
+het klembord; "Plakken" op een map-node kopieert het klembord-bestand erin via
+`FileOperationService.Copy`. Conform US-8.7 wordt bij een naamconflict in de doelmap
+**elke keer** om overschrijven gevraagd (`IUserNotifier.Confirm`); plakken in de
+eigen map van het bestand maakt bewust een uniek `(2)`-duplicaat in plaats van te
+vragen. Na een geslaagde plak-actie werkt `MainViewModel` de telling/markering van
+de doelmap bij en herlaadt, als dat de geselecteerde map is, de preview.
+
+
+## Bestandsbeheer: knippen/verplaatsen (SE-8)
+
+Naast kopiëren kan een SVG worden **geknipt** (verplaatsen). "Knippen" zet het
+bestand op het Windows-klembord mét de standaard `Preferred DropEffect` = *move*
+(`IFileClipboard.SetMove`); het bestand wordt daarbij **niet** aangeraakt. Pas bij
+"Plakken" leest `MainViewModel` de klembord-inhoud én -operatie
+(`IFileClipboard.GetContents`): bij *move* verplaatst het via
+`FileOperationService.Move`, anders kopieert het. Zo blijft een geknipt-maar-nooit-
+geplakt bestand gewoon staan. Naamconflicten worden per bestand gevraagd (US-8.7);
+verplaatsen binnen dezelfde map is een no-op. Na een geslaagde verplaatsing wordt het
+klembord geleegd (de knip is "verbruikt") en verversen zowel de **doelmap** als de
+**bronmap(pen)** hun telling/markering — bronnodes worden opgezocht met een kleine
+`FindNode`-helper. Dit spoor werkt ook samen met knippen/plakken in de Verkenner. Een
+tweede, visuele manier (drag & drop) staat nog op de rol.
+
+
+## Plakken in de geopende map (SE-8)
+
+Naast "Plakken" op een **map in de boom** (logisch als je vooraf een doel kiest), kan
+nu ook rechtsgeklikt worden op de **lege ruimte van het preview-paneel** om in de
+**nu-geopende map** te plakken. Dit sluit aan bij de natuurlijke knip/plak-flow: map
+openen, tussen de iconen rechtsklikken, plakken. Het contextmenu zit op de witte
+preview-`Grid`; rechtsklik op een thumbnail toont het bestandsmenu, rechtsklik op de
+lege ruimte (die transparant doorvalt naar de `Grid`) toont "Plakken", dat plakt in
+`SelectedNode`. Werkt ook in een lege map — juist dán wil je plakken. De boom-variant
+blijft bestaan en is de aangewezen manier voor drag & drop (later).
+
+
+## Bestandsbeheer: verplaatsen via drag & drop (SE-8)
+
+Een SVG kan uit de icon-view **of de detaillijst** naar een mapnode in de boom
+worden **gesleept**. De sleep start pas als de muis voorbij de systeem-sleepdrempel beweegt
+(`Thumbnail_MouseMove`), zodat een klik/dubbelklik (preview openen) niet in de weg
+zit. De sleep draagt een standaard `FileDrop` (`DoDragDrop`), dus je kunt ook naar de
+Verkenner slepen. Mapnodes accepteren de drop (`AllowDrop`, `Folder_DragOver` /
+`Folder_Drop`): standaard **verplaatsen**, met **Ctrl** ingedrukt **kopiëren** — de
+cursor toont het effect. De code-behind roept `MainViewModel.DropFiles` aan, die
+dezelfde `TransferInto`-logica gebruikt als plakken (conflictvraag per bestand,
+verversing van bron- en doelmap). Zo delen knippen/plakken en drag & drop één pad.
