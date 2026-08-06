@@ -1,5 +1,11 @@
-# ComboBox
-\[TOC\]
+---
+category: WPF
+tags:
+  - combobox
+---
+```insta-toc
+
+```
 
 In this part, we’re looking at the ComboBox control in WPF. Starting from the simplest example to more complex ones.
 

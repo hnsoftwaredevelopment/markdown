@@ -1,5 +1,10 @@
-# Add buttons from code
-Add buttons from code
+---
+category: WPF
+tags:
+  - buttons
+  - code
+  - code-behind
+---
 
 To add buttons dynamicly to a WPF you can use:
 

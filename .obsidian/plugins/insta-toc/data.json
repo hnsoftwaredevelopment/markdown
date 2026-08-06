@@ -17,7 +17,7 @@
     "indentSize": 2,
     "tocTitle": "Inhoudsopgave",
     "tocTitleLevel": 1,
-    "updateDelay": 2000
+    "updateDelay": 500
   },
   "tocBlockCollapseState": {},
   "tocFoldState": {}

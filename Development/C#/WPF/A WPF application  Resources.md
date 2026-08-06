@@ -1,5 +1,12 @@
-# A WPF application  Resources
-A WPF application: Resources
+---
+category: WPF
+tags:
+  - resource
+  - resources
+  - library
+  - StaticResource
+  - DynamicResource
+---
 
 ## A WPF application: Resources
 

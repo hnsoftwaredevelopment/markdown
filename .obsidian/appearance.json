@@ -36,5 +36,6 @@
   "interfaceFontFamily": "",
   "showViewHeader": true,
   "nativeMenus": true,
-  "monospaceFontFamily": ""
+  "monospaceFontFamily": "",
+  "baseFontSizeAction": true
 }
