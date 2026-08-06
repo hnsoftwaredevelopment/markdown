@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Development/Projects/Jira/BT1-2321/BT1-2321-exploratory-testing-analyse.md",
+                "file": "Development/Projects/Jira/BT2-3028/BT2-3028-gerelateerde-tickets-analyse.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "BT1-2321-exploratory-testing-analyse"
+              "title": "BT2-3028-gerelateerde-tickets-analyse"
             }
           }
         ]
@@ -368,15 +368,18 @@
   },
   "active": "70113ba83b033f0d",
   "lastOpenFiles": [
+    "Development/HNSoftwareDevelopment/SVGViewer/docs/UserStories.md",
+    "Development/Projects/Jira/BT2-3028/BT2-3028-gerelateerde-tickets-analyse.md",
+    "Development/Projects/Jira/BT2-3028",
+    "Development/HNSoftwareDevelopment/SVGViewer/docs/TestChecklist.nl.md",
     "Development/HNSoftwareDevelopment/SVGViewer/docs/TestChecklist Nederlands.md",
+    "Development/Projects/Jira/BT1-2321/BT1-2321-exploratory-testing-analyse.md",
     "Development/HNSoftwareDevelopment/SVGViewer/docs/images/Screenshot02.png",
     "Development/HNSoftwareDevelopment/SVGViewer/docs/images/Screenshot01.png",
     "Development/HNSoftwareDevelopment/SVGViewer/docs/user-guide/QuickReference.nl.md",
     "Development/HNSoftwareDevelopment/SVGViewer/docs/user-guide/QuickReference.en.md",
     "Development/HNSoftwareDevelopment/SVGViewer/docs/user-guide/QuickReference.de.md",
     "Development/HNSoftwareDevelopment/SVGViewer/docs/images/TestChecklist Nederlands-1.png",
-    "Development/HNSoftwareDevelopment/SVGViewer/docs/TestChecklist.nl.md",
-    "Development/HNSoftwareDevelopment/SVGViewer/docs/UserStories.md",
     "Development/HNSoftwareDevelopment/SVGViewer/docs/Epic.md",
     "Development/HNSoftwareDevelopment/SVGViewer/docs/user-guide/UserGuide.nl.md",
     "Development/HNSoftwareDevelopment/SVGViewer/docs/Architecture.md",
@@ -396,7 +399,6 @@
     "Development/HNSoftwareDevelopment/Saga/docs/manual-tests/milestone-5-checklist.md",
     "Development/HNSoftwareDevelopment/Saga/docs/manual-tests/milestone-6-checklist.md",
     "Development/HNSoftwareDevelopment/Saga/docs/manual-tests/milestone-7-checklist.md",
-    "Development/HNSoftwareDevelopment/Saga/docs/manual-tests/milestone-8-checklist.md",
     "Development/HNSoftwareDevelopment/Saga/docs/superpowers/feature-requests",
     "Development/HNSoftwareDevelopment/Saga/docs/superpowers/plans",
     "Development/HNSoftwareDevelopment/Saga/docs/superpowers/specs",
@@ -406,7 +408,6 @@
     "Development/HNSoftwareDevelopment/Saga/docs/manual-tests",
     "Development/HNSoftwareDevelopment/Saga/docs/architecture",
     "Development/HNSoftwareDevelopment/Saga/qa",
-    "Development/HNSoftwareDevelopment/Saga/docs",
     "Untitled.canvas",
     "attachments/profile_pictures/profile-2026-07-22-15-13-10.png.svg",
     "attachments/Epic-1.svg",
