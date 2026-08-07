@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Development/Projects/Jira/BT2-3028/BT2-3028-gerelateerde-tickets-analyse.md",
+                "file": "Development/Projects/FontManager/Architectuur en Ontwerp.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "BT2-3028-gerelateerde-tickets-analyse"
+              "title": "Architectuur en Ontwerp"
             }
           }
         ]
@@ -368,8 +368,8 @@
   },
   "active": "70113ba83b033f0d",
   "lastOpenFiles": [
-    "Development/HNSoftwareDevelopment/SVGViewer/docs/UserStories.md",
     "Development/Projects/Jira/BT2-3028/BT2-3028-gerelateerde-tickets-analyse.md",
+    "Development/HNSoftwareDevelopment/SVGViewer/docs/UserStories.md",
     "Development/Projects/Jira/BT2-3028",
     "Development/HNSoftwareDevelopment/SVGViewer/docs/TestChecklist.nl.md",
     "Development/HNSoftwareDevelopment/SVGViewer/docs/TestChecklist Nederlands.md",
