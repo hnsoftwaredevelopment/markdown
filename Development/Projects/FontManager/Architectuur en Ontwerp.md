@@ -23,6 +23,7 @@ Dit document beschrijft de architectuur en het ontwerp vóórdat er code wordt g
 5. Drie talen: Nederlands (standaard), Engels, Duits — opgeslagen in ResX-bibliotheken, direct te wisselen in de app.
 6. Meerdere kleurthema's: donker, licht, rood, blauw, groen, lime, etc. — te wisselen zonder herstart.
 7. Moderne, verzorgde UI die een sterke eerste indruk maakt.
+8. Geïntegreerde Character map
 
 ## 3. Technologiekeuze
 
@@ -59,7 +60,7 @@ FontManager/
 └─ docs/                          → Kopie van ontwerpdocumenten (gespiegeld vanuit Obsidian)
 ```
 
-Namespace-root: `HNSoftware.FontManager` (consistent met je overige HNSoftware-projecten).
+Namespace-root: `FontManager` (consistent met je overige HNSoftware-projecten).
 
 ## 5. Datamodel
 
