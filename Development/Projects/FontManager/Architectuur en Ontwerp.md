@@ -23,7 +23,6 @@ Dit document beschrijft de architectuur en het ontwerp vóórdat er code wordt g
 5. Drie talen: Nederlands (standaard), Engels, Duits — opgeslagen in ResX-bibliotheken, direct te wisselen in de app.
 6. Meerdere kleurthema's: donker, licht, rood, blauw, groen, lime, etc. — te wisselen zonder herstart.
 7. Moderne, verzorgde UI die een sterke eerste indruk maakt.
-8. Geïntegreerde Character map
 
 ## 3. Technologiekeuze
 
@@ -60,7 +59,7 @@ FontManager/
 └─ docs/                          → Kopie van ontwerpdocumenten (gespiegeld vanuit Obsidian)
 ```
 
-Namespace-root: `FontManager` (consistent met je overige HNSoftware-projecten).
+Namespace-root: `FontManager` (op verzoek aangepast, zonder `HNSoftware.`-prefix).
 
 ## 5. Datamodel
 
@@ -181,6 +180,21 @@ Font-vergelijking naast elkaar, exporteren van een projectoverzicht (bv. naar PD
 - Deze cloud-sessie kan de C#/XAML-code schrijven maar niet bouwen/uitvoeren (geen Windows/.NET-runtime met echte fonts hier) — bouwen en testen gebeurt door jou op je eigen machine (Visual Studio 2022 / .NET 8 SDK), met de bestanden rechtstreeks in `C:\DevOps\hnsoftwaredevelopment\FontManager`.
 - Naamgeving/mapstructuur is afgestemd op je bestaande HNSoftware-projecten; laat het weten als je een andere indeling gewend bent.
 
-## 12. Volgende stap
+## 12. Status
 
-Na akkoord op dit document: aanmaken van de solution-skeleton (projecten, NuGet-referenties, lege Views/ViewModels, resx-bestanden met basissleutels, thema-dictionaries) rechtstreeks in `C:\DevOps\hnsoftwaredevelopment\FontManager`, gevolgd door de implementatie in de volgorde van de fasering in §10.
+**Fase 1 is gebouwd** (2026-08-07) rechtstreeks in `C:\DevOps\hnsoftwaredevelopment\FontManager`:
+
+- Solution met `FontManager.Core` (modellen, fontdetectie via WPF `Fonts.SystemFontFamilies` + registry, per-gebruiker install/verwijderen via P/Invoke, JSON-instellingen), `FontManager.App` (WPF-UI, MVVM met CommunityToolkit.Mvvm) en `FontManager.Tests` (xUnit).
+- Fontlijst met naam gerenderd in het eigen font, status-badge, en een detailpaneel met pangram, cijfers, leestekens, diakritische tekens, vrij invoerveld en lettergrootte-schuifregelaar — in de drie talen.
+- ResX-vertalingen (`Strings.resx` = Nederlands/standaard, `Strings.en-US.resx`, `Strings.de-DE.resx`) met live taalwissel via een `LocalizationManager` + `{loc:Loc ...}` markup-extensie (geen herstart nodig).
+- Twee kleurthema's (Licht/Donker) als losse `ResourceDictionary`-bestanden, verwisselbaar zonder herstart via `ThemeManager`.
+- Installeren/verwijderen van `.ttf`/`.otf` voor de huidige gebruiker (geen adminrechten).
+
+Bewuste vereenvoudigingen in Fase 1 (zie ook `README.md` in de repo):
+
+- Instellingen (taal/thema) staan in een klein JSON-bestand (`%AppData%\FontManager\settings.json`) in plaats van meteen in SQLite; de database volgt in Fase 2 zodra tags/categorieën/projecten/mappen worden toegevoegd.
+- Geen WPF-UI/Fluent-NuGet-afhankelijkheid; de moderne look komt uit een eigen, compacte `Styles.xaml` (afgeronde hoeken, accentkleur, hover-states) om het risico op build-problemen te beperken zonder deze sessie te kunnen compileren. WPF-UI kan in Fase 3 alsnog worden overwogen voor verdere polish.
+- Systeembrede fonts worden getoond maar kunnen nog niet verwijderd worden (adminrechten vereist) — volgt in Fase 3.
+- Nog geen categorisatie, tags, projectkoppeling of mappenoverzicht — dat is Fase 2.
+
+Volgende stap: Fase 2 (categorisatie met subcategorieën, tags, projecten, mappenoverzicht/watched directories) op basis van dit fundament, inclusief de overstap naar SQLite voor de nieuwe entiteiten.
