@@ -6,6 +6,7 @@
   "effortLevel": "high",
   "serviceTier": "default",
   "enableAutoTitleGeneration": true,
+  "titleGenerationLocale": "",
   "titleGenerationModel": "",
   "excludedTags": [],
   "mediaFolder": "",
@@ -24,6 +25,7 @@
   "locale": "en",
   "providerConfigs": {
     "claude": {
+      "enabled": true,
       "safeMode": "acceptEdits",
       "cliPath": "",
       "cliPathsByHost": {},
@@ -31,6 +33,7 @@
       "enableChrome": false,
       "enableBangBash": false,
       "customModels": "",
+      "defaultModel": "opus",
       "lastModel": "haiku",
       "modelEnvironmentType": "",
       "titleModelEnvironmentType": "",
@@ -43,20 +46,21 @@
       "cliPath": "",
       "cliPathsByHost": {},
       "customModels": "",
+      "discoveredModels": [],
+      "modelAliases": {},
+      "visibleModels": null,
+      "enableUltraEffort": false,
       "reasoningSummary": "detailed",
       "environmentVariables": "",
-      "environmentHash": "",
+      "environmentHash": "runtime-input:v1:ed54f4f5238abeec7f65a5da1e468c9a639e157a7d1c7753b53f54ba1196e8a0",
+      "catalogTimestamp": 0,
+      "catalogFingerprint": "",
       "installationMethodsByHost": {
         "device:6be92c70-f126-4170-8490-16a861cd4ecf": "native-windows",
         "device:341f1f04-17c0-490d-bcbc-8a70dd211807": "native-windows",
         "device:3c4c22f9-96c5-48ef-8fde-bc16058f2c69": "native-windows"
       },
-      "wslDistroOverridesByHost": {},
-      "discoveredModels": [],
-      "modelAliases": {},
-      "visibleModels": null,
-      "catalogTimestamp": 0,
-      "catalogFingerprint": ""
+      "wslDistroOverridesByHost": {}
     },
     "opencode": {
       "cliPath": "",
@@ -81,26 +85,52 @@
       "preferredThinkingByModel": {},
       "toolMode": "all",
       "visibleModels": []
+    },
+    "grok": {
+      "catalogsByHost": {},
+      "cliPath": "",
+      "cliPathsByHost": {},
+      "enabled": false,
+      "environmentHash": "",
+      "environmentVariables": "",
+      "modelAliases": {},
+      "planBasePermissionMode": "normal",
+      "preferredReasoningByModel": {},
+      "visibleModels": null
     }
   },
   "settingsProvider": "claude",
+  "lastSelectedChatModel": {
+    "providerId": "claude",
+    "model": "haiku"
+  },
   "savedProviderModel": {
-    "claude": "haiku"
+    "claude": "haiku",
+    "codex": "haiku"
   },
   "savedProviderEffort": {
-    "claude": "high"
+    "claude": "high",
+    "codex": "high"
   },
   "savedProviderServiceTier": {},
   "savedProviderThinkingBudget": {},
   "savedProviderPermissionMode": {
-    "claude": "yolo"
+    "claude": "yolo",
+    "codex": "yolo"
   },
   "pendingProviderSessionInvalidations": {},
   "lastCustomModel": "",
-  "maxTabs": 3,
+  "maxWarmAgentProcesses": 5,
   "enableAutoScroll": true,
   "deferMathRenderingDuringStreaming": true,
   "expandFileEditsByDefault": false,
   "chatViewPlacement": "right-sidebar",
-  "hiddenProviderCommands": {}
+  "enableDualPane": true,
+  "enableFilePane": true,
+  "dualPaneSide": "right",
+  "sessionManagerOrganization": "list",
+  "sessionManagerSort": "last-updated",
+  "pinnedLinkedNotePaths": [],
+  "hiddenProviderCommands": {},
+  "maxTabs": 3
 }

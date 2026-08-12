@@ -50,6 +50,26 @@
   color: var(--text-faint);
 }
 
+/* Live Preview widget: render inside the editor with the interface font
+   (the CM content font may differ), with a little breathing room. */
+.smart-table-lp {
+  margin: 6px 0;
+}
+.cm-editor .smart-table {
+  font-family: var(--font-interface);
+}
+/* Suppress Obsidian's on-hover block outline / edit affordance around the
+   widget in Live Preview (the grid keeps its own border). */
+.cm-editor .smart-table-lp {
+  outline: none;
+}
+.markdown-source-view .cm-embed-block:has(.smart-table-lp) {
+  box-shadow: none !important;
+}
+.markdown-source-view .cm-embed-block:has(.smart-table-lp) .edit-block-button {
+  display: none !important;
+}
+
 /* Grid */
 .smart-table-wrap {
   overflow-x: auto;
@@ -179,18 +199,30 @@ body.smart-table-resizing {
   height: 15px;
 }
 
-/* Filter row */
+/* Filter row — a distinct filter bar, clearly not a data row: a tinted strip
+   separated from the header, with each control styled as a search field. */
+.smart-table-filter-row th {
+  background: var(--background-secondary);
+  border-top: 1px solid var(--st-border);
+  box-shadow: inset 0 2px 0 -1px var(--background-modifier-border);
+}
 .smart-table-filter-input {
-  width: 100%;
-  border: none;
-  background: transparent;
-  padding: 4px 8px;
+  width: calc(100% - 12px);
+  margin: 5px 6px;
+  border: 1px solid var(--st-border);
+  border-radius: 5px;
+  background: var(--background-primary);
+  padding: 3px 7px;
   font-size: var(--font-ui-smaller);
   color: var(--text-normal);
 }
+.smart-table-filter-input::placeholder {
+  color: var(--text-faint);
+}
 .smart-table-filter-input:focus {
   outline: none;
-  background: var(--background-modifier-hover);
+  border-color: var(--text-accent);
+  box-shadow: 0 0 0 1px var(--text-accent);
 }
 select.smart-table-filter-input {
   cursor: pointer;
@@ -198,13 +230,14 @@ select.smart-table-filter-input {
 .smart-table-filter-pair {
   display: flex;
   gap: 6px;
-  padding: 0 4px;
+  padding: 0 6px;
 }
 .smart-table-filter-pair .smart-table-filter-input {
   flex: 1;
   width: auto;
   min-width: 0;
-  padding-inline: 4px;
+  margin: 5px 0;
+  padding-inline: 5px;
 }
 
 /* Body cells */
@@ -236,6 +269,84 @@ select.smart-table-filter-input {
   margin: 6px 8px;
 }
 
+/* URL cells: an editable field with an "open" icon that shows for valid links. */
+.smart-table-url {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+.smart-table-url-input {
+  flex: 1;
+  min-width: 0;
+  color: var(--text-accent);
+  text-overflow: ellipsis;
+}
+.smart-table-url.is-invalid .smart-table-url-input {
+  color: var(--text-error);
+}
+/* Rendered Markdown-link value: [Label](url "tooltip"). */
+.smart-table-url-link {
+  flex: 1;
+  min-width: 0;
+  padding: 6px 8px;
+  color: var(--text-accent);
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+.smart-table-url-link:hover {
+  text-decoration: underline;
+}
+.smart-table-url.is-invalid .smart-table-url-link {
+  color: var(--text-error);
+}
+.smart-table-url-edit {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  margin-right: 4px;
+  border-radius: 4px;
+  color: var(--text-faint);
+  cursor: pointer;
+  opacity: 0;
+}
+.smart-table-url:hover .smart-table-url-edit {
+  opacity: 1;
+}
+.smart-table-url-edit:hover {
+  background: var(--background-modifier-hover);
+  color: var(--text-muted);
+}
+.smart-table-url-edit .svg-icon {
+  width: 14px;
+  height: 14px;
+}
+.smart-table-url-open {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  margin-right: 4px;
+  border-radius: 4px;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+.smart-table-url-open:hover {
+  background: var(--background-modifier-hover);
+  color: var(--text-accent);
+}
+.smart-table-url-open .svg-icon {
+  width: 15px;
+  height: 15px;
+}
+
 .smart-table-pill {
   display: inline-block;
   margin: 5px 8px;
@@ -252,6 +363,86 @@ select.smart-table-filter-input {
   border: 1px dashed var(--st-border);
 }
 
+/* Multi-select tag cells */
+.smart-table-tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 8px;
+}
+.smart-table-tag {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+.smart-table-tag-x {
+  display: inline-flex;
+  cursor: pointer;
+  opacity: 0.6;
+}
+.smart-table-tag-x:hover {
+  opacity: 1;
+}
+.smart-table-tag-x .svg-icon {
+  width: 11px;
+  height: 11px;
+}
+.smart-table-tag-add {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  color: var(--text-faint);
+  border: 1px dashed var(--st-border);
+}
+.smart-table-tag-add:hover {
+  color: var(--text-normal);
+  background: var(--background-modifier-hover);
+}
+.smart-table-tag-add .svg-icon {
+  width: 12px;
+  height: 12px;
+}
+
+/* Row selection */
+.smart-table-selcol {
+  width: 42px;
+  text-align: center;
+  vertical-align: middle;
+}
+.smart-table-selcol input {
+  display: block;
+  margin: 0 auto;
+  cursor: pointer;
+}
+.smart-table-row-selected td {
+  background: var(--background-modifier-hover);
+}
+.smart-table-selbar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+  padding: 5px 8px;
+  border: 1px solid var(--st-border);
+  border-radius: 8px;
+  background: var(--background-secondary);
+}
+.smart-table-selcount {
+  font-size: var(--font-ui-smaller);
+  color: var(--text-muted);
+  margin-right: 4px;
+}
+.smart-table-btn[disabled] {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
 .smart-table-empty {
   padding: 12px;
   text-align: center;
@@ -259,33 +450,41 @@ select.smart-table-filter-input {
 }
 
 /* Drag-and-drop reorder */
-.smart-table-td:first-child {
+/* Reserve a left lane for the row grip so it never overlaps cell content
+   (e.g. a date-time picker or text) in the first column. The `td.` qualifier
+   keeps this ahead of `.smart-table-grid td { padding: 0 }` on specificity. */
+.smart-table-grid td.smart-table-td-first {
   position: relative;
-  /* Reserve a left lane for the row grip so it never overlaps cell content
-     (e.g. a date-time picker or text) in the first column. */
-  padding-left: 20px;
+  padding-left: 22px;
 }
 /* Keep the header (and filter row) first cell aligned with the body lane. */
-.smart-table-th:first-child .smart-table-th-inner {
-  padding-left: 20px;
+.smart-table-th-first .smart-table-th-inner {
+  padding-left: 22px;
 }
-.smart-table-filter-row th:first-child {
-  padding-left: 20px;
+.smart-table-filter-row .smart-table-th-first {
+  padding-left: 22px;
 }
+/* Notion-style row handle: faint dots in the reserved lane, appearing on row
+   hover, with a subtle highlight when you point at the handle itself. */
 .smart-table-row-grip {
   position: absolute;
-  left: 0;
-  top: 0;
-  height: 100%;
+  left: 1px;
+  top: 3px;
+  bottom: 3px;
   width: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--text-faint);
-  background: var(--background-primary);
+  border-radius: 4px;
   cursor: grab;
   opacity: 0;
   z-index: 2;
+  transition: opacity 80ms ease;
+}
+.smart-table-row-grip:hover {
+  background: var(--background-modifier-hover);
+  color: var(--text-muted);
 }
 .smart-table-row-grip:active {
   cursor: grabbing;
