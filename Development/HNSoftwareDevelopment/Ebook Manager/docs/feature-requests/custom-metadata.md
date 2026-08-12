@@ -69,7 +69,7 @@ Status: implemented.
 
 ### Next Slices
 
-- Include custom metadata values in search.
-- Make custom fields available as columns in custom views.
+- Include custom metadata values in search. Status: implemented.
+- Make custom fields available as columns in custom views. Status: implemented.
 - Add filters for useful custom field types.
 - Add Calibre custom-column import after Saga's own model has proven stable.
