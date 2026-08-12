@@ -22,6 +22,7 @@ SVGViewer/
    ├─ Services/
    │  ├─ LicenseManager.cs      Syncfusion-key inlezen/registreren
    │  ├─ SettingsService.cs     voorkeuren als JSON in %AppData%
+   │  ├─ ScanIndexCacheService.cs  voltooide scanindexen als JSON in %AppData%
    │  ├─ DirectoryScanner.cs    veilige bestandssysteem-primitieven
    │  └─ SvgIndexService.cs     asynchrone drive-scan naar SVG-mappen
    └─ ViewModels/
@@ -85,18 +86,25 @@ deze nog bestaat.
 Scans worden per drive of gekozen map maximaal acht keer in een sessie bewaard.
 Een voltooide scan verschijnt bij terugwisselen direct; een nog lopende scan
 wordt gepauzeerd met zijn resterende wachtrij en vervolgens voortgezet waar hij
-was gebleven. De knop **Vernieuwen** verwijdert alleen de cache van de actieve
-locatie en voert bewust wel een verse scan uit; de cache blijft daarmee snel maar
-voorspelbaar bij externe bestandswijzigingen.
+was gebleven.
+
+Voltooide scans blijven daarnaast bewaard tussen sessies in
+`%AppData%\SVGViewer\scan-cache.json`. Bij het opnieuw kiezen van een bekende
+locatie kan de viewer de gevonden SVG-mappen daarom meteen tonen, zonder eerst
+opnieuw te scannen. De cache controleert voor drive-roots het Windows-volume-ID,
+zodat bijvoorbeeld een andere USB-stick met dezelfde driveletter geen resultaten
+van de vorige stick krijgt. Een ongeldig, onleesbaar of niet-passend cachebestand
+wordt veilig genegeerd. De knop **Vernieuwen** voert bewust een verse scan uit en
+vervangt de blijvende cache pas nadat die scan volledig is afgerond; tot die tijd
+blijft een eerder resultaat beschikbaar als veilige terugval.
 
 ### Scanvoortgang en snelle toegang
 
 Omdat vooraf niet bekend is hoeveel mappen een locatie bevat, blijft de
 voortgangsbalk bewust onbepaald. De statusregel toont wel het daadwerkelijke
 aantal gescande mappen, gevonden SVG-mappen, de gemiddelde scansnelheid en de
-verstreken actieve scantijd. Naast de filter staat een doorzoekbare lijst met
-gevonden SVG-mappen. Deze vult tijdens de scan en opent de gekozen map direct in
-de boom; de gewone tree blijft daarbij de volledige navigatiebron.
+verstreken actieve scantijd. De filter **Alleen SVG** blijft de snelle,
+volledige toegang tot alle relevante mappen.
 
 ### 3. Robuust tegen het bestandssysteem
 
@@ -502,4 +510,11 @@ Beide previews zijn nu selectie-controls: de icon-weergave is een `ListBox`
 (WrapPanel, `SelectionMode=Extended`) en de detaillijst een `ListView` (Extended).
 `SelectionChanged` meldt de selectie aan `MainViewModel.SetSelectedFiles`. Knippen,
 kopiëren, slepen en plakken werken op de hele selectie via een `PathsFor`-helper: is
-het aangeklikte/gesleepte bestand deel van een meervoudige selecti
+het aangeklikte/gesleepte bestand deel van een meervoudige selectie, dan geldt de
+selectie, anders alleen dat ene bestand.
+
+Bij een naamconflict kiest `TransferInto` de aanpak op basis van het aantal: bij één
+bestand de simpele ja/nee (US-8.7), bij meerdere de vier-keuzedialoog `ConflictWindow`
+achter `IConflictResolver` — *Overschrijven / Alle overschrijven / Overslaan / Alle
+overslaan*. De "Alle …"-keuze wordt onthouden in een lokale `bool?` en geldt alleen
+binnen de lopende operatie. Verwijderen blijft bewust op één bestand werken.

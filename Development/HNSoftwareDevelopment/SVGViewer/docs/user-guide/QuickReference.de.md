@@ -4,15 +4,13 @@ Mit SVG Viewer durchsuchst, betrachtest und öffnest du die SVG-Dateien auf dein
 Laufwerk schnell. Die App ist bewusst einfach gehalten; diese Übersicht genügt.
 
 - **Laufwerk & Ordner** — wähle oben links ein Laufwerk oder nutze die
-  Ordnerschaltfläche, um nur einen gewählten Ordner zu scannen. Zu einem bereits
-  in dieser Sitzung gescannten Standort zurückzukehren geht sofort; ein
-  unvollständiger Scan wird dort fortgesetzt. Klicke dich dann durch den Baum.
+  Ordnerschaltfläche, um nur einen gewählten Ordner zu scannen. Ein zuvor
+  vollständig gescannter Standort ist auch nach einem Neustart sofort verfügbar.
+  Bei einem Wechsel während eines Scans in derselben Sitzung wird dieser dort
+  fortgesetzt. Klicke dich dann durch den Baum.
 - **Wo sind die SVGs?** — Ordner mit SVGs sind **blau mit Anzahl**; Ordner, die nur
   dorthin führen, sind blau ohne Anzahl. Stelle den Filter auf **Nur SVG**, um nur
   die relevanten Ordner anzuzeigen.
-- **Gefundene Ordner schnell öffnen** — die Liste **Gefundene SVG-Ordner** füllt
-  sich während des Scannens. Wähle einen Eintrag, um ihn direkt im Baum und in der
-  Vorschau zu öffnen.
 - **Fortschritt** — die untere Leiste zeigt gescannte Ordner, SVG-Ordner,
   durchschnittliche Scangeschwindigkeit und vergangene Scanzeit.
 - **Vorschau** — wähle einen Ordner, um die Vorschauen zu sehen. Wähle oben rechts
@@ -30,4 +28,9 @@ Laufwerk schnell. Die App ist bewusst einfach gehalten; diese Übersicht genügt
 - **Ziehen** — ziehe eine SVG auf einen Ordner im Baum, um sie zu **verschieben**;
   halte **Strg**, um zu **kopieren**.
 - **Umbenennen & löschen** — ebenfalls per **Rechtsklick** auf eine SVG. Löschen
-  wa
+  wandert in den Papierkorb, mit Bestätigung.
+- **Neuer Ordner** — **Rechtsklick** auf einen Ordner im Baum und *Neuer Ordner*
+  wählen.
+- **Sprache** — wechsle zwischen Niederländisch, Englisch und Deutsch über die
+  **Einstellungen** (⚙).
+- **Über** — Version und Infos findest du unter der **ℹ**-Schaltfläche.

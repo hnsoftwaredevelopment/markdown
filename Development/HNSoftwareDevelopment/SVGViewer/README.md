@@ -11,6 +11,8 @@ German).
 - **Drive & folder navigation** — pick a drive or a chosen folder and click through a tree view.
 - **SVG folder highlighting** — folders that contain `.svg` files are marked so
   you can jump straight to them.
+- **Persistent scan cache** — completed scans are available immediately the next
+  time you open the same drive or folder.
 - **Structure filter** — show the full folder tree, or only folders that contain
   SVG files.
 - **Preview sizes** — Large, Medium, Small, or Only details (list view).
@@ -45,8 +47,8 @@ Preview window (zoom & pan):
 - Quick reference: [`docs/user-guide/`](docs/user-guide/) — a short overview in NL / EN / DE (also opened by the in‑app Help button).
 - Design & planning: [`docs/Epic.md`](docs/Epic.md) and
   [`docs/UserStories.md`](docs/UserStories.md).
-- Performance measurement: [`docs/Performance.md`](docs/Performance.md) — compare
-  the scan strategies on a real drive.
+- Performance measurement: [`docs/Performance.md`](docs/Performance.md) — measure
+  the current scan on a real drive.
 
 ## License
 

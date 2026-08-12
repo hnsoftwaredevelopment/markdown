@@ -4,14 +4,13 @@ SVG Viewer laat je snel door de SVG-bestanden op je schijf bladeren, ze bekijken
 openen. De app is bewust eenvoudig; dit overzicht volstaat.
 
 - **Schijf & mappen** — kies linksboven een schijf, of klik op de mapknop om
-  alleen een gekozen map te scannen. Wissel je binnen dezelfde sessie terug naar
-  een al gescande locatie, dan staat het resultaat meteen klaar; een lopende scan
-  gaat verder waar die was gebleven. Klik daarna door de boomstructuur.
+  alleen een gekozen map te scannen. Een eerder volledig gescande locatie staat
+  ook na het opnieuw starten direct klaar. Wissel je binnen dezelfde sessie terug
+  tijdens een scan, dan gaat die verder waar hij was gebleven. Klik daarna door de
+  boomstructuur.
 - **Waar staan SVG's?** — mappen mét SVG's zijn **blauw met een aantal**; mappen die
   er alleen naartoe leiden zijn blauw zónder aantal. Zet de filter op **Alleen SVG**
   om enkel de relevante mappen te tonen.
-- **Snel gevonden mappen openen** — de lijst **Gevonden SVG-mappen** vult tijdens
-  het scannen. Kies er een om die map direct in de boom en preview te openen.
 - **Voortgang** — onderaan zie je het aantal gescande mappen, SVG-mappen,
   gemiddelde scansnelheid en verstreken scantijd.
 - **Bekijken** — selecteer een map om de previews te zien. Kies rechtsboven de
@@ -26,4 +25,8 @@ openen. De app is bewust eenvoudig; dit overzicht volstaat.
   (het bestand blijft staan tot je het plakt). Werkt ook van en naar de Verkenner.
 - **Slepen** — sleep een SVG naar een map in de boom om te **verplaatsen**; houd
   **Ctrl** ingedrukt om te **kopiëren**.
-- **Hernoemen & verwijderen** — ook via **rechtsklik** op een SVG. Verwijde
+- **Hernoemen & verwijderen** — ook via **rechtsklik** op een SVG. Verwijderen gaat
+  naar de prullenbak, met bevestiging.
+- **Nieuwe map** — **rechtsklik** op een map in de boom en kies *Nieuwe map*.
+- **Taal** — wissel tussen Nederlands, Engels en Duits via **Instellingen** (⚙).
+- **Over** — versie en informatie vind je onder de **ℹ**-knop.
