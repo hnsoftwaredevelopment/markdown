@@ -6,6 +6,8 @@
     "emojiStyle": "native",
     "iconColor": null,
     "recentlyUsedIcons": [
+      "☺",
+      "LiCircleHelp",
       "LiImages"
     ],
     "recentlyUsedIconsSize": 5,
@@ -22,7 +24,7 @@
     "iconInFrontmatterEnabled": true,
     "iconInFrontmatterFieldName": "icon",
     "iconColorInFrontmatterFieldName": "iconColor",
-    "iconsBackgroundCheckEnabled": false,
+    "iconsBackgroundCheckEnabled": true,
     "iconsInNotesEnabled": true,
     "iconsInLinksEnabled": true,
     "iconIdentifier": ":",
@@ -30,5 +32,7 @@
     "debugMode": false,
     "useInternalPlugins": false
   },
-  "attachments": "LiImages"
+  "attachments": "LiImages",
+  "ICT/Windows/Windows shortkeys.md": "LiCircleHelp",
+  "ICT/Windows/Emoji's.md": "☺"
 }

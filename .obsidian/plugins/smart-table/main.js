@@ -19,15 +19,72 @@ const PALETTE = {
 };
 const PALETTE_KEYS = Object.keys(PALETTE);
 
-const COLUMN_TYPES = ["text", "number", "date", "checkbox", "select", "status"];
+const COLUMN_TYPES = [
+  "text",
+  "number",
+  "date",
+  "datetime",
+  "checkbox",
+  "select",
+  "status",
+];
 const TYPE_LABELS = {
   text: "Text",
   number: "Number",
   date: "Date",
+  datetime: "Date & time",
   checkbox: "Checkbox",
   select: "Select",
   status: "Status",
 };
+
+// Normalize a date-time string to the value an <input type="datetime-local">
+// expects (YYYY-MM-DDTHH:mm), accepting either a space or "T" separator and an
+// optional seconds component. Returns the trimmed input unchanged if it doesn't
+// look like a date-time.
+function toDatetimeLocal(s) {
+  const m = String(s == null ? "" : s)
+    .trim()
+    .match(/^(\d{4}-\d{2}-\d{2})[ T](\d{2}:\d{2})/);
+  return m ? m[1] + "T" + m[2] : String(s == null ? "" : s).trim();
+}
+
+// Column sizing. Widths are stored per column (in px) once a user drags to
+// resize; until then each type falls back to a sensible default. The grid uses
+// table-layout: fixed so these widths are authoritative and text can wrap.
+const DEFAULT_COL_WIDTHS = {
+  checkbox: 90,
+  date: 140,
+  datetime: 180,
+  number: 110,
+  status: 150,
+  select: 150,
+  text: 220,
+};
+const FALLBACK_COL_WIDTH = 180;
+const MIN_COL_WIDTH = 60;
+const TRAILING_COL_WIDTH = 34; // the add-column / delete-row gutter
+
+function columnWidth(col) {
+  const w = typeof col.width === "number" ? col.width : DEFAULT_COL_WIDTHS[col.type];
+  return Math.max(MIN_COL_WIDTH, w || FALLBACK_COL_WIDTH);
+}
+
+// Reorder helper for drag-and-drop: move the item with id `fromId` to just
+// before or after `toId` within `arr` (mutates in place).
+function moveById(arr, fromId, toId, after) {
+  if (fromId === toId) return;
+  const fromIdx = arr.findIndex((x) => x.id === fromId);
+  if (fromIdx < 0) return;
+  const [item] = arr.splice(fromIdx, 1);
+  let toIdx = arr.findIndex((x) => x.id === toId);
+  if (toIdx < 0) {
+    arr.push(item);
+    return;
+  }
+  if (after) toIdx += 1;
+  arr.splice(toIdx, 0, item);
+}
 
 function typeIcon(t) {
   return (
@@ -35,6 +92,7 @@ function typeIcon(t) {
       text: "text",
       number: "hash",
       date: "calendar",
+      datetime: "calendar-clock",
       checkbox: "check-square",
       select: "chevron-down-circle",
       status: "circle-dot",
@@ -136,10 +194,11 @@ function matchesFilter(col, raw, fv) {
     if (maxS !== "" && n > parseFloat(maxS)) return false;
     return true;
   }
-  if (col.type === "date") {
+  if (col.type === "date" || col.type === "datetime") {
     const [from, to] = splitPair(fv);
     if (from === "" && to === "") return true;
-    // Stored as YYYY-MM-DD, which compares chronologically as strings.
+    // Stored as YYYY-MM-DD (or YYYY-MM-DDTHH:mm), both of which compare
+    // chronologically as strings.
     const v = raw == null ? "" : String(raw);
     if (!v) return false;
     if (from && v < from) return false;
@@ -267,6 +326,7 @@ function exportTableCSV(state) {
         .map((c) => {
           const v = row.cells[c.id];
           if (c.type === "checkbox") return esc(v === true || v === "true");
+          if (c.type === "datetime") return esc(v ? String(v).replace("T", " ") : "");
           return esc(v);
         })
         .join(",")
@@ -329,6 +389,9 @@ function inferColumnType(values) {
   const isBool = (v) => /^(\[[ xX]?\]|true|false|yes|no)$/i.test(v.trim());
   if (nonEmpty.every(isBool)) return "checkbox";
   if (nonEmpty.every((v) => /^-?\d+(\.\d+)?$/.test(v.trim()))) return "number";
+  // Check date-time before date, since a date-time string starts with a date.
+  if (nonEmpty.every((v) => /^\d{4}-\d{2}-\d{2}[ T]\d{2}:\d{2}(:\d{2})?$/.test(v.trim())))
+    return "datetime";
   if (nonEmpty.every((v) => /^\d{4}-\d{2}-\d{2}$/.test(v.trim()))) return "date";
   return "text";
 }
@@ -360,7 +423,12 @@ function parseMarkdownTable(text) {
     const cells = {};
     columns.forEach((col, i) => {
       const raw = r[i] == null ? "" : r[i];
-      cells[col.id] = col.type === "checkbox" ? toBool(raw) : raw;
+      cells[col.id] =
+        col.type === "checkbox"
+          ? toBool(raw)
+          : col.type === "datetime"
+          ? toDatetimeLocal(raw)
+          : raw;
     });
     return { id: uid("r"), cells };
   });
@@ -497,6 +565,129 @@ function confirmAction(app, title, message, confirmText, onConfirm) {
   new ConfirmModal(app, title, message, confirmText, onConfirm).open();
 }
 
+// Editor for a select/status column's options: pick each option's color from
+// the preset palette, rename it, delete it, or add new ones. Renames/deletes
+// migrate matching cell values in `rows`. `onChange` persists after each edit.
+class OptionsModal extends Modal {
+  constructor(app, col, rows, onChange) {
+    super(app);
+    this.col = col;
+    this.rows = rows;
+    this.onChange = onChange;
+  }
+  onOpen() {
+    const { contentEl } = this;
+    const { col, rows, onChange } = this;
+    contentEl.addClass("smart-table-modal");
+    contentEl.createEl("h3", { text: "Edit options — " + (col.name || "options") });
+    const list = contentEl.createDiv({ cls: "smart-table-opt-list" });
+
+    const renderRow = (opt) => {
+      const row = list.createDiv({ cls: "smart-table-opt-row" });
+      const swatches = row.createDiv({ cls: "smart-table-swatches" });
+      PALETTE_KEYS.forEach((key) => {
+        const sw = swatches.createDiv({ cls: "smart-table-swatch" });
+        sw.style.background = PALETTE[key][0];
+        if (opt.color === key) sw.addClass("is-active");
+        sw.setAttr("aria-label", key);
+        sw.onclick = () => {
+          opt.color = key;
+          swatches
+            .querySelectorAll(".smart-table-swatch")
+            .forEach((n) => n.removeClass("is-active"));
+          sw.addClass("is-active");
+          onChange();
+        };
+      });
+      const label = row.createEl("input", {
+        cls: "smart-table-opt-label",
+        attr: { type: "text" },
+      });
+      label.value = opt.label;
+      const rename = () => {
+        const v = label.value.trim();
+        if (!v || v === opt.label) {
+          label.value = opt.label;
+          return;
+        }
+        if ((col.options || []).some((o) => o !== opt && o.label === v)) {
+          label.value = opt.label; // avoid duplicate labels
+          return;
+        }
+        const old = opt.label;
+        opt.label = v;
+        rows.forEach((r) => {
+          if (String(r.cells[col.id]) === old) r.cells[col.id] = v;
+        });
+        onChange();
+      };
+      label.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          label.blur();
+        }
+      });
+      label.addEventListener("blur", rename);
+      const del = row.createSpan({ cls: "smart-table-opt-del" });
+      setIcon(del, "trash");
+      del.setAttr("aria-label", "Delete option");
+      del.onclick = () => {
+        col.options = (col.options || []).filter((o) => o !== opt);
+        rows.forEach((r) => {
+          if (String(r.cells[col.id]) === opt.label) r.cells[col.id] = "";
+        });
+        onChange();
+        renderList();
+      };
+    };
+
+    const renderList = () => {
+      list.empty();
+      (col.options || []).forEach(renderRow);
+      if (!(col.options || []).length) {
+        list.createDiv({
+          cls: "smart-table-opt-empty",
+          text: "No options yet — add one below.",
+        });
+      }
+    };
+    renderList();
+
+    const add = contentEl.createDiv({ cls: "smart-table-opt-add" });
+    const input = add.createEl("input", {
+      cls: "smart-table-opt-label",
+      attr: { type: "text", placeholder: "New option" },
+    });
+    const addBtn = add.createEl("button", { cls: "mod-cta", text: "Add" });
+    const doAdd = () => {
+      const v = input.value.trim();
+      if (!v) return;
+      addOption(col, v);
+      input.value = "";
+      onChange();
+      renderList();
+      input.focus();
+    };
+    addBtn.onclick = doAdd;
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        doAdd();
+      }
+    });
+
+    const foot = contentEl.createDiv({ cls: "smart-table-modal-row" });
+    const done = foot.createEl("button", { cls: "mod-cta", text: "Done" });
+    done.onclick = () => this.close();
+  }
+  onClose() {
+    this.contentEl.empty();
+  }
+}
+function editOptions(app, col, rows, onChange) {
+  new OptionsModal(app, col, rows, onChange).open();
+}
+
 // ---------------------------------------------------------------------------
 // Rendering
 // ---------------------------------------------------------------------------
@@ -591,6 +782,46 @@ function renderTable(app, source, el, ctx) {
       )
     );
     menu.addSeparator();
+    // Text alignment for the whole column. "left" is the default, so we clear
+    // the property rather than storing it.
+    const ALIGNS = [
+      ["left", "Left", "align-left"],
+      ["center", "Center", "align-center"],
+      ["right", "Right", "align-right"],
+    ];
+    const curAlign = col.align || "left";
+    const setAlign = (val) => {
+      if (val === "left") delete col.align;
+      else col.align = val;
+      commit();
+    };
+    menu.addItem((parent) => {
+      parent.setTitle("Text align").setIcon("align-" + curAlign);
+      // Prefer a nested submenu; fall back to flat items on older Obsidian
+      // builds that lack MenuItem.setSubmenu().
+      if (typeof parent.setSubmenu === "function") {
+        const sub = parent.setSubmenu();
+        ALIGNS.forEach(([val, label, icon]) =>
+          sub.addItem((s) =>
+            s
+              .setTitle(label)
+              .setIcon(curAlign === val ? "check" : icon)
+              .onClick(() => setAlign(val))
+          )
+        );
+      } else {
+        parent.onClick(() => setAlign(curAlign === "right" ? "left" : "right"));
+      }
+    });
+    menu.addSeparator();
+    if (col.type === "status" || col.type === "select") {
+      menu.addItem((i) =>
+        i
+          .setTitle("Edit options…")
+          .setIcon("palette")
+          .onClick(() => editOptions(app, col, state.rows, commit))
+      );
+    }
     menu.addItem((i) =>
       i
         .setTitle("Rename…")
@@ -673,6 +904,12 @@ function renderTable(app, source, el, ctx) {
           })
         )
     );
+    menu.addItem((i) =>
+      i
+        .setTitle("Edit options…")
+        .setIcon("palette")
+        .onClick(() => editOptions(app, col, state.rows, commit))
+    );
     menu.showAtMouseEvent(evt);
   }
 
@@ -707,9 +944,14 @@ function renderTable(app, source, el, ctx) {
         if (o.label === cur) op.selected = true;
       });
       sel.onchange = () => setFilter(col, sel.value);
-    } else if (col.type === "number" || col.type === "date") {
+    } else if (col.type === "number" || col.type === "date" || col.type === "datetime") {
       const [a, b] = splitPair(cur);
-      const inType = col.type === "number" ? "number" : "date";
+      const inType =
+        col.type === "number"
+          ? "number"
+          : col.type === "datetime"
+          ? "datetime-local"
+          : "date";
       const box = fth.createDiv({ cls: "smart-table-filter-pair" });
       const lo = box.createEl("input", {
         cls: "smart-table-filter-input",
@@ -738,6 +980,9 @@ function renderTable(app, source, el, ctx) {
 
   function renderCell(td, col, row) {
     const val = row.cells[col.id];
+    // text-align is inherited, so setting it on the cell aligns inputs, the
+    // textarea's text, pills, and the checkbox alike.
+    if (col.align) td.style.textAlign = col.align;
     if (col.type === "checkbox") {
       const cb = td.createEl("input", { attr: { type: "checkbox" } });
       cb.checked = val === true || val === "true";
@@ -758,17 +1003,42 @@ function renderTable(app, source, el, ctx) {
         pill.setText("Empty");
       }
       pill.onclick = (e) => openSelectMenu(e, col, row);
-    } else {
-      const type = col.type === "number" ? "number" : col.type === "date" ? "date" : "text";
+    } else if (
+      col.type === "number" ||
+      col.type === "date" ||
+      col.type === "datetime"
+    ) {
       const inp = td.createEl("input", {
         cls: "smart-table-cell-input",
-        attr: { type },
+        attr: { type: col.type === "datetime" ? "datetime-local" : col.type },
       });
-      inp.value = val == null ? "" : val;
+      // datetime-local needs the YYYY-MM-DDTHH:mm form; normalize stored values
+      // that may use a space separator so they still populate the picker.
+      inp.value =
+        val == null ? "" : col.type === "datetime" ? toDatetimeLocal(val) : val;
       inp.onchange = () => {
         row.cells[col.id] = inp.value;
         commit();
       };
+    } else {
+      // Text uses an auto-growing textarea so long content wraps onto new
+      // lines instead of being clipped to a single line.
+      const ta = td.createEl("textarea", {
+        cls: "smart-table-cell-input smart-table-cell-text",
+      });
+      ta.rows = 1;
+      ta.value = val == null ? "" : val;
+      const autosize = () => {
+        ta.style.height = "auto";
+        ta.style.height = ta.scrollHeight + "px";
+      };
+      ta.addEventListener("input", autosize);
+      ta.onchange = () => {
+        row.cells[col.id] = ta.value;
+        commit();
+      };
+      // Size to existing content once the cell is in the DOM.
+      window.setTimeout(autosize, 0);
     }
   }
 
@@ -817,18 +1087,139 @@ function renderTable(app, source, el, ctx) {
     const wrap = el.createDiv({ cls: "smart-table-wrap" });
     const table = wrap.createEl("table", { cls: "smart-table-grid" });
 
+    // Fixed layout driven by an explicit colgroup: column widths are honoured
+    // exactly (so they can be dragged) and the overall table width is the sum,
+    // letting the wrapper scroll horizontally when needed.
+    const sumWidth = () =>
+      state.columns.reduce((s, c) => s + columnWidth(c), 0) + TRAILING_COL_WIDTH;
+    table.style.width = sumWidth() + "px";
+    const colgroup = table.createEl("colgroup");
+    const colEls = state.columns.map((col) => {
+      const cl = colgroup.createEl("col");
+      cl.style.width = columnWidth(col) + "px";
+      return cl;
+    });
+    colgroup.createEl("col").style.width = TRAILING_COL_WIDTH + "px";
+
+    // Drag a column's right-edge handle to resize it; the new width is stored
+    // on the column (and persisted) when the drag ends.
+    const startResize = (evt, col, index) => {
+      evt.preventDefault();
+      evt.stopPropagation();
+      const startX = evt.clientX;
+      const startW = columnWidth(col);
+      let width = startW;
+      document.body.classList.add("smart-table-resizing");
+      const onMove = (e) => {
+        width = Math.max(MIN_COL_WIDTH, Math.round(startW + (e.clientX - startX)));
+        colEls[index].style.width = width + "px";
+        table.style.width =
+          state.columns.reduce(
+            (s, c, i) => s + (i === index ? width : columnWidth(c)),
+            0
+          ) + TRAILING_COL_WIDTH + "px";
+      };
+      const onUp = () => {
+        document.removeEventListener("mousemove", onMove);
+        document.removeEventListener("mouseup", onUp);
+        document.body.classList.remove("smart-table-resizing");
+        if (width !== startW) {
+          col.width = width;
+          commit();
+        }
+      };
+      document.addEventListener("mousemove", onMove);
+      document.addEventListener("mouseup", onUp);
+    };
+
+    // Drag-and-drop reorder state. These live for one render; a commit (which
+    // rebuilds) resets them. A drag completes within a single render, so that's
+    // fine.
+    let dragColId = null;
+    let dragRowId = null;
+    const clearColIndicators = () =>
+      table
+        .querySelectorAll("th.st-drop-left, th.st-drop-right")
+        .forEach((n) => n.classList.remove("st-drop-left", "st-drop-right"));
+    const clearRowIndicators = () =>
+      table
+        .querySelectorAll("tr.st-drop-above, tr.st-drop-below")
+        .forEach((n) => n.classList.remove("st-drop-above", "st-drop-below"));
+    // Dragging a row clears any active sort, but first bakes the current sorted
+    // order into state.rows so nothing visibly reshuffles.
+    const bakeSortThenClear = () => {
+      if (!state.sort) return;
+      const col = state.columns.find((c) => c.id === state.sort.col);
+      if (col) {
+        const dir = state.sort.dir === "desc" ? -1 : 1;
+        state.rows.sort(
+          (a, b) => dir * compareValues(a.cells[col.id], b.cells[col.id], col.type)
+        );
+      }
+      state.sort = null;
+    };
+
     const thead = table.createEl("thead");
     const htr = thead.createEl("tr");
-    state.columns.forEach((col) => {
+    state.columns.forEach((col, index) => {
       const th = htr.createEl("th", { cls: "smart-table-th" });
+      // Drop target for column reorder.
+      th.addEventListener("dragover", (e) => {
+        if (dragColId == null || dragColId === col.id) return;
+        e.preventDefault();
+        const r = th.getBoundingClientRect();
+        const after = e.clientX > r.left + r.width / 2;
+        clearColIndicators();
+        th.classList.add(after ? "st-drop-right" : "st-drop-left");
+      });
+      th.addEventListener("dragleave", () =>
+        th.classList.remove("st-drop-left", "st-drop-right")
+      );
+      th.addEventListener("drop", (e) => {
+        if (dragColId == null) return;
+        e.preventDefault();
+        const r = th.getBoundingClientRect();
+        const after = e.clientX > r.left + r.width / 2;
+        moveById(state.columns, dragColId, col.id, after);
+        dragColId = null;
+        commit();
+      });
       const inner = th.createDiv({ cls: "smart-table-th-inner" });
-      setIcon(inner.createSpan({ cls: "smart-table-th-ico" }), typeIcon(col.type));
-      const name = inner.createEl("input", { cls: "smart-table-th-name" });
+      // The type icon doubles as the column's drag handle (Notion-style),
+      // keeping the editable name field free for text selection.
+      const ico = inner.createSpan({ cls: "smart-table-th-ico" });
+      setIcon(ico, typeIcon(col.type));
+      ico.draggable = true;
+      ico.setAttr("aria-label", "Drag to reorder column");
+      ico.addEventListener("dragstart", (e) => {
+        dragColId = col.id;
+        if (e.dataTransfer) {
+          e.dataTransfer.effectAllowed = "move";
+          e.dataTransfer.setData("text/plain", col.id);
+        }
+        th.classList.add("st-dragging");
+      });
+      ico.addEventListener("dragend", () => {
+        dragColId = null;
+        clearColIndicators();
+        th.classList.remove("st-dragging");
+      });
+      // Auto-growing textarea (not an input) so long column names wrap onto
+      // multiple lines instead of being clipped to one.
+      const name = inner.createEl("textarea", { cls: "smart-table-th-name" });
+      name.rows = 1;
       name.value = col.name;
+      if (col.align) name.style.textAlign = col.align;
+      const sizeName = () => {
+        name.style.height = "auto";
+        name.style.height = name.scrollHeight + "px";
+      };
+      name.addEventListener("input", sizeName);
       name.onchange = () => {
         col.name = name.value;
         commit();
       };
+      window.setTimeout(sizeName, 0);
       if (state.sort && state.sort.col === col.id) {
         inner.createSpan({
           cls: "smart-table-sort",
@@ -838,6 +1229,9 @@ function renderTable(app, source, el, ctx) {
       const menuBtn = inner.createSpan({ cls: "smart-table-th-menu" });
       setIcon(menuBtn, "chevron-down");
       menuBtn.onclick = (e) => openColumnMenu(e, col);
+      const handle = th.createDiv({ cls: "smart-table-col-resize" });
+      handle.setAttr("aria-label", "Drag to resize column");
+      handle.addEventListener("mousedown", (e) => startResize(e, col, index));
     });
     const thAdd = htr.createEl("th", { cls: "smart-table-th-add" });
     setIcon(thAdd, "plus");
@@ -907,10 +1301,55 @@ function renderTable(app, source, el, ctx) {
         );
         menu.showAtMouseEvent(e);
       };
-      state.columns.forEach((col) => {
+      // Drop target for row reorder.
+      tr.addEventListener("dragover", (e) => {
+        if (dragRowId == null || dragRowId === row.id) return;
+        e.preventDefault();
+        const r = tr.getBoundingClientRect();
+        const below = e.clientY > r.top + r.height / 2;
+        clearRowIndicators();
+        tr.classList.add(below ? "st-drop-below" : "st-drop-above");
+      });
+      tr.addEventListener("dragleave", () =>
+        tr.classList.remove("st-drop-above", "st-drop-below")
+      );
+      tr.addEventListener("drop", (e) => {
+        if (dragRowId == null) return;
+        e.preventDefault();
+        const r = tr.getBoundingClientRect();
+        const below = e.clientY > r.top + r.height / 2;
+        moveById(state.rows, dragRowId, row.id, below);
+        dragRowId = null;
+        commit();
+      });
+      let firstTd = null;
+      state.columns.forEach((col, ci) => {
         const td = tr.createEl("td", { cls: "smart-table-td" });
+        if (ci === 0) firstTd = td;
         renderCell(td, col, row);
       });
+      // Hover-only drag grip overlaid at the row's left edge — no permanent
+      // gutter column.
+      if (firstTd) {
+        const grip = firstTd.createDiv({ cls: "smart-table-row-grip" });
+        setIcon(grip, "grip-vertical");
+        grip.setAttr("aria-label", "Drag to reorder row");
+        grip.draggable = true;
+        grip.addEventListener("dragstart", (e) => {
+          bakeSortThenClear();
+          dragRowId = row.id;
+          if (e.dataTransfer) {
+            e.dataTransfer.effectAllowed = "move";
+            e.dataTransfer.setData("text/plain", row.id);
+          }
+          tr.classList.add("st-dragging");
+        });
+        grip.addEventListener("dragend", () => {
+          dragRowId = null;
+          clearRowIndicators();
+          tr.classList.remove("st-dragging");
+        });
+      }
       const tdDel = tr.createEl("td", { cls: "smart-table-td-del" });
       const del = tdDel.createSpan({ cls: "smart-table-row-del" });
       setIcon(del, "x");

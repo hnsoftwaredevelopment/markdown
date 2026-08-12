@@ -7,6 +7,12 @@
       "id": "workspace:toggle-stacked-tabs",
       "icon": "lucide-layers",
       "name": "Toggle stacked tabs",
+      "mode": "desktop"
+    },
+    {
+      "id": "omnisearch:show-modal",
+      "icon": "lucide-a-arrow-down",
+      "name": "Omnisearch: Vault search",
       "mode": "any"
     }
   ],
@@ -17,6 +23,12 @@
       "icon": "lucide-layers",
       "name": "Toggle stacked tabs",
       "mode": "any"
+    },
+    {
+      "id": "omnisearch:show-modal",
+      "icon": "lucide-search",
+      "name": "Omnisearch: Vault search",
+      "mode": "any"
     }
   ],
   "rightRibbon": [],
@@ -25,18 +37,17 @@
   "pageHeader": [],
   "macros": [],
   "explorer": [],
+  "textToolbarCommands": [],
   "hide": {
     "statusbar": [],
     "leftRibbon": [
       "Obsidian42 - Text Transporter",
       "File Info Panel",
-      "Omnisearch",
       "Create new book note",
       "Toggle stacked tabs",
       "Show a random prompt",
       "Open Symbols for the active editor",
       "Show Slide Preview",
-      "Open Markdown Table Editor",
       "Open LexTest",
       "Open ChatGPT--",
       "Publish changes",
@@ -47,15 +58,11 @@
       "Reveal all",
       "New Excalidraw drawing",
       "3D Graph",
-      "Open today's daily note",
       "Publish changes...",
-      "Open today's daily note",
       "Create new drawing",
       "Find Journey",
-      "Create new canvas",
       "Open projects",
       "Open in Headings Mode",
-      "Manage workspace layouts",
       "BRAT"
     ]
   },

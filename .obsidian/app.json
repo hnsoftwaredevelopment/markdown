@@ -7,5 +7,7 @@
   "deleteUnlinkedAttachments": "always",
   "userIgnoreFilters": [
     "attachments/"
-  ]
+  ],
+  "showInlineTitle": true,
+  "propertiesInDocument": "source"
 }

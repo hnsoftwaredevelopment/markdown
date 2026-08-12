@@ -1,0 +1,10 @@
+{
+  "showHeader": true,
+  "cueLabel": "Tasks / Ideas / Questions",
+  "noteLabel": "Notes",
+  "borderStyle": "solid",
+  "borderColor": "#3900a3",
+  "accentBorderThickness": "2pt",
+  "rowBorderThickness": "1pt",
+  "cueWidth": 28
+}

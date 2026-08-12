@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "018d43ab6b4f567b",
+        "id": "76735313acd2ff1a",
         "type": "tabs",
         "children": [
           {
-            "id": "8e532c179d82b372",
+            "id": "830aa3bc9504c72a",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Development/HNSoftwareDevelopment/Inno Setup 7/INSTALLER_FRAMEWORK_PLAN.md",
+                "file": "Development/Code/C#/WPF/A WPF application  Resources.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,10 +28,59 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "INSTALLER_FRAMEWORK_PLAN"
+              "title": "A WPF application  Resources"
+            }
+          },
+          {
+            "id": "a0dc59085ddb7cf5",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Naamloos.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": true,
+                "backlinkOpts": {
+                  "collapseAll": false,
+                  "extraContext": false,
+                  "sortOrder": "alphabetical",
+                  "showSearch": false,
+                  "searchQuery": "",
+                  "backlinkCollapsed": false,
+                  "unlinkedCollapsed": true
+                }
+              },
+              "icon": "lucide-file",
+              "title": "Naamloos"
+            }
+          },
+          {
+            "id": "ee2ea4906b0ea63b",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "conflict-files-obsidian-git.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": true,
+                "backlinkOpts": {
+                  "collapseAll": false,
+                  "extraContext": false,
+                  "sortOrder": "alphabetical",
+                  "showSearch": false,
+                  "searchQuery": "",
+                  "backlinkCollapsed": false,
+                  "unlinkedCollapsed": true
+                }
+              },
+              "icon": "lucide-file",
+              "title": "conflict-files-obsidian-git"
             }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -102,22 +151,11 @@
             "state": {
               "type": "tag-manager-view",
               "state": {},
-              "icon": "lucide-ghost",
-              "title": "tag-manager-view"
-            }
-          },
-          {
-            "id": "b7bab40722475413",
-            "type": "leaf",
-            "state": {
-              "type": "notebook-navigator",
-              "state": {},
-              "icon": "notebook-navigator",
-              "title": "Notebook Navigator"
+              "icon": "tags",
+              "title": "Tag manager"
             }
           }
-        ],
-        "currentTab": 5
+        ]
       }
     ],
     "direction": "horizontal",
@@ -236,22 +274,12 @@
             "state": {
               "type": "advanced-tables-toolbar",
               "state": {},
-              "icon": "lucide-ghost",
-              "title": "advanced-tables-toolbar"
-            }
-          },
-          {
-            "id": "1c5b3e69e978c4c8",
-            "type": "leaf",
-            "state": {
-              "type": "git-view",
-              "state": {},
-              "icon": "git-pull-request",
-              "title": "Source Control"
+              "icon": "spreadsheet",
+              "title": "Advanced Tables"
             }
           }
         ],
-        "currentTab": 8
+        "currentTab": 7
       }
     ],
     "direction": "horizontal",
@@ -259,7 +287,6 @@
   },
   "left-ribbon": {
     "hiddenItems": {
-      "quickadd:QuickAdd": false,
       "switcher:Open snel wisselen": false,
       "graph:Open grafiek weergave": false,
       "canvas:Nieuw doek aanmaken": false,
@@ -268,53 +295,61 @@
       "command-palette:Open opdrachtenpaneel": false,
       "workspaces:Beheer werkblad lay-outs": false,
       "bases:Nieuwe basis maken": false,
-      "realclaudian:Open Claudian": false,
       "obsidian-git:Open Git source control": false,
-      "obsidian-kanban:Create new board": false,
-      "cmdr:Toggle stacked tabs": false,
       "obsidian-excalidraw-plugin:New drawing": false,
-      "notebook-navigator:Notebook Navigator": false
+      "templater-obsidian:Templater": false,
+      "table-editor-obsidian:Advanced Tables Toolbar": false,
+      "obsidian-kanban:Create new board": false,
+      "quickadd:QuickAdd": false,
+      "realclaudian:Open Claudian": false,
+      "omnisearch:Omnisearch": false,
+      "cmdr:Toggle stacked tabs": false,
+      "cmdr:Omnisearch: Vault search": false,
+      "iconic:Open rulebook": false,
+      "markdown-table-editor:Open Markdown Table Editor": false,
+      "modalforms:Edit forms": false,
+      "smart-table:Insert Smart Table": false
     }
   },
-  "active": "b7bab40722475413",
+  "active": "ee2ea4906b0ea63b",
   "lastOpenFiles": [
-    "Development/HNSoftwareDevelopment/SVGViewer/docs/user-guide/QuickReference.de.md",
-    "Development/HNSoftwareDevelopment/SVGViewer/docs/user-guide/QuickReference.en.md",
-    "Development/HNSoftwareDevelopment/SVGViewer/docs/user-guide/QuickReference.nl.md",
-    "Development/HNSoftwareDevelopment/SVGViewer/docs/user-guide",
-    "Development/HNSoftwareDevelopment/SVGViewer/docs/Performance.md",
-    "Development/HNSoftwareDevelopment/SVGViewer/README.md",
-    "Development/HNSoftwareDevelopment/SVGViewer/docs/UserStories.md",
-    "Development/HNSoftwareDevelopment/SVGViewer/docs/TestChecklist.nl.md",
-    "Development/HNSoftwareDevelopment/SVGViewer/docs/Architecture.md",
-    "Development/HNSoftwareDevelopment/SVGViewer/docs",
-    "Development/HNSoftwareDevelopment/SVGViewer/Installer/README.md",
-    "Development/HNSoftwareDevelopment/SVGViewer/Installer",
-    "Development/HNSoftwareDevelopment/SVGViewer",
-    "Development/HNSoftwareDevelopment/Inno Setup 7/FRAMEWORK_USAGE.md",
-    "Development/HNSoftwareDevelopment/Inno Setup 7/README.md",
-    "Development/HNSoftwareDevelopment/hnsoftwaredevelopment/README.md",
-    "Development/HNSoftwareDevelopment/Inno Setup 7/PROJECT_STATUS.md",
-    "Development/HNSoftwareDevelopment/Inno Setup 7/INSTALLER_FRAMEWORK_PLAN.md",
-    "Development/HNSoftwareDevelopment/Inno Setup 7",
-    "Development/HNSoftwareDevelopment/Deckplanking/docs/release-notes/2026-06-30-initial-release.md",
-    "Development/HNSoftwareDevelopment/Deckplanking/docs/user-guide/user-guide.nl.md",
-    "Development/DotNet/NET CLI Build-, Test- en Publish-gids.md",
-    "Development/HNSoftwareDevelopment/Deckplanking/docs/release-checklist.md",
-    "Development/Github/Github Cheat sheet.md",
-    "Development/C#/WPF/WPF.md",
-    "Development/HNSoftwareDevelopment/Deckplanking/docs/superpowers/specs/2026-06-25-about-feedback-design.md",
-    "Development/C#/WPF/Use of variables in WPF.md",
-    "Development/C.md",
+    "Development/HNSoftwareDevelopment/SVGViewer/docs/user-guide/conflict-files-obsidian-git-1.remote",
+    "Development/HNSoftwareDevelopment/SVGViewer/docs/user-guide/conflict-files-obsidian-git-1.local",
     "Naamloos.md",
-    "Development/C#/WPF/ComboBox.md",
-    "Development/HNSoftwareDevelopment/Deckplanking/docs/superpowers/plans/2026-06-23-deck-contour-v1.md",
-    "Naamloos.base",
-    "templates",
+    "conflict-files-obsidian-git.md",
+    "Development/Code/C#/WPF/A WPF application  Resources.md",
+    "Development/HNSoftwareDevelopment/Inno Setup 7/INSTALLER_FRAMEWORK_PLAN.md",
+    "templates/Marketing & Sales/testimonial-collection.md",
+    "templates/Marketing & Sales/content-calendar.md",
+    "templates/Marketing & Sales/social-media-campaign.md",
+    "templates/Marketing & Sales/sales-playbook.md",
+    "templates/Marketing & Sales/partnership-proposal.md",
+    "templates/Marketing & Sales/pricing-strategy.md",
+    "templates/Marketing & Sales/pitch-deck-script.md",
+    "templates/Marketing & Sales/membership-drive.md",
+    "templates/Marketing & Sales/lead-scoring.md",
+    "templates/Marketing & Sales/landing-page-copy.md",
+    "templates/Marketing & Sales/fundraising-campaign.md",
+    "templates/Marketing & Sales/event-sponsorship-proposal.md",
+    "templates/Marketing & Sales/email-sequence.md",
+    "templates/Marketing & Sales/customer-journey-map.md",
+    "templates/Marketing & Sales/competitive-analysis.md",
+    "templates/Marketing & Sales/campaign-retrospective.md",
+    "templates/Marketing & Sales",
+    "templates/Legal/terms-of-service.md",
+    "templates/Legal/privacy-policy.md",
+    "templates/Legal/license-agreement.md",
+    "templates/Legal/ip-assignment.md",
+    "templates/Legal/nda.md",
+    "templates/Legal",
+    "templates/Infrastructure",
+    "Development/HNSoftwareDevelopment/Saga/docs/superpowers/plans",
+    "Development/HNSoftwareDevelopment/Saga/docs/superpowers/specs",
+    "Development/HNSoftwareDevelopment/Saga/docs/superpowers/feature-requests",
+    "Development/HNSoftwareDevelopment/Saga/docs/superpowers",
+    "Development/HNSoftwareDevelopment/Saga/docs/metadata",
+    "Development/HNSoftwareDevelopment/Saga/docs/manual-tests",
     "Development/WPF Handboek/01 Layout containers/Pasted image 20260527195416.png",
-    "Development/WPF Handboek/08 Binding en data",
-    "Development/WPF Handboek/99 Templates",
-    "Development/WPF Handboek/90 Bijlagen",
     "attachments/fcaf64b75c984e73a82d68d6eb782f6f.png",
     "attachments/f9ccbdaa39a74fb89f31f09909f1621d.png",
     "attachments/f23e51e92bc0415da4e3adaf2350882b.png",

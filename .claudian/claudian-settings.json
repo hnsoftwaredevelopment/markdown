@@ -30,10 +30,10 @@
       "loadUserSettings": true,
       "enableChrome": false,
       "enableBangBash": false,
-      "enableOpus1M": false,
-      "enableSonnet1M": false,
       "customModels": "",
       "lastModel": "haiku",
+      "modelEnvironmentType": "",
+      "titleModelEnvironmentType": "",
       "environmentVariables": "",
       "environmentHash": ""
     },
@@ -48,9 +48,15 @@
       "environmentHash": "",
       "installationMethodsByHost": {
         "device:6be92c70-f126-4170-8490-16a861cd4ecf": "native-windows",
-        "device:341f1f04-17c0-490d-bcbc-8a70dd211807": "native-windows"
+        "device:341f1f04-17c0-490d-bcbc-8a70dd211807": "native-windows",
+        "device:3c4c22f9-96c5-48ef-8fde-bc16058f2c69": "native-windows"
       },
-      "wslDistroOverridesByHost": {}
+      "wslDistroOverridesByHost": {},
+      "discoveredModels": [],
+      "modelAliases": {},
+      "visibleModels": null,
+      "catalogTimestamp": 0,
+      "catalogFingerprint": ""
     },
     "opencode": {
       "cliPath": "",
@@ -89,6 +95,7 @@
   "savedProviderPermissionMode": {
     "claude": "yolo"
   },
+  "pendingProviderSessionInvalidations": {},
   "lastCustomModel": "",
   "maxTabs": 3,
   "enableAutoScroll": true,

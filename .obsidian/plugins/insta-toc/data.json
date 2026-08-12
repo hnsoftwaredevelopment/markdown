@@ -13,9 +13,16 @@
       "\\"
     ],
     "excludedHeadingLevels": [],
-    "excludedHeadingText": [],
+    "excludedHeadingText": [
+      "TOC",
+      "Table of Contents",
+      "Inhoudsopgave",
+      "Inhoud",
+      "Table of contents",
+      "Contents"
+    ],
     "indentSize": 2,
-    "tocTitle": "Inhoudsopgave",
+    "tocTitle": "Contents",
     "tocTitleLevel": 1,
     "updateDelay": 500
   },

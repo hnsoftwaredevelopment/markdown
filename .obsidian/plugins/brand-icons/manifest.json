@@ -1,0 +1,9 @@
+{
+  "id": "brand-icons",
+  "name": "Brand icons",
+  "version": "1.0.1",
+  "minAppVersion": "1.0.0",
+  "description": "Add brand icons/logos to your notes, inline.",
+  "author": "Ricardo Madriz Calderón",
+  "isDesktopOnly": false
+}
