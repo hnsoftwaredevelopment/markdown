@@ -12,7 +12,7 @@
   "showQuickSwitcherIcons": true,
   "showMoveFileIcons": true,
   "showItemName": "desktop",
-  "biggerSearchResults": "mobile",
+  "useSearchKeywords": "on",
   "maxSearchResults": 50,
   "colorPicker1": "list",
   "colorPicker2": "rgb",
@@ -38,5 +38,6 @@
   "propertyIcons": {},
   "ribbonIcons": {},
   "fileRules": [],
-  "folderRules": []
+  "folderRules": [],
+  "biggerSearchResults": "mobile"
 }

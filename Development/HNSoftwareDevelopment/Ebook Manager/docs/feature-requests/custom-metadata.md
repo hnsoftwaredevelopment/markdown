@@ -2,7 +2,7 @@
 
 ## Status
 
-Milestone 16 started.
+Milestone 16 implemented.
 
 ## Context
 
@@ -21,10 +21,9 @@ Custom metadata should make Saga powerful without turning the standard `BookMeta
 
 ## Out Of Scope For Initial Milestone
 
-- Editing custom values in the Details pane.
-- Showing custom metadata as grid columns.
 - Importing Calibre custom columns.
 - Native ebook metadata write-back.
+- Defining option lists for single-select and multi-select fields.
 
 ## Milestone 16
 
@@ -71,5 +70,12 @@ Status: implemented.
 
 - Include custom metadata values in search. Status: implemented.
 - Make custom fields available as columns in custom views. Status: implemented.
-- Add filters for useful custom field types.
+- Add filters for useful custom field types. Status: implemented for populated fields.
+- Use typed Details editors, including localized Syncfusion date pickers. Status: implemented.
 - Add Calibre custom-column import after Saga's own model has proven stable.
+
+### Deferred Follow-Up Candidates
+
+- Define selectable option lists for single-select and multi-select custom fields.
+- Add richer numeric field settings, such as integer-only and decimal fields.
+- Decide how Calibre custom columns should map into Saga custom metadata.

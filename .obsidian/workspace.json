@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "76735313acd2ff1a",
+        "id": "7b3392ff6ee8be14",
         "type": "tabs",
         "children": [
           {
-            "id": "830aa3bc9504c72a",
+            "id": "2caf22fe8135caf5",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Development/HNSoftwareDevelopment/Saga/docs/architecture/settings-behavior.md",
+                "file": "Development/HNSoftwareDevelopment/Ebook Manager/docs/feature-requests/custom-metadata.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "settings-behavior"
+              "title": "custom-metadata"
             }
           }
         ]
@@ -105,12 +105,23 @@
               "icon": "tags",
               "title": "Tag manager"
             }
+          },
+          {
+            "id": "6e99288af067873e",
+            "type": "leaf",
+            "state": {
+              "type": "notebook-navigator",
+              "state": {},
+              "icon": "notebook-navigator",
+              "title": "Notebook Navigator"
+            }
           }
-        ]
+        ],
+        "currentTab": 5
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 311.1000061035156
   },
   "right": {
     "id": "bc13cd1b6ba6f691",
@@ -234,10 +245,12 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
+      "notebook-navigator:Notebook Navigator": false,
       "switcher:Open snel wisselen": false,
       "graph:Open grafiek weergave": false,
       "canvas:Nieuw doek aanmaken": false,
@@ -262,14 +275,18 @@
       "smart-table:Insert Smart Table": false
     }
   },
-  "active": "830aa3bc9504c72a",
+  "active": "6e99288af067873e",
   "lastOpenFiles": [
+    "Development/HNSoftwareDevelopment/Ebook Manager/docs/metadata/saga-standard-metadata-inventory.md",
+    "Development/HNSoftwareDevelopment/hnsoftwaredevelopment/README.md",
+    "Development/HNSoftwareDevelopment/Inno Setup 7/INSTALLER_FRAMEWORK_PLAN.md",
+    "Development/WPF Handboek/00 Start/Inhoudsopgave.md",
+    "Development/HNSoftwareDevelopment/Saga/docs/architecture/settings-behavior.md",
     "Development/Code/C#/WPF/A WPF application  Resources.md",
     "Naamloos.md",
     "conflict-files-obsidian-git.md",
     "Development/HNSoftwareDevelopment/SVGViewer/docs/user-guide/conflict-files-obsidian-git-1.remote",
     "Development/HNSoftwareDevelopment/SVGViewer/docs/user-guide/conflict-files-obsidian-git-1.local",
-    "Development/HNSoftwareDevelopment/Inno Setup 7/INSTALLER_FRAMEWORK_PLAN.md",
     "templates/Marketing & Sales/testimonial-collection.md",
     "templates/Marketing & Sales/content-calendar.md",
     "templates/Marketing & Sales/social-media-campaign.md",
@@ -289,9 +306,6 @@
     "templates/Marketing & Sales",
     "templates/Legal/terms-of-service.md",
     "templates/Legal/privacy-policy.md",
-    "templates/Legal/license-agreement.md",
-    "templates/Legal/ip-assignment.md",
-    "templates/Legal/nda.md",
     "templates/Legal",
     "templates/Infrastructure",
     "Development/HNSoftwareDevelopment/Saga/docs/superpowers/plans",
