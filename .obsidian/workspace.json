@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Development/HNSoftwareDevelopment/Ebook Manager/docs/feature-requests/custom-metadata.md",
+                "file": "Development/HNSoftwareDevelopment/Ebook Manager/docs/feature-requests/author-profiles.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "custom-metadata"
+              "title": "author-profiles"
             }
           }
         ]
@@ -275,8 +275,10 @@
       "smart-table:Insert Smart Table": false
     }
   },
-  "active": "6e99288af067873e",
+  "active": "2caf22fe8135caf5",
   "lastOpenFiles": [
+    "Development/HNSoftwareDevelopment/Ebook Manager/docs/feature-requests/custom-metadata.md",
+    "Development/HNSoftwareDevelopment/Ebook Manager/docs/feature-requests/author-profiles.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/metadata/saga-standard-metadata-inventory.md",
     "Development/HNSoftwareDevelopment/hnsoftwaredevelopment/README.md",
     "Development/HNSoftwareDevelopment/Inno Setup 7/INSTALLER_FRAMEWORK_PLAN.md",
@@ -304,8 +306,6 @@
     "templates/Marketing & Sales/competitive-analysis.md",
     "templates/Marketing & Sales/campaign-retrospective.md",
     "templates/Marketing & Sales",
-    "templates/Legal/terms-of-service.md",
-    "templates/Legal/privacy-policy.md",
     "templates/Legal",
     "templates/Infrastructure",
     "Development/HNSoftwareDevelopment/Saga/docs/superpowers/plans",
