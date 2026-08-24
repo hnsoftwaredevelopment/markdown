@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Development/Projects/FontManager/Architectuur en Ontwerp.md",
+                "file": "Development/ChatGPT Improvements and tips/Humanize AI Writing.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "Architectuur en Ontwerp"
+              "title": "Humanize AI Writing"
             }
           }
         ]
@@ -368,6 +368,11 @@
   },
   "active": "70113ba83b033f0d",
   "lastOpenFiles": [
+    "attachments/Humanize AI Writing-1.docx",
+    "attachments/Humanize AI Writing-1.png",
+    "Development/Projects/FontManager/Architectuur en Ontwerp.md",
+    "Development/ChatGPT Improvements and tips/Humanize AI Writing.md",
+    "Development/ChatGPT Improvements and tips",
     "Development/HNSoftwareDevelopment/SVGViewer/Installer/README.md",
     "Development/HNSoftwareDevelopment/SVGViewer/Installer",
     "Development/HNSoftwareDevelopment/Inno Setup 7/README.md",
@@ -383,13 +388,12 @@
     "Development/HNSoftwareDevelopment/HN Software Development Platform",
     "Development/HNSoftwareDevelopment/WPF/CODEX-PROJECT-OVERDRACHT.md",
     "Development/HNSoftwareDevelopment/WPF",
-    "Development/HNSoftwareDevelopment/SVGViewer/docs/user-guide/conflict-files-obsidian-git-1.remote",
-    "Development/HNSoftwareDevelopment/SVGViewer/docs/user-guide/conflict-files-obsidian-git-1.local",
+    "Development/HNSoftwareDevelopment/SVGViewer/docs/user-guide/Architectuur en Ontwerp-1.remote",
+    "Development/HNSoftwareDevelopment/SVGViewer/docs/user-guide/Architectuur en Ontwerp-1.local",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-07-10-saga-milestone-4-metadata-settings-design.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/plans/2026-07-10-saga-milestone-4-metadata-settings-foundation.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-3-1-checklist.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs",
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/plans",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-23-checklist.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-4-checklist.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-22-checklist.md",
@@ -401,9 +405,6 @@
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/feature-requests/view-customization.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-15-checklist.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/feature-requests/metadata-multi-edit.md",
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/feature-requests/duplicate-ignore.md",
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/feature-requests/metadata-cleanup.md",
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/feature-requests/filter-list-search.md",
     "Development/HNSoftwareDevelopment/SVGViewer/docs/images/Screenshot02.png",
     "Development/HNSoftwareDevelopment/SVGViewer/docs/images/Screenshot01.png",
     "Development/HNSoftwareDevelopment/SVGViewer/docs/images/TestChecklist Nederlands-1.png",
@@ -414,7 +415,6 @@
     "attachments/Epic-1.png",
     "Naamloos.canvas",
     "attachments/BT1-2161-3.png",
-    "attachments/BT1-2161-2.png",
-    "attachments/BT1-2161-1.png"
+    "attachments/BT1-2161-2.png"
   ]
 }
