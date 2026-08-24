@@ -46,7 +46,7 @@ When you create a new project for creating documentation first thing to do:
 This way, **your content will match your authentic style and will pass any AI detection test.**
 
 If you don't have sample documents skip this step and pickup the next step
-
+[schrijfstijl_herbert](schrijfstijl_herbert.md)
 ## Make it personal
 Now, here’s what most people miss. AI sounds robotic for two reasons. You fixed reason one with custom instructions. But reason two? That’s where personality comes in. The next 2 techniques are gonna fix this:
 
