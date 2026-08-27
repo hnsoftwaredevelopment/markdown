@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Development/HNSoftwareDevelopment/Ebook Manager/docs/feature-requests/author-profiles.md",
+                "file": "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-26-checklist.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,10 +28,11 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "author-profiles"
+              "title": "milestone-26-checklist"
             }
           }
-        ]
+        ],
+        "stacked": true
       }
     ],
     "direction": "vertical"
@@ -102,8 +103,8 @@
             "state": {
               "type": "tag-manager-view",
               "state": {},
-              "icon": "tags",
-              "title": "Tag manager"
+              "icon": "lucide-ghost",
+              "title": "tag-manager-view"
             }
           },
           {
@@ -236,8 +237,8 @@
             "state": {
               "type": "advanced-tables-toolbar",
               "state": {},
-              "icon": "spreadsheet",
-              "title": "Advanced Tables"
+              "icon": "lucide-ghost",
+              "title": "advanced-tables-toolbar"
             }
           }
         ],
@@ -250,7 +251,6 @@
   },
   "left-ribbon": {
     "hiddenItems": {
-      "notebook-navigator:Notebook Navigator": false,
       "switcher:Open snel wisselen": false,
       "graph:Open grafiek weergave": false,
       "canvas:Nieuw doek aanmaken": false,
@@ -272,13 +272,18 @@
       "iconic:Open rulebook": false,
       "markdown-table-editor:Open Markdown Table Editor": false,
       "modalforms:Edit forms": false,
-      "smart-table:Insert Smart Table": false
+      "smart-table:Insert Smart Table": false,
+      "notebook-navigator:Notebook Navigator": false
     }
   },
-  "active": "2caf22fe8135caf5",
+  "active": "6e99288af067873e",
   "lastOpenFiles": [
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/feature-requests/custom-metadata.md",
+    "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/plans/2026-08-27-saga-milestone-27-metadata-dashboard-navigation.md",
+    "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-08-27-saga-milestone-27-metadata-dashboard-navigation-design.md",
+    "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-23-checklist.md",
+    "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-22-checklist.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/feature-requests/author-profiles.md",
+    "Development/HNSoftwareDevelopment/Ebook Manager/docs/feature-requests/custom-metadata.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/metadata/saga-standard-metadata-inventory.md",
     "Development/HNSoftwareDevelopment/hnsoftwaredevelopment/README.md",
     "Development/HNSoftwareDevelopment/Inno Setup 7/INSTALLER_FRAMEWORK_PLAN.md",
@@ -301,10 +306,6 @@
     "templates/Marketing & Sales/landing-page-copy.md",
     "templates/Marketing & Sales/fundraising-campaign.md",
     "templates/Marketing & Sales/event-sponsorship-proposal.md",
-    "templates/Marketing & Sales/email-sequence.md",
-    "templates/Marketing & Sales/customer-journey-map.md",
-    "templates/Marketing & Sales/competitive-analysis.md",
-    "templates/Marketing & Sales/campaign-retrospective.md",
     "templates/Marketing & Sales",
     "templates/Legal",
     "templates/Infrastructure",
