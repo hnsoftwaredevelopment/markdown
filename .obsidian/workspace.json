@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-26-checklist.md",
+                "file": "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-27-checklist.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "milestone-26-checklist"
+              "title": "milestone-27-checklist"
             }
           }
         ],
@@ -240,17 +240,27 @@
               "icon": "lucide-ghost",
               "title": "advanced-tables-toolbar"
             }
+          },
+          {
+            "id": "77370882d8e56c5f",
+            "type": "leaf",
+            "state": {
+              "type": "git-view",
+              "state": {},
+              "icon": "git-pull-request",
+              "title": "Source Control"
+            }
           }
         ],
-        "currentTab": 7
+        "currentTab": 8
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "left-ribbon": {
     "hiddenItems": {
+      "notebook-navigator:Notebook Navigator": false,
       "switcher:Open snel wisselen": false,
       "graph:Open grafiek weergave": false,
       "canvas:Nieuw doek aanmaken": false,
@@ -272,14 +282,13 @@
       "iconic:Open rulebook": false,
       "markdown-table-editor:Open Markdown Table Editor": false,
       "modalforms:Edit forms": false,
-      "smart-table:Insert Smart Table": false,
-      "notebook-navigator:Notebook Navigator": false
+      "smart-table:Insert Smart Table": false
     }
   },
-  "active": "2caf22fe8135caf5",
+  "active": "6e99288af067873e",
   "lastOpenFiles": [
-    "conflict-files-obsidian-git.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-26-checklist.md",
+    "conflict-files-obsidian-git.md",
     "attachments/Humanize AI Writing-1.png",
     "attachments/Humanize AI Writing-1.docx",
     "Development/Projects/Schrijfstijl/schrijfstijl_herbert.md",
