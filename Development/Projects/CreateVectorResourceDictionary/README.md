@@ -31,6 +31,13 @@ zonder fouten (`dotnet build CreateVectorResourceDictionary.slnx`).
 - "Openen..." leest een eerder opgeslagen `.iconproj.json` weer in: alle
   iconen komen aangevinkt en onder hun eigen naam terug, in de
   selectie-weergave, klaar om te verwijderen of aan te vullen.
+- "Nieuwe ResourceDictionary maken..." en "Bijwerken" zijn uitgeschakeld
+  zolang er dubbele namen in de selectie staan, zodat opslaan met een
+  naamconflict niet eens mogelijk is.
+- Werkbalk met iconen in plaats van tekstknoppen, elk met een tooltip die
+  uitlegt wat de knop doet.
+- "Selectie tonen" en "in alle categorieën zoeken" zijn schuifknoppen
+  (toggle switches) in plaats van een aparte checkbox/toggle-knop.
 - Bouwnummer (zie hieronder) zichtbaar rechts in de statusbalk.
 
 ## Architectuur
