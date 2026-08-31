@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Development/WPF Handboek/00 Start/Inhoudsopgave.md",
+                "file": "Development/Projects/Schrijfstijl/schrijfstijl_herbert.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "Inhoudsopgave"
+              "title": "schrijfstijl_herbert"
             }
           }
         ],
@@ -338,11 +338,11 @@
       }
     ],
     "direction": "horizontal",
-    "width": 666.5,
-    "collapsed": true
+    "width": 666.5
   },
   "left-ribbon": {
     "hiddenItems": {
+      "smart-table:Insert Smart Table": false,
       "quickadd:QuickAdd": false,
       "iconic:Open rulebook": false,
       "table-editor-obsidian:Advanced Tables Toolbar": false,
@@ -367,16 +367,17 @@
       "modalforms:Edit forms": false
     }
   },
-  "active": "70113ba83b033f0d",
+  "active": "a76ab09dac4b2700",
   "lastOpenFiles": [
     "Development/ChatGPT Improvements and tips/Humanize AI Writing.md",
+    "Development/Projects/InnoSetupHelpNL/00-kernpaginas/03-scriptindeling.md",
+    "Development/Projects/InnoSetupHelpNL/00-kernpaginas/02-installaties-maken.md",
+    "Development/Projects/InnoSetupHelpNL/00-kernpaginas/01-wat-is-inno-setup.md",
+    "Development/WPF Handboek/00 Start/Inhoudsopgave.md",
     "Development/Projects/InnoSetupHelpNL/00-kernpaginas/07-componenten-en-taken-parameters.md",
     "Development/Projects/InnoSetupHelpNL/00-kernpaginas/06-algemene-parameters.md",
     "Development/Projects/InnoSetupHelpNL/00-kernpaginas/05-constanten.md",
     "Development/Projects/InnoSetupHelpNL/00-kernpaginas/04-parameters-in-secties.md",
-    "Development/Projects/InnoSetupHelpNL/00-kernpaginas/03-scriptindeling.md",
-    "Development/Projects/InnoSetupHelpNL/00-kernpaginas/02-installaties-maken.md",
-    "Development/Projects/InnoSetupHelpNL/00-kernpaginas/01-wat-is-inno-setup.md",
     "Development/Projects/InnoSetupHelpNL/00-kernpaginas",
     "Development/Projects/InnoSetupHelpNL",
     "Development/Projects/Schrijfstijl/schrijfstijl_herbert.md",
@@ -405,7 +406,6 @@
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-23-checklist.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-4-checklist.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-22-checklist.md",
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-21-checklist.md",
     "Development/HNSoftwareDevelopment/SVGViewer/docs/images/Screenshot02.png",
     "Development/HNSoftwareDevelopment/SVGViewer/docs/images/Screenshot01.png",
     "Development/HNSoftwareDevelopment/SVGViewer/docs/images/TestChecklist Nederlands-1.png",

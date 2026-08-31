@@ -6,6 +6,11 @@
   "phoneFooterSafeAreaPadding": false,
   "tabletFooterSafeAreaPadding": false,
   "folder": "Atlas/Special/Excalidraw",
+  "libraryFolderPath": "Excalidraw/Libraries",
+  "libraryFileName": "local-library",
+  "libraryStorageMode": "data-json",
+  "libraryMigrationStatus": "pending",
+  "libraryMigrationSnoozeUntil": 0,
   "cropFolder": "",
   "annotateFolder": "",
   "embedUseExcalidrawFolder": false,
@@ -56511,6 +56516,29 @@
   "mdFontColor": "Black",
   "mdBorderColor": "Black",
   "mdCSS": "",
+  "markdownImageSettings": {
+    "defaults": {
+      "width": 500,
+      "paddingBottom": 10,
+      "fontFamily": "Virgil",
+      "fontColor": "Black",
+      "border": {
+        "enabled": false,
+        "color": "Black"
+      },
+      "css": "",
+      "transclusion": {
+        "enabled": false,
+        "fontFamily": "Cascadia",
+        "fontColor": "Black",
+        "border": {
+          "enabled": false,
+          "color": "Black"
+        },
+        "css": ""
+      }
+    }
+  },
   "scriptEngineSettings": {
     "Downloaded/TheBrain-navigation": {
       "Confirmation prompt at startup": {
@@ -57588,34 +57616,6 @@
     "margin": "normal"
   },
   "disableContextMenu": false,
-  "libraryFolderPath": "Excalidraw/Libraries",
-  "libraryFileName": "local-library",
-  "libraryStorageMode": "data-json",
-  "libraryMigrationStatus": "pending",
-  "libraryMigrationSnoozeUntil": 0,
-  "markdownImageSettings": {
-    "defaults": {
-      "width": 500,
-      "paddingBottom": 10,
-      "fontFamily": "Virgil",
-      "fontColor": "Black",
-      "border": {
-        "enabled": false,
-        "color": "Black"
-      },
-      "css": "",
-      "transclusion": {
-        "enabled": false,
-        "fontFamily": "Cascadia",
-        "fontColor": "Black",
-        "border": {
-          "enabled": false,
-          "color": "Black"
-        },
-        "css": ""
-      }
-    }
-  },
   "autosaveInterval": 15000,
   "defaultTrayMode": false,
   "mathjaxSourceURL": "https://cdn.jsdelivr.net/npm/mathjax@3.2.1/es5/tex-svg.js",
