@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Development/Projects/Schrijfstijl/schrijfstijl_herbert.md",
+                "file": "Work/Voortman/How to/Traktatielijst.xlsm.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "schrijfstijl_herbert"
+              "title": "Traktatielijst.xlsm"
             }
           }
         ],
@@ -338,7 +338,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 666.5
+    "width": 666.5,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -367,12 +368,14 @@
       "modalforms:Edit forms": false
     }
   },
-  "active": "a76ab09dac4b2700",
+  "active": "70113ba83b033f0d",
   "lastOpenFiles": [
+    "Development/Projects/Schrijfstijl/schrijfstijl_herbert.md",
+    "Work/Voortman/How to/Traktatielijst.xlsm.md",
+    "Work/Voortman/How to",
     "Development/Projects/CreateVectorResourceDictionary/README.md",
     "Development/Projects/CreateVectorResourceDictionary",
     "conflict-files-obsidian-git.md",
-    "Development/Projects/Schrijfstijl/schrijfstijl_herbert.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/tasks/todo.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/tasks/plan.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/tasks",
@@ -401,11 +404,9 @@
     "Development/HNSoftwareDevelopment/Inno Setup 7",
     "Development/HNSoftwareDevelopment/HNSoftwareInstallerFramework/docs/USAGE.md",
     "Development/HNSoftwareDevelopment/HNSoftwareInstallerFramework/README.md",
-    "Development/HNSoftwareDevelopment/HNSoftwareInstallerFramework/docs",
     "Development/HNSoftwareDevelopment/HN Software Development Platform/CODEX-PROJECT-OVERDRACHT.md",
     "Development/HNSoftwareDevelopment/WPF/CODEX-PROJECT-OVERDRACHT.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-07-10-saga-milestone-4-metadata-settings-design.md",
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/plans/2026-07-10-saga-milestone-4-metadata-settings-foundation.md",
     "Development/HNSoftwareDevelopment/SVGViewer/docs/images/Screenshot02.png",
     "Development/HNSoftwareDevelopment/SVGViewer/docs/images/Screenshot01.png",
     "Development/HNSoftwareDevelopment/SVGViewer/docs/images/TestChecklist Nederlands-1.png",

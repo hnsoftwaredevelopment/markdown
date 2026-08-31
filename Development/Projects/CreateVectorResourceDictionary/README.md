@@ -8,8 +8,30 @@ zonder tags, klaar om in een eigen WPF/C#-project te gebruiken met
 
 ## Status
 
-Basisopzet staat en bouwt zonder fouten (`dotnet build CreateVectorResourceDictionary.slnx`).
-De app is nog niet lokaal getest: zie "Bekend probleem" hieronder.
+Werkt en is getest: categorieën inlezen, iconen selecteren en hernoemen,
+opslaan als nieuwe ResourceDictionary, bestaand project weer openen. Bouwt
+zonder fouten (`dotnet build CreateVectorResourceDictionary.slnx`).
+
+## Functies
+
+- Boom links met Icons/FontIcons, per bron alle categorieën.
+- Grid rechts per categorie: preview, checkbox, eigen naam.
+- Selectie blijft actief als je van categorie wisselt.
+- "Selectie tonen": laat alle op dit moment aangevinkte iconen zien, over
+  alle categorieën heen, op één plek.
+- Zoeken binnen de huidige categorie, of met "in alle categorieën" aan
+  door de hele bibliotheek heen (laadt bij eerste gebruik alle categorieën,
+  met een wachtcursor).
+- Dubbele namen in je selectie worden direct rood gemarkeerd (rand,
+  achtergrond en tekst), met een duidelijke melding bij het opslaan zodat
+  je niet per ongeluk twee iconen onder dezelfde naam wegschrijft.
+- "Nieuwe ResourceDictionary maken..." voor een nieuw bestand,
+  "Bijwerken" om de laatst geopende of opgeslagen dictionary in place te
+  overschrijven met de huidige selectie.
+- "Openen..." leest een eerder opgeslagen `.iconproj.json` weer in: alle
+  iconen komen aangevinkt en onder hun eigen naam terug, in de
+  selectie-weergave, klaar om te verwijderen of aan te vullen.
+- Bouwnummer (zie hieronder) zichtbaar rechts in de statusbalk.
 
 ## Architectuur
 
@@ -20,8 +42,7 @@ De app is nog niet lokaal getest: zie "Bekend probleem" hieronder.
   nieuwe ResourceDictionary (`ResourceDictionaryWriter`) en het opslaan/
   openen van een selectie (`IconProjectStore`).
 - `src/CreateVectorResourceDictionary.App` (net8.0-windows, WPF, MVVM met
-  CommunityToolkit.Mvvm) is de UI: een boom met bronnen/categorieën links,
-  een grid met iconen (checkbox, preview, eigen naam) rechts.
+  CommunityToolkit.Mvvm) is de UI.
 
 ## Bronbestanden (SourceIcons)
 
@@ -40,6 +61,17 @@ Staat die map ergens anders, klik dan in de app op "Bronmap kiezen..." om
 hem handmatig aan te wijzen. Die keuze wordt onthouden in
 `%AppData%\CreateVectorResourceDictionary\settings.json`.
 
+## Bouwnummer
+
+Elke build (ook zonder codewijzigingen) krijgt een oplopend versienummer
+in het formaat `YYYY.MM.dd.xxx`, bijvoorbeeld `2026.08.31.004`: de eerste
+build van de dag krijgt `000`, elke build daarna telt op. De teller staat
+in `build\buildnumber.txt` en wordt automatisch bijgewerkt door een
+MSBuild-target in `CreateVectorResourceDictionary.App.csproj`
+(`SetBuildVersion`). Design-time builds van Visual Studio (voor
+IntelliSense) tellen niet mee, alleen echte builds. Het nummer staat
+rechts in de statusbalk van de app.
+
 ## Bouwen en starten
 
 ```
@@ -48,27 +80,10 @@ dotnet build CreateVectorResourceDictionary.slnx
 dotnet run --project src\CreateVectorResourceDictionary.App\CreateVectorResourceDictionary.App.csproj
 ```
 
-## Bekend probleem: crash bij opstarten (niet onze code)
+## Bekende verbeterpunten (nog open)
 
-Op deze machine crasht op dit moment elke WPF-app (ook een kale, verse
-`dotnet new wpf`-app zonder enige aanpassing) direct bij het opstarten met:
-
-```
-System.UriFormatException: Invalid URI: The format of the URI could not be determined.
-   at MS.Internal.FontCache.Util..cctor()
-```
-
-Dit gebeurt in de WPF-runtime zelf, vóór er ook maar één regel van dit
-project draait. Vermoedelijke oorzaak: een corrupte of beschadigde
-Windows font-cache, mogelijk na een recente Windows-update. Mogelijke
-vervolgstappen (buiten dit project, meestal met beheerdersrechten):
-
-- de services `FontCache` en `FontCache3.0.0.0` stoppen, de map
-  `C:\Windows\ServiceProfiles\LocalService\AppData\Local\FontCache`
-  legen en de pc herstarten;
-- controleren op recente Windows-updates rond half augustus 2026 die de
-  WPF font-stack raken, en die eventueel tijdelijk verwijderen;
-- testen of een kale `dotnet new wpf`-app op een andere pc wel start, om
-  te bevestigen dat het aan deze machine ligt en niet aan dit project.
-
-Zodra dat is opgelost, kan de app echt getest worden.
+- Eerste keer een categorie openen duurt soms een paar seconden; er staat
+  nu een wachtcursor tijdens het laden, maar de grid is nog niet
+  ge-virtualiseerd. Bij categorieën met 1000+ iconen (met name in
+  FontIcons) kan dat op termijn alsnog traag aanvoelen; een echte
+  virtualiserende grid is de volgende stap als dat in de praktijk stoort.
