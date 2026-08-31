@@ -58,12 +58,12 @@ De keuzes die de gebruiker maakt, kunnen later als standaardinstellingen worden 
 
 Deze instellingen hoeven niet in de eerste versie van de merge-workflow te zitten, maar het ontwerp moet er wel rekening mee houden.
 
-## Verdere Optimalisaties Voor Later
+## Geïmplementeerde Workflow Voor Geen Duplicaat
 
-- Voeg een actie `Geen duplicaat` toe voor mogelijke duplicaten die dezelfde titel hebben maar toch verschillende boeken zijn.
-- Bewaar deze keuze per bibliotheek, bij voorkeur op basis van de betrokken boek-id's en de duplicate-matchgegevens, zodat dezelfde combinatie niet steeds opnieuw verschijnt.
-- Pas deze negeeractie alleen toe op mogelijke of fuzzy matches. Exacte hashduplicaten blijven technische duplicaten en moeten niet stilzwijgend genegeerd kunnen worden.
-- Toon genegeerde matches later eventueel in instellingen of een onderhoudsscherm, zodat de gebruiker een vergissing kan herstellen.
+- De actie `Geen duplicaat` sluit mogelijke duplicaten uit die dezelfde titel hebben maar toch verschillende boeken zijn.
+- Saga bewaart deze keuze per bibliotheek op basis van de betrokken boek-id's, zodat dezelfde combinatie niet steeds opnieuw verschijnt.
+- De actie geldt alleen voor mogelijke matches. Exacte hashduplicaten blijven technische duplicaten en kunnen niet stilzwijgend worden genegeerd.
+- Genegeerde matches kunnen vanuit Instellingen worden bekeken en hersteld.
 
 ## Acceptatiecriteria
 
@@ -79,4 +79,6 @@ Deze instellingen hoeven niet in de eerste versie van de merge-workflow te zitte
 
 ## Status
 
-Uitgesteld. Dit is bewust geen onderdeel van de eerste duplicate finder-iteratie, omdat verwijderen al destructief genoeg is en samenvoegen een aparte veilige ontwerpstap verdient.
+Grotendeels geïmplementeerd. De duplicate finder ondersteunt inmiddels een merge-preview, een expliciete keuze van bron- en doelboek, acties per metadataveld, het behouden van gekoppelde bestandsformaten en verversing van de duplicate finder en hoofdweergave.
+
+Nog open: de samengevoegde metadata wordt in SQLite opgeslagen, maar de merge-route werkt de draagbare `metadata.json` sidecar nog niet bij. GitHub-issue #1 volgt uitsluitend dit resterende consistentiepunt en de bijbehorende regressietest. Totdat dit is opgelost, is het acceptatiecriterium voor de sidecar nog niet behaald.
