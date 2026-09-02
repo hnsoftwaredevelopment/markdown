@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Work/Voortman/How to/Traktatielijst.xlsm.md",
+                "file": "Development/HNSoftwareDevelopment/Inno Setup Studio/00 - Project kickoff en werkafspraken.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "Traktatielijst.xlsm"
+              "title": "00 - Project kickoff en werkafspraken"
             }
           }
         ],
@@ -370,6 +370,9 @@
   },
   "active": "70113ba83b033f0d",
   "lastOpenFiles": [
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/README.md",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/00 - Project kickoff en werkafspraken.md",
+    "Work/Voortman/How to/Traktatielijst.xlsm.md",
     "attachments/Traktatielijst.xlsm-9.png",
     "attachments/Traktatielijst.xlsm-8.png",
     "attachments/Traktatielijst.xlsm-7.png",
@@ -377,15 +380,12 @@
     "attachments/Traktatielijst.xlsm-5.png",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/Architectuur-en-Ontwerp.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs",
-    "Development/HNSoftwareDevelopment/Inno Setup Studio/README.md",
     "attachments/Traktatielijst.xlsm-4.png",
     "attachments/Traktatielijst.xlsm-3.png",
     "attachments/Traktatielijst.xlsm-2.png",
     "Traktatielijst.xlsm-1.base",
-    "Development/HNSoftwareDevelopment/Inno Setup Studio/00 - Project kickoff en werkafspraken.md",
     "attachments/Traktatielijst.xlsm-1.png",
     "Development/Projects/Schrijfstijl/schrijfstijl_herbert.md",
-    "Work/Voortman/How to/Traktatielijst.xlsm.md",
     "Work/Voortman/How to",
     "Development/Projects/CreateVectorResourceDictionary/README.md",
     "Development/Projects/CreateVectorResourceDictionary",
@@ -415,7 +415,6 @@
     "Development/HNSoftwareDevelopment/Inno Setup 7/INSTALLER_FRAMEWORK_PLAN.md",
     "Development/HNSoftwareDevelopment/Inno Setup 7/FRAMEWORK_USAGE.md",
     "Development/HNSoftwareDevelopment/HNSoftwareInstallerFramework/docs/USAGE.md",
-    "Development/HNSoftwareDevelopment/SVGViewer/docs/images/Screenshot02.png",
     "Untitled.canvas",
     "Naamloos.canvas"
   ]
