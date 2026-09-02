@@ -35,9 +35,52 @@ zonder fouten (`dotnet build CreateVectorResourceDictionary.slnx`).
   zolang er dubbele namen in de selectie staan, zodat opslaan met een
   naamconflict niet eens mogelijk is.
 - Werkbalk met iconen in plaats van tekstknoppen, elk met een tooltip die
-  uitlegt wat de knop doet.
+  uitlegt wat de knop doet. De iconen zelf staan als WPF Geometry-resources
+  in `src/CreateVectorResourceDictionary.App/Resources/Icons.xaml`, gemaakt
+  op basis van eigen SVG-ontwerpen.
 - "Selectie tonen" en "in alle categorieën zoeken" zijn schuifknoppen
   (toggle switches) in plaats van een aparte checkbox/toggle-knop.
+- Zoeken wacht 250 ms na je laatste toetsaanslag voordat het filter
+  toepast (debounce), met een kruisje-knop om het zoekveld in één klik
+  leeg te maken.
+- De iconengrid is ge-virtualiseerd (NuGet-package `VirtualizingWrapPanel`):
+  bij een categorie met 1000+ iconen worden alleen de iconen die
+  daadwerkelijk in beeld zijn ook echt opgebouwd, in plaats van de hele
+  categorie in één keer te renderen.
+- Icoonnamen worden gevalideerd: alleen letters, cijfers en underscore,
+  niet beginnend met een cijfer (nodig om als x:Key en als
+  SVG-bestandsnaam te kunnen gebruiken). De standaardnaam van elk icoon
+  wordt daarom automatisch opgeschoond (`IconItemViewModel.SanitizeName`):
+  spaties worden verwijderd waarbij het volgende teken een hoofdletter
+  wordt ("Language Dutch" → "LanguageDutch"), een "-" wordt "_"
+  ("Add-Folder" → "Add_Folder") en overige leestekens vallen weg. Pas je
+  de naam daarna zelf nog aan tot iets ongeldigs, dan wordt die pas
+  oranje gemarkeerd, met dezelfde soort duidelijke melding en blokkade
+  bij opslaan als bij dubbele namen.
+- De app onthoudt de laatst geopende categorie en de standen van
+  "Selectie tonen"/"in alle categorieën zoeken" bij het afsluiten, en
+  herstelt die bij de volgende start.
+- "Exporteren naar SVG..." schrijft de huidige selectie weg als losse
+  SVG-bestanden (één per icoon, bestandsnaam = eigen naam), met een
+  automatisch berekende viewBox op basis van de daadwerkelijke afmetingen
+  van de geometrie.
+- "Openen..." accepteert ook een kale `.xaml` zonder eigen
+  `.iconproj.json` (bijvoorbeeld een handmatig beheerde
+  ResourceDictionary): de iconen erin komen aangevinkt in de
+  selectie-weergave, met dat bestand als actief project. Selecteer je
+  daarna extra iconen uit de bibliotheek, dan komen die er via
+  "Bijwerken" gewoon bij in hetzelfde bestand, en krijgt het vanaf dat
+  moment ook een sidecar-projectbestand zodat het voortaan als volwaardig
+  project geopend wordt. Herkende iconvormen: `<Geometry x:Key="...">`,
+  `<Path Data="...">`, `<GeometryGroup x:Key="...">` met daarin één of
+  meer ongesleutelde `<Geometry>`-kinderen (de meest voorkomende Metro
+  Studio-exportvorm) en `<PathGeometry Figures="...">`. Niet herkend:
+  `DrawingImage`/`GeometryDrawing` (die hebben een vaste kleur per vorm
+  ingebakken, wat botst met het "geen vaste Fill"-uitgangspunt van deze
+  app) en een volledig uitgeschreven `<PathFigure>`/segment-boomstructuur.
+- Eigen AppIcon (`Resources/appicon.ico`, met een bijbehorende
+  `appicon.svg` als bron): zichtbaar op de taakbalk, in Verkenner op het
+  .exe-bestand, en in de titelbalk van het venster.
 - Bouwnummer (zie hieronder) zichtbaar rechts in de statusbalk.
 
 ## Architectuur
@@ -45,11 +88,16 @@ zonder fouten (`dotnet build CreateVectorResourceDictionary.slnx`).
 - `src/CreateVectorResourceDictionary.Core` (net8.0, class library)
   bevat de logica, los van UI: modellen (`IconEntry`, `IconCategory`,
   `SelectedIconRecord`, `IconProjectFile`), het inlezen van de Metro
-  Studio-dictionaries (`MetroIconLibraryReader`), het wegschrijven van een
-  nieuwe ResourceDictionary (`ResourceDictionaryWriter`) en het opslaan/
-  openen van een selectie (`IconProjectStore`).
+  Studio-dictionaries (`MetroIconLibraryReader`), het inlezen van een
+  willekeurige, niet door deze app aangemaakte ResourceDictionary
+  (`ExternalResourceDictionaryReader`), het wegschrijven van een nieuwe
+  ResourceDictionary (`ResourceDictionaryWriter`) en het opslaan/openen
+  van een selectie (`IconProjectStore`).
 - `src/CreateVectorResourceDictionary.App` (net8.0-windows, WPF, MVVM met
-  CommunityToolkit.Mvvm) is de UI.
+  CommunityToolkit.Mvvm) is de UI, met o.a. `Services/SvgExporter.cs` voor
+  het wegschrijven van losse SVG-bestanden (hoort hier in plaats van in
+  Core omdat het WPF's `Geometry`-klasse gebruikt om de viewBox te
+  berekenen).
 
 ## Bronbestanden (SourceIcons)
 
@@ -89,8 +137,7 @@ dotnet run --project src\CreateVectorResourceDictionary.App\CreateVectorResource
 
 ## Bekende verbeterpunten (nog open)
 
-- Eerste keer een categorie openen duurt soms een paar seconden; er staat
-  nu een wachtcursor tijdens het laden, maar de grid is nog niet
-  ge-virtualiseerd. Bij categorieën met 1000+ iconen (met name in
-  FontIcons) kan dat op termijn alsnog traag aanvoelen; een echte
-  virtualiserende grid is de volgende stap als dat in de praktijk stoort.
+- Eerste keer een categorie openen duurt soms nog even omdat het bestand
+  op dat moment van schijf wordt gelezen; er staat een bezig-indicator
+  tijdens het laden (op de achtergrondthread, zie hierboven), maar het is
+  geen instant proces bij hele grote categorieën.
