@@ -57,7 +57,7 @@ Just enter the name at the bottom of the list and the name will be on the "Invul
 ### The new team member also has to organize a treat moment
 In fact the second column with names is for that purpose, but, most of the time the schedule for the entire year is already filled in, but you can always decide to replace one of the names in it wih the new team member.
 First column is the persons name, second column is the week of the treat preceded with "Wk ", So "Wk 31" means person does a treat in week 31.
-Ik the entered week number is within a range Steely's is closed the week number will turn red and you have to select another week.
+If the entered week number is within a range Steely's is closed the week number will turn red and you have to select another week.
 ![](Traktatielijst.xlsm-6.png)
 
 ### Default order of treating
@@ -92,7 +92,7 @@ We have to do 2 things for a new snack year:
 To be sure the treats are equaly divided over the years we maintain a default treat order.
 ![](Traktatielijst.xlsm-7.png)
 
-When Frank did the last treat of the past year we wil first select from Marcel til the end of the list and copy this part to the top of thee treat order list
+When Frank did the last treat of the past year we wil first select from Marcel til the end of the list and copy this part to the top of the treat order list
 ![](Traktatielijst.xlsm-7.png)
 
 Then we select the entire list from top to bottom and copy it for the other weeks in the treat order list.
@@ -103,31 +103,5 @@ Be sure the extra treat moments from the previous year are removed, and the week
 Enter the known vacation weeks for Steely's
 ![](Traktatielijst.xlsm-9.png)
 
-
-
-## Step 2: Buildng the Core
-
-Explanation and instructions.
-
-```
-// Code example
-```
-
-## Step 3: Adding Features
-
-Explanation and instructions.
-
-## Step 4: Testing
-
-How to verify it works.
-
-## Recap
-
-What we covered:
-1. Point 1
-2. Point 2
-3. Point 3
-
-## Next Steps
-
-Where to go from here.
+## Link to the Traktatielijst
+[Traktatielijst.xlsm](https://voortmansteelgroup.sharepoint.com/teams/BeamTeam1/Shared%20Documents/General/Traktatielijst.xlsm?web=1)
