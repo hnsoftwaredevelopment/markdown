@@ -179,6 +179,7 @@ Voor een nieuwe EF Core-migratie wordt de bestaande projectconfiguratie gebruikt
 ## Buiten Scope
 
 - Directe metadatareparatie en een herstelpaneel.
+- De tekstknop `Dit is correct` vervangen door een passende, toegankelijke icoonknop; dit blijft als visuele vervolgverbetering bewaard.
 - Bulkselectie, bulkreparatie of bulk negeren.
 - Configureerbare kwaliteitsregels en ernstniveaus.
 - Export van kwaliteitswerklijsten.

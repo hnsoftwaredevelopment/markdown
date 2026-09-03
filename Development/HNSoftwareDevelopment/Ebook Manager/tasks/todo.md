@@ -1,10 +1,20 @@
-# Milestone 27 Todo
+# Milestone 29 Todo
 
-- [x] Bestaande dashboard-, filter-, selectie- en groeperingscode onderzocht.
-- [x] Ontwerp en acceptatiecriteria vastgelegd.
-- [x] Implementatievolgorde en teststrategie vastgelegd.
-- [x] Menselijke goedkeuring op het ontwerp ontvangen op 27 augustus 2026.
-- [x] Taken 1 tot en met 6 testgedreven uitvoeren.
-- [x] Volledige test- en buildcontrole uitvoeren: 473 tests, build zonder waarschuwingen.
-- [x] Markdown-documentatie naar Obsidian spiegelen.
-- [ ] Draft-PR openen en reviewfeedback verwerken.
+- [x] Functionele richting goedgekeurd op 1 september 2026.
+- [x] Specificatie en acceptatiecriteria goedgekeurd op 1 september 2026.
+- [x] Uitvoeringsplan en taakvolgorde goedgekeurd op 1 september 2026.
+- [x] Taak 1: herbruikbare kwaliteitsevaluatie implementeren.
+- [x] Taak 2: veilige applicatieservice voor auteursherstel implementeren.
+- [x] Checkpoint 1: 48 fundamenttests en Release-build groen; zelfreview afgerond met 0 waarschuwingen.
+- [x] Taak 3: auteursinvoer en suggesties testgedreven modelleren.
+- [x] Taak 4: compact herstelvenster en interactiecontract toevoegen.
+- [x] Checkpoint 2: auteursuggesties, vrije invoer en annuleren handmatig goedgekeurd op 1 september 2026.
+- [x] Taak 5: dashboardcommando en gerichte herevaluatie implementeren.
+- [x] Taak 6: actieve bibliotheek en WPF-dashboard verbinden.
+- [x] Checkpoint 3: end-to-end auteursherstel handmatig goedgekeurd op 1 september 2026.
+- [x] Taak 7: lokalisatie en geautomatiseerde toegankelijkheidscontrole afgerond.
+- [x] Taak 8: documentatie, handmatige checklist en eindcontrole afgerond.
+- [x] Volledige Release-tests (546 geslaagd) en build zonder waarschuwingen uitgevoerd.
+- [x] Alle gewijzigde Markdown-documentatie naar Obsidian gespiegeld en gecontroleerd.
+- [x] Zelfreview uitgevoerd en normale, niet-draft PR #28 geopend.
+- [x] De vier opmerkingen uit de CodeRabbit-review van PR #28 verwerkt en opnieuw gevalideerd.

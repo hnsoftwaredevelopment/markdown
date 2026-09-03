@@ -4,7 +4,7 @@ Native Windows desktop ebook library manager built with .NET 10, WPF, SQLite, Co
 
 ## Current Status
 
-Milestone 27 builds on version `0.1` by turning the metadata quality dashboard into a direct navigation tool for library cleanup.
+Milestone 30 builds on version `0.1` with direct repair actions in the metadata quality dashboard for missing authors and missing or unknown languages.
 
 - portable local ebook libraries with `library.db`
 - import pipeline with duplicate detection
@@ -53,7 +53,10 @@ Milestone 27 builds on version `0.1` by turning the metadata quality dashboard i
 - custom metadata fields with Calibre custom-column import
 - customizable column visibility, saved grid layouts, and user-defined views
 - multi-book metadata editing and cleanup actions for facets such as authors and tags
-- metadata quality dashboard with issue counts, affected-book lists, and direct navigation to a selected library book
+- metadata quality dashboard with issue counts, affected-book lists, direct navigation, and a reversible `This is correct` decision per book and signal
+- management of ignored quality issues from Settings, without changing the book metadata itself
+- direct missing-author repair from the quality dashboard with known-author suggestions and free entry for a new author
+- direct missing- or unknown-language repair from the quality dashboard with a searchable list of valid languages
 - delete actions continue removing library records when managed file cleanup reports a warning
 - filter context-menu cleanup for authors, series, tags, and languages
 - WPF workspace with bookshelf, detailed grid, and list views
@@ -86,6 +89,17 @@ Alternatively, place the key in `docs/SynfusionLicense.txt` or `docs/SyncfusionL
 dotnet restore EbookManager.sln
 dotnet test EbookManager.sln
 dotnet build EbookManager.sln
+```
+
+The ready-to-run Debug build is stored under `Builds` in the repository root. Internal compiler and test output remains in the ignored `.build` folder:
+
+- Debug app: `Builds\Debug\Saga.exe`
+- Future installer input: `Builds\Publish`
+
+Create the future publish output with:
+
+```powershell
+dotnet publish src/EbookManager.App/EbookManager.App.csproj -c Release
 ```
 
 Run the desktop app:
@@ -157,6 +171,10 @@ Use these manual test checklists:
 - [docs/manual-tests/milestone-25-checklist.md](docs/manual-tests/milestone-25-checklist.md)
 - [docs/manual-tests/milestone-26-checklist.md](docs/manual-tests/milestone-26-checklist.md)
 - [docs/manual-tests/milestone-27-checklist.md](docs/manual-tests/milestone-27-checklist.md)
+- [docs/manual-tests/milestone-28-checklist.md](docs/manual-tests/milestone-28-checklist.md)
+- [docs/manual-tests/milestone-29-checklist.md](docs/manual-tests/milestone-29-checklist.md)
+- [docs/manual-tests/milestone-30-checklist.md](docs/manual-tests/milestone-30-checklist.md)
+- [docs/manual-tests/milestone-31-checklist.md](docs/manual-tests/milestone-31-checklist.md)
 
 ## Later-Version Candidates
 
@@ -166,7 +184,7 @@ The following remain later-version candidates:
 - native metadata write-back into ebook files
 - details-pane cover picker for CBR files that can extract the first image from the archive and use it as cover
 - optional cloud-file hydration for OneDrive files that are not available locally
-- direct repair actions from the metadata quality dashboard
+- additional direct repair actions for title/author, tags, and covers from the metadata quality dashboard
 - ebook conversion
 - full-text search inside book contents
 - in-app bug reports and feature requests that can prepare or create GitHub issues after user review

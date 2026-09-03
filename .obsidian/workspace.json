@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-27-checklist.md",
+                "file": "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-08-27-saga-milestone-28-quality-issue-exclusions-design.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "milestone-27-checklist"
+              "title": "2026-08-27-saga-milestone-28-quality-issue-exclusions-design"
             }
           }
         ],
@@ -287,6 +287,7 @@
   },
   "active": "6e99288af067873e",
   "lastOpenFiles": [
+    "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-27-checklist.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-26-checklist.md",
     "conflict-files-obsidian-git.md",
     "attachments/Humanize AI Writing-1.png",
@@ -322,7 +323,6 @@
     "Development/HNSoftwareDevelopment/Inno Setup 7/INSTALLER_FRAMEWORK_PLAN.md",
     "Development/WPF Handboek/00 Start/Inhoudsopgave.md",
     "Development/HNSoftwareDevelopment/Saga/docs/architecture/settings-behavior.md",
-    "Development/Code/C#/WPF/A WPF application  Resources.md",
     "Development/HNSoftwareDevelopment/SVGViewer/docs/user-guide/conflict-files-obsidian-git-1.remote",
     "Development/WPF Handboek/01 Layout containers/Pasted image 20260527195416.png",
     "attachments/fcaf64b75c984e73a82d68d6eb782f6f.png",
