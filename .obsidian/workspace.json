@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-08-27-saga-milestone-28-quality-issue-exclusions-design.md",
+                "file": "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-09-01-saga-milestone-29-missing-author-repair-design.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,10 +28,35 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "2026-08-27-saga-milestone-28-quality-issue-exclusions-design"
+              "title": "2026-09-01-saga-milestone-29-missing-author-repair-design"
+            }
+          },
+          {
+            "id": "9bd412a033250715",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "conflict-files-obsidian-git.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": true,
+                "backlinkOpts": {
+                  "collapseAll": false,
+                  "extraContext": false,
+                  "sortOrder": "alphabetical",
+                  "showSearch": false,
+                  "searchQuery": "",
+                  "backlinkCollapsed": false,
+                  "unlinkedCollapsed": true
+                }
+              },
+              "icon": "lucide-file",
+              "title": "conflict-files-obsidian-git"
             }
           }
         ],
+        "currentTab": 1,
         "stacked": true
       }
     ],
@@ -285,11 +310,33 @@
       "smart-table:Insert Smart Table": false
     }
   },
-  "active": "6e99288af067873e",
+  "active": "9bd412a033250715",
   "lastOpenFiles": [
+    "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-09-01-saga-milestone-29-missing-author-repair-design.md",
+    "conflict-files-obsidian-git.md",
+    "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-08-27-saga-milestone-28-quality-issue-exclusions-design.md",
+    "attachments/Traktatielijst.xlsm-9.png",
+    "attachments/Traktatielijst.xlsm-8.png",
+    "attachments/Traktatielijst.xlsm-7.png",
+    "attachments/Traktatielijst.xlsm-6.png",
+    "attachments/Traktatielijst.xlsm-5.png",
+    "attachments/Traktatielijst.xlsm-4.png",
+    "attachments/Traktatielijst.xlsm-3.png",
+    "attachments/Traktatielijst.xlsm-2.png",
+    "attachments/Traktatielijst.xlsm-1.png",
+    "Work/Voortman/How to/Traktatielijst.xlsm.md",
+    "Work/Voortman/How to",
+    "Traktatielijst.xlsm-1.base",
+    "Development/Projects/CreateVectorResourceDictionary/README.md",
+    "Development/Projects/CreateVectorResourceDictionary",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/Architectuur-en-Ontwerp.md",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/README.md",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/Architectuur-en-Ontwerp.md",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/00 - Project kickoff en werkafspraken.md",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-27-checklist.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-26-checklist.md",
-    "conflict-files-obsidian-git.md",
     "attachments/Humanize AI Writing-1.png",
     "attachments/Humanize AI Writing-1.docx",
     "Development/Projects/Schrijfstijl/schrijfstijl_herbert.md",
@@ -307,31 +354,9 @@
     "Development/Projects/InnoSetupHelpNL/00-kernpaginas/02-installaties-maken.md",
     "Development/Projects/InnoSetupHelpNL/00-kernpaginas/01-wat-is-inno-setup.md",
     "Development/Projects/InnoSetupHelpNL/00-kernpaginas",
-    "Development/Projects/InnoSetupHelpNL",
-    "Development/HNSoftwareDevelopment/SVGViewer/docs/user-guide/Architectuur en Ontwerp-1.remote",
-    "Development/HNSoftwareDevelopment/SVGViewer/docs/user-guide/Architectuur en Ontwerp-1.local",
     "Development/ChatGPT Improvements and tips/Humanize AI Writing.md",
-    "Development/ChatGPT Improvements and tips",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/plans/2026-08-27-saga-milestone-27-metadata-dashboard-navigation.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-08-27-saga-milestone-27-metadata-dashboard-navigation-design.md",
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-23-checklist.md",
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-22-checklist.md",
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/feature-requests/author-profiles.md",
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/feature-requests/custom-metadata.md",
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/metadata/saga-standard-metadata-inventory.md",
-    "Development/HNSoftwareDevelopment/hnsoftwaredevelopment/README.md",
-    "Development/HNSoftwareDevelopment/Inno Setup 7/INSTALLER_FRAMEWORK_PLAN.md",
-    "Development/WPF Handboek/00 Start/Inhoudsopgave.md",
-    "Development/HNSoftwareDevelopment/Saga/docs/architecture/settings-behavior.md",
-    "Development/HNSoftwareDevelopment/SVGViewer/docs/user-guide/conflict-files-obsidian-git-1.remote",
-    "Development/WPF Handboek/01 Layout containers/Pasted image 20260527195416.png",
-    "attachments/fcaf64b75c984e73a82d68d6eb782f6f.png",
-    "attachments/f9ccbdaa39a74fb89f31f09909f1621d.png",
-    "attachments/f23e51e92bc0415da4e3adaf2350882b.png",
-    "attachments/f0f12597daac4fe8a4d8bebf7fed85e3.png",
-    "attachments/f74e52817af5400bbfa462a31cab5f05.png",
-    "attachments/f6596890ce58402cb3b05009981a9d70.png",
-    "attachments/ecc25aecb9074b96832c514e5f973f0a.png",
-    "attachments/f03b474b30124ca4b0c3383b655afd62.gif"
+    "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-23-checklist.md"
   ]
 }
