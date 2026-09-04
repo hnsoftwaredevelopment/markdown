@@ -31,8 +31,7 @@
               "title": "milestone-31-checklist"
             }
           }
-        ],
-        "stacked": true
+        ]
       }
     ],
     "direction": "vertical"
@@ -287,8 +286,9 @@
   },
   "active": "2caf22fe8135caf5",
   "lastOpenFiles": [
-    "conflict-files-obsidian-git.md",
+    "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-32-checklist.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-31-checklist.md",
+    "conflict-files-obsidian-git.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-09-01-saga-milestone-29-missing-author-repair-design.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-08-27-saga-milestone-28-quality-issue-exclusions-design.md",
     "attachments/Traktatielijst.xlsm-9.png",
@@ -331,7 +331,6 @@
     "Development/Projects/InnoSetupHelpNL/00-kernpaginas/01-wat-is-inno-setup.md",
     "Development/Projects/InnoSetupHelpNL/00-kernpaginas",
     "Development/ChatGPT Improvements and tips/Humanize AI Writing.md",
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/plans/2026-08-27-saga-milestone-27-metadata-dashboard-navigation.md",
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-08-27-saga-milestone-27-metadata-dashboard-navigation-design.md"
+    "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/plans/2026-08-27-saga-milestone-27-metadata-dashboard-navigation.md"
   ]
 }
