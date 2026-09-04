@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-09-01-saga-milestone-29-missing-author-repair-design.md",
+                "file": "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-31-checklist.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,35 +28,10 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "2026-09-01-saga-milestone-29-missing-author-repair-design"
-            }
-          },
-          {
-            "id": "9bd412a033250715",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "conflict-files-obsidian-git.md",
-                "mode": "source",
-                "source": false,
-                "backlinks": true,
-                "backlinkOpts": {
-                  "collapseAll": false,
-                  "extraContext": false,
-                  "sortOrder": "alphabetical",
-                  "showSearch": false,
-                  "searchQuery": "",
-                  "backlinkCollapsed": false,
-                  "unlinkedCollapsed": true
-                }
-              },
-              "icon": "lucide-file",
-              "title": "conflict-files-obsidian-git"
+              "title": "milestone-31-checklist"
             }
           }
         ],
-        "currentTab": 1,
         "stacked": true
       }
     ],
@@ -310,7 +285,7 @@
       "smart-table:Insert Smart Table": false
     }
   },
-  "active": "9bd412a033250715",
+  "active": "6e99288af067873e",
   "lastOpenFiles": [
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-09-01-saga-milestone-29-missing-author-repair-design.md",
     "conflict-files-obsidian-git.md",
