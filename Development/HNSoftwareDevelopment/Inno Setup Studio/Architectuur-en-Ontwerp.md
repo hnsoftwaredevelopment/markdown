@@ -516,6 +516,19 @@ schermeditor zelf (knoppenbalk-preview, instellingenpaneel) is nog niet interact
 deze sessie — geen schermafbeelding-tooling beschikbaar voor een Windows-desktopapp — dus dat is nog
 Herberts eigen visuele controle, zoals bij eerdere PR's in deze fase.
 
+CodeRabbit's review op PR #10 leverde drie bevindingen op, alle drie verwerkt: (1) de drie
+Caption-TextBoxen in het gedeelde knoppenpaneel misten een toegankelijke naam voor
+schermlezers — opgelost met hetzelfde `AutomationProperties.LabeledBy`-patroon dat
+`ProjectSettingsWindow.xaml` al gebruikt (een `x:Name` op het bijbehorende `TextBlock`-label,
+waarnaar de TextBox verwijst); (2) een handmatig bewerkt of ouder projectbestand met expliciete
+JSON-null voor `WelcomeScreenButtons`/`LicenseScreenButtons`/`SelectDestinationScreenButtons` gaf
+een NullReferenceException zodra de schermeditor werd geopend — opgelost door dezelfde
+`??= new()`-normalisatie toe te passen die `WizardScreens` al had, met een nieuwe regressietest;
+(3) de round-trip-test dekte alleen ingevulde waarden voor `WelcomeScreenButtons`, niet voor
+`LicenseScreenButtons`/`SelectDestinationScreenButtons` — als nitpick optioneel, maar meegenomen
+omdat het weinig moeite kostte en de dekking van alle negen velden per scherm compleet maakt.
+Testsuite na deze wijzigingen: 14/14 groen.
+
 ## 12. Configureerbaarheidscatalogus per wizardscherm (2026-09-04)
 
 Herbert wil dat elk aanpasbaar element van elk wizardscherm uiteindelijk bewerkbaar wordt in Inno
@@ -620,9 +633,11 @@ huidige aanpak.
 
 ### 12.5 Vervolg
 
-Voor de overige tien standaardschermen volgt dezelfde inventarisatie (§12.1-mechanisme × generiek/
-scherm-specifiek) zodra hun editor aan de beurt is in fase 4 — zelfde scope-afbakening-per-PR-
-aanpak als tot nu toe, nu alleen vooraf uitgezocht in plaats van tijdens het bouwen.
+Voor de overige acht standaardschermen (elf in totaal uit §11.6, min de drie die al een editor
+hebben: Welkomst-, licentie- en bestemmingsscherm) volgt dezelfde inventarisatie (§12.1-mechanisme
+× generiek/scherm-specifiek) zodra hun editor aan de beurt is in fase 4 — zelfde
+scope-afbakening-per-PR-aanpak als tot nu toe, nu alleen vooraf uitgezocht in plaats van tijdens
+het bouwen.
 
 ### 12.6 Standaardscherm: één centrale plek voor cascaderende standaardwaarden (2026-09-04, vervolg)
 
@@ -685,7 +700,10 @@ Nog niet gebouwd — vastgelegd ter voorbereiding op de keuze voor de eerstvolge
 
 ### 12.7 Visuele taal en interactie: standaard versus aangepast (2026-09-04, vervolg)
 
-Antwoord op de twee openstaande UI-vragen uit §12.6.
+Antwoord op de eerste van de twee openstaande UI-vragen uit §12.6 (zwart/wit versus kleur, en het
+contextmenu dat daarbij hoort). De tweede vraag — wat de voorvertoning van het Standaardscherm zelf
+toont — blijft open zoals in §12.6 vastgelegd; dat is nog geen ontwerpbeslissing, alleen twee
+werkbare richtingen.
 
 **Zwart/wit versus kleur.** Herberts voorstel: het meegeleverde standaardbeeld (de zwart/wit
 conversie die hij al bij PR #9 koos) blijft het visuele signaal voor "dit is de out-of-the-box
