@@ -17,6 +17,9 @@ Gebruik uitsluitend de actuele Debug-build uit `Builds\Debug\Saga.exe`. Voor de 
 ## Zoeken zonder ISBN en selectie
 
 - [ ] Herhaal de route met een boek zonder ISBN maar met een herkenbare titel en auteur; controleer dat Saga ook hiervoor resultaten kan tonen.
+- [ ] Vul bij een testboek bewust geen ISBN-waarde maar willekeurige tekst in; controleer dat zoeken normaal op titel en auteur doorgaat en geen los ISBN-resultaat toont.
+- [ ] Gebruik een boek met een geldige ISBN-10 en daarna een geldige ISBN-13; controleer dat een passende omslag kan worden gevonden.
+- [ ] Zoek met `Ademloos - Sssst.... Luister` van Huub Hovens of een vergelijkbaar herkenbaar boek en controleer dat omslagen met een andere titel of auteur niet worden getoond.
 - [ ] Selecteer een omslag met de muis en bevestig met dubbelklik.
 - [ ] Herhaal indien mogelijk met een ander boek en selecteer uitsluitend met `Tab` en de pijltjestoetsen; bevestig met `Enter`.
 - [ ] Maak het venster smaller en groter en controleer dat de galerij omloopt, scrolbaar blijft en de knoppen bereikbaar blijven.
@@ -31,7 +34,7 @@ Gebruik uitsluitend de actuele Debug-build uit `Builds\Debug\Saga.exe`. Voor de 
 
 ## Netwerk- en gegevensveiligheid
 
-- [ ] Verbreek tijdelijk de internetverbinding, start een zoekactie en controleer dat binnen redelijke tijd de lokaal gemaakte Saga-omslag beschikbaar komt.
+- [ ] Verbreek tijdelijk de internetverbinding, start een zoekactie en controleer dat binnen 15 seconden de lokaal gemaakte Saga-omslag beschikbaar komt, ook wanneer zoeken, ophalen van een miniatuur of beeldvalidatie mislukt; controleer dat er vóór je eigen bevestiging geen gegevens wijzigen.
 - [ ] Annuleer deze keuze en controleer dat het boek onder `Geen omslag` blijft staan en dat metadata en bestanden niet zijn gewijzigd.
 - [ ] Herstel de verbinding en controleer dat een nieuwe zoekactie normaal kan slagen.
 - [ ] Controleer na een geslaagde keuze dat `books\<boek-id>\cover.jpg` in de actieve bibliotheek bestaat.
