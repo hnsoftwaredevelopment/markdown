@@ -84,14 +84,26 @@ Saga should give users a fast overview of metadata problems in the active librar
 - Save through Saga's existing metadata and sidecar route and immediately refresh dashboard, main library rows, and author filters.
 - Keep the workflow modal, keyboard accessible, usable with longer translated labels, and localized in all six supported languages.
 
+## Milestone 33: Find and repair a missing cover
+
+- Show `Find cover` only while the missing-cover issue and one affected book are selected.
+- Search Open Library only after an explicit user action, using the current title, authors, and ISBN where available.
+- Show at most twelve validated, unique candidates with source and dimensions; never select one automatically.
+- Let the user choose with mouse, Enter, or double-click and cancel without changing the book.
+- Store the chosen image safely as the managed `cover.jpg`, update cover bytes and relative path, and refresh every visible library surface immediately.
+- Keep external responses bounded and untrusted, use fixed HTTPS hosts, and report no-results, network, validation, and storage failures without metadata loss.
+- Keep the workflow localized in all six supported languages and do not add a package, API key, or database migration.
+
 ## Follow-up ideas
 
-- Add direct repair actions for tags and missing covers.
+- Add direct repair for messy tags after the missing-cover slice.
+- Give quality decisions their own `Quality` tab in Settings instead of placing them under `Duplicates`.
 - Let users select multiple missing-author books and apply one chosen author to all selected books.
+- Let users select multiple quality rows and mark them as correct in one action.
 - Add export or filtered worklists for large cleanup sessions.
 - Make checks configurable in settings.
 - Tune heuristics after testing on real-world Calibre libraries.
 
 ## Status
 
-Milestones 26 through 32 are implemented. The dashboard detects the initial quality signals, lists affected books in a resizable issue pane, navigates to a selected book while preserving the library layout context, stores reversible quality decisions per active library, and repairs a missing author, missing or unknown language, missing series name, or likely swapped title and author for one selected book. Tag and cover repair plus bulk repair remain follow-up work.
+Milestones 26 through 32 are implemented and milestone 32 was accepted through manual testing on 4 September 2026. The dashboard detects the initial quality signals, lists affected books in a resizable issue pane, navigates to a selected book while preserving the library layout context, stores reversible quality decisions per active library, and repairs a missing author, missing or unknown language, missing series name, or likely swapped title and author for one selected book. Real-world testing showed that the possible title/author swap heuristic deliberately produces many uncertain candidates; users can safely dismiss false positives with `This is correct`. Milestone 33 is specified and planned as an explicit Open Library cover search and selection workflow. Messy-tag repair, a dedicated Quality settings tab, bulk decisions, bulk repair, and heuristic tuning remain follow-up work.
