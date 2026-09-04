@@ -87,7 +87,7 @@ Saga should give users a fast overview of metadata problems in the active librar
 ## Milestone 33: Find and repair a missing cover
 
 - Show `Find cover` only while the missing-cover issue and one affected book are selected.
-- Search Open Library only after an explicit user action, using the current title, authors, and ISBN where available.
+- Search Open Library only after an explicit user action, combining a title-and-author search with an exact ISBN search where available.
 - Show at most twelve validated, unique candidates with source and dimensions; never select one automatically.
 - Let the user choose with mouse, Enter, or double-click and cancel without changing the book.
 - Store the chosen image safely as the managed `cover.jpg`, update cover bytes and relative path, and refresh every visible library surface immediately.

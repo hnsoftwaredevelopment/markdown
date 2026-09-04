@@ -22,7 +22,7 @@ De ervaring neemt het gedrag van Calibre als referentie: zoeken met bestaande me
 
 1. De gebruiker selecteert `Geen omslag` en precies één boek.
 2. De knop `Omslag zoeken` wordt beschikbaar.
-3. Saga opent een modaal venster en zoekt met ISBN plus titel en auteur.
+3. Saga opent een modaal venster en zoekt op titel plus auteur en, wanneer aanwezig, aanvullend op ISBN.
 4. Geldige resultaten verschijnen met miniatuur, bron en resolutie.
 5. De gebruiker selecteert één kandidaat met muis of toetsenbord.
 6. `Omslag gebruiken`, dubbelklik of Enter bevestigt de selectie; `Annuleren` of Escape verandert niets.
@@ -35,6 +35,7 @@ Open Library wordt benaderd via de gedocumenteerde Search API en Covers API:
 
 - `https://openlibrary.org/search.json` zoekt relevante werken en edities.
 - Alleen noodzakelijke velden worden opgevraagd, waaronder titel, auteurs, ISBN en `cover_i`.
+- Een aanwezig ISBN levert een exacte zoekroute; een tweede titel-en-auteurroute vindt ook omslagen van andere edities. De resultaten worden daarna samengevoegd.
 - Omslagen worden via een numerieke Cover ID van `https://covers.openlibrary.org` opgehaald.
 - Kandidaten worden op Cover ID gededupliceerd en tot maximaal twaalf resultaten beperkt.
 - Saga stuurt een herkenbare User-Agent en respecteert annulering, time-outs en serverfouten.
@@ -64,7 +65,7 @@ Alle gegevens van Open Library zijn onbetrouwbare externe invoer. De implementat
 
 - gebruikt uitsluitend HTTPS en vaste Open Library-hostnamen;
 - accepteert alleen numerieke Cover ID's uit het zoekantwoord;
-- begrenst antwoordgrootte, aantal resultaten, downloadtijd en afbeeldingsgrootte;
+- begrenst antwoordgrootte, aantal resultaten, downloadtijd en iedere afbeelding tot 10 MiB, gelijk aan Saga's bestaande importgrens voor omslagen;
 - accepteert alleen een decodeerbare JPEG met redelijke afmetingen;
 - weigert afbeeldingen kleiner dan 50 bij 50 pixels, lege bestanden en buitensporig grote afbeeldingen;
 - toont een gelokaliseerde fout zonder het boek te wijzigen wanneer zoeken of downloaden mislukt.
@@ -115,7 +116,7 @@ Nieuwe afhankelijkheden worden via constructorinjectie aangeboden en asynchrone 
 ```csharp
 public interface IBookCoverSearchService
 {
-    Task<IReadOnlyList<BookCoverCandidate>> SearchAsync(
+    Task<BookCoverSearchResult> SearchAsync(
         BookCoverSearchQuery query,
         CancellationToken cancellationToken);
 }
@@ -127,7 +128,7 @@ Resultaatstatussen zijn expliciete records of enums; verwachte netwerk- en opsla
 
 - Contracttests voor zoekopbouw, JSON-verwerking, deduplicatie, limieten, annulering en ongeldige antwoorden.
 - Netwerktests gebruiken een gecontroleerde HTTP-handler en benaderen Open Library niet werkelijk.
-- Opslagtests controleren padbeveiliging, tijdelijk schrijven, vervangen en opruimen na fouten.
+- Opslagtests controleren padbeveiliging, tijdelijk schrijven, vervangen en opruimen wanneer de database aantoonbaar niet is bijgewerkt.
 - Servicetests controleren herladen, opnieuw evalueren, behoud van overige metadata en foutstatussen.
 - Viewmodel- en layouttests controleren knopcontext, laden, selectie, annuleren, Enter, dubbelklik, foutmeldingen en lokalisatie.
 - Volledige bestaande tests en een Debug-build moeten groen blijven.
@@ -161,7 +162,7 @@ Resultaatstatussen zijn expliciete records of enums; verwachte netwerk- en opsla
 ## Acceptatiecriteria
 
 - `Omslag zoeken` is uitsluitend actief voor één geselecteerd boek onder `Geen omslag`.
-- Een zoekopdracht gebruikt de actuele titel, auteurs en optioneel ISBN.
+- Een zoekopdracht gebruikt de actuele titel en auteurs en zoekt aanvullend exact op ISBN wanneer dat beschikbaar is.
 - Maximaal twaalf unieke, geldige kandidaten worden met bron en resolutie getoond.
 - Geen resultaten, annuleren, een time-out of een ongeldige download verandert niets.
 - Een gekozen omslag wordt veilig als beheerd `cover.jpg` opgeslagen en in SQLite als bytes en relatief pad vastgelegd.
@@ -180,4 +181,4 @@ Resultaatstatussen zijn expliciete records of enums; verwachte netwerk- en opsla
 
 ## Open vragen
 
-Geen blokkerende functionele vragen. Tijdens implementatie wordt alleen de technische maximumgrootte van een veilige omslag op basis van bestaande importlimieten vastgesteld; dit verandert het gebruikersverloop niet.
+Geen blokkerende vragen. De bestaande Saga-grens van 10 MiB wordt ook voor online omslagen gebruikt.
