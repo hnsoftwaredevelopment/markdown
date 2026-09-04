@@ -26,7 +26,7 @@ Zoekcontract en Open Library-client
 
 **Acceptatiecriteria:**
 
-- [ ] Titel, auteurs en optioneel ISBN vormen een correct geëncodeerde zoekvraag.
+- [ ] Titel en auteurs vormen een correct geëncodeerde zoekvraag; een beschikbaar ISBN voegt een exacte zoekroute toe en beide resultaatsets worden samengevoegd.
 - [ ] Alleen unieke numerieke Cover ID's worden geaccepteerd en maximaal twaalf kandidaten teruggegeven.
 - [ ] Time-outs, annulering, ongeldige JSON, te grote antwoorden en serverfouten leveren een gecontroleerd resultaat.
 
@@ -45,7 +45,7 @@ Zoekcontract en Open Library-client
 **Acceptatiecriteria:**
 
 - [ ] Alleen providergegenereerde Cover ID's kunnen een download starten; willekeurige URL's zijn onmogelijk.
-- [ ] Lege, niet-JPEG, te kleine of buitensporig grote afbeeldingen worden geweigerd.
+- [ ] Lege, niet-JPEG, te kleine of grotere dan 10 MiB afbeeldingen worden geweigerd.
 - [ ] Kandidaten bevatten betrouwbare breedte en hoogte en kunnen op oppervlak worden gesorteerd.
 
 **Verificatie:** Gerichte tests voor geldige JPEG, afgekapt bestand, foutief type, grenswaarden en annulering.
@@ -64,13 +64,13 @@ Zoekcontract en Open Library-client
 
 ## Taak 3: Beheerde omslag veilig opslaan
 
-**Beschrijving:** Voeg een apart opslagcontract en een herstelservice toe die het actuele boek opnieuw valideert, `cover.jpg` atomair schrijft en bij mislukte boekopslag opruimt.
+**Beschrijving:** Voeg een apart opslagcontract en een herstelservice toe die het actuele boek opnieuw valideert, `cover.jpg` atomair schrijft en na boekopslag de werkelijke database-uitkomst controleert.
 
 **Acceptatiecriteria:**
 
 - [ ] Alleen `books/<boek-id>/cover.jpg` binnen de actieve bibliotheek kan worden geschreven.
 - [ ] Alleen coverbytes, relatief coverpad en wijzigingstijd veranderen; alle overige boekgegevens blijven gelijk.
-- [ ] Niet gevonden, niet meer van toepassing, opslagfout en write-backwaarschuwing zijn expliciete uitkomsten.
+- [ ] Niet gevonden, niet meer van toepassing, opslagfout en write-backwaarschuwing zijn expliciete uitkomsten; het bestand wordt alleen opgeruimd wanneer herladen bewijst dat de database niet is bijgewerkt.
 
 **Verificatie:** Eerst falende pad-, bestands- en servicetests; daarna gerichte groene tests.
 
@@ -148,7 +148,7 @@ Zoekcontract en Open Library-client
 | Externe bron is traag of niet beschikbaar | Middel | Annuleerbare korte time-outs, duidelijke foutstatus en geen metadatawijziging. |
 | Kwaadaardig of zeer groot antwoord | Hoog | Vaste hosts, numerieke ID's, streaminglimieten en strikte JPEG-validatie. |
 | Verkeerde editie wordt gekozen | Hoog | Nooit automatisch kiezen; titel/auteur/context, bron en resolutie tonen. |
-| Coverbestand en database raken uit sync | Hoog | Tijdelijk bestand, atomair vervangen en opruimen wanneer boekopslag mislukt. |
+| Coverbestand en database raken uit sync | Hoog | Tijdelijk bestand, atomair vervangen, database opnieuw lezen en alleen opruimen wanneer de cover niet is opgeslagen. |
 | Open Library beperkt verzoeken | Middel | Alleen expliciet zoeken, dedupliceren, maximaal twaalf kandidaten en geen crawling. |
 | Groot venster of veel beelden belast geheugen | Middel | Resultaatlimiet, begrensde bytes en alleen noodzakelijke afbeeldingsgrootten. |
 | GPL-code komt onbedoeld in Saga terecht | Hoog | Alleen gedrag bestuderen en zelfstandig C# ontwerpen; geen code kopiëren. |
@@ -163,4 +163,4 @@ Zoekcontract en Open Library-client
 
 ## Open vragen
 
-Geen blokkerende vragen. Functionele richting en aannames zijn goedgekeurd op 4 september 2026; implementatie start pas na goedkeuring van dit plan.
+Geen blokkerende vragen. Functionele richting, aannames en dit uitvoeringsplan zijn goedgekeurd op 4 september 2026.
