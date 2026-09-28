@@ -9,5 +9,6 @@
     "attachments/"
   ],
   "showInlineTitle": true,
-  "propertiesInDocument": "source"
+  "propertiesInDocument": "source",
+  "readableLineLength": false
 }
