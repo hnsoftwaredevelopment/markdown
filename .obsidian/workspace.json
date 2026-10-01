@@ -30,8 +30,24 @@
               "icon": "lucide-file",
               "title": "README"
             }
+          },
+          {
+            "id": "74ccfcdd7539b7ab",
+            "type": "leaf",
+            "state": {
+              "type": "split-diff-view",
+              "state": {
+                "aFile": "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-09-27-saga-milestone-34-sharded-book-storage-design.md",
+                "bFile": "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-09-27-saga-milestone-34-sharded-book-storage-design.md",
+                "aRef": "HEAD",
+                "bRef": ""
+              },
+              "icon": "diff",
+              "title": "Diff: 2026-09-27-saga-milestone-34-sharded-book-storage-design  (Index)"
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -366,14 +382,21 @@
       "modalforms:Edit forms": false
     }
   },
-  "active": "a76ab09dac4b2700",
+  "active": "1c5b3e69e978c4c8",
   "lastOpenFiles": [
+    "conflict-files-obsidian-git.md",
+    "Traktatielijst.xlsm-1.base",
+    "Development/Projects/ResourcePreview/README.md",
+    "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-10-01-saga-milestone-36-messy-tag-repair-design.md",
+    "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-09-29-saga-milestone-35-library-performance-design.md",
+    "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-09-27-saga-milestone-34-sharded-book-storage-design.md",
+    "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-35-checklist.md",
+    "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-34-checklist.md",
     "attachments/README-5.png",
     "attachments/README-4.png",
     "attachments/README-3.png",
     "attachments/README-2.png",
     "Development/Projects/ResourcePreview/Handleiding extension bouwen.md",
-    "Development/Projects/ResourcePreview/README.md",
     "attachments/README-1.png",
     "Development/Projects/SVGViewer/README.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/00 - Project kickoff en werkafspraken.md",
@@ -395,20 +418,12 @@
     "attachments/Traktatielijst.xlsm-5.png",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/Architectuur-en-Ontwerp.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs",
-    "attachments/Traktatielijst.xlsm-4.png",
-    "Traktatielijst.xlsm-1.base",
     "Development/Projects/Schrijfstijl/schrijfstijl_herbert.md",
     "Work/Voortman/How to",
     "Development/Projects/CreateVectorResourceDictionary/README.md",
     "Development/Projects/CreateVectorResourceDictionary",
-    "conflict-files-obsidian-git.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/tasks/todo.md",
-    "Development/HNSoftwareDevelopment/Ebook Manager/tasks/plan.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/tasks",
-    "Development/ChatGPT Improvements and tips/Humanize AI Writing.md",
-    "Development/Projects/InnoSetupHelpNL/00-kernpaginas/03-scriptindeling.md",
-    "Development/Projects/InnoSetupHelpNL/00-kernpaginas/02-installaties-maken.md",
-    "Development/Projects/InnoSetupHelpNL/00-kernpaginas/01-wat-is-inno-setup.md",
     "Development/Projects/InnoSetupHelpNL/00-kernpaginas",
     "Development/Projects/InnoSetupHelpNL",
     "Development/Projects/Schrijfstijl",

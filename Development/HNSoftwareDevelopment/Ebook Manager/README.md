@@ -4,7 +4,7 @@ Native Windows desktop ebook library manager built with .NET 10, WPF, SQLite, Co
 
 ## Current Status
 
-Milestone 33 builds on version `0.1` with an explicit multi-source cover search, a locally generated fallback cover, and cover replacement from both the Quality Page and book details.
+Milestone 35 was accepted on 1 October 2026 after real-library testing with about 34,447 books confirmed noticeably smoother searching and scrolling. It keeps reusable search values for unchanged books, waits briefly for rapid title input before applying only the latest filter, preserves the current book selection without reloading its details, and loads bounded cached cover thumbnails away from the UI thread. Milestone 34 was accepted on 29 September 2026 after reducing 34,483 direct book directories to 256 storage shards and restoring normal OneDrive synchronization.
 
 - portable local ebook libraries with `library.db`
 - import pipeline with duplicate detection
@@ -31,6 +31,8 @@ Milestone 33 builds on version `0.1` with an explicit multi-source cover search,
 - retry action for failed import items whose original source files are still available
 - portable `metadata.json` sidecar metadata
 - searchable library viewmodels
+- responsive large-library search with reusable search values and delayed filtering of rapid input
+- asynchronous, bounded cover-thumbnail loading in bookshelf, detailed, and list views
 - editable metadata details with save, undo, and delete services
 - structured settings foundation for metadata preferences
 - settings-driven author sorting without per-book author-sort metadata
@@ -60,6 +62,7 @@ Milestone 33 builds on version `0.1` with an explicit multi-source cover search,
 - direct missing-series repair with live suggestions while preserving the existing series number
 - confirmed title-and-author swap repair with a clear before-and-after preview
 - explicit cover search with up to twelve validated Google Books and Open Library choices, a locally generated fallback, safe managed storage, and replacement from book details
+- managed ebooks and covers distributed over 256 ID-based storage shards, with automatic database backup, visible first-start migration progress, and safe resume after interruption
 - delete actions continue removing library records when managed file cleanup reports a warning
 - filter context-menu cleanup for authors, series, tags, and languages
 - WPF workspace with bookshelf, detailed grid, and list views
@@ -180,6 +183,7 @@ Use these manual test checklists:
 - [docs/manual-tests/milestone-31-checklist.md](docs/manual-tests/milestone-31-checklist.md)
 - [docs/manual-tests/milestone-32-checklist.md](docs/manual-tests/milestone-32-checklist.md)
 - [docs/manual-tests/milestone-33-checklist.md](docs/manual-tests/milestone-33-checklist.md)
+- [docs/manual-tests/milestone-34-checklist.md](docs/manual-tests/milestone-34-checklist.md)
 
 ## Later-Version Candidates
 
