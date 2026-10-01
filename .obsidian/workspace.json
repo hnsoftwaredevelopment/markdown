@@ -337,8 +337,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 666.5,
-    "collapsed": true
+    "width": 666.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -367,7 +366,7 @@
       "modalforms:Edit forms": false
     }
   },
-  "active": "70113ba83b033f0d",
+  "active": "a76ab09dac4b2700",
   "lastOpenFiles": [
     "attachments/README-5.png",
     "attachments/README-4.png",
