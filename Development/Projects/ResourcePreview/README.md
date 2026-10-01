@@ -1,7 +1,6 @@
 # XAML Resource Preview
 
-<img src="art/icon-128.png" alt="XAML Resource Preview icon" width="96" align="right" />
-
+<img src="README-1.png" alt="XAML Resource Preview icon" width="96" align="right" />
 Hover over `{StaticResource ...}` or `{DynamicResource ...}` in a XAML file and see what the resource looks like, right in the Quick Info tooltip. Icons, brushes and images appear as a picture. Styles appear as a table with a live sample. Templates, fonts, margins, effects and plain values each get a view that fits them.
 
 Click the preview or the file name to jump to the definition.
@@ -11,8 +10,7 @@ Works in Visual Studio 2022 (17.14 and later) and Visual Studio 2026.
 ## Icons, brushes and images
 
 Geometries, drawings, `DrawingImage`, `BitmapImage` and brushes are drawn on a light and a dark tile, so a white icon stays visible in a light theme and a black one in a dark theme. Below the tiles you see the type and size.
-
-![Icon previews](docs/images/icons.png)
+![](README-2.png)
 
 Resources that depend on other resources work too. `Report` is a `DrawingImage` that uses a `DrawingGroup`, which uses a `Geometry` from another file. The preview finds the whole chain.
 
@@ -21,15 +19,12 @@ Resources that depend on other resources work too. `Report` is a `DrawingImage` 
 A style is shown as a table of its setters, including the setters it inherits through `BasedOn`. Colors get a swatch, icons a small picture, and the triggers are listed by name.
 
 Above the table you see a real control with the style applied. When the style reacts to `IsEnabled`, a disabled sample appears next to it.
-
-![Style previews](docs/images/styles.png)
+![](README-3.png)
 
 ## Templates
 
 A `ControlTemplate` for a standard control is shown as a real control. A `DataTemplate` needs data to show anything, so it is shown as an element tree with its bindings instead.
-
-![Template previews](docs/images/templates.png)
-
+![](README-4.png)
 ## Fonts, margins and values
 
 | Resource | Preview |
@@ -40,8 +35,7 @@ A `ControlTemplate` for a standard control is shown as a real control. A `DataTe
 | `DropShadowEffect`, `BlurEffect` | A square with the effect applied |
 | `sys:Double`, `sys:String`, `sys:Boolean`, enums and structs | The value, as you would write it in XAML |
 
-![Value previews](docs/images/values.png)
-
+![](README-5.png)
 ## Finding the definition
 
 The extension reads every `.xaml` file in the solution folder, so it finds resources in other files and in other projects of the solution. Image paths such as `pack://application:,,,/Images/save.png` and `/MyLib;component/Fonts/#Inter` are resolved to the file on disk. Unsaved changes in the open editor count too.

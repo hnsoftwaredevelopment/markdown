@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Development/Projects/SVGViewer/README.md",
+                "file": "Development/Projects/ResourcePreview/README.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -31,8 +31,7 @@
               "title": "README"
             }
           }
-        ],
-        "stacked": true
+        ]
       }
     ],
     "direction": "vertical"
@@ -368,8 +367,16 @@
       "modalforms:Edit forms": false
     }
   },
-  "active": "a76ab09dac4b2700",
+  "active": "70113ba83b033f0d",
   "lastOpenFiles": [
+    "attachments/README-5.png",
+    "attachments/README-4.png",
+    "attachments/README-3.png",
+    "attachments/README-2.png",
+    "Development/Projects/ResourcePreview/Handleiding extension bouwen.md",
+    "Development/Projects/ResourcePreview/README.md",
+    "attachments/README-1.png",
+    "Development/Projects/SVGViewer/README.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/00 - Project kickoff en werkafspraken.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-33-checklist.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-09-04-saga-milestone-33-cover-search-design.md",
@@ -390,10 +397,7 @@
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/Architectuur-en-Ontwerp.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs",
     "attachments/Traktatielijst.xlsm-4.png",
-    "attachments/Traktatielijst.xlsm-3.png",
-    "attachments/Traktatielijst.xlsm-2.png",
     "Traktatielijst.xlsm-1.base",
-    "attachments/Traktatielijst.xlsm-1.png",
     "Development/Projects/Schrijfstijl/schrijfstijl_herbert.md",
     "Work/Voortman/How to",
     "Development/Projects/CreateVectorResourceDictionary/README.md",
@@ -406,15 +410,10 @@
     "Development/Projects/InnoSetupHelpNL/00-kernpaginas/03-scriptindeling.md",
     "Development/Projects/InnoSetupHelpNL/00-kernpaginas/02-installaties-maken.md",
     "Development/Projects/InnoSetupHelpNL/00-kernpaginas/01-wat-is-inno-setup.md",
-    "Development/WPF Handboek/00 Start/Inhoudsopgave.md",
-    "Development/Projects/InnoSetupHelpNL/00-kernpaginas/07-componenten-en-taken-parameters.md",
-    "Development/Projects/InnoSetupHelpNL/00-kernpaginas/06-algemene-parameters.md",
-    "Development/Projects/InnoSetupHelpNL/00-kernpaginas/05-constanten.md",
     "Development/Projects/InnoSetupHelpNL/00-kernpaginas",
     "Development/Projects/InnoSetupHelpNL",
     "Development/Projects/Schrijfstijl",
     "attachments/Humanize AI Writing-1.docx",
-    "attachments/Humanize AI Writing-1.png",
     "Development/ChatGPT Improvements and tips",
     "Untitled.canvas",
     "Naamloos.canvas"
