@@ -35,15 +35,24 @@
             "id": "74ccfcdd7539b7ab",
             "type": "leaf",
             "state": {
-              "type": "split-diff-view",
+              "type": "markdown",
               "state": {
-                "aFile": "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-09-27-saga-milestone-34-sharded-book-storage-design.md",
-                "bFile": "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-09-27-saga-milestone-34-sharded-book-storage-design.md",
-                "aRef": "HEAD",
-                "bRef": ""
+                "file": "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/Architectuur-en-Ontwerp.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": true,
+                "backlinkOpts": {
+                  "collapseAll": false,
+                  "extraContext": false,
+                  "sortOrder": "alphabetical",
+                  "showSearch": false,
+                  "searchQuery": "",
+                  "backlinkCollapsed": false,
+                  "unlinkedCollapsed": true
+                }
               },
-              "icon": "diff",
-              "title": "Diff: 2026-09-27-saga-milestone-34-sharded-book-storage-design  (Index)"
+              "icon": "lucide-file",
+              "title": "Architectuur-en-Ontwerp"
             }
           }
         ],
@@ -382,7 +391,7 @@
       "modalforms:Edit forms": false
     }
   },
-  "active": "1c5b3e69e978c4c8",
+  "active": "74ccfcdd7539b7ab",
   "lastOpenFiles": [
     "conflict-files-obsidian-git.md",
     "Traktatielijst.xlsm-1.base",
