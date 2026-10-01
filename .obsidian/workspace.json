@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Development/Projects/SVGViewer/README.md",
+                "file": "Development/HNSoftwareDevelopment/Inno Setup Studio/00 - Project kickoff en werkafspraken.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "README"
+              "title": "00 - Project kickoff en werkafspraken"
             }
           }
         ],
@@ -57,7 +57,7 @@
                 "searchQuery": ""
               },
               "icon": "lucide-folder-closed",
-              "title": "Files"
+              "title": "Verkenner"
             }
           },
           {
@@ -94,7 +94,7 @@
               "type": "empty",
               "state": {},
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "Nieuw tabblad"
             }
           },
           {
@@ -343,14 +343,14 @@
   },
   "left-ribbon": {
     "hiddenItems": {
-      "switcher:Open quick switcher": false,
-      "graph:Open graph view": false,
-      "canvas:Create new canvas": false,
-      "daily-notes:Open today's daily note": false,
-      "templates:Insert template": false,
-      "command-palette:Open command palette": false,
-      "workspaces:Manage workspace layouts": false,
-      "bases:Create new base": false,
+      "switcher:Open snel wisselen": false,
+      "graph:Open grafiek weergave": false,
+      "canvas:Nieuw doek aanmaken": false,
+      "daily-notes:Open de notitie van vandaag": false,
+      "templates:Sjabloon invoegen": false,
+      "command-palette:Open opdrachtenpaneel": false,
+      "workspaces:Beheer werkblad lay-outs": false,
+      "bases:Nieuwe basis maken": false,
       "smart-table:Insert Smart Table": false,
       "quickadd:QuickAdd": false,
       "iconic:Open rulebook": false,
@@ -370,7 +370,9 @@
   },
   "active": "a76ab09dac4b2700",
   "lastOpenFiles": [
-    "Development/HNSoftwareDevelopment/Inno Setup Studio/00 - Project kickoff en werkafspraken.md",
+    "Development/Projects/ResourcePreview/README.md",
+    "Development/Projects/ResourcePreview/Handleiding extension bouwen.md",
+    "Development/Projects/ResourcePreview",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-33-checklist.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-09-04-saga-milestone-33-cover-search-design.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-29-checklist.md",
@@ -381,6 +383,7 @@
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/definition-of-done.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/Architectuur-en-Ontwerp.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/README.md",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/00 - Project kickoff en werkafspraken.md",
     "Work/Voortman/How to/Traktatielijst.xlsm.md",
     "attachments/Traktatielijst.xlsm-9.png",
     "attachments/Traktatielijst.xlsm-8.png",
@@ -408,14 +411,11 @@
     "Development/Projects/InnoSetupHelpNL/00-kernpaginas/01-wat-is-inno-setup.md",
     "Development/WPF Handboek/00 Start/Inhoudsopgave.md",
     "Development/Projects/InnoSetupHelpNL/00-kernpaginas/07-componenten-en-taken-parameters.md",
-    "Development/Projects/InnoSetupHelpNL/00-kernpaginas/06-algemene-parameters.md",
-    "Development/Projects/InnoSetupHelpNL/00-kernpaginas/05-constanten.md",
     "Development/Projects/InnoSetupHelpNL/00-kernpaginas",
     "Development/Projects/InnoSetupHelpNL",
     "Development/Projects/Schrijfstijl",
     "attachments/Humanize AI Writing-1.docx",
     "attachments/Humanize AI Writing-1.png",
-    "Development/ChatGPT Improvements and tips",
     "Untitled.canvas",
     "Naamloos.canvas"
   ]
