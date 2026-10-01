@@ -1059,3 +1059,918 @@ Geen actie nu, alleen vastgelegd zodat het niet kwijtraakt. Bij het bouwen van d
 ook gekeken te worden naar `CreateVectorResourceDictionary` (zie de kickoff-werkafspraken, sectie
 over het icon-systeem) als basis om deze SVG's als vector-resource in te laden in plaats van losse
 bestanden.
+
+## 16. Wizardafbeeldingen naar het Standaardscherm (backlogitem 1, sectie 14) (2026-09-28)
+
+Herbert koos bij het hervatten van het project (na vakantie) zijn eigen volgorde voor de
+resterende backlogpunten uit sectie 14: eerst punt 1 (wizardafbeeldingen), daarna punt 4
+(meertaligheid).
+
+**Reversal van §12.6.** §12.6 concludeerde destijds nog expliciet dat `WizardImageFile`/
+`WizardSmallImageFile` "gewoon bij de bestaande projectinstellingen" horen, omdat het platte
+`[Setup]`-richtlijnen zijn (altijd projectbreed, geen per-scherm-afwijking mogelijk). Diezelfde
+dag, later in sectie 14, bevestigde Herbert desondanks dat hij deze twee velden op het
+Standaardscherm in de schermeditor wil bewerken, niet meer in de projectinstellingen — dat
+voorstel is nu uitgevoerd. De projectbrede aard van de velden zelf verandert niet (zie hieronder),
+alleen waar de gebruiker ze bewerkt.
+
+**Wat is verplaatst.** `ProjectSettingsWindow`/`ProjectSettingsViewModel` tonen `WizardImageFile`/
+`WizardSmallImageFile` niet langer; `DefaultScreenEditorViewModel` heeft nu de twee velden, met
+dezelfde Bladeren-knop-en-kopieer-naar-projectmap-flow (`IProjectAssetService`) als een
+licentiebestand. `ProjectSettingsViewModel` geeft de twee velden nog wel ongewijzigd door bij het
+opslaan (`_wizardImageFile`/`_wizardSmallImageFile`, zelfde pass-through-patroon als
+`_wizardScreens`/`_licenseFilePath`/`_defaultDirName`/`_allowUserToChangeDir` al deden) — zonder
+die velden zou opslaan vanuit de projectinstellingen een eerder op het Standaardscherm gekozen
+afbeelding stilzwijgend terugzetten naar leeg.
+
+**Architectuurwijziging: van eenmalige init-waarde naar live berekende waarde.**
+`WizardScreenEditorViewModel.WizardImage`/`WizardSmallImage` waren `required init`-eigenschappen:
+`WizardEditorViewModel` loste ze één keer op bij het openen van de schermeditor (via
+`WizardImageResolver`) en gaf ze aan elk scherm mee, wijzigbaar pas na een nieuwe sessie. Nu de
+gebruiker ze tijdens dezelfde sessie op het Standaardscherm kan wijzigen, moesten ze live
+meeveranderen in elk scherm dat ze toont (Welkomst-/Voltooid-pagina's voor `WizardImage`, de
+overige pagina's voor `WizardSmallImage`). Beide zijn nu berekende eigenschappen die rechtstreeks
+van `Defaults` (de gedeelde `DefaultScreenEditorViewModel`-instantie) lezen, en
+`RaiseEffectivePropertiesChanged` — die al bestond voor de Effective*-knopvelden — meldt nu ook
+deze twee door zodra het Standaardscherm wijzigt. Geen drielaags-resolutie zoals de knoppen: er is
+geen "eigen waarde per scherm" voor een projectbrede afbeelding om naar terug te vallen, de twee
+velden op het Standaardscherm zijn de enige waarde.
+
+**Kleine thumbnail, geen mockup-voorvertoning.** De tweede openstaande UI-vraag uit §12.6 (wat
+toont de voorvertoning van het Standaardscherm zelf) blijft bewust open — geen volledige
+mockup-pagina. Wel een kleine thumbnail naast elk van de twee velden op het Standaardscherm zelf,
+met dezelfde breedte:hoogte-verhouding als Inno Setup's eigen afmetingen (164:314 / 55×55), puur
+als directe bevestiging van de gekozen afbeelding — geen nieuwe UI-vraag, alleen hergebruik van
+hetzelfde swatch-naast-het-veld-patroon dat de tekstkleurvelden al gebruiken.
+
+**Update: bijgevoegde bugfix, zelfde PR.** Tijdens dit werk viel op dat `ProjectSettingsViewModel.SaveAsync` de
+schermspecifieke knopinstellingen (`WelcomeScreenButtons`, `LicenseScreenButtons`,
+`SelectDestinationScreenButtons`, `SelectDestinationBrowseButton`, `DefaultScreenButtons`) niet
+doorgaf bij het opbouwen van het opgeslagen project — alleen `WizardScreens`/`LicenseFilePath`/
+`DefaultDirName`/`AllowUserToChangeDir` (en nu de twee wizardafbeeldingen) hadden een
+pass-through-veld. Opslaan vanuit de projectinstellingen ná het aanpassen van knopkleuren/
+lettertype in de schermeditor zou die aanpassingen dus stilzwijgend hebben teruggezet naar leeg.
+Eerst als apart punt vastgelegd, op Herberts verzoek alsnog in dezelfde PR meegenomen: alle vijf
+knopinstellingen-velden hebben nu hetzelfde pass-through-patroon als de andere vier, zodat Opslaan
+vanuit de projectinstellingen niets meer stilzwijgend terugzet — alles wat op dit moment in de
+schermeditor in te stellen is, blijft nu ook bewaard.
+
+## 17. Twee bugs en zichtbare defaultwaardes in de knopinstellingen (2026-09-28)
+
+Herberts feedback na het testen van PR #15: het lettertype van een knop was direct zichtbaar in
+de voorvertoning zodra je het wijzigde, de tekstkleur niet. En belangrijker: de
+instellingenvelden per scherm (Terug-/Volgende-/Annuleren-knop) toonden alleen wat dat scherm
+zelf had ingevuld, nooit wat er via het Standaardscherm (of Inno Setup's eigen ingebouwde tekst)
+daadwerkelijk gold zolang het eigen veld leeg is, terwijl de drielaags-resolutie (SS12.6/SS12.7)
+daar juist voor bestaat.
+
+**Bug: tekstkleur niet live.** Oorzaak: een globale `Style TargetType="TextBlock"` in
+Styles.xaml geeft elke TextBlock een vaste `Brush.TextPrimary`-kleur. Knoptekst is intern ook
+een TextBlock (WPF's eigen string-naar-TextBlock-sjabloon), en een Style-Setter wint het van een
+via overerving doorgegeven waarde, dus de globale TextBlock-stijl overschreef altijd de
+Foreground die de knop zelf zou moeten hebben. Voor lettertype bestaat geen vergelijkbare
+globale regel, dus dat werkte toevallig altijd al goed. Fix: de Button-ControlTemplate in
+Styles.xaml krijgt een `ControlTemplate.Resources` met een TextBlock-stijl die Foreground weer
+terugbindt naar de knop zelf (`RelativeSource TemplatedParent`), zonder `BasedOn` op de globale
+stijl (StaticResource kan niet vooruitwijzen binnen hetzelfde ResourceDictionary, en die globale
+stijl zet toch alleen Foreground).
+
+**Defaultwaardes zichtbaar maken.** Nieuw: `InnoSetupStudio.App.Controls.Placeholder`, een
+bindbare attached property (`Placeholder.Text`) die een lichtgrijze, niet-interactieve
+spooktekst toont zolang het echte veld leeg is, nooit onderdeel van de opgeslagen waarde, puur
+ter info, zoals Herbert vroeg. Uitgebreid in de bestaande TextBox- en ComboBox-ControlTemplates
+in Styles.xaml (de editable ComboBox had al een los `PART_EditableTextBox` met `Style="{x:Null}"`
+voor de lettertypevelden, dus die kreeg een eigen kopie van hetzelfde mechanisme). In
+WizardEditorWindow.xaml's ButtonSettingsSectionTemplate (gedeeld door alle vier de schermtypen)
+gebruikt elk veld nu `Placeholder.Text`, gebonden aan de bijbehorende `EffectiveXxx`-eigenschap:
+Terug-/Volgende-/Annuleren-tekst, tekstkleur (inclusief het kleurvlakje ernaast, dat nu ook de
+effectieve kleur toont in plaats van alleen de eigen), lettertype en lettergrootte. Voor de drie
+echte schermen bestonden die EffectiveXxx-eigenschappen al (WizardScreenEditorViewModel);
+`DefaultScreenEditorViewModel` kreeg ze er nu ook bij: voor Caption twee lagen (eigen tekst,
+anders Inno Setup's eigen ingebouwde tekst), voor tekstkleur/lettertype/lettergrootte altijd
+leeg/null (er is op het Standaardscherm zelf geen zinvolle terugvalwaarde om te tonen), puur
+zodat de gedeelde template overal dezelfde bindingen kan gebruiken zonder WPF-bindingsfouten.
+De schermspecifieke Bladerknop (SelectDestinationPageEditorViewModel) heeft bewust geen
+Effective*-resolutie (SS12.6) en dus ook geen placeholder, alleen de lettergrootte daar is
+verbreed, zie hieronder.
+
+**Lettergrootteveld verbreed.** Herberts feedback: het veld toonde maar een cijfer. Breedte van
+alle vier de voorkomens (Terug/Volgende/Annuleren + Bladerknop) van 50 naar 70.
+
+**Niet meegenomen: Properties-knop per knop.** Herbert stelde ook voor om de instellingenvelden
+per knop (nu zeven regels: tekst, aan/uit, zichtbaar/verborgen, kleur, lettertype, grootte, vet)
+compact te maken tot alleen de knoptekst met een "Properties"-knop ernaast die de rest in een
+apart paneel toont. Hij is daar zelf nog naar een geschikt mockup-gereedschap aan het zoeken,
+dus bewust niet in deze PR meegenomen, om dat werk niet dubbel te doen. Volgt als apart
+backlogpunt zodra hij een ontwerp heeft.
+
+
+**Update: twee vervolgfixes, zelfde PR.** CodeRabbit's review op PR #16 en Herbert's eigen test
+brachten nog twee gaten aan het licht in de hierboven beschreven fix.
+
+Ten eerste: de knoppen in de voorvertoning (Annuleren/Terug/Volgende, links in de schermeditor)
+gebruikten nog een kale string als Content. WPF's automatische omzetting van zo'n string naar een
+interne TextBlock erft niet gegarandeerd de Foreground-binding van de knop zelf, dus de
+tekstkleur kwam daar alsnog niet altijd door, ook al werkte de ControlTemplate.Resources-fix
+elders wel. Elke voorvertoningsknop heeft nu een expliciete TextBlock als content, met Foreground
+rechtstreeks gebonden aan de eigen Button (RelativeSource AncestorType=Button) - dat sluit de
+twijfel over WPF's interne string-omzetting helemaal uit.
+
+Ten tweede: de spooktekst-trigger vergeleek Text met een exacte lege string (""), terwijl
+ResolveCaption een waarde van uitsluitend witruimte al als "niet ingevuld" behandelde. Bij zo'n
+veld bleef de spooktekst dus verborgen, of - erger - verscheen hij wel (na de eerste fix hieronder)
+maar bleven de echte spaties in de TextBox staan als klikbare tekst, wat een verwarrende
+invoegcursor middenin de spooktekst gaf (Herberts screenshot: "Vo|lgende >" i.p.v. aan het begin).
+Twee nieuwe converters (BlankStringToVisibilityConverter voor de gewone TextBox,
+EditableBlankToVisibilityConverter voor de editable ComboBox) vervangen de exacte
+Text=""-triggers door een IsNullOrWhiteSpace-check. En een nieuwe NormalizeWhitespaceOnly-helper
+in WizardScreenEditorViewModel (Caption/TextColor/FontFamily) en DefaultScreenEditorViewModel
+(Caption) zet een alleen-witruimte-waarde meteen terug naar leeg in de OnXxxChanged-hook zelf, zodat
+er geen "onzichtbare" spaties meer achterblijven om de cursor te verwarren.
+
+
+**Update: derde vervolgfix, zelfde PR.** Herberts vorige screenshot bleek geen witruimte-
+probleem: hij bevestigde expliciet dat het veld leeg was. Een nieuw vergelijkingsscreenshot
+(eigen tekst in het ene veld naast de spooktekst in een leeg veld ernaast, met een verticale
+referentielijn) liet zien dat de spooktekst een paar tekenposities te ver naar links stond t.o.v.
+waar de echte tekst/cursor landt.
+
+Root cause: PART_ContentHost (de ScrollViewer die de echte tekst toont) kreeg in onze
+ControlTemplate een expliciete `Margin="{TemplateBinding Padding}"`. Maar WPF past de
+Padding-eigenschap van een TextBox altijd al automatisch toe op de echte tekst/cursor daarbinnen,
+los van wat de ControlTemplate daar zelf op zet - geverifieerd tegen het officiele WPF-
+broncjabloon (PresentationFramework's eigen TextBox.xaml zet nergens een Margin op
+PART_ContentHost, terwijl Padding daar wel degelijk werkt). Onze eigen Margin kwam er dus gewoon
+bovenop: de echte tekst kreeg de Padding dubbel toegepast, de spooktekst (een gewone TextBlock,
+geen TextBoxBase, dus zonder dat automatisme) maar enkel - vandaar het verschil.
+
+Fix: Margin weg bij PART_ContentHost. PlaceholderText houdt zijn eigen `Margin="{TemplateBinding
+Padding}"` als enige inspringing, en beide elementen zijn verplaatst naar dezelfde Grid ín de
+Border (waren eerst op twee verschillende boomniveaus genest, zie de vorige update) zodat ze
+gegarandeerd exact dezelfde oorsprong delen.
+
+
+## 18. Properties-knop per knop voor het Schermeditor-paneel (backlogitem 3, sectie 17) (2026-09-28)
+
+Uitgevoerd: het "Niet meegenomen" punt uit sectie 17 hierboven. Herbert leverde een mockup
+(properties.pdf) aan: elk van de drie tekstvelden (Terug/Volgende/Annuleren) wordt teruggebracht
+tot alleen de knoptekst zelf - bewerkbaar, getoond in de knop zijn eigen (of overgeërfde, als
+grijze hint) tekstkleur - met een klein eigenschappenknopje ernaast. Dat knopje opent een "Knop
+eigenschappen"-dialoogvenster met de overige velden: tekstkleur (met kleurvlakje en
+kleurenkiezer-knop), lettertype (dezelfde doorzoekbare ComboBox als voorheen), lettergrootte,
+vet, een nieuw Tooltip-veld, Ingeschakeld/Zichtbaar-checkboxes en een live voorvertoning
+onderaan. Dezelfde dialoog wordt hergebruikt op alle plekken waar een knop bewerkt wordt: de drie
+echte schermen (Welkom/Licentie/Bestemming, drielaagse Effective*-resolutie via SS12.6/SS12.7),
+het Standaardscherm zelf (eigen, tweelaagse Terug/Volgende/Annuleren-waarden) en de Bladerknop op
+het Bestemmingsscherm (geen cascade, geen Caption).
+
+Herberts scope-beslissingen (bevestigd 2026-09-28): de knopachtergrondkleur en afgeronde hoeken
+uit een eerdere mockup-versie zijn geschrapt (TNewButton is en blijft een door Windows getekende
+standaardknop, zie sectie 12.6/WizardScreenButtonSettings), de Ingeschakeld/Zichtbaar-checkboxes
+horen er wél bij, en de overgeërfde/effectieve waarde blijft als grijze hint zichtbaar zodra een
+veld leeg is - hetzelfde patroon als PR #16 al voor het oude paneel gebruikte.
+
+**ButtonPropertiesViewModel: één dialoog, acht contexten.** In plaats van deze ene dialoog aan
+een specifiek schermtype te binden (die drie types - WizardScreenEditorViewModel,
+DefaultScreenEditorViewModel, SelectDestinationPageEditorViewModel - hebben bewust geen gedeelde
+basisklasse, zie sectie 11.8), werkt de nieuwe `ButtonPropertiesViewModel` als een pure adapter:
+elk veld krijgt een get/set-delegatenpaar mee, opgebouwd in `WizardEditorWindow.xaml.cs`
+(`BuildForScreenButton`/`BuildForDefaultScreenButton`/`BuildForBrowseButton`) aan de hand van de
+Tag ("Back"/"Next"/"Cancel") op het aangeklikte eigenschappenknopje en het DataContext-type
+erachter. De dialoog werkt met een momentopname: de get-delegates vullen de velden eenmalig bij
+het openen, de set-delegates schrijven pas terug bij een geslaagde Opslaan - dezelfde aanpak als
+`WizardEditorViewModel.ApplyTo`, zodat Annuleren/Sluiten de lokale wijzigingen simpelweg
+weggooit zonder aparte revert-logica per veld (zie `DirtyTrackingViewModel`).
+
+**Nieuwe iconen.** Herberts handgetekende `properties.svg`/`selectcolor.svg` (Inkscape, met
+geneste groep-transforms en Bezier-curves) zijn omgezet naar de WPF Geometry-mini-taal die
+`Icons.xaml` al gebruikt, via een Python-script (`svgelements` voor transform-resolutie en
+curve-afvlakking naar dichte polylijnen, `cairosvg` voor visuele verificatie vooraf) - dezelfde
+"F1"-voorvoegsel-conventie (NonZero fill-rule) als de bestaande geïmporteerde iconen
+(BuildInstaller/Renew/Search).
+
+**Bouw- en testresultaat.** `dotnet build` slaagt zonder waarschuwingen of fouten, alle 14
+bestaande tests slagen. De gebouwde `InnoSetupStudio.exe` start zonder crash (geen nieuwe regel
+in `crash-log.txt`); een volledige interactieve doorloop van de nieuwe dialoogvensters zelf kon
+in deze sessie niet automatisch worden getest (geen UI-automatiseringstool voor dit
+bureaubladvenster beschikbaar) - Herbert wordt gevraagd dit handmatig te controleren voordat de
+PR wordt samengevoegd.
+
+## 19. Meertaligheid: talenselectie per project (backlogitem 4, sectie 14) (2026-09-29)
+
+Eerste stap van backlogitem 4 uit sectie 14: "welke talen ondersteunt dit project" — bewust niet
+de volledige vertaal-UX (hóe teksten per taal worden ingevoerd), dat blijft voor later. Doel van
+deze stap was uitsluitend de volgorde-vraag uit sectie 14 beantwoorden: een toekomstige
+tekst-per-taal-uitbreiding op de knop-Captions (sectie 17/18) hoeft nu niet twee keer gebouwd te
+worden.
+
+**Model.** Eén nieuw veld op `InstallerProject`: `SupportedLanguageIds` (`List<string>`),
+standaard `["english"]`. Bewust géén apart `IsMultilingual`-vlaggetje: dat zou een tegenstrijdige
+status met de lijst kunnen opleveren (vlag aan, lijst leeg — of andersom). Meer dan één taal in de
+lijst betekent gewoon dat de installer meertalig is.
+
+**Talencatalogus (`InnoLanguageCatalog`, `InnoSetupStudio.Core`).** Een statische lijst van 33
+talen (Engels plus de 32 .isl-bestanden uit Herberts kopie van de Languages-map), in plaats van die
+map zelf op schijf in te lezen. Twee redenen: (1) de app weet nog niet waar Inno Setup
+geïnstalleerd staat — dat is pas vanaf de build-integratie (fase 7) relevant — en aannames over een
+vast pad (`C:\Program Files\Inno Setup 7\Languages\`) zouden op een andere machine (of een andere
+Inno Setup-versie) kunnen breken; (2) de niet-Latijnse .isl-bestanden (Arabisch, Chinees, Thai,
+Hebreeuws, enzovoort) hebben elk hun eigen `LanguageCodePage`, en die inlezen zonder mojibake is
+extra werk voor iets dat de statische lijst net zo goed oplevert. De leesbare naam per taal is de
+Engelse naam (bijvoorbeeld "Brazilian Portuguese"), niet de vertaling in de taal zelf
+(`LanguageName=` in het .isl-bestand): dat blijft leesbaar ongeacht welke UI-taal (nl/en/de)
+actief is, zonder 32 extra vertaalregels per resx-bestand voor iets dat een eigennaam is. Elke
+taal-id is de exacte kleine-letters spelling die Inno Setup zelf in het `Name:`-veld van
+`[Languages]` verwacht (bijvoorbeeld `german`, `brazilianportuguese`) — dezelfde spelling als de
+bestandsnaam van het .isl-bestand, zodat een latere generator (fase 5/6) deze id's zonder mapping
+kan hergebruiken.
+
+**Engels: ingebouwd en altijd aan.** Inno Setup toont Engels ook zonder eigen
+`[Languages]`-sectie (via `compiler:Default.isl`, geen los bestand nodig), dus
+`SupportedLanguageIds` bevat na elke wijziging altijd minstens "english" — in de UI als
+aangevinkt-en-uitgeschakeld vinkje, en in `JsonInstallerProjectService.LoadAsync` als
+normalisatie (zelfde soort null-vangnet als `WizardScreens`/de knopinstellingen: een expliciete
+JSON-null of een handmatig bewerkte lijst zonder "english" wordt hersteld in plaats van een
+NullReferenceException te geven of stilzwijgend een installer zonder Inno Setup's eigen
+standaardtaal op te leveren).
+
+**UI.** Een nieuw venster `LanguagesWindow`/`LanguagesViewModel`, één-op-één gebouwd naar het
+patroon van `WizardScreensWindow`/`WizardScreensViewModel` (losse rij-objecten met een vinkje,
+geabonneerd op `PropertyChanged` naar `MarkDirty`, `Opslaan`/`Annuleren` via `RequestClose`) — maar
+zonder icoon per rij (talen hebben geen herkenningspictogram zoals wizardschermen dat wel hebben)
+en met het Engels-rijtje vast aangevinkt via een `DataTrigger` op `IsLocked`. Geopend via een
+nieuwe knop "Talen" op het hoofdscherm, naast Wizardschermen/Schermen bewerken — bewust een eigen
+venster op hoofdschermniveau in plaats van een sectie in het Projectinstellingen-scherm (dat zou
+dat scherm met 33 aan/uit-vinkjes flink laten groeien) of in het Standaardscherm (de andere optie
+die sectie 14 noemde; het Standaardscherm gaat over knopinstellingen, een talenlijst hoort daar
+inhoudelijk niet bij). Hergebruikt het bestaande "Document"-icoon voor de knop: geen eigen
+"talen"-icoon getekend voor deze stap, en dat icoon staat elders al voor meerdere verschillende
+schermtypes, dus hergebruik hiervoor past bij hoe de rest van de iconenset al wordt ingezet.
+
+**Nog niet gebouwd, bewust uitgesteld.** Hóe teksten per taal worden ingevoerd (Caption-per-taal
+op de knoppen, en breder), en het schrijven van de `[Languages]`-sectie zelf in de generator
+(fase 5/6) — dat laatste kan de taal-id's uit `SupportedLanguageIds` rechtstreeks hergebruiken
+als `Name:`-waarden, met `compiler:Default.isl` voor Engels en `compiler:Languages\<Bestand>.isl`
+voor de rest.
+
+**Bouw- en testresultaat.** `dotnet build` slaagt zonder waarschuwingen of fouten. Alle 21 tests
+slagen (17 bestaande plus 4 nieuwe: standaardwaarde bij een nieuw project, round-trip van
+`SupportedLanguageIds`, en de twee null-/ontbrekend-Engels-normalisaties in
+`JsonInstallerProjectService`, plus 4 losse tests voor `InnoLanguageCatalog` zelf: Engels eerst en
+ingebouwd, 33 entries, unieke kleine-letters id's, alleen Engels `IsBuiltIn`). De gebouwde
+`InnoSetupStudio.exe` start zonder crash. Een volledige interactieve doorloop van het nieuwe
+Talen-venster zelf kon in deze sessie niet automatisch worden getest (geen
+UI-automatiseringstool voor dit bureaubladvenster beschikbaar) — Herbert wordt gevraagd dit
+handmatig te controleren (Nieuw project → Talen: Engels vast aangevinkt, een paar talen aan/uit
+zetten, Opslaan, project opnieuw openen en controleren dat de keuze bewaard is gebleven) voordat
+de PR wordt samengevoegd.
+
+## 20. Meertalige knopteksten (Caption/Tooltip) per taal — backlogitem, nog niet ontworpen (2026-09-29)
+
+**Aanleiding.** Herbert testte de talenselectie uit sectie 19 en bevestigde dat deze correct
+opslaat. Daarbij het eerste vervolgpunt dat sectie 19 zelf al noemde als bewust uitgesteld: de
+knoppen (`WizardScreenButtonSettings.BackButtonCaption`/`NextButtonCaption`/`CancelButtonCaption`
+en de bijbehorende Tooltip-velden) ondersteunen nu eigen tekst, maar die tekst is nog altijd één
+vaste string — niet per taal.
+
+**Antwoord op Herberts vraag: ondersteunt Inno Setup dit?** Ja, via `[CustomMessages]`, niet via
+`[Messages]`. `[Messages]` is voor Inno Setup's eigen ingebouwde teksten (de standaard Terug/
+Volgende/Annuleren-knoppen, foutmeldingen) en wordt automatisch gevuld vanuit de `.isl`-bestanden
+van de gekozen taal; daar heeft een projectmaker geen invloed op. `[CustomMessages]` is bedoeld
+voor eigen teksten en ondersteunt een `.taalid`-suffix per regel:
+
+```
+[CustomMessages]
+MyCancelCaption.english=Cancel
+MyCancelCaption.dutch=Annuleren
+MyCancelCaption.german=Abbrechen
+```
+
+In Pascal Script haal je de juiste waarde op met `CustomMessage('MyCancelCaption')`; Inno Setup
+kiest automatisch de regel die hoort bij de taal die de eindgebruiker bij het starten van de
+installer koos. Ontbreekt een taal-suffix, dan valt Inno Setup terug op de eerst genoemde taal in
+`[Languages]` — bij ons dus Engels, wat aansluit bij hoe Engels al vast eerste/verplichte taal is
+in `SupportedLanguageIds` (sectie 19).
+
+**Scope, zoals Herbert vandaag heeft aangegeven.** Alleen relevant wanneer een knop al eigen tekst
+heeft (niet de Inno Setup-standaardtekst) én het project meertalig is (meer dan alleen Engels in
+`SupportedLanguageIds`). In dat geval een scherm waarin per taal de tekst van die knop kan worden
+ingevoerd. Twee niveaus, zoals de bestaande drielaags-resolutie dat al kent:
+
+- **Voor alle schermen** — de Caption/Tooltip op het Standaardscherm, per taal.
+- **Voor één individueel scherm** — een eigen Caption/Tooltip die alleen op dat scherm geldt, per
+  taal, met voorrang op de Standaardscherm-waarde (zelfde principe als de bestaande drielaags-
+  resolutie: eigen waarde → Standaardscherm → Inno Setup's ingebouwde tekst — straks dus per taal
+  in plaats van één string per laag).
+
+**Wat dit raakt aan het datamodel (nog niet ontworpen, alleen de impact benoemd).** Caption/
+Tooltip op `WizardScreenButtonSettings` zijn nu `string?`. Zodra een project meertalig is, wordt
+dat in principe een waarde per taal-id (vergelijkbaar met hoe `[CustomMessages]` zelf werkt) in
+plaats van één vaste string. Vragen die dat oproept en die een eigen ontwerp vragen voordat dit
+gebouwd wordt:
+
+- Wat gebeurt er met een al ingevulde, eentalige Caption zodra een project van eentalig naar
+  meertalig gaat — blijft die de Engelse waarde, of moet Herbert die bevestigen/overzetten?
+- Hoe blijft het invoerscherm overzichtelijk bij veel geselecteerde talen (tot 33 mogelijk) —
+  waarschijnlijk een tabel/lijst per taal in plaats van 33 losse tekstvelden naast elkaar, maar de
+  precieze vorm is nog niet uitgewerkt.
+- Generatorwerk (fase 5/6): naast het al genoemde `[Languages]`-sectiewerk uit sectie 19 moet de
+  generator nu ook `[CustomMessages]`-regels schrijven én de Pascal Script-aanroepen voor de
+  drie/vier knoppen omzetten van een vaste string naar `CustomMessage('...')`.
+
+**Status.** Backlogitem, vastgelegd op Herberts expliciete verzoek. Nog niet gepland, nog niet
+ontworpen — net als sectie 19 zelf al aangaf: dit vraagt om een eigen ontwerp voordat het gebouwd
+wordt, geen aanpassing om terloops mee te nemen bij een andere feature.
+
+## 21. IDE-schil herontwerp: van losse vensters naar één werkgebied — voorstel, nog niet besloten (2026-09-29)
+
+**Aanleiding.** Herbert, direct na het testen van de talenselectie: de huidige opzet van het
+hoofdscherm voelt niet meer ideaal aan, en wordt rommeliger zodra het scherm voor meertalige
+knopteksten (sectie 20) erbij komt. Concreet genoemd: de taal- en thema-keuze van de IDE zelf staan
+nu bovenaan naast de projectacties, terwijl dat eigenlijk instellingen zijn; en de knoppenrij in
+het midden van `MainWindow` groeit met elke feature (nu zes knoppen: Nieuw project, Project
+openen, Wizardschermen, Schermeditor, Talen, Installer bouwen — de laatste nog niet eens
+aangesloten).
+
+**Huidige structuur (ter referentie, voor dit voorstel).** Drie vensters diep: `MainWindow` opent
+`WizardScreensWindow` (welke schermen doen mee) en `WizardEditorWindow` (schermlijst 180px |
+voorvertoning ~497px | eigenschappenpaneel `*`, min 260px) als losse dialogen; binnen
+`WizardEditorWindow` opent een knopje per knop weer een derde venster, `ButtonPropertiesWindow`
+(kleur, lettertype, tooltip, enabled/zichtbaar). Nog een vierde laag (talen per knoptekst,
+sectie 20) bovenop dat derde venster zou dat nesten verder verdiepen.
+
+**Voorstel.** Eén blijvend zichtbaar werkgebied in `MainWindow` in plaats van losse dialogen:
+
+- **Bovenbalk (vast, over de volledige breedte).** Projecttitel/icoon links. Daarna de
+  projectacties die er nu ook al zijn: Nieuw project, Project openen, Installer bouwen. Nieuw
+  daarbij: een knop Projectinstellingen die alleen actief is bij een geopend project — dat bestaat
+  vandaag niet als losse actie, Projectinstellingen opent nu alleen automatisch direct na Nieuw/
+  Openen, er is geen weg terug erin zonder het project opnieuw te openen. Helemaal rechts een
+  tandwiel-knop voor Instellingen: taal en thema van de IDE zelf, weg van de projectacties.
+- **Linkerkolom (vast, zoals de huidige 180px-schermlijst).** De schermselectie: dezelfde lijst als
+  nu in `WizardEditorWindow` (Standaardscherm vast bovenaan, daaronder de echte installerschermen
+  in Inno Setup's volgorde), maar nu met een aan/uit-vinkje per rij — dat vervangt de aparte
+  `WizardScreensWindow`. Eronder een compacte voorvertoning (de "scherminhoud") van het
+  geselecteerde scherm, kleiner dan de huidige 497px-voorvertoning in `WizardEditorWindow`.
+- **Middendeel (de rest van de breedte).** Het eigenschappenpaneel dat nu rechts in
+  `WizardEditorWindow` staat (Caption/kleur/lettertype per knop, de twee wizardafbeeldingen bij het
+  Standaardscherm) verhuist hierheen en krijgt daarmee de meeste ruimte in het venster — precies de
+  ruimte die het scherm voor meertalige knopteksten (sectie 20) nodig heeft, zonder dat daar een
+  eigen venster of een zevende hoofdscherm-knop voor nodig is.
+
+**Wat dit oplost.** Geen twee aparte dialoogvensters meer (`WizardScreensWindow`,
+`WizardEditorWindow`) voor iets dat inhoudelijk bij elkaar hoort. Taal/thema van de IDE apart van
+de projectacties. Ruimte voor sectie 20 ontstaat vanzelf in het middenpaneel in plaats van er nog
+een laag bovenop te stapelen.
+
+**Nog open, Herbert beslist.**
+
+- **Talen (sectie 19).** Projecteigenschap, geen IDE-instelling, hoort dus niet achter het
+  tandwiel. Twee opties: een tweede tabblad boven de schermselectie-lijst links ("Schermen" /
+  "Talen"), of terug een sectie in Projectinstellingen.
+- **`ButtonPropertiesWindow`.** Blijft dat een eigen (derde) venster zoals nu, of gaan die velden
+  ook rechtstreeks in het middenpaneel nu daar toch meer ruimte is? Dat raakt sectie 20 direct: een
+  taal-tabblad zou dan in dit venster komen in plaats van in het middenpaneel.
+- **Installer bouwen.** In de bovenbalk zoals hierboven voorgesteld, of ergens anders?
+- **Projectinstellingen.** Blijft dat een eigen venster (zoals nu), of ook inline in het
+  hoofdscherm?
+
+**Volgorde.** Eerst deze schil bouwen, dan pas sectie 20 (meertalige knopteksten) — anders wordt
+dat scherm eerst in het oude patroon gebouwd en kort daarna overgedaan in het nieuwe. Nog geen
+besluit genomen om te starten; dit is vastlegging plus voorstel, net als sectie 14 destijds.
+
+**Beslissingen van Herbert (2026-09-29), na het voorstel hierboven.**
+
+- **Installer bouwen** — bevestigd in de bovenbalk, zoals voorgesteld.
+- **Talen (sectie 19) én Wizardschermen (welke schermen meedoen)** — beide naar
+  Projectinstellingen, niet als aparte laag in de linkerkolom. Herberts eigen woorden: "Dit zie ik
+  allemaal als projectinstellingen." Dat wijzigt de linkerkolom uit het voorstel hierboven: die
+  wordt puur een navigatielijst van de al ingeschakelde schermen (Standaardscherm vast bovenaan),
+  zonder aan/uit-vinkjes — welk scherm meedoet, wordt voortaan in Projectinstellingen bepaald,
+  samen met de talenselectie. De compacte voorvertoning ("scherminhoud") onder die lijst blijft
+  zoals voorgesteld. Projectinstellingen wordt zo de plek voor alles wat maar zelden verandert
+  (algemene projectgegevens, welke schermen, welke talen); de linkerkolom en het middenpaneel in
+  het hoofdscherm blijven voor het daadwerkelijke, veelvuldige bewerken van een scherm dat al aan
+  staat.
+
+**Nog open.** `ButtonPropertiesWindow` (kleur/lettertype/tooltip/enabled/zichtbaar per knop) —
+blijft dat een eigen venster zoals nu, of gaan die velden rechtstreeks in het middenpaneel nu daar
+meer ruimte is? Dit bepaalt waar sectie 20 (talen per knoptekst) landt: in dat venster, of in het
+middenpaneel zelf.
+
+**Laatste beslissing (2026-09-29): optie A.** `ButtonPropertiesWindow` blijft een eigen venster.
+De talen-tabbladen voor sectie 20 komen daar terecht, niet in het middenpaneel — dat blijft zo
+rustig als het nu is (één tekstregel per knop met een eigenschappenknopje ernaast). Reden: de
+knoppenrij in het hoofdscherm is net opgeruimd door Talen en Wizardschermen naar
+Projectinstellingen te verplaatsen; alle knopdetails in het middenpaneel zetten zou diezelfde
+rommeligheid één laag dieper terugbrengen.
+
+**Ontwerp compleet, nog niet gebouwd.** Alle openstaande vragen uit dit voorstel zijn nu
+beantwoord:
+
+1. Bovenbalk: Nieuw project, Project openen, Projectinstellingen (alleen actief bij open project),
+   Installer bouwen, en rechts een tandwiel voor Instellingen (taal/thema van de IDE).
+2. Projectinstellingen: bestaande projectgegevens, plus Talen (sectie 19) en Wizardschermen (welke
+   schermen meedoen) — beide overgeheveld vanuit hun huidige losse knop/venster.
+3. Linkerkolom hoofdscherm: navigatielijst van de ingeschakelde schermen (Standaardscherm vast
+   bovenaan), zonder aan/uit-vinkjes, met een compacte voorvertoning eronder.
+4. Middenpaneel: het huidige eigenschappenpaneel uit `WizardEditorWindow` (Caption per knop,
+   wizardafbeeldingen bij het Standaardscherm), ongewijzigd qua inhoud.
+5. `ButtonPropertiesWindow` blijft bestaan; wordt de plek voor sectie 20 (talen per knoptekst).
+
+Nog geen besluit genomen om hiermee te starten — Herbert bepaalt wanneer.
+
+**Gebouwd (2026-09-29), op `feature/ide-shell-redesign`.** Het ontwerp hierboven is één-op-één
+geïmplementeerd:
+
+- `SettingsWindow` (nieuw): taal/thema van de IDE, letterlijk verhuisd uit MainWindow.xaml.cs. Er
+  hoeft bij het openen niets opnieuw toegepast te worden — App.xaml.cs past de opgeslagen taal/
+  thema al toe vóórdat MainWindow ooit verschijnt, dit venster toont alleen de huidige keuze.
+- `ScreenEditorControl` (nieuw, UserControl): de volledige inhoud van het voormalige
+  `WizardEditorWindow` (schermlijst, voorvertoning, instellingenpaneel, alle resources/templates),
+  nu permanent zichtbaar in MainWindow in plaats van een dialoogvenster. De Opslaan/Annuleren-
+  dialoogbalk is vervangen door een inline Opslaan-knop (actief zolang `IsDirty`) met een "niet-
+  opgeslagen wijzigingen"-label ernaast — bewust géén automatisch opslaan bij elke toetsaanslag,
+  zie de toelichting in ScreenEditorControl.xaml. `ButtonPropertiesWindow` blijft ongewijzigd een
+  eigen venster (optie A, Herberts beslissing hierboven).
+- `ProjectSettingsWindow`: drie tabbladen (Algemeen/Schermen/Talen) in plaats van één lange
+  ScrollViewer. Schermen en Talen hergebruiken `WizardScreensViewModel`/`LanguagesViewModel` als
+  sub-viewmodel in `ProjectSettingsViewModel` — hun eigen Save/Cancel/RequestClose blijven
+  ongebruikt, dit venster stuurt zijn eigen Opslaan/Annuleren aan.
+- **Bugfix, gevonden tijdens het bouwen:** `ProjectSettingsViewModel.SaveAsync` bouwde altijd een
+  volledig nieuw `InstallerProject`-object en gaf `SupportedLanguageIds` daarbij nooit door. Elke
+  keer dat iemand Projectinstellingen opsloeg, viel de talenselectie stilzwijgend terug op alleen
+  Engels (de eigen standaardwaarde van dat veld) — dezelfde soort bug als de knopinstellingen-bug
+  uit sectie 16, nu voor Talen. Opgelost als onderdeel van dezelfde wijziging die Talen sowieso al
+  bewerkbaar moest maken in dit scherm.
+- `MainWindow`: bovenbalk (Nieuw project, Project openen, Projectinstellingen — nieuw: nu ook
+  bruikbaar bij een al actief project, niet alleen automatisch na Nieuw/Openen —, Installer
+  bouwen, en het instellingen-tandwiel rechts) plus `ScreenEditorControl` als hoofdinhoud zodra er
+  een actief project is, anders de welkomsttekst. `WizardScreensWindow`/`LanguagesWindow`/
+  `WizardEditorWindow` zijn verwijderd.
+- `WizardScreensViewModel`/`LanguagesViewModel`/`WizardEditorViewModel` zelf zijn ongewijzigd
+  gebleven (alleen hun vensters zijn vervangen); geen van de bestaande 21 tests raakte hierdoor.
+
+**Build- en testresultaat.** `dotnet build`: 0 waarschuwingen, 0 fouten. `dotnet test`: 21/21
+geslaagd (ongewijzigd — deze wijziging raakt alleen WPF-vensters/viewmodel-bekabeling in
+`InnoSetupStudio.App`, niet de geteste logica in `InnoSetupStudio.Core`). De gebouwde
+`InnoSetupStudio.exe` start zonder crash. Een volledige interactieve doorloop van de nieuwe
+indeling (bovenbalk, schermeditor inline, Projectinstellingen-tabbladen) kon in deze sessie niet
+automatisch getest worden (geen UI-automatiseringstool voor dit bureaubladvenster beschikbaar) —
+Herbert wordt gevraagd dit handmatig te controleren voordat de PR wordt samengevoegd.
+
+
+**Polish na Herberts eerste doorloop (2026-09-29), zelfde branch `feature/ide-shell-redesign`.**
+Herbert heeft de gebouwde schil in fullscreen bekeken en vier concrete verbeterpunten gegeven, in
+`ScreenEditorControl.xaml`:
+
+1. *Voorvertoning naar boven.* De preview-`Border` (Grid.Column="2", zowel de variant voor een
+   echt scherm als de Standaardscherm-infovariant) had geen expliciete `VerticalAlignment`, dus
+   centreerde WPF hem verticaal in zijn kolom zodra het venster hoger was dan de vaste
+   preview-hoogte (400px) — dezelfde WPF-regel als bij de knoppenbalk uit sectie 16: een element
+   met een expliciete `Height` en de standaard `VerticalAlignment="Stretch"` wordt gecentreerd
+   binnen de beschikbare ruimte in plaats van bovenaan te blijven. Fix: `VerticalAlignment="Top"`
+   toegevoegd aan beide `Border`-instanties, zodat de preview altijd bovenaan naast het
+   eigenschappenpaneel staat.
+2. *Lengtelimiet knopomschrijvingen.* De drie tekstvelden in `ButtonSettingsSectionTemplate`
+   (Terug/Volgende/Annuleren) hadden geen `MaxLength`. Herbert: "de gebruiker mag toch geen
+   onbeperkte tekst invullen als buttontekst" — circa 30 tekens. `MaxLength="30"` toegevoegd aan
+   alle drie.
+3. *Standaard installatiemap ongewijzigd.* Op Herberts expliciete verzoek is het `DefaultDirName`-
+   veld niet aangepast: geen lengtelimiet, en een breder veld dan de knopvelden is daar niet
+   hinderlijk.
+4. *Eigenschappenknopjes dichter bij de velden.* Alle vier de knoprijen (Terug/Volgende/Annuleren
+   + de losse Bladeren-knoprij) gebruikten een Grid met `ColumnDefinition Width="*"` gevolgd door
+   `Width="Auto"` voor het eigenschappenknopje — de `*`-kolom vult altijd de volledige resterende
+   breedte van het middendeel, dus het knopje stond bij een breed venster steeds helemaal rechts,
+   los van hoe lang de tekst in het veld was. Om dat knopje daadwerkelijk mee naar links te laten
+   komen, moest de kolombreedte zelf vast worden gemaakt, niet alleen het tekstveld: de eerste
+   kolom van alle vier de rijen is nu `Width="224"` (tekstveld 220px + 4px marge) in plaats van
+   `Width="*"`, en de drie tekstvelden hebben zelf ook `Width="220"` + `HorizontalAlignment="Left"`
+   gekregen. Zo staan alle vier eigenschappenknopjes nu consequent op dezelfde, vaste positie
+   direct naast hun veld, ook op een breed scherm — precies wat Herbert bedoelde met "dat ziet er
+   wel strak uit".
+
+**Feitencheck: Bladeren-knop tekst wél aanpasbaar via Pascal Script.** Herbert vroeg of de tekst
+op de Bladeren-knop (Select Destination-pagina) net als Terug/Volgende/Annuleren met Pascal Script
+kan worden aangepast, of dat zijn vermoeden klopte dat dit niet zomaar kan. Geverifieerd via
+webzoekopdracht (niet uit geheugen beantwoord): in Inno Setup's `TWizardForm`-objectmodel is
+`DirBrowseButton` net als `BackButton`/`NextButton`/`CancelButton` gedeclareerd als `TNewButton`,
+en `TNewButton` heeft een `Caption`-property. De tekst is dus wél instelbaar, bijvoorbeeld met
+`WizardForm.DirBrowseButton.Caption := '...';` in een `CurPageChanged`-event. Herberts vermoeden
+klopte dus niet.
+
+Dit is een bewuste afwijking tussen wat Inno Setup toestaat en wat de app op dit moment
+modelleert: `BrowseButtonSettings` heeft opzettelijk geen `Caption`-veld (zie het codecommentaar
+bij de Bladeren-knoprij in `ScreenEditorControl.xaml`, dat er nu ten onrechte van uitgaat dat deze
+knop geen Caption heeft). Dit wordt hier vastgelegd als nieuw, nog niet ontworpen backlogitem —
+een `Caption`/placeholder-veld toevoegen aan `BrowseButtonSettings` net als bij de andere drie
+knoppen — en pas opgepakt als Herbert daarvoor kiest, conform het "eerst ontwerpen, dan bouwen"-
+principe.
+
+**Build- en testresultaat (polish).** `dotnet build`: 0 waarschuwingen, 0 fouten. `dotnet test`:
+21/21 geslaagd (ongewijzigd). Smoke-test: `InnoSetupStudio.exe` gestart en reageerde (`Responding:
+True`), daarna weer afgesloten. Interactieve controle van de vier verbeterpunten blijft aan
+Herbert.
+
+
+**CodeRabbit-bevindingen PR #19, geverifieerd en verwerkt (2026-09-29).** Vier "actionable
+comments" op commit `3d48a13` (de eerste implementatiecommit van sectie 21), elk tegen de code
+zelf gecontroleerd vóór toepassing:
+
+1. *Genuine, opgelost.* `ScreenEditor_SaveClicked` zette `viewModel.IsDirty = false` pas ná de
+   `await SaveActiveProjectAsync()`, onvoorwaardelijk. Getypte wijzigingen die tijdens die lopende
+   opslag binnenkwamen, werden zo als "opgeslagen" getoond terwijl ze niet in de zojuist gestarte
+   `ApplyTo`-snapshot zaten. Fix: `IsDirty = false` verplaatst naar vóór de `await`, direct na
+   `ApplyTo` — een latere wijziging zet via de normale `MarkDirty`-route zelf `IsDirty` weer op
+   `true`.
+2. *Genuine, opgelost.* Diezelfde regel zette `IsDirty` ook op `false` als het opslaan zelf
+   mislukte (bijvoorbeeld bestand in gebruik, schijf vol): de foutmelding verscheen wel, maar het
+   scherm oogde daarna toch als "opgeslagen". Fix: `SaveActiveProjectAsync` geeft nu een `bool`
+   terug (`true` bij succes of niets-te-doen, `false` bij een fout); bij `false` zet
+   `ScreenEditor_SaveClicked` `IsDirty` expliciet weer op `true`.
+3. *Genuine, maar bewust NIET automatisch opgelost.* `SetActiveProject` bouwt bij elke aanroep
+   (ook bij het heropenen van Projectinstellingen voor hetzelfde, al actieve project) een
+   compleet nieuwe `WizardEditorViewModel`, zonder te controleren of de vorige nog
+   niet-opgeslagen wijzigingen had (`IsDirty == true`). Voorbeeld: een knopomschrijving typen in
+   de schermeditor zonder op Opslaan te klikken, dan via de bovenbalk Projectinstellingen openen
+   en daar opslaan — de getypte knopomschrijving verdwijnt dan stilletjes. Dit is een echt,
+   bevestigd dataverlies-risico, maar de juiste oplossing (negeren, vragen om op te slaan/te
+   verwerpen, of automatisch samenvoegen) is een ontwerpkeuze die bij Herbert hoort te liggen —
+   dezelfde afweging als steeds bij dit project. Vastgelegd als nieuw, nog niet ontworpen
+   backlogitem; niet aangepast in deze sessie.
+4. *Genuine, opgelost.* `BuildInstallerButton` werd via `SetProjectActionButtonsEnabled`
+   ingeschakeld zodra er een actief project was, maar heeft geen `Click`-handler — "Installer
+   bouwen" bestaat nog niet (bewust buiten scope van sectie 21). Een schijnbaar werkende knop die
+   niets deed. Fix: `SetProjectActionButtonsEnabled` schakelt deze knop niet meer in; blijft
+   `IsEnabled="False"` totdat de bouwfunctionaliteit er daadwerkelijk is.
+
+Niet overgenomen: de "Docstring Coverage"-check (30% vs. vereiste 80%) — deze repo documenteert
+bewust in doorlopende Nederlandse commentaarblokken in plaats van XML-`///`-docstrings per functie
+(zie de rest van dit document en alle voorgaande secties); dat consequent omzetten naar
+XML-docstrings zou een stijlwijziging zijn, geen bugfix, en is niet opgepakt.
+
+**Build- en testresultaat (CodeRabbit-fixes).** `dotnet build`: 0 waarschuwingen, 0 fouten.
+`dotnet test`: 21/21 geslaagd (ongewijzigd). Smoke-test: `InnoSetupStudio.exe` gestart en
+reageerde (`Responding: True`), daarna afgesloten. PR #19 blijft open in afwachting van Herberts
+handmatige doorloop; niet gemerged.
+
+
+**Nog twee velden verbreed, en Bladeren-knop krijgt een Caption (2026-09-29), zelfde branch.**
+Herbert ging akkoord met de schermopbouw, met twee aanvullende punten:
+
+1. *Wizardafbeelding (groot)/(klein) niet inkorten.* Dezelfde regel als bij "Standaard
+   installatiemap" (§21-polish hierboven): deze twee padvelden onder het Standaardscherm mogen
+   ook niet ingekort worden. Ze hadden een vaste `Width="180"` staan (ouder dan sectie 21, uit
+   backlogitem 1/sectie 14) — omgebouwd van een `StackPanel` naar een `Grid` met een sterretjes-
+   kolom voor het tekstveld, zelfde patroon als het installatiemap-veld: de tekst vult nu de
+   resterende breedte.
+2. *Bladeren-knop krijgt een eigen tekstveld, net als de andere drie.* Direct gevolg van de
+   feitencheck hierboven: omdat `WizardForm.DirBrowseButton` net als Terug/Volgende/Annuleren een
+   `TNewButton` met `Caption` is, kan dat nu ook in de studio. Doorgevoerd door de hele keten:
+   - `BrowseButtonSettings` (Core): nieuwe `Caption`-property, zelfde leeg-is-onveranderd-conventie
+     als de rest van dat model. Bestaande opgeslagen projecten blijven werken (JSON-deserialisatie
+     vult een ontbrekend veld gewoon met de lege standaardwaarde).
+   - `SelectDestinationPageEditorViewModel`: nieuwe `BrowseButtonCaption`-eigenschap plus
+     `EffectiveBrowseButtonCaption` (tweelaags: eigen tekst, anders Inno Setup's eigen
+     standaardtekst via de nieuwe taalsleutel `ButtonWizardBrowse` — geen derde,
+     Standaardscherm-laag, want die bestond al niet voor deze knop, zie `BrowseButtonSettings`).
+   - `ScreenEditorControl.xaml`: de Bladeren-knoprij is niet langer een label-met-eigenschappen-
+     knopje, maar een echt tekstveld (zelfde `MaxLength="30"`/breedte-aanpak als de polish
+     hierboven), met een kleine sectiekop erboven.
+   - `ButtonPropertiesViewModel`/`ButtonPropertiesWindow`: `HasCaption` stond al generiek in de
+     dialoog (verbergt het Knoptekst-veld als een knop er geen heeft) — voor de Bladerknop nu
+     gewoon op `true` gezet in plaats van een lege no-op-delegate.
+   - `SelectDestinationPagePreview.xaml` (InnoSetupStudio.Wizard): de gesimuleerde Bladeren-knop
+     in de voorvertoning toonde altijd het vaste "Browse..." — nu gebonden aan
+     `EffectiveBrowseButtonCaption`, zodat getypte tekst daadwerkelijk zichtbaar wordt, net als bij
+     Terug/Volgende/Annuleren.
+   - Niet meegenomen: TextColor/lettertype van de Bladeren-knop worden in deze voorvertoningspagina
+     nog niet toegepast (alleen Content/tekst) — dat was al zo vóór deze wijziging (een bestaande,
+     kleinere hiaat, niet iets wat deze wijziging heeft veroorzaakt) en is niet aangepakt, want niet
+     gevraagd.
+
+**Build- en testresultaat.** `dotnet build`: 0 waarschuwingen, 0 fouten. `dotnet test`: 21/21
+geslaagd (ongewijzigd — geen bestaande test verwijst naar `BrowseButtonSettings`/
+`SelectDestinationBrowseButton`). Smoke-test: `InnoSetupStudio.exe` gestart en reageerde
+(`Responding: True`), daarna afgesloten.
+
+
+**Volledige knop-pariteit voor de Bladeren-knop (2026-09-30), zelfde branch.**
+Herbert's instructie: "Alle knoppen moeten dezelfde bewerkingsfunctionaliteiten krijgen als de
+knoppen '< Vorige', 'Volgende >', 'Annuleren' tenzij bepaalde functionaliteit niet beschikbaar is
+in InnoSetup" — expliciet ook bedoeld voor eventuele toekomstige schermspecifieke knoppen, niet
+alleen Bladeren. Bij de vorige wijziging (Caption, hierboven) bleven Enabled/Visible/Tooltip/
+TextColor/lettertype van de Bladeren-knop achter: de velden bestonden al in
+`BrowseButtonSettings`/`ButtonPropertiesWindow`, maar zonder de leeg-is-terugval-resolutie die
+Terug/Volgende/Annuleren wél hebben, en zonder dat de voorvertoning er ook maar iets mee deed.
+Omdat `WizardForm.DirBrowseButton` een `TNewButton` is — structureel identiek aan de andere drie
+knoppen (geverifieerd via jrsoftware.org/ishelp) — is er voor geen van deze eigenschappen een
+InnoSetup-beperking die pariteit in de weg staat. Doorgevoerd:
+
+- `SelectDestinationPageEditorViewModel`: nieuwe `IsBrowseButtonVisible`/`IsBrowseButtonEnabled`
+  (leeg/null is "aan", zelfde conventie als de drie gedeelde knoppen) en
+  `IsBrowseButtonEnabledInPreview`, die dat combineert met Inno Setup's eigen ingebouwde gedrag
+  (`AllowUserToChangeDir`) — een expliciete "Bladeren-knop uitschakelen"-instelling en Inno Setup's
+  eigen automatische uitschakeling werken nu allebei, onafhankelijk van elkaar.
+- `SelectDestinationPagePreview.xaml` (InnoSetupStudio.Wizard): de gesimuleerde Bladeren-knop
+  bindt nu ook `Visibility`, `Foreground` (TextColor), `FontFamily`, `FontSize`, `FontWeight`
+  (Bold) en `ToolTip` — voorheen bond alleen `Content`/`IsEnabled`. Vereiste vier nieuwe, kleine
+  converters in een nieuwe map `src/InnoSetupStudio.Wizard/Converters/`
+  (`HexColorToBrushConverter`, `FontFamilyOrUnsetConverter`, `FontSizeOrUnsetConverter`,
+  `NullableBoolToFontWeightConverter`) — letterlijke kopieën van de gelijknamige converters in
+  InnoSetupStudio.App, omdat het Wizard-project niet naar App mag verwijzen (circulaire
+  referentie). Dezelfde soort bewuste, kleine duplicatie die al elders in het project voorkomt
+  (bijv. `PickColor`/`NormalizeWhitespaceOnly`).
+- Bewust NIET toegevoegd: een derde, Standaardscherm-cascadelaag voor de Bladeren-knop (zoals
+  Terug/Volgende/Annuleren die wel hebben via `Defaults`/`RaiseEffectivePropertiesChanged`). Dat is
+  geen InnoSetup-beperking maar een structureel verschil: de cascade bestaat om een instelling over
+  meerdere schermen heen te kunnen hergebruiken, en de Bladeren-knop komt maar op één scherm voor
+  (Bestemmingspagina). Er is dus geen tweede scherm om vanuit/naartoe te cascaderen. Blijft
+  tweelaags: eigen waarde, anders Inno Setup's eigen ingebouwde gedrag/tekst. Als Herbert deze laag
+  toch wil (bijvoorbeeld met het oog op toekomstige knoppen die wél op meerdere schermen
+  voorkomen), is dat een aparte, gerichte uitbreiding.
+
+**Build- en testresultaat.** `dotnet build`: 0 waarschuwingen, 0 fouten. `dotnet test`: 21/21
+geslaagd (ongewijzigd). Smoke-test: `InnoSetupStudio.exe` gestart en reageerde
+(`Responding: True`), daarna afgesloten.
+
+
+**Standaardscherm was na selectie van een echt scherm niet meer terug te selecteren (2026-09-30),
+zelfde branch.** Herbert's testfeedback op de vorige twee wijzigingen:
+
+1. Akkoord met de tweelaagse resolutie voor knoppen die maar op één scherm voorkomen (geen
+   Standaardscherm-cascadelaag) — bevestigt de eerder gemaakte keuze, geen codewijziging nodig.
+2. De TextColor-wijziging van de Bladeren-knop leek niet te worden overgenomen. Vermoedelijke
+   oorzaak: de vier nieuwe converters in `InnoSetupStudio.Wizard/Converters/` (vorige sectie
+   hierboven) bleken tijdens het opstellen van die sectie nooit daadwerkelijk op schijf
+   terechtgekomen te zijn ondanks een geslaagde melding — de map bestond niet, en `dotnet build`
+   faalde daardoor eerst met `CS0234` bij het begin van deze sessie. Herbert heeft dus vermoedelijk
+   een `.exe` getest die dateert van vóór deze preview-koppeling (TextColor stond toen inderdaad
+   nog los van de voorvertoning, zoals expliciet gedocumenteerd in de vorige sectie). Na het
+   opnieuw aanmaken van de vier bestanden bouwt/test/start alles weer correct, met TextColor
+   zichtbaar gekoppeld aan de voorvertoning (zie vorige sectie). Geen aparte codewijziging nodig
+   voor dit punt — wel gevraagd aan Herbert om na deze push opnieuw te bouwen en te testen.
+3. Genuine bug, wel gevonden en gefixt: het Standaardscherm was, eenmaal een echt scherm
+   geselecteerd, niet meer terug te selecteren door erop te klikken — de markering van
+   Standaardscherm bleef bovendien zichtbaar staan alsof het nog steeds geselecteerd was.
+
+   Oorzaak: `DefaultScreenListBox` en `ScreensListBox` (in `ScreenEditorControl.xaml`) binden
+   allebei two-way naar dezelfde `WizardEditorViewModel.SelectedScreen`-eigenschap. Dat is een
+   bekende WPF-eigenaardigheid: `Selector.SelectedItem` negeert een toewijzing die geen match
+   vindt in de eigen `ItemsSource`, in plaats van de markering naar niets te wissen. Zodra je dus
+   een echt scherm selecteerde in `ScreensListBox`, bleef `DefaultScreenListBox` intern nog steeds
+   denken dat Standaardscherm geselecteerd was (zichtbaar aan de blijvende markering) — en een
+   volgende muisklik daarop leverde voor WPF geen wijziging op (het was voor die ListBox toch al
+   "geselecteerd"), dus er kwam geen `SelectionChanged`-event en dus ook nooit een nieuwe
+   `SelectedScreen`-waarde.
+
+   Dit staat los van de eerdere §12.7-beslissing om het Standaardscherm in een eigen rij, duidelijk
+   visueel gescheiden door een scheidingslijn, te tonen (dat is een bewuste, blijvende keuze om
+   duidelijk te maken dat het geen "scherm nul" tussen de echte installerschermen is) — die
+   ontwerpkeuze is niet de oorzaak van deze bug en blijft ongewijzigd.
+
+   Fix: een gedeelde `SelectionChanged`-handler (`ScreenListBox_SelectionChanged` in
+   `ScreenEditorControl.xaml.cs`) die bij een selectie in de ene lijst expliciet de `SelectedItem`
+   van de andere lijst op `null` zet (dat wist de markering altijd, ook als de ListBox zelf niet
+   "weet" van de nieuwe waarde) en `SelectedScreen` daarna expliciet opnieuw zet. Een
+   `_isSyncingScreenSelection`-guard voorkomt dat het nullen van de andere lijst zelf weer een
+   (lege, dus genegeerde) heropvoering van deze handler veroorzaakt.
+
+**Build- en testresultaat.** `dotnet build`: 0 waarschuwingen, 0 fouten. `dotnet test`: 21/21
+geslaagd. Smoke-test: `InnoSetupStudio.exe` gestart en reageerde (`Responding: True`), daarna
+afgesloten. Navigatie tussen Standaardscherm en de echte schermen kon niet door mij handmatig in
+de UI doorgeklikt worden (dat blijft aan Herbert) — de fix is beoordeeld op basis van code-analyse
+van het exacte WPF-mechanisme, niet op basis van visuele bevestiging.
+
+
+**Tekstkleur van knoppen kwam nergens in een voorvertoning terecht (2026-09-30), zelfde branch.**
+Herbert testte de Tekstkleur van de Bladeren-knop (screenshot: #008000 groen gekozen, zwatch en
+hex-veld tonen correct groen) maar de knoptekst bleef zwart, zowel in de "Voorvertoning" onderaan
+het Knop-eigenschappenscherm als in de echte voorvertoning van het Bestemmingsscherm.
+
+Oorzaak gevonden: de gedeelde Button-stijl (`Themes/Styles.xaml`) heeft sinds 2026-09-28 een
+`ControlTemplate.Resources`-stijl die knoptekst-TextBlocks via
+`{Binding Foreground, RelativeSource={RelativeSource TemplatedParent}}` de Foreground van de knop
+probeert te geven — bedoeld om te voorkomen dat de app-brede TextBlock-stijl (die overal
+`Brush.TextPrimary` afdwingt) knoptekst overschrijft. Dat werkt alleen voor elementen die
+letterlijk in de ControlTemplate zelf staan; `TemplatedParent` lost niet op voor Content dat van
+buiten de template komt (een eigen `<TextBlock>` als knopinhoud, of een kale string die WPF impliciet
+in een TextBlock verpakt) — precies wat de "Voorvertoning"-knop in `ButtonPropertiesWindow.xaml` en
+de Bladeren-knop in `SelectDestinationPagePreview.xaml` allebei doen. Bij een niet-oplossende
+binding valt de tekstkleur terug op zwart in plaats van de bedoelde kleur.
+
+Interessant genoeg trof dit niet de "echte" Terug/Volgende/Annuleren-knoppen in de installer-
+voorvertoning in `ScreenEditorControl.xaml`: die gebruiken al langer een ander, wél werkend patroon
+(`RelativeSource AncestorType=Button` rechtstreeks op de content-TextBlock, in plaats van de
+TemplatedParent-truc in de gedeelde stijl) — dat patroon nu ook toegepast op de twee kapotte
+plekken:
+
+- `ButtonPropertiesWindow.xaml`: de "Voorvertoning"-knop (gebruikt voor alle vier de knoppen:
+  Terug/Volgende/Annuleren/Bladeren, want het is één herbruikbaar dialoogvenster) krijgt nu een
+  expliciete `Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"`
+  op zijn interne TextBlock.
+- `SelectDestinationPagePreview.xaml`: `Content="{Binding EffectiveBrowseButtonCaption}"`
+  (impliciete string-naar-TextBlock, dus hetzelfde probleem) vervangen door een expliciete
+  TextBlock met dezelfde Foreground-binding. Bewust ook dit project geraakt: `Application.Resources`
+  werkt proces-breed, dus de gedeelde Button-stijl uit InnoSetupStudio.App geldt ook voor knoppen in
+  InnoSetupStudio.Wizard, ook al verwijst dat project niet naar App.
+
+De onderliggende `ControlTemplate.Resources`-stijl in `Themes/Styles.xaml` zelf is NIET aangepast —
+die blijft voor nu ongebruikt/inert liggen. Ik heb bewust niet geprobeerd die te herstellen of te
+verwijderen: dat raakt de Button-stijl voor de hele applicatie (inclusief donkere thema's die ik
+niet zelf kan zien renderen), en het risico van een brede, moeilijk te overziene regressie weegt
+niet op tegen het gerichte, al bewezen werkende patroon dat de twee daadwerkelijk gemelde plekken
+nu gebruiken.
+
+**Build- en testresultaat.** `dotnet build`: 0 waarschuwingen, 0 fouten. `dotnet test`: 21/21
+geslaagd. Smoke-test: `InnoSetupStudio.exe` gestart en reageerde (`Responding: True`), daarna
+afgesloten. De daadwerkelijke tekstkleur kon ik niet zelf visueel controleren (geen UI-doorklik) —
+gevraagd aan Herbert om opnieuw te testen.
+
+**Herbert bevestigd (2026-09-30):** tekstkleur wordt nu correct toegepast, ook voor de knoppen
+(Terug/Volgende/Annuleren) waar dit al langer "werkte" — bevestigt dat de root-cause-analyse
+hierboven klopte: de zwarte tekst was een sluimerende bug die ook die knoppen al raakte, niet iets
+dat alleen de Bladeren-knop trof.
+
+
+## 22. Backlog: developer-template / projectdefaults (2026-09-30, nog niet ontworpen)
+
+Herbert wil op termijn een manier om een soort "developer template" te maken: een set defaults
+(kleurgebruik, company logo, directorystructuur) die bij elk nieuw project automatisch worden
+toegepast, in plaats van steeds opnieuw hetzelfde in te stellen. Expliciet voor later — hier alleen
+vastgelegd zodat het idee niet kwijtraakt, net als de andere backlogitems in dit document (secties
+14 en 20). Nog niet ontworpen: geen besluit over hoe zo'n template wordt opgeslagen (los bestand,
+onderdeel van instellingen, per-gebruiker of gedeeld binnen Voortman), hoe die inwerkt op een nieuw
+project (kopiëren bij aanmaken, of een levend sjabloon dat overschrijfbaar blijft), en welke
+projectvelden precies "template-waardig" zijn.
+
+Raakt vermoedelijk `WizardEditorViewModel`'s project-aanmaakpad (`New project`) en, afhankelijk van
+scope, ook de wizard-afbeeldingen/kleuren van het Standaardscherm. Logisch pas op te pakken nadat
+de projectinstellingen en de schermeditor verder zijn uitgekristalliseerd (meer velden = duidelijker
+wat een zinvolle default is) — vandaar Herberts eigen inschatting dat dit voor later is.
+
+
+## 23. Waarschuwing bij niet-opgeslagen schermwijzigingen (2026-09-30)
+
+Oplossing voor het dataverlies-risico dat als CodeRabbit-bevinding #3 (PR #19) bewust NIET
+automatisch werd opgelost, maar als nieuw backlogitem werd vastgelegd (zie sectie hierboven,
+"CodeRabbit-bevindingen PR #19, geverifieerd en verwerkt"): `SetActiveProject` (MainWindow.xaml.cs)
+bouwt bij elke aanroep een gehele nieuwe `WizardEditorViewModel`, zonder te controleren of de
+vorige nog niet-opgeslagen wijzigingen had (`IsDirty == true`). Voorbeeld: een knopomschrijving
+typen in de schermeditor zonder op Opslaan te klikken, dan via de bovenbalk Projectinstellingen
+(her)openen — de getypte wijziging verdween dan stilletjes.
+
+Herbert koos hiervoor expliciet voor de eenvoudigste variant: vragen of de wijzigingen opgeslagen
+moeten worden, in plaats van automatisch samenvoegen of stilzwijgend negeren (een instelbare
+"Vragen"/"Automatisch opslaan"-voorkeur is expliciet voor later, zie onderaan).
+
+**Gekozen aanpak.** Een nieuwe hulpmethode `ConfirmDiscardUnsavedScreenChangesAsync` in
+MainWindow.xaml.cs, aangeroepen aan het begin van elk van de drie aanroeppaden die uiteindelijk op
+`SetActiveProject` uitkomen:
+
+- `NewProjectButton_Click` (Nieuw project)
+- `OpenProjectButton_Click` (Project openen)
+- `ProjectSettingsButton_Click` (Projectinstellingen heropenen voor het al actieve project — dit is
+  exact het CodeRabbit-scenario hierboven)
+
+Als `ScreenEditor.ViewModel.IsDirty` niet waar is (geen actief project, of de schermeditor is niet
+gewijzigd), gaat de aanroeper direct door — geen dialoog voor niets. Anders toont
+`MessageBox.Show` met `MessageBoxButton.YesNoCancel`:
+
+- **Ja** — dezelfde volgorde als `ScreenEditor_SaveClicked`: `ApplyTo` schrijft de bewerkte velden
+  terug naar `_activeProject`, `IsDirty` gaat vóór de `await` op false, en `SaveActiveProjectAsync`
+  wordt aangeroepen. Mislukt het opslaan, dan gaat `IsDirty` weer op true en breekt de aanroeper de
+  actie af (dezelfde bestaande logica als bij de inline Opslaan-knop, nu hergebruikt).
+- **Nee** — wijzigingen worden verworpen, de aanroeper gaat door (de eigen aanroep bouwt zo dadelijk
+  toch een nieuwe `WizardEditorViewModel` via `SetActiveProject`).
+- **Annuleren** (of het venster gesloten) — de aanroeper breekt de actie af; het actieve project en
+  de schermeditor blijven ongewijzigd, alsof er niets gebeurd is.
+
+**Waarom vóór `SetActiveProject` zelf, niet erin.** `ProjectSettingsWindow` is modaal
+(`ShowDialog`), dus tussen de aanroep van `ConfirmDiscardUnsavedScreenChangesAsync` in bijvoorbeeld
+`ProjectSettingsButton_Click` en de latere `SetActiveProject`-aanroepen binnen `OpenProjectSettings`
+kan de schermeditor niet alsnog dirty worden — de gebruiker kan er in die tussentijd niet bij. Eén
+controlepunt per gebruikersactie volstaat dus; een controle binnen `SetActiveProject` zelf zou
+hetzelfde afvangen maar minder duidelijk maken welke gebruikersactie de vraag veroorzaakt (relevant
+voor de dialoogtekst/titel).
+
+**Nieuwe vertaalstrings** (`Strings.resx`/`.en-US`/`.de-DE`, na `ButtonClose`, zelfde patroon als de
+rest van dit bestand): `UnsavedScreenChangesTitle` en `UnsavedScreenChangesMessage`. De
+Ja/Nee/Annuleren-knoppen van `MessageBoxButton.YesNoCancel` zelf zijn NIET apart vertaald — die
+komen van Windows' eigen gelokaliseerde resources op basis van `CultureInfo.CurrentUICulture`, die
+`LocalizationManager.SetLanguage` al proces-breed instelt (zie `LocalizationManager.cs`), dus die
+volgen vanzelf de actieve schermtaal.
+
+**Bewust niet gedaan.** Een instelbare voorkeur tussen "Vragen" en "Automatisch opslaan" bij
+niet-opgeslagen wijzigingen — Herbert noemde dit zelf expliciet als iets voor een later stadium, niet
+onderdeel van deze fix. Vastgelegd als nieuw, nog niet ontworpen backlogitem.
+
+**Build- en testresultaat.** `dotnet build`: 0 waarschuwingen, 0 fouten. `dotnet test`: 21/21
+geslaagd (ongewijzigd). Smoke-test: `InnoSetupStudio.exe` gestart en reageerde (`Responding: True`),
+daarna afgesloten. De daadwerkelijke dialoog (tekst, knoppen, het Ja/Nee/Annuleren-gedrag) kon ik
+niet zelf visueel doorklikken — gevraagd aan Herbert om te testen.
+
+**Aanvulling (2026-09-30, zelfde branch): niet-opgeslagen wijzigingen ín Projectinstellingen
+zelf.** Herbert testte sectie 23 hierboven handmatig en vond een gerelateerd maar apart gat: de
+waarschuwing hierboven dekt alleen de schermeditor (`WizardEditorViewModel.IsDirty`), niet
+`ProjectSettingsWindow`'s eigen velden (`ProjectSettingsViewModel.IsDirty`, bijvoorbeeld een
+getypte Applicatienaam). Zijn testresultaten, letterlijk:
+
+- Nieuw project, Applicatienaam getypt, gesloten via X → verwachtte een melding, kreeg er geen.
+  Niet goed.
+- Nieuw project, Applicatienaam getypt, Annuleren gekozen → verwachtte bewust GEEN melding ("ik
+  kies bewust voor annuleren"), kreeg er ook geen. Prima zo.
+- Bestaand project geopend, Applicatienaam gewijzigd, gesloten via X → verwachtte een melding,
+  kreeg er geen. Niet goed.
+- Bestaand project geopend, Applicatienaam gewijzigd, Openen gekozen → verwachtte een melding,
+  kreeg er geen. Niet goed.
+- Projectinstellingen heropend voor een al actief project, Applicatienaam gewijzigd, gesloten via
+  X → verwachtte een melding, kreeg er geen. Niet goed.
+- Zelfde, maar Openen gekozen → verwachtte een melding, kreeg er geen. Niet goed.
+- (Ter controle, drie scenario's met een schermwijziging in plaats van een projectinstelling, via
+  Nieuw project/Project openen/Projectinstellingen — alle drie toonden terecht de melding: sectie
+  23 hierboven werkte hier al correct.)
+
+**Belangrijke nuance uit Herberts eigen testresultaten:** Annuleren op een NIEUW project mag
+bewust ZONDER melding blijven — die knopklik ís zelf al de expliciete keuze om te verwerpen (zie
+`CancelButtonText`: toont dan ook letterlijk "Annuleren"). Bij een bestaand project heet diezelfde
+knop "Openen" (het project blijft open, de instellingen blijven zoals ze op schijf staan) — dat is
+dubbelzinnig zodra er nog niet-opgeslagen veldwijzigingen zijn, dus daar wél een melding. X-sluiten
+(native titelbalk) is in alle gevallen dubbelzinnig — daar dus altijd een melding, ongeacht
+nieuw/bestaand project.
+
+**Aanpak.** Twee wijzigingen, beide in de bestaande call-structuur:
+
+1. `ProjectSettingsViewModel.Cancel()` omgezet naar `CancelAsync()` (CommunityToolkit's
+   `[RelayCommand]` genereert dezelfde `CancelCommand`-naam, dus geen XAML-wijziging nodig). Bij
+   `IsExistingProject` roept deze nu eerst de nieuwe `ConfirmDiscardChangesAsync()` aan; bij een
+   nieuw project blijft het gedrag ongewijzigd (direct `RequestClose(false)`, geen vraag).
+2. `ProjectSettingsWindow.xaml.cs` kreeg een `Closing`-event-handler — er was voorheen geen enkele
+   hook op X-sluiten, dus dat pad ging altijd rechtstreeks langs `RequestClose`/`CancelCommand`
+   heen. Deze handler roept, ongeacht nieuw/bestaand project, ook `ConfirmDiscardChangesAsync()`
+   aan zodra `ViewModel.IsDirty` waar is. Een `_programmaticClose`-vlag (gezet in `OnRequestClose`,
+   dus bij elke Opslaan/Annuleren/Openen-afhandeling) onderscheidt "dit Close()-aanroep komt al
+   via een knop die zijn eigen afweging al maakte" van "dit is een echte X-klik" — zonder die vlag
+   zou een programmatische `Close()` na een geslaagde Opslaan de Closing-handler opnieuw laten
+   vragen.
+
+`ConfirmDiscardChangesAsync()` (nieuw op `ProjectSettingsViewModel`, publiek, gedeeld door beide
+aanroeppaden hierboven) volgt hetzelfde Ja/Nee/Annuleren-patroon als
+`MainWindow.ConfirmDiscardUnsavedScreenChangesAsync` (sectie 23): Ja slaat op (met een eigen
+`CanSave()`-controle vooraf — een lege verplichte Applicatienaam kan niet stilzwijgend als
+"opgeslagen" gelden), Nee verwerpt en gaat door, Annuleren houdt het venster open. Omdat Opslaan
+hier zelf al `RequestClose(true)` vuurt bij succes, geeft de methode een driewaardig resultaat
+terug (`UnsavedChangesDecision`: `Proceed`/`Abort`/`AlreadyClosing`) zodat de aanroeper weet of hij
+zelf nog `RequestClose(false)` moet vuren, moet stoppen (venster blijft open), of niets meer hoeft
+te doen (al gesloten via Opslaan).
+
+**Vertaalstrings.** `UnsavedScreenChangesTitle` (sectie 23) hernoemd naar het generieke
+`UnsavedChangesTitle`, nu hergebruikt door beide dialogen — de tekst zelf ("Niet-opgeslagen
+wijzigingen") was al generiek genoeg, alleen de sleutelnaam verwees nog specifiek naar de
+schermeditor. Twee nieuwe strings toegevoegd in alle drie `Strings*.resx`:
+`UnsavedProjectSettingsMessage` (de Ja/Nee/Annuleren-vraag) en
+`UnsavedProjectSettingsCannotSaveMessage` (getoond als Ja gekozen wordt maar Opslaan niet kan,
+bijvoorbeeld een lege Applicatienaam).
+
+**Build- en testresultaat.** `dotnet build`: 0 waarschuwingen, 0 fouten. `dotnet test`: 21/21
+geslaagd (ongewijzigd). Smoke-test: `InnoSetupStudio.exe` gestart en reageerde (`Responding:
+True`), daarna afgesloten. De zes hersteldialogen (drie scenario's × X-sluiten/Openen) kon ik niet
+zelf visueel doorklikken — gevraagd aan Herbert om opnieuw te testen, inclusief het scenario waarin
+hij bij de Ja/Nee/Annuleren-vraag voor "Ja" (opslaan) kiest.
+
+
+**Bugfix (2026-10-01, zelfde branch): "Cannot ... Close ... while a Window is closing" bij Nee
+op de X-sluit-vraag.** Herbert testte de vorige aanvulling (sectie hierboven) en kreeg op alle zes
+genoemde plekken terecht de waarschuwing, maar bij Nee (wijzigingen verwerpen) op de X-sluit-vraag
+verscheen in plaats van het venster dat sloot deze WPF-foutmelding:
+
+> Cannot set Visibility to Visible or call Show, ShowDialog, Close, or
+> WindowInteropHelper.EnsureHandle while a Window is closing.
+
+**Oorzaak.** `ProjectSettingsWindow_Closing` zet `e.Cancel = true` en `await`
+`ConfirmDiscardChangesAsync()`. Bij Nee (of bij een `CanSave()`-mislukking) bevat die methode geen
+enkele échte asynchrone operatie vóór haar return — `MessageBox.Show` is een synchrone, blokkerende
+aanroep met een eigen geneste berichtenlus, geen `await`. Daardoor keert de `async`-methode feitelijk
+synchroon terug, nog steeds binnen dezelfde aanroepstack als WPF's eigen Closing-dispatch. Een
+rechtstreekse `Close()`-aanroep (en, bleek bij nader inzien, ook het zetten van `DialogResult`, dat
+intern zelf `Close()` aanroept) ví·n die stack raakt WPF's interne "venster is aan het sluiten"-
+bewaking, vandaar de foutmelding. Bij Ja (opslaan) trad dit toevallig niet op, omdat `SaveAsync`'s
+echte bestands-I/O wél een echte `await`-onderbreking veroorzaakt — de melding was dus
+inputafhankelijk, niet bij elke keuze reproduceerbaar.
+
+**Fix.** Zowel `OnRequestClose` (het gedeelde sluitpad voor Opslaan/Annuleren/Openen, inclusief een
+geslaagde save vanuit `ConfirmDiscardChangesAsync`) als de `Proceed`-tak van
+`ProjectSettingsWindow_Closing` zelf stellen de daadwerkelijke `DialogResult`/`Close()`-aanroep nu
+uit via `Dispatcher.BeginInvoke`, in plaats van die rechtstreeks te doen. Dat plaatst de aanroep op
+een nieuwe dispatcher-cyclus, altijd ná volledige afhandeling van de huidige (eventuele) Closing-
+dispatch — ongeacht of de weg ernaartoe een echte `await` passeerde of niet. Voor de knop-paden
+(Opslaan/Annuleren buiten een X-klik om, dus sowieso al buiten elke Closing-dispatch) is dit
+onmerkbaar: één dispatcher-tick later sluit het venster, zoals voorheen.
+
+**Build- en testresultaat.** `dotnet build`: 0 waarschuwingen, 0 fouten (de CS4014-waarschuwing
+over de niet-afgewachte `DispatcherOperation` is weggenomen met een expliciete `_ =`-discard, want
+fire-and-forget is hier precies de bedoeling). `dotnet test`: 21/21 geslaagd. Smoke-test:
+`InnoSetupStudio.exe` gestart en reageerde (`Responding: True`), daarna afgesloten. Het specifieke
+Nee-pad op de X-sluit-vraag (waar de fout optrad) kon ik niet zelf visueel doorklikken — gevraagd
+aan Herbert om dat scenario opnieuw te testen, samen met de overige vijf uit de vorige ronde.
