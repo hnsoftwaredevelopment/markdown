@@ -37,7 +37,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/Architectuur-en-Ontwerp.md",
+                "file": "Work/Voortman/RC-Testing/RC-4.33 Analysis.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -52,7 +52,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "Architectuur-en-Ontwerp"
+              "title": "RC-4.33 Analysis"
             }
           }
         ],
@@ -393,6 +393,18 @@
   },
   "active": "74ccfcdd7539b7ab",
   "lastOpenFiles": [
+    "Work/Voortman/RC-Testing/RC-4.33 Testplan.md",
+    "Work/Voortman/RC-Testing/RC-4.33 Test cases.md",
+    "Work/Voortman/RC-Testing/RC-4.33 Other team alerts.md",
+    "Development/Projects/InnoSetupHelpNL/00-kernpaginas/03-scriptindeling.md",
+    "Development/Projects/InnoSetupHelpNL/00-kernpaginas/04-parameters-in-secties.md",
+    "Development/Projects/InnoSetupHelpNL/00-kernpaginas/05-constanten.md",
+    "Development/Projects/InnoSetupHelpNL/00-kernpaginas/07-componenten-en-taken-parameters.md",
+    "Development/Projects/InnoSetupHelpNL/00-kernpaginas/06-algemene-parameters.md",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/Architectuur-en-Ontwerp.md",
+    "Development/HNSoftwareDevelopment/Inno Setup 7/FRAMEWORK_USAGE.md",
+    "Development/HNSoftwareDevelopment/Inno Setup 7/INSTALLER_FRAMEWORK_PLAN.md",
+    "Development/HNSoftwareDevelopment/Inno Setup 7/README.md",
     "conflict-files-obsidian-git.md",
     "Traktatielijst.xlsm-1.base",
     "Development/Projects/ResourcePreview/README.md",
@@ -413,25 +425,14 @@
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-09-04-saga-milestone-33-cover-search-design.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-29-checklist.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-09-03-saga-milestone-32-title-author-swap-design.md",
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-32-checklist.md",
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-31-checklist.md",
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-28-checklist.md",
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/definition-of-done.md",
-    "Development/HNSoftwareDevelopment/Inno Setup Studio/Architectuur-en-Ontwerp.md",
-    "Development/HNSoftwareDevelopment/Inno Setup Studio/README.md",
-    "Work/Voortman/How to/Traktatielijst.xlsm.md",
     "attachments/Traktatielijst.xlsm-9.png",
     "attachments/Traktatielijst.xlsm-8.png",
     "attachments/Traktatielijst.xlsm-7.png",
     "attachments/Traktatielijst.xlsm-6.png",
     "attachments/Traktatielijst.xlsm-5.png",
-    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/Architectuur-en-Ontwerp.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs",
-    "Development/Projects/Schrijfstijl/schrijfstijl_herbert.md",
     "Work/Voortman/How to",
-    "Development/Projects/CreateVectorResourceDictionary/README.md",
     "Development/Projects/CreateVectorResourceDictionary",
-    "Development/HNSoftwareDevelopment/Ebook Manager/tasks/todo.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/tasks",
     "Development/Projects/InnoSetupHelpNL/00-kernpaginas",
     "Development/Projects/InnoSetupHelpNL",
