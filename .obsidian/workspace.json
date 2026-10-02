@@ -362,7 +362,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 666.5
+    "width": 666.5,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -393,6 +394,7 @@
   },
   "active": "74ccfcdd7539b7ab",
   "lastOpenFiles": [
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/Feature-Checklist.md",
     "Work/Voortman/RC-Testing/RC-4.33 Testplan.md",
     "Work/Voortman/RC-Testing/RC-4.33 Test cases.md",
     "Work/Voortman/RC-Testing/RC-4.33 Other team alerts.md",
@@ -424,7 +426,6 @@
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-33-checklist.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-09-04-saga-milestone-33-cover-search-design.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-29-checklist.md",
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-09-03-saga-milestone-32-title-author-swap-design.md",
     "attachments/Traktatielijst.xlsm-9.png",
     "attachments/Traktatielijst.xlsm-8.png",
     "attachments/Traktatielijst.xlsm-7.png",
