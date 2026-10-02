@@ -37,7 +37,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/Architectuur-en-Ontwerp.md",
+                "file": "Development/HNSoftwareDevelopment/Projecten overzicht.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -52,7 +52,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "Architectuur-en-Ontwerp"
+              "title": "Projecten overzicht"
             }
           }
         ],
@@ -271,18 +271,18 @@
             "state": {
               "type": "git-view",
               "state": {},
-              "icon": "git-pull-request",
-              "title": "Source Control"
+              "icon": "lucide-ghost",
+              "title": "git-view"
             }
           },
           {
             "id": "528118691c9a17f3",
             "type": "leaf",
             "state": {
-              "type": "claudian-view",
+              "type": "empty",
               "state": {},
-              "icon": "bot",
-              "title": "Claudian"
+              "icon": "lucide-file",
+              "title": "New tab"
             }
           },
           {
@@ -387,13 +387,26 @@
       "obsidian-excalidraw-plugin:New drawing": false,
       "obsidian-kanban:Create new board": false,
       "templater-obsidian:Templater": false,
+      "modalforms:Edit forms": false,
       "cmdr:Toggle stacked tabs": false,
-      "cmdr:Omnisearch: Vault search": false,
-      "modalforms:Edit forms": false
+      "cmdr:Omnisearch: Vault search": false
     }
   },
   "active": "74ccfcdd7539b7ab",
   "lastOpenFiles": [
+    "Development/Code/SQL/MySQL Datatypes.md",
+    "Development/Code/SQL/The Essential SQL Commands Cheat Sheet.md",
+    "Development/Code/Python/MusicTools/mscxyz.md",
+    "Development/Code/Git/Git_help.md",
+    "Development/Code/Python/Examples/RemoveUnwantedCharactersFomString.md",
+    "Development/Code/Python/Examples/SetOperations.md",
+    "Development/Code/C#/WPF/A WPF application  Resources.md",
+    "Development/Code/Java/Basics/The Basic Java Variables.md",
+    "Development/Code/C#/Jira/Project Tests3.md",
+    "Development/Code/C#/Jira/Project View model.md",
+    "Development/Code/C#/Jira/Versions.md",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/Architectuur-en-Ontwerp.md",
+    "Development/Code/C#/Cefsharp/Install nuget_ cefsharp WinForms.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/Feature-Checklist.md",
     "Work/Voortman/RC-Testing/RC-4.33 Other team alerts.md",
     "Work/Voortman/RC-Testing/RC-4.33 Analysis.md",
@@ -404,28 +417,15 @@
     "Development/Projects/InnoSetupHelpNL/00-kernpaginas/05-constanten.md",
     "Development/Projects/InnoSetupHelpNL/00-kernpaginas/07-componenten-en-taken-parameters.md",
     "Development/Projects/InnoSetupHelpNL/00-kernpaginas/06-algemene-parameters.md",
-    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/Architectuur-en-Ontwerp.md",
     "Development/HNSoftwareDevelopment/Inno Setup 7/FRAMEWORK_USAGE.md",
     "Development/HNSoftwareDevelopment/Inno Setup 7/INSTALLER_FRAMEWORK_PLAN.md",
     "Development/HNSoftwareDevelopment/Inno Setup 7/README.md",
-    "conflict-files-obsidian-git.md",
     "Traktatielijst.xlsm-1.base",
-    "Development/Projects/ResourcePreview/README.md",
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-10-01-saga-milestone-36-messy-tag-repair-design.md",
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-09-29-saga-milestone-35-library-performance-design.md",
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-09-27-saga-milestone-34-sharded-book-storage-design.md",
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-35-checklist.md",
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-34-checklist.md",
     "attachments/README-5.png",
     "attachments/README-4.png",
     "attachments/README-3.png",
     "attachments/README-2.png",
-    "Development/Projects/ResourcePreview/Handleiding extension bouwen.md",
     "attachments/README-1.png",
-    "Development/Projects/SVGViewer/README.md",
-    "Development/HNSoftwareDevelopment/Inno Setup Studio/00 - Project kickoff en werkafspraken.md",
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-33-checklist.md",
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-09-04-saga-milestone-33-cover-search-design.md",
     "attachments/Traktatielijst.xlsm-9.png",
     "attachments/Traktatielijst.xlsm-8.png",
     "attachments/Traktatielijst.xlsm-7.png",

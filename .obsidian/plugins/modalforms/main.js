@@ -15721,10 +15721,12 @@ function tokenToString(token) {
       return token.value;
     case "variable":
       return `{{${token.value}${token.transformation ? `|${token.transformation}` : ""}}}`;
-    case "frontmatter-command":
-      return `{{# frontmatter pick: ${token.pick.join(", ")}, omit: ${token.omit.join(
-        ", "
-      )} #}}`;
+    case "frontmatter-command": {
+      const parts = ["frontmatter"];
+      if (token.pick.length > 0)
+        parts.push(`pick: ${token.pick.join(", ")}`);
+      return `{# ${parts.join(" ")} #}`;
+    }
     default:
       return absurd(tag);
   }

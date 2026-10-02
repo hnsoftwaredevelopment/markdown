@@ -3,6 +3,7 @@
   "inputPrompt": "single-line",
   "persistInputPromptDrafts": true,
   "useSelectionAsCaptureValue": true,
+  "namePastedImagesAfterNoteTitle": false,
   "searchNestedChoices": true,
   "templateFolderLauncherRow": "bottom",
   "devMode": false,
@@ -10,7 +11,7 @@
     "templates"
   ],
   "announceUpdates": "major",
-  "version": "2.22.0",
+  "version": "2.29.0",
   "globalVariables": {},
   "onePageInputEnabled": false,
   "disableOnlineFeatures": true,

@@ -16,6 +16,8 @@
   "embedUseExcalidrawFolder": false,
   "templateFilePath": "Atlas/Special/Excalidraw/Template, Plain.excalidraw",
   "scriptFolderPath": "Atlas/Special/Excalidraw/Scripts",
+  "allowJavaScriptFiles": false,
+  "storeScriptFilesAsJavaScript": false,
   "fontAssetsPath": "Excalidraw/CJK Fonts",
   "loadChineseFonts": false,
   "loadJapaneseFonts": false,
@@ -23,8 +25,6 @@
   "compress": true,
   "decompressForMDView": false,
   "onceOffCompressFlagReset": true,
-  "onceOffGPTVersionReset": true,
-  "autosave": true,
   "autosaveIntervalDesktop": 15000,
   "autosaveIntervalMobile": 10000,
   "drawingFilenamePrefix": "",
@@ -62,7 +62,6 @@
   "penModeDoubleTapEraser": true,
   "penModeSingleFingerPanning": true,
   "penModeCrosshairVisible": true,
-  "panWithRightMouseButton": false,
   "renderImageInMarkdownReadingMode": false,
   "renderImageInHoverPreviewForMDNotes": false,
   "renderImageInMarkdownToPDF": false,
@@ -56539,6 +56538,7 @@
       }
     }
   },
+  "markdownImageDeletionPreference": "ask",
   "scriptEngineSettings": {
     "Downloaded/TheBrain-navigation": {
       "Confirmation prompt at startup": {
@@ -56664,8 +56664,11 @@
       }
     }
   },
+  "autostartScripts": {},
+  "autostartScriptFailures": {},
   "previousRelease": "1.7.18",
   "showReleaseNotes": false,
+  "useDeclarativeSettings": true,
   "excalidrawMasteryPromoCollapsed": false,
   "compareManifestToPluginVersion": true,
   "showNewVersionNotification": true,
@@ -57292,6 +57295,7 @@
     }
   },
   "aiDefaultTextModel": "gpt-5-mini",
+  "aiDefaultMultimodalModel": "gpt-5-mini",
   "aiDefaultImageGenerationModel": "gpt-image-1",
   "aiDefaultMaxOutgoingTokens": 0,
   "aiDefaultMaxResponseTokens": 0,
@@ -57616,6 +57620,9 @@
     "margin": "normal"
   },
   "disableContextMenu": false,
+  "onceOffGPTVersionReset": true,
+  "autosave": true,
+  "panWithRightMouseButton": false,
   "autosaveInterval": 15000,
   "defaultTrayMode": false,
   "mathjaxSourceURL": "https://cdn.jsdelivr.net/npm/mathjax@3.2.1/es5/tex-svg.js",
