@@ -37,7 +37,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Development/HNSoftwareDevelopment/Projecten overzicht.md",
+                "file": "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/Gebruikersdocumentatie/Inno-Setup-Constants.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -52,7 +52,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "Projecten overzicht"
+              "title": "Inno-Setup-Constants"
             }
           }
         ],
@@ -394,6 +394,9 @@
   },
   "active": "74ccfcdd7539b7ab",
   "lastOpenFiles": [
+    "Development/HNSoftwareDevelopment/Projecten overzicht.md",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/Gebruikersdocumentatie/Inno-Setup-Constants.md",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/Gebruikersdocumentatie",
     "Development/Code/SQL/MySQL Datatypes.md",
     "Development/Code/SQL/The Essential SQL Commands Cheat Sheet.md",
     "Development/Code/Python/MusicTools/mscxyz.md",
@@ -418,8 +421,6 @@
     "Development/Projects/InnoSetupHelpNL/00-kernpaginas/07-componenten-en-taken-parameters.md",
     "Development/Projects/InnoSetupHelpNL/00-kernpaginas/06-algemene-parameters.md",
     "Development/HNSoftwareDevelopment/Inno Setup 7/FRAMEWORK_USAGE.md",
-    "Development/HNSoftwareDevelopment/Inno Setup 7/INSTALLER_FRAMEWORK_PLAN.md",
-    "Development/HNSoftwareDevelopment/Inno Setup 7/README.md",
     "Traktatielijst.xlsm-1.base",
     "attachments/README-5.png",
     "attachments/README-4.png",
@@ -439,7 +440,6 @@
     "Development/Projects/InnoSetupHelpNL",
     "Development/Projects/Schrijfstijl",
     "attachments/Humanize AI Writing-1.docx",
-    "Development/ChatGPT Improvements and tips",
     "Untitled.canvas",
     "Naamloos.canvas"
   ]
