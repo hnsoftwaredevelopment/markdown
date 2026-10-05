@@ -1,6 +1,6 @@
 # Ontwerp: dunne .iss-generator (fase 5, versie 1)
 
-Status: voorstel, 2026-10-05. Er is nog geen code geschreven. Beslispunten staan in sectie 9.
+Status: goedgekeurd door Herbert op 2026-10-05. Er is nog geen code geschreven. Beslissingen staan in sectie 9.
 
 ## 1. Doel
 
@@ -68,7 +68,7 @@ Vaste waarden die de generator zonder UI schrijft: `Compression=lzma2`, `SolidCo
 - **Eenrichting.** Versie 1 schrijft alleen. Het inlezen van een bestaand .iss (de parser uit fase 5) komt later.
 - **Escaping.** Waarden uit het project zoals `AppName` die een `{` bevatten, krijgen `{{`. Parameters tussen aanhalingstekens in `[Files]`, `[Icons]` en `[Languages]` krijgen `""` voor een aanhalingsteken. Regeleinden in een waarde zijn een fout. `DefaultDirName` en `DefaultGroupName` zijn de uitzondering: dat zijn bewust constanten-teksten.
 - **Codering.** UTF-8 met BOM en CRLF-regeleinden, zodat niet-ASCII-tekens (bijvoorbeeld "é" in een bedrijfsnaam) goed compileren. Dit verifieer ik in een test met zo'n teken, het is een aanname tot dan.
-- **Pad separatoren.** Windows-paden blijven met backslash.
+- **Padseparatoren.** Windows-paden blijven met backslash.
 - **Volgorde van secties.** `[Setup]`, `[Languages]`, `[Tasks]`, `[Files]`, `[Icons]`. Binnen `[Setup]` gegroepeerd (toepassing, mappen, pagina's, uiterlijk, uitvoer) met commentaarregels.
 
 ## 6. Meldingen (GenerationIssue)
@@ -94,7 +94,7 @@ Voor `InnoLanguageCatalog` is een kleine wijziging nodig: het record bewaart nu 
 
 Elke stap is een eigen feature-branch en PR, met handmatige test door Herbert vóór de merge.
 
-1. **Projectvelden.** `MainExecutable`, `OutputBaseFilename` (leeg = `<AppName>-<AppVersion>-Setup`), architectuurkeuze 32-bit of 64-bit (standaard 64-bit voor nieuwe projecten, bestaande projecten zonder deze JSON-sleutel krijgen ook 64-bit) en `WizardStyle` (classic of modern, standaard modern). Daarbij de UI in Projectinstellingen, de drie resx-bestanden, JSON-compatibiliteit voor oudere `.issproj`-bestanden en tests. Het `ProjectSettingsViewModel` heeft hier geen pass-through nodig, want deze velden worden in Projectinstellingen zelf bewerkt.
+1. **Projectvelden (gebouwd, zie sectie 29 van de architectuurdoc).** `MainExecutable`, `OutputBaseFilename` (leeg = `<AppName>-<AppVersion>-Setup`), architectuurkeuze 32-bit of 64-bit (standaard 64-bit voor nieuwe projecten, bestaande projecten zonder deze JSON-sleutel krijgen ook 64-bit) en `WizardStyle` (classic of modern, standaard modern). Daarbij de UI in Projectinstellingen, de drie resx-bestanden, JSON-compatibiliteit voor oudere `.issproj`-bestanden en tests. Het `ProjectSettingsViewModel` heeft hier geen pass-through nodig, want deze velden worden in Projectinstellingen zelf bewerkt.
 2. **Generator in Core.** `IssGenerator`, `IssWriter`, meldingen, de aanpassing aan `InnoLanguageCatalog`, golden-file tests en de ISCC-integratietest. Geen UI, dus geen handmatige UI-test; Herbert controleert wel een gegenereerd voorbeeld in Inno Setup's IDE.
 3. **Genereer .iss in de app.** Menu-item of knop, SaveFileDialog met standaardlocatie naast het `.issproj`, weergave van de meldingen. Daarna test Herbert de volledige keten: project maken, genereren, compileren in ISIDE of met ISCC, installer draaien.
 4. **Knopinstellingen via `[Code]`** (aparte PR na stap 3). Een `CurPageChanged`-procedure per scherm voor captions, enabled, visible, kleur, lettertype en tooltip, plus de twee Bladeren-knoppen en de per-taal-teksten via `[CustomMessages]`. Dat vergt een eigen ontwerp: toewijzing van scherm naar `wpWelcome`, `wpSelectDir` enzovoort, Pascal-escaping, en de Standaardscherm-cascade.
@@ -108,10 +108,12 @@ Elke stap is een eigen feature-branch en PR, met handmatige test door Herbert v�
 | Paden | Absolute paden zoals ze nu in het project staan. Projectrelatieve paden volgen als aparte stap (het openstaande CodeRabbit-punt over `ProjectAssetService.Import`, zie de architectuurdoc). |
 | Uitvoerlocatie | Naast het `.issproj`, via een SaveFileDialog die Herbert kan aanpassen. |
 
-Nog te beslissen, klein genoeg om met mijn voorstel te starten tenzij Herbert iets anders wil:
+Aanvullende beslissingen (Herbert, 2026-10-05, na het lezen van dit ontwerp):
 
-- `AppSupportURL` en `AppUpdatesURL` vullen met `PublisherUrl`, zoals het HNSoftwareInstallerFramework. Voorstel: ja, zolang er geen eigen velden zijn.
-- `UsePrevious...`-richtlijnen alleen bij afwijking van Inno's standaard schrijven (voorstel) of altijd.
+- Sectie 3 is voor versie 1 volledig.
+- `AppSupportURL` en `AppUpdatesURL` worden gevuld met `PublisherUrl`, zolang er geen eigen velden zijn.
+- `UsePrevious...`-richtlijnen worden alleen geschreven bij afwijking van Inno's standaard.
+- Prioriteit voor versie 1 en waarschijnlijk ook de eerstvolgende versies: de compiler moet het gegenereerde bestand accepteren. Een correct compileerbaar `.iss` gaat voor op volledigheid van de vertaling.
 
 ## 10. Buiten versie 1
 
