@@ -68,7 +68,7 @@ Vaste waarden die de generator zonder UI schrijft: `Compression=lzma2`, `SolidCo
 - **Eenrichting.** Versie 1 schrijft alleen. Het inlezen van een bestaand .iss (de parser uit fase 5) komt later.
 - **Escaping.** Waarden uit het project zoals `AppName` die een `{` bevatten, krijgen `{{`. Parameters tussen aanhalingstekens in `[Files]`, `[Icons]` en `[Languages]` krijgen `""` voor een aanhalingsteken. Regeleinden in een waarde zijn een fout. `DefaultDirName` en `DefaultGroupName` zijn de uitzondering: dat zijn bewust constanten-teksten.
 - **Codering.** UTF-8 met BOM en CRLF-regeleinden, zodat niet-ASCII-tekens (bijvoorbeeld "é" in een bedrijfsnaam) goed compileren. Dit verifieer ik in een test met zo'n teken, het is een aanname tot dan.
-- **Padseparatoren.** Windows-paden blijven met backslash.
+- **Pad separatoren.** Windows-paden blijven met backslash.
 - **Volgorde van secties.** `[Setup]`, `[Languages]`, `[Tasks]`, `[Files]`, `[Icons]`. Binnen `[Setup]` gegroepeerd (toepassing, mappen, pagina's, uiterlijk, uitvoer) met commentaarregels.
 
 ## 6. Meldingen (GenerationIssue)
