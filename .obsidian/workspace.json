@@ -8,36 +8,12 @@
         "type": "tabs",
         "children": [
           {
-            "id": "70113ba83b033f0d",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Development/Projects/ResourcePreview/README.md",
-                "mode": "source",
-                "source": false,
-                "backlinks": true,
-                "backlinkOpts": {
-                  "collapseAll": false,
-                  "extraContext": false,
-                  "sortOrder": "alphabetical",
-                  "showSearch": false,
-                  "searchQuery": "",
-                  "backlinkCollapsed": false,
-                  "unlinkedCollapsed": true
-                }
-              },
-              "icon": "lucide-file",
-              "title": "README"
-            }
-          },
-          {
             "id": "74ccfcdd7539b7ab",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Work/Voortman/Test-Templates/Test Templates.md",
+                "file": "Work/Voortman/Test-Templates/TPL User Story Testplan.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -52,11 +28,10 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "Test Templates"
+              "title": "TPL User Story Testplan"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -392,8 +367,13 @@
       "cmdr:Omnisearch: Vault search": false
     }
   },
-  "active": "74ccfcdd7539b7ab",
+  "active": "a76ab09dac4b2700",
   "lastOpenFiles": [
+    "Work/Voortman/Test-Templates/Test Templates.md",
+    "Work/Voortman/Test-Templates/TPL User Story Testplan.md",
+    "Work/Voortman/Test-Templates/TPL SWMS Support Issue Testplan.md",
+    "Work/Voortman/Test-Templates/TPL Epic Testplan.md",
+    "Work/Voortman/RC-Testing/RC-4.33 Testplan.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/Ontwerp-Knopinstellingen-Generator.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/Ontwerp-Dunne-Generator.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/Gebruikersdocumentatie/Inno-Setup-Constants.md",
@@ -415,12 +395,7 @@
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/Feature-Checklist.md",
     "Work/Voortman/RC-Testing/RC-4.33 Other team alerts.md",
     "Work/Voortman/RC-Testing/RC-4.33 Analysis.md",
-    "Work/Voortman/RC-Testing/RC-4.33 Testplan.md",
     "Work/Voortman/RC-Testing/RC-4.33 Test cases.md",
-    "Development/Projects/InnoSetupHelpNL/00-kernpaginas/03-scriptindeling.md",
-    "Development/Projects/InnoSetupHelpNL/00-kernpaginas/04-parameters-in-secties.md",
-    "Development/Projects/InnoSetupHelpNL/00-kernpaginas/05-constanten.md",
-    "Development/Projects/InnoSetupHelpNL/00-kernpaginas/07-componenten-en-taken-parameters.md",
     "Traktatielijst.xlsm-1.base",
     "attachments/README-5.png",
     "attachments/README-4.png",
