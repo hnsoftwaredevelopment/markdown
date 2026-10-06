@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Work/Voortman/Test-Templates/TPL User Story Testplan.md",
+                "file": "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/Ontwerp-Vaste-Knopbreedte-Voorvertoning.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "TPL User Story Testplan"
+              "title": "Ontwerp-Vaste-Knopbreedte-Voorvertoning"
             }
           }
         ]
@@ -367,10 +367,11 @@
       "cmdr:Omnisearch: Vault search": false
     }
   },
-  "active": "a76ab09dac4b2700",
+  "active": "74ccfcdd7539b7ab",
   "lastOpenFiles": [
-    "Work/Voortman/Test-Templates/Test Templates.md",
     "Work/Voortman/Test-Templates/TPL User Story Testplan.md",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/Ontwerp-Vaste-Knopbreedte-Voorvertoning.md",
+    "Work/Voortman/Test-Templates/Test Templates.md",
     "Work/Voortman/Test-Templates/TPL SWMS Support Issue Testplan.md",
     "Work/Voortman/Test-Templates/TPL Epic Testplan.md",
     "Work/Voortman/RC-Testing/RC-4.33 Testplan.md",
@@ -395,7 +396,6 @@
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/Feature-Checklist.md",
     "Work/Voortman/RC-Testing/RC-4.33 Other team alerts.md",
     "Work/Voortman/RC-Testing/RC-4.33 Analysis.md",
-    "Work/Voortman/RC-Testing/RC-4.33 Test cases.md",
     "Traktatielijst.xlsm-1.base",
     "attachments/README-5.png",
     "attachments/README-4.png",
