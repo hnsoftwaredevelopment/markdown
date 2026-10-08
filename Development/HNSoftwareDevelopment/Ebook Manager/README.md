@@ -4,7 +4,7 @@ Native Windows desktop ebook library manager built with .NET 10, WPF, SQLite, Co
 
 ## Current Status
 
-Milestone 35 was accepted on 1 October 2026 after real-library testing with about 34,447 books confirmed noticeably smoother searching and scrolling. It keeps reusable search values for unchanged books, waits briefly for rapid title input before applying only the latest filter, preserves the current book selection without reloading its details, and loads bounded cached cover thumbnails away from the UI thread. Milestone 34 was accepted on 29 September 2026 after reducing 34,483 direct book directories to 256 storage shards and restoring normal OneDrive synchronization.
+Milestone 40 is ready for acceptance testing and keeps SQLite and every relevant portable `metadata.json` sidecar synchronized after duplicate merges, with a clear warning when sidecar storage fails. Milestone 39 added accepted bulk missing-author repair, while Milestone 38 added confirmed bulk quality decisions.
 
 - portable local ebook libraries with `library.db`
 - import pipeline with duplicate detection
@@ -51,16 +51,18 @@ Milestone 35 was accepted on 1 October 2026 after real-library testing with abou
 - sectioned settings foundation for duplicates and diagnostics preferences
 - duplicate merge default actions prepared in Settings and applied to merge previews
 - duplicate finder with compare, delete, field-by-field merge, and a separate `Geen duplicaat` exclusion workflow for possible matches
-- duplicate merge currently updates SQLite but not the portable `metadata.json` sidecar; this remaining consistency gap is tracked in [issue #1](https://github.com/hnsoftwaredevelopment/saga/issues/1)
+- duplicate merge keeps SQLite and every relevant portable `metadata.json` sidecar synchronized, deduplicates writes per book folder, and reports sidecar warnings without misrepresenting the completed merge
 - custom metadata fields with Calibre custom-column import
 - customizable column visibility, saved grid layouts, and user-defined views
 - multi-book metadata editing and cleanup actions for facets such as authors and tags
-- metadata quality dashboard with issue counts, affected-book lists, direct navigation, and a reversible `This is correct` decision per book and signal
-- management of ignored quality issues from Settings, without changing the book metadata itself
+- metadata quality dashboard with issue counts, affected-book lists, direct navigation, and reversible `This is correct` decisions for one or multiple selected books within one signal
+- management of ignored quality issues from a dedicated Quality tab in Settings, without changing the book metadata itself
 - direct missing-author repair from the quality dashboard with known-author suggestions and free entry for a new author
+- bulk missing-author repair that applies one chosen author to multiple selected books while preserving per-book failures and file warnings
 - direct missing- or unknown-language repair from the quality dashboard with a searchable list of valid languages
 - direct missing-series repair with live suggestions while preserving the existing series number
 - confirmed title-and-author swap repair with a clear before-and-after preview
+- editable messy-tag repair with a one-tag-per-line proposal, deduplication, whitespace cleanup, and support for an empty final tag list
 - explicit cover search with up to twelve validated Google Books and Open Library choices, a locally generated fallback, safe managed storage, and replacement from book details
 - managed ebooks and covers distributed over 256 ID-based storage shards, with automatic database backup, visible first-start migration progress, and safe resume after interruption
 - delete actions continue removing library records when managed file cleanup reports a warning
@@ -73,6 +75,8 @@ Milestone 35 was accepted on 1 October 2026 after real-library testing with abou
 - Detailed view exposes the standard details-pane metadata fields as grid columns
 - import diagnostics with phase timings for hashing, metadata, duplicate checks, copying, database save, and cleanup
 - aggregate import phase summaries in import result details
+
+The manual acceptance steps for the current slice are in [Milestone 40 checklist](docs/manual-tests/milestone-40-checklist.md).
 
 ## Prerequisites
 
@@ -135,7 +139,7 @@ Metadata extraction is intentionally conservative:
 - CBZ: first supported image as cover, filename fallback for title/author
 - PDF, CBR, MOBI, AZW, AZW3, and KFX: safe import with filename fallback
 
-SQLite is authoritative for metadata inside the application. Metadata edits are also written to a portable `metadata.json` sidecar file next to the managed book file, except duplicate merges: those currently update SQLite only, pending [issue #1](https://github.com/hnsoftwaredevelopment/saga/issues/1).
+SQLite is authoritative for metadata inside the application. Metadata edits are also written to a portable `metadata.json` sidecar file next to the managed book file. Duplicate merges synchronize the definitive target metadata with the sidecars in every relevant book folder; a sidecar error is reported without disguising or rolling back the completed database merge.
 
 During import, metadata is resolved in this order:
 
@@ -184,6 +188,12 @@ Use these manual test checklists:
 - [docs/manual-tests/milestone-32-checklist.md](docs/manual-tests/milestone-32-checklist.md)
 - [docs/manual-tests/milestone-33-checklist.md](docs/manual-tests/milestone-33-checklist.md)
 - [docs/manual-tests/milestone-34-checklist.md](docs/manual-tests/milestone-34-checklist.md)
+- [docs/manual-tests/milestone-35-checklist.md](docs/manual-tests/milestone-35-checklist.md)
+- [docs/manual-tests/milestone-36-checklist.md](docs/manual-tests/milestone-36-checklist.md)
+- [docs/manual-tests/milestone-37-checklist.md](docs/manual-tests/milestone-37-checklist.md)
+- [docs/manual-tests/milestone-38-checklist.md](docs/manual-tests/milestone-38-checklist.md)
+- [docs/manual-tests/milestone-39-checklist.md](docs/manual-tests/milestone-39-checklist.md)
+- [docs/manual-tests/milestone-40-checklist.md](docs/manual-tests/milestone-40-checklist.md)
 
 ## Later-Version Candidates
 
@@ -193,7 +203,6 @@ The following remain later-version candidates:
 - native metadata write-back into ebook files
 - details-pane cover picker for CBR files that can extract the first image from the archive and use it as cover
 - optional cloud-file hydration for OneDrive files that are not available locally
-- direct repair for messy tags from the metadata quality dashboard
 - ebook conversion
 - full-text search inside book contents
 - in-app bug reports and feature requests that can prepare or create GitHub issues after user review

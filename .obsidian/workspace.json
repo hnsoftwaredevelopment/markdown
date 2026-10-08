@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Development/HNSoftwareDevelopment/Inno Setup Studio/00 - Project kickoff en werkafspraken.md",
+                "file": "Development/Projects/ResourcePreview/README.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "00 - Project kickoff en werkafspraken"
+              "title": "README"
             }
           }
         ],
@@ -370,6 +370,8 @@
   },
   "active": "a76ab09dac4b2700",
   "lastOpenFiles": [
+    "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-36-checklist.md",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/00 - Project kickoff en werkafspraken.md",
     "Development/Projects/ResourcePreview/README.md",
     "Development/Projects/ResourcePreview/Handleiding extension bouwen.md",
     "Development/Projects/ResourcePreview",
@@ -383,7 +385,6 @@
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/definition-of-done.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/Architectuur-en-Ontwerp.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/README.md",
-    "Development/HNSoftwareDevelopment/Inno Setup Studio/00 - Project kickoff en werkafspraken.md",
     "Work/Voortman/How to/Traktatielijst.xlsm.md",
     "attachments/Traktatielijst.xlsm-9.png",
     "attachments/Traktatielijst.xlsm-8.png",
@@ -410,7 +411,6 @@
     "Development/Projects/InnoSetupHelpNL/00-kernpaginas/02-installaties-maken.md",
     "Development/Projects/InnoSetupHelpNL/00-kernpaginas/01-wat-is-inno-setup.md",
     "Development/WPF Handboek/00 Start/Inhoudsopgave.md",
-    "Development/Projects/InnoSetupHelpNL/00-kernpaginas/07-componenten-en-taken-parameters.md",
     "Development/Projects/InnoSetupHelpNL/00-kernpaginas",
     "Development/Projects/InnoSetupHelpNL",
     "Development/Projects/Schrijfstijl",

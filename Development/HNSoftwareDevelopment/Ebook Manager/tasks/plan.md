@@ -1,146 +1,85 @@
-# Milestone 36 Implementatieplan: Rommelige tags herstellen
+# Milestone 40 implementatieplan: duplicate-merge sidecarconsistentie
 
 ## Overzicht
 
-Milestone 36 voltooit de laatste directe herstelactie op de Quality Page. De gebruiker krijgt een controleerbaar voorstel voor één boek, kan de tags aanpassen en laat Saga daarna via de bestaande veilige opslagroute uitsluitend de tags wijzigen.
+Milestone 40 rondt de bestaande duplicate-merge af door na iedere geslaagde merge de definitieve doelmetadata ook naar `metadata.json` te schrijven. De database-merge blijft de gezaghebbende stap. Sidecars worden daarna éénmaal per unieke map van alle gekoppelde doelbestanden bijgewerkt. Een sidecarfout draait de reeds geslaagde database-merge niet terug, maar wordt wel als duidelijke waarschuwing aan de gebruiker gemeld.
 
 ## Architectuurbeslissingen
 
-- Eén canonieke normalisatiefunctie wordt gedeeld door voorstel, validatie en opslag.
-- Het herstel blijft een afzonderlijke verticale route naast auteur-, taal-, serie- en titel/auteurherstel.
-- Er komt geen databasewijziging en geen nieuwe dependency.
-- Komma’s blijven onderdeel van de bestaande kwaliteitsdefinitie; legitieme uitzonderingen lopen via `Dit is correct`.
+- `DuplicateMergeService` blijft eigenaar van de volledige mergevolgorde.
+- De bestaande `IMetadataSidecarStore` en `ILibraryFileStore` worden hergebruikt; er komt geen tweede JSON-implementatie.
+- Na het koppelen en bijwerken worden de actuele doelbestanden opnieuw uit de repository gelezen.
+- Sidecars worden per unieke absolute map geschreven met platformpassende padvergelijking.
+- Een sidecarfout levert een gestructureerd resultaat op. De merge blijft zichtbaar als uitgevoerd en de UI toont een gelokaliseerde waarschuwing.
+- Native metadata-write-back in EPUB-, PDF- of andere boekbestanden blijft buiten scope.
+- De lokale gebruikerswijzigingen in `BookDetailsView.xaml` en `SettingsWindow.xaml` worden afzonderlijk geverifieerd en gecommit.
 
-## Afhankelijkheden
+## Taak 1: lokale schermaanpassingen veilig opnemen
 
-```text
-Tag-normalisatie
-      │
-      ├── veilige herstelservice
-      │
-      └── bewerkbaar herstelviewmodel
-              │
-              └── dashboardopdracht en WPF-venster
-                          │
-                          └── lokalisatie, praktijktest en PR
-```
-
-## Taak 1: Canonieke normalisatie en veilige opslag
-
-**Beschrijving:** Voeg de pure tag-normalisatie en een herstelservice toe die het actuele boek opnieuw controleert en uitsluitend tags plus wijzigingsdatum bewaart.
+**Beschrijving:** Verifieer en commit de twee reeds aanwezige gebruikerswijzigingen zonder ze met de mergefunctionaliteit te vermengen.
 
 **Acceptatiecriteria:**
+- [x] De knoppen in boekdetails behouden de door de gebruiker gekozen icoonweergave.
+- [x] De bestaande instellingstekst gebruikt de gekozen resourcebinding.
+- [x] De XAML- en compositietests blijven groen.
 
-- [x] Komma’s, regeleinden, lege waarden, witruimte en dubbelen worden deterministisch genormaliseerd.
-- [x] De service weigert een ontbrekend, ongeldig of niet meer toepasselijk boek veilig.
-- [x] Opslagresultaten onderscheiden succes, write-backwaarschuwing en mislukking.
-
-**Verificatie:** De nieuwe tests faalden eerst op de ontbrekende normalisatie en service; daarna zijn 8 gerichte servicetests groen.
+**Verificatie:** Gerichte layout-/compositietests en een Debug-build.
 
 **Afhankelijkheden:** Geen.
 
-**Waarschijnlijke bestanden:** applicatieservice, servicetests en eventueel een klein normalisatietype.
+## Taak 2: sidecarcontract testgestuurd uitbreiden
 
-## Taak 2: Bewerkbaar herstelvoorstel
-
-**Beschrijving:** Bouw het viewmodel dat huidige tags toont, het opgeschoonde voorstel als regels aanbiedt en alleen een betekenisvolle wijziging laat bevestigen.
+**Beschrijving:** Voeg eerst falende servicetests toe voor schrijven naar één of meerdere unieke boekmappen, met de definitieve samengevoegde metadata.
 
 **Acceptatiecriteria:**
+- [x] De doelmetadata wordt na een merge naar `metadata.json` geschreven.
+- [x] Meerdere formaten in dezelfde map veroorzaken slechts één sidecarschrijfopdracht.
+- [x] Verschillende gekoppelde mappen krijgen ieder dezelfde definitieve metadata.
 
-- [ ] Het initiële voorstel gebruikt exact dezelfde normalisatie als de service.
-- [ ] Handmatige regels worden opnieuw veilig genormaliseerd.
-- [ ] Een lege taglijst is geldig, terwijl een ongewijzigde uitkomst niet kan worden opgeslagen.
-
-**Verificatie:** Eerst falende viewmodeltests; daarna alle gerichte viewmodeltests groen.
+**Verificatie:** Gerichte `DuplicateMergeServiceTests` gaan eerst rood en daarna groen.
 
 **Afhankelijkheden:** Taak 1.
 
-**Waarschijnlijke bestanden:** herstelviewmodel en viewmodeltests.
+## Taak 3: veilige foutafhandeling en gebruikersmelding
 
-## Checkpoint 1
-
-- [ ] Normalisatie, service en viewmodeltests zijn groen.
-- [ ] Alleen tags en `UpdatedUtc` kunnen door de nieuwe route wijzigen.
-- [ ] Tussentijdse diff is beoordeeld op eenvoud, foutpaden en toekomstige bulkcompatibiliteit.
-
-## Taak 3: Quality Page-coördinatie
-
-**Beschrijving:** Voeg de specifieke dashboardopdracht toe, open het herstelvoorstel voor de geselecteerde rommelige-tagregel en herbeoordeel het boek na opslag.
+**Beschrijving:** Modelleer het sidecarresultaat en laat de bibliotheeklaag bij een schrijffout een waarschuwing tonen, terwijl de geslaagde merge correct uit het duplicatenoverzicht verdwijnt.
 
 **Acceptatiecriteria:**
+- [x] Een sidecarfout wordt niet als volledig succes gemeld.
+- [x] De gebruiker ziet dat de boeken wel zijn samengevoegd maar `metadata.json` niet volledig is bijgewerkt.
+- [x] De duplicate finder en hoofdbibliotheek blijven volgens de bestaande verversingsregels werken.
 
-- [ ] De opdracht is alleen actief bij `messy-tags` en een geldige geselecteerde rij.
-- [ ] Annuleren roept de service niet aan.
-- [ ] Succes, gedeeltelijke write-back, niet toepasselijk, verdwenen boek en fout worden correct verwerkt.
-
-**Verificatie:** Eerst falende dashboardtests; daarna alle tagherstel-dashboardtests groen.
-
-**Afhankelijkheden:** Taken 1 en 2.
-
-**Waarschijnlijke bestanden:** dashboardviewmodel en afzonderlijke dashboardtests.
-
-## Taak 4: Toegankelijk WPF-herstelvenster
-
-**Beschrijving:** Voeg een resizable modaal venster toe met huidige tags, bewerkbare nieuwe tags, duidelijke hulptekst en precieze actieknoppen.
-
-**Acceptatiecriteria:**
-
-- [ ] Het veld `Nieuwe tags` krijgt focus en ondersteunt toetsenbordbewerking met één tag per regel.
-- [ ] `Tags wijzigen` volgt `CanSave`; annuleren blijft veilig.
-- [ ] Labels, automation names, contrast en bestaande themaresources worden gebruikt.
-
-**Verificatie:** XAML-layouttest en bouw van de WPF-app.
+**Verificatie:** Eerst falende service- en `LibraryViewModel`-tests, daarna groen; lokalisatietests voor alle zes talen.
 
 **Afhankelijkheden:** Taak 2.
 
-**Waarschijnlijke bestanden:** venster-XAML, code-behind en layouttest.
+## Taak 4: documentatie, volledige verificatie en oplevering
 
-## Taak 5: Compositie en lokalisatie
-
-**Beschrijving:** Verbind service, interactie, dashboard en applicatiecompositie en voeg alle zichtbare teksten aan de bestaande talen toe.
+**Beschrijving:** Werk featurestatus, README en handmatige checklist bij, spiegel Markdown naar Obsidian, voer de volledige Definition of Done uit en lever een actuele Debug-build en gewone PR.
 
 **Acceptatiecriteria:**
+- [x] GitHub-issue #1 is aantoonbaar afgedekt door regressietests.
+- [x] Volledige tests en Debug-build zijn groen (772 tests; Saga 2026.10.6.25).
+- [x] De handmatige checklist en Obsidian-spiegel zijn gereed.
+- [x] De branchdiff bevat alleen Milestone 40 en de afzonderlijk overeengekomen schermaanpassingen.
 
-- [ ] De echte applicatie opent het nieuwe venster vanuit de Quality Page.
-- [ ] De herstelde boekgegevens verschijnen direct in Quality Page en bibliotheek.
-- [ ] Alle ondersteunde resx-bestanden bevatten dezelfde nieuwe sleutels.
+**Verificatie:** Volledige testset, schone Debug-build, diffreview en GitHub-controles.
 
-**Verificatie:** Compositie- en resourcecontroles, gerichte tests en schone Debug-build.
+**Afhankelijkheden:** Taken 1-3.
 
-**Afhankelijkheden:** Taken 3 en 4.
+## Risico's en maatregelen
 
-**Waarschijnlijke bestanden:** interactie-interface en -service, app-compositie, bibliotheekviewmodel en resourcebestanden.
+| Risico | Maatregel |
+|---|---|
+| De database-merge slaagt maar een sidecar niet | Gestructureerde waarschuwing; geen onjuiste rollbackclaim |
+| Dezelfde map wordt meerdere keren geschreven | Unieke absolute mappen verzamelen met platformpassende vergelijking |
+| Verouderde bron- of doeldata wordt weggeschreven | Definitieve doelmetadata en actuele gekoppelde bestanden na de merge gebruiken |
+| Bestaande embedded metadata verandert onverwacht | Alleen de sidecarstore aanroepen; native write-back buiten scope houden |
 
-## Checkpoint 2
+## Checkpoint
 
-- [ ] Gerichte tests, volledige testsuite en opmaakcontrole zijn groen.
-- [ ] Debug-build bevat nul waarschuwingen en nul fouten.
-- [ ] Zelfreview op correctheid, eenvoud, architectuur, beveiliging, toegankelijkheid en prestaties is afgerond.
-
-## Taak 6: Praktijkacceptatie en oplevering
-
-**Beschrijving:** Lever een korte handmatige checklist en actuele Debug-build, spiegel documentatie naar Obsidian en open een normale PR.
-
-**Acceptatiecriteria:**
-
-- [ ] Voorstel, handmatige bewerking, lege uitkomst, annuleren en opslaan zijn gecontroleerd.
-- [ ] De Quality Page en bibliotheek verversen zonder herstart.
-- [ ] Definition of Done, documentatiespiegel en PR-controles zijn afgerond.
-
-**Verificatie:** Handmatige checklist met herkenbare rommelige tags in een echte bibliotheek.
-
-**Afhankelijkheden:** Checkpoint 2.
-
-## Risico’s en beheersing
-
-| Risico | Impact | Beheersing |
-|---|---|---|
-| Een komma hoort echt bij één tag | Onbedoelde splitsing | Toon voorvertoning en behoud `Dit is correct` als expliciete uitzondering |
-| Voorstel en opslag normaliseren anders | Verrassende opgeslagen waarden | Gebruik één canonieke normalisatiefunctie |
-| Opslag wijzigt andere metadata | Gegevensverlies | Kopieer alle overige velden ongewijzigd en test dit expliciet |
-| Rij verdwijnt ondanks gedeeltelijke mislukking | Misleidende status | Lees database opnieuw en baseer dashboard op de opgeslagen werkelijkheid |
-| Lege invoer wordt onbedoeld geblokkeerd | Gebruiker kan lege rommel niet verwijderen | Sta een lege eindlijst toe wanneer die verschilt van de huidige tags |
-
-## Open vragen
-
-Geen blokkerende vragen; implementatie start na bevestiging van deze specificatie en volgorde.
+- [x] Specificatie en volgorde door gebruiker goedgekeurd.
+- [x] Lokale schermaanpassingen afzonderlijk vastgelegd.
+- [x] Rode en groene tests per increment vastgelegd.
+- [ ] Volledige Definition of Done afgerond.
+- [x] Gewone, niet-draft PR #41 geopend; handmatige acceptatie en GitHub-controles staan nog open.
