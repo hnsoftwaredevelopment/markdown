@@ -37,7 +37,20 @@
       "hiddenFileProperties": [],
       "navigationBanner": null,
       "periodicNotesFolder": "",
-      "shortcuts": [],
+      "shortcuts": [
+        {
+          "type": "note",
+          "path": "Development/HNSoftwareDevelopment/Inno Setup Studio/tasks/todo.md"
+        },
+        {
+          "type": "note",
+          "path": "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/Milestones.md"
+        },
+        {
+          "type": "note",
+          "path": "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/Feature-Checklist.md"
+        }
+      ],
       "navRainbow": {
         "mode": "none",
         "balanceHueLuminance": true,
@@ -537,7 +550,23 @@
     ]
   },
   "customVaultName": "",
-  "pinnedNotes": {},
+  "pinnedNotes": {
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/Feature-Checklist.md": {
+      "folder": true,
+      "tag": false,
+      "property": false
+    },
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/Milestones.md": {
+      "folder": true,
+      "tag": false,
+      "property": false
+    },
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/tasks/todo.md": {
+      "folder": true,
+      "tag": false,
+      "property": false
+    }
+  },
   "fileIcons": {},
   "fileColors": {},
   "fileBackgroundColors": {},

@@ -191,3 +191,7 @@ Genoteerd op gebruikersverzoek voor verdere wizardbediening: toegang tot Licenti
 Op gebruikersverzoek voor M08: serienummerveld bij native Gebruikersinformatie met door Studio gegenereerde CheckSerial-validatie. Eerst het gewenste validatiegedrag expliciet configureren; de native pagina toont het veld pas met CheckSerial. Niet opgenomen in M03-S03.
 
 Na de schakelaarwijzigingen: Release-build geslaagd zonder fouten of waarschuwingen; alle 211 tests geslaagd, inclusief behoud van documentbronnen bij uit/aan en migratie van formaat 8. De gebruiker heeft de schakelaars en popupbediening getest en geaccepteerd.
+
+M03-S04 is geïmplementeerd op m03-wizardpaginas: een korte simulatie van de vier afsluitfasen via Fase bekijken, native rolteksten en een read-only samenvatting. Voorbereidingsprobleem en voortgang zijn tijdelijke simulatiewaarden; project, export en native bronbytes blijven gelijk. [Scope en handmatige teststappen](../docs/slices/M03-S04-Gereed-voortgang-en-voltooid.md). Wacht op gebruikersacceptatie; ongecommit. De complete wizardroute volgt in S06.
+
+Volledige regressiecontrole: alle 216 tests geslaagd, inclusief bestaande ISCC-compilatieproeven. De build heeft 0 fouten en 0 waarschuwingen. Handmatige beoordeling van de korte simulatie wacht op de gebruiker.
