@@ -1,6 +1,6 @@
 # M03-S01 — Standaardpaginaoverzicht
 
-Status: geïmplementeerd; wacht op gebruikersacceptatie op m03-wizardpaginas, na de geaccepteerde M02-merge dc4ba08.
+Status: door de gebruiker geaccepteerd op m03-wizardpaginas.
 
 Resultaat: vanuit de paginanavigatie een overzicht openen van alle veertien reguliere wizardpagina’s/fasen, in native volgorde. Per fase staan status, reden en beschikbaarheid van de ontwerper vermeld. Dit overzicht is alleen-lezen; de huidige export bepaalt de status. Welkom en Installatiemap verwijzen naar hun bestaande ontwerppagina. Alle andere instellingen volgen in de reeds geplande slices.
 
@@ -23,4 +23,8 @@ Handmatige controle:
 4. Herhaal in Nederlands, Engels en Duits. De installertaal en wizardteksten blijven onveranderd. Controleer dat een schoon project schoon blijft.
 5. Open een bestaand project en controleer dat huidige tekstbewerking, Uitproberen en export nog werken.
 
-Release-build geslaagd met 0 fouten en 0 waarschuwingen. De volledige regressierun telt 192 geslaagde tests. Daarna is een aanvullende koppelingstest met de huidige export toegevoegd; de laatste gerichte pagina- en lokalisatierun telt 17 geslaagde tests. Visuele controle en acceptatie blijven bij de gebruiker. Commit/push van deze slice volgt pas na gebruikersacceptatie.
+Release-build geslaagd met 0 fouten en 0 waarschuwingen. De volledige regressierun telt 192 geslaagde tests. Daarna is een aanvullende koppelingstest met de huidige export toegevoegd; de laatste gerichte pagina- en lokalisatierun telt 17 geslaagde tests. De gebruiker heeft het volledige overzicht, de smallere vormgeving en de stabiele lijsthoogte getest en geaccepteerd. De laatste Release-build slaagt zonder fouten of waarschuwingen. Commit/push is daarmee akkoord.
+
+Na gebruikersfeedback: het venster opent smaller (540 breed) en gebruikt de bestaande Studio-lijststijl. Paginanummers en tabelkolommen vervallen. Groene/rode schakelaars tonen alleen-lezen aan/uit; Installeren is vast aan. Voorbereiden heeft een amber vraagteken en expliciete voorwaardelijke uitleg. Status is ook als tekst en voor toegankelijkheid beschikbaar. Native pagina’s zijn niet vrij herschikbaar; het aangeleverde changeorder.svg is daarom niet nodig. Controleer scrollen, rijselectie, de vaste schakelaars en uitleg ook bij een kleiner venster.
+
+Het uitlegvlak en de knoppenrij hebben vaste hoogtes, zodat selectiewisselingen de paginalijst niet laten verspringen. Lange uitleg kan binnen het eigen uitlegvlak scrollen. Controleer vooral wisselen tussen Welkom, Voorbereiden en Installeren, ook in Duits en met een smal venster.
