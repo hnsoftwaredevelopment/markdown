@@ -18,7 +18,7 @@ levels:
   max:
 ---
 
-# Inhoudsopgave
+# Contents
 ```
 
 

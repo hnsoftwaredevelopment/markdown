@@ -1,2 +1,6 @@
 *.json
 /.claudian
+
+/.obsidian/plugins/omnisearch/data.json
+/.obsidian/workspace.json
+/.obsidian/workspace.json

@@ -1,0 +1,113 @@
+BT1-2398	Story	Done	Major	CLONE - CLONE - Create state machine to move movable conveyor via V912MaterialControl(TC)
+BT1-2395	Feedback	Done	Major	V912: Create missing state machine for fbZeroLineClamp
+BT1-2392	Story	Done	Major	CLONE - Synchronize drive wheel of measure roll unit V912 with outfeed gripper X (TC)
+BT1-2340	Story	Done	Major	V912: Calculate Outfeed Gripper Clamp Pressure per Profile Type
+BT1-2332	Bug	Done	Major	V633M config problems with develop
+BT1-2326	Task	Analysis Review	Major	Positioning post-processor for cutting, SCENARIO_CUT (.NET)
+BT1-2325	Story	In Progress	Major	V912 material-mover machine definition (.NET)
+BT1-2307	Story	Done	Major	Synchronize rollers of movable conveyor with X-axis of movable conveyor (TC)
+BT1-2306	Story	Done	Major	Synchronize drive wheel of measure roll unit V912 with outfeed gripper X (TC)
+BT1-2305	Story	Done	Major	Transport groups can also control rollers that implement interface I_SynchronizedRollerConveyor (TC)
+BT1-2304	Story	Done	Major	Transport groups can also control axis of the type I_PositionControl (TC)
+BT1-2303	Story	Done	Critical	V912 Z-axis goes out of positive limit during ScanProfile
+BT1-2293	Task	Done	Major	Start from Safe position for Profile scan command
+BT1-2271	Bug	Done	Major	Prevent invalid Min/Max clamp pressure configuration in VACAM
+BT1-2244	Story	Done	Major	Release material with outfeed gripper (TwinCAT)
+BT1-2243	Story	Done	Major	Move material with outfeed gripper (TwinCAT)
+BT1-2241	Story	Done	Major	Implement take over with outfeed gripper (TwinCAT)
+BT1-2232	Story	Ready to Develop	Major	V912 - Safety: Deactivate/disable modules. VACAM
+BT1-2229	Task	Done	Major	V912 - Safety: person detection - Vasim
+BT1-2209	Story	Done	Major	V912: Manual operation of outfeed gripper and conveyor (.NET)
+BT1-2208	Story	Done	Major	V912: Manual operation of outfeed gripper and conveyor (TC)
+BT1-2207	Story	Done	Major	V912: Create state machines for Go-to-rest and Reference run outfeed gripper (TC)
+BT2-3907	Story	Done	Major	Solve layer violations with fbMessagesConverter
+BT2-3892	Task	Done	Major	FunctionPrepareDrillV2 + CollisionChecks
+BT2-3891	Task	Done	Major	DrillChanger
+BT2-3886	Task	Done	Major	Decouple Voortman.UnitTests.csproj from VACAM.csproj
+BT2-3883	Task	Done	Major	MeasureUnit (3/3), Drill interface and profile measurement
+BT2-3882	Task	Done	Major	MeasureUnit (2/3), Machine collision model, clamp pressure and safety rectangles
+BT2-3881	Task	Done	Major	MeasureUnit (1/3), Saw interface and status
+BT2-3879	Task	Done	Major	Remaining: Drill
+BT2-3876	Task	Done	Major	GVL constant relocation
+BT2-3875	Task	Done	Major	DataLogging
+BT2-3874	Task	Done	Major	SlaveMarkingDrillV2
+BT2-3872	Task	Done	Major	Cross-cutting: Material Handling
+BT2-3871	Task	Done	Major	Cross-cutting: Drilling
+BT2-3857	Story	Done	Major	Decouple FB_MaterialClamping from machine
+BT2-3838	Bug	Done	Major	Nightly test V623 failed on move material
+BT2-3837	Bug	Done	Major	Nightly test V623 stopped during Sawing command
+BT2-3834	Task	Done	Major	Add PLCC implementation for MoveableScanner and PicoScan
+BT2-3833	Task	Done	Major	Add Reservoir PLCC object for the gripper
+BT2-3827	Bug	Done	Major	VASIM reads machine config DB before VACAM finishes startup migration
+BT2-3803	Task	Done	Major	V623 - SPR-W-axis positioning - Interference
+BT2-3795	Bug	Done	Critical	V912: No verification after manual move
+BT2-3781	Story	Ready to Develop	Major	Perform early validation
+BT2-3752	Task	Done	Major	Support V912 proto 1 workshop testing
+BT2-3694	Story	Done	Major	Manual Roller Conveyor movement blocked by Frontside detection
+BT2-3642	Story	Done	Major	Extract path validation project(s)
+BT2-3605	Story	Done	Major	Safe motion to and from manipulator commands
+BT2-3569	Story	Done	Major	Allow alternative reference planes
+BT2-3566	Story	Done	Major	Correct for actual measurement data
+BT2-3535	Task	Done	Major	Refactor usage of HoleOperation.MachineView
+BT2-3529	Story	Done	Major	Set default reference data
+BT2-3525	Story	Done	Major	Correct cut positions using most relevant material measurements
+BT2-3522	Story	Done	Major	Correct for hardcoded material translation
+SWMS-11678	CIM issue	Done	Major	Clear cut to 0
+SWMS-11600	Salesforce	Done	Minor	Production stops immediately without an error message.
+SWMS-11596	CIM issue	Done	Minor	Saw overshoots maximum angle when using moveable rollers
+SWMS-11589	Story	Done	Trivial	ControlEnteredPositionCorrection <-> AskForPositionCorrection
+SWMS-11585	Salesforce	Done	Minor	Vacamoffice will not start up
+SWMS-11577	CIM issue	Done	Blocker	Rat hole milling not working properly, damaging tool
+SWMS-11576	Salesforce	Done	Minor	They like to have visual if product have an angle cut or it's a straigth cut
+SWMS-11555	Salesforce	Done	Minor	Error at GCodeHandler object - Machine stops mid-contour.
+SWMS-11554	CIM issue	Done	Critical	Error during tool selection in toolscreen
+SWMS-11551	Salesforce	Done	Minor	Colour meaning of nesting (Jira)
+SWMS-11536	Story	Done	Major	Fix two reentrant deadlocks in the PLC command/property update pipeline
+SWMS-11520	Salesforce	Done	Minor	Milling setup and visit for training
+SWMS-11515	Salesforce	Done	Minor	Feedback request for 4.31 / Multi-pass weld certification
+SWMS-11504	CIM issue	Done	Blocker	trimcut on V623
+SWMS-11501	CIM issue	Done	Major	Tool measurements in automatic mode
+SWMS-11499	CIM issue	Done	Major	Tools disappears from the F6 menu
+SWMS-11495	Story	Done	Minor	Rename StartView to DividerView
+SWMS-11494	CIM issue	Done	Minor	Stack positions disappear in buffer settings screen after being changed
+SWMS-11482	CIM issue	Done	Minor	'Free lenght material end' can be set on 10
+SWMS-11453	Salesforce	Done	Major	Bevel cut not smooth
+SWMS-11450	Salesforce	Done	Major	program is not starting V807 Tube cutting
+SWMS-11433	Salesforce	Done	Critical	VACAAM - Weld Preparation Error Message
+SWMS-11394	CIM issue	Done	Critical	Korte rollen op aanvoer zodat we 1400mm lang materiaal kunnen doen
+SWMS-11381	Salesforce	Done	Minor	X target position passed calculated path
+SWMS-11371	Story	Done	Trivial	Scrolling through cycle list during production
+SWMS-11363	Salesforce	Done	Minor	Parameter for use drill in unit
+SWMS-11360	Salesforce	Canceled	Major	Positioning deviation Y +2mm ID 1193 P PL_2
+SWMS-11337	Salesforce	To Do	Major	FAB Mathfab LLC 20260629_103540 Robot collision HandlingRobot - Other ID 2103 P P87
+SWMS-11319	CIM issue	Done	Major	Angle in behind orientation. Transverse transports detects wide material
+SWMS-11302	Salesforce	Done	Minor	Linearisation out of tolerance  (temp solution)
+SWMS-11301	Story	Done	Minor	Vacam Improvement request
+SWMS-11271	Salesforce	Done	Minor	Integration problem
+SWMS-11254	Salesforce	Done	Major	Material width incorrect
+SWMS-11147	Salesforce	Done	Major	Web support issue
+SWMS-11142	Salesforce	Done	Major	Mathfab Fabricator production shows incorrect and inconsistent rejection of radius welds for end plates in pre-compiler
+SWMS-11137	Salesforce	Done	Major	Horizontal clamp 1 and 2 not closing
+SWMS-11130	Salesforce	Done	Major	Machine won't start automatic
+SWMS-11057	Salesforce	Done	Minor	SPRS Handling Limits and Automated Detection (Jira)
+SWMS-11020	Story	Done	Minor	Show radius in product viewer
+SWMS-11010	Salesforce	Done	Minor	Conveyor system Malfunction
+SWMS-10977	Salesforce	Done	Major	(Jira) Drill 3 prepares and waits (during milling time)
+SWMS-10961	Salesforce	Done	Minor	Target position blocked by z4 axis.
+SWMS-10787	Salesforce	Done	Major	Layout marking unit problem
+SWMS-10779	Story	Done	Minor	Request: show in VACAM which machine is the master
+SWMS-10680	CIM issue	Done	Major	No imprints on a V633 and V631
+MCPL-3275	Story	Released	Major	Machine: MachineControl
+MCPL-3230	Story	Done	Major	Resolve Transport layer violations
+MCPL-3229	Story	Done	Major	Resolve TransportGroup layer violations
+MCPL-3228	Epic	Done	Major	Resolve VSB MaterialHandling violations
+MCPL-3184	Story	Done	Major	Renaming of GVL_NullObjects in libraries
+MCPL-3154	Story	Done	Major	violations by Surface Treatment, Sawing and Shearing, Marking and Laser
+MCPL-3152	Story	Done	Major	violations by MaterialHandling
+MCPL-3151	Story	Done	Major	MachineObjectsArray decoupling, Violations by MachineZone
+MCPL-3149	Story	Done	Major	violations by MeasureUnit
+MCPL-3147	Story	Done	Major	violations by machine
+MCPL-3136	Story	Done	Major	Machine API injection
+MCPL-3122	Story	Done	Major	Decouple InterpolationManager from Machine globals, MU_SetForceDecoupleX1X2, and CuttingUnit override coupling
+MCPL-3056	Story	Done	Major	Move Manipulator to Voortman.TcLib.Kinematics and switch MachineControl to it
+FAB-9186	Sub-task	Done	Major	Using new plane segmentation

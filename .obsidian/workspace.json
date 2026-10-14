@@ -8,13 +8,13 @@
         "type": "tabs",
         "children": [
           {
-            "id": "70113ba83b033f0d",
+            "id": "ed6ecfb578a343bc",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Development/Projects/ResourcePreview/README.md",
-                "mode": "source",
+                "file": "Development/HNSoftwareDevelopment/Inno Setup Studio/tasks/todo.md",
+                "mode": "preview",
                 "source": false,
                 "backlinks": true,
                 "backlinkOpts": {
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "README"
+              "title": "todo"
             }
           }
         ],
@@ -256,7 +256,20 @@
             "type": "leaf",
             "state": {
               "type": "claudian-view",
-              "state": {},
+              "state": {
+                "tabWorkspace": {
+                  "version": 1,
+                  "openTabs": [
+                    {
+                      "tabId": "tab-1784716095777-2xepuoa",
+                      "conversationId": null,
+                      "draftModel": "haiku",
+                      "providerId": "claude"
+                    }
+                  ],
+                  "activeTabId": "tab-1784716095777-2xepuoa"
+                }
+              },
               "icon": "bot",
               "title": "Claudian"
             }
@@ -338,8 +351,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 666.5,
-    "collapsed": true
+    "width": 666.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -370,52 +382,52 @@
   },
   "active": "a76ab09dac4b2700",
   "lastOpenFiles": [
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-36-checklist.md",
-    "Development/HNSoftwareDevelopment/Inno Setup Studio/00 - Project kickoff en werkafspraken.md",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M02-S05-Installertaal-export-en-proef.md",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M02-S04-Vertaaloverzicht.md",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M02-S03-Eigen-teksten-per-taal.md",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/tasks/todo.md",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M02-S02-Projecttalen-en-previewkeuze.md",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M02-S01-Beschikbare-taalbronnen.md",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M01-S06-Eenvoudige-installer-afronden.md",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M01-S05-Bouwmeldingen-en-annuleren.md",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M01-S04-Compiler-kiezen-en-bouwen.md",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M01-S03-Wizardontwerp-export.md",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/tasks/plan.md",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M01-S02-Bestandsregel-en-export.md",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M01-S01-Applicatiegegevens.md",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/InnoSetup-ondersteuning.md",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/Milestones.md",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/historie/Proefversie.md",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/historie",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/decisions/ADR-002-Project-en-scriptbeheer.md",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/decisions/ADR-001-InnoSetup-als-productgrens.md",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/decisions",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/Werkwijze.md",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/AGENTS.md",
+    "conflict-files-obsidian-git.md",
     "Development/Projects/ResourcePreview/README.md",
-    "Development/Projects/ResourcePreview/Handleiding extension bouwen.md",
-    "Development/Projects/ResourcePreview",
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-33-checklist.md",
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-09-04-saga-milestone-33-cover-search-design.md",
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-29-checklist.md",
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-09-03-saga-milestone-32-title-author-swap-design.md",
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-32-checklist.md",
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-31-checklist.md",
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-28-checklist.md",
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/definition-of-done.md",
-    "Development/HNSoftwareDevelopment/Inno Setup Studio/Architectuur-en-Ontwerp.md",
-    "Development/HNSoftwareDevelopment/Inno Setup Studio/README.md",
-    "Work/Voortman/How to/Traktatielijst.xlsm.md",
+    "Development/Projects/Vacam RC-Testing/rc-risk-testplan-SKILL.md",
+    "Development/Projects/Vacam RC-Testing",
+    "Development/Projects/TestPlans/TPL User Story Testplan.md",
+    "Development/Projects/TestPlans/TPL SWMS Support Issue Testplan.md",
+    "Development/Projects/TestPlans/TPL Epic Testplan.md",
+    "Development/Projects/TestPlans",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/Gebruikersdocumentatie",
+    "Development/Code/Git",
+    "attachments/README-5.png",
+    "attachments/README-4.png",
+    "attachments/README-3.png",
+    "attachments/README-2.png",
+    "attachments/README-1.png",
+    "Work/Voortman/Test-Templates",
+    "Work/Voortman/RC-Testing/_data/RC-4.33/numstat.txt",
+    "Work/Voortman/RC-Testing/_data/RC-4.33/jira.tsv",
     "attachments/Traktatielijst.xlsm-9.png",
     "attachments/Traktatielijst.xlsm-8.png",
     "attachments/Traktatielijst.xlsm-7.png",
     "attachments/Traktatielijst.xlsm-6.png",
     "attachments/Traktatielijst.xlsm-5.png",
-    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/Architectuur-en-Ontwerp.md",
-    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs",
-    "attachments/Traktatielijst.xlsm-4.png",
-    "attachments/Traktatielijst.xlsm-3.png",
-    "attachments/Traktatielijst.xlsm-2.png",
-    "Traktatielijst.xlsm-1.base",
-    "attachments/Traktatielijst.xlsm-1.png",
-    "Development/Projects/Schrijfstijl/schrijfstijl_herbert.md",
-    "Work/Voortman/How to",
-    "Development/Projects/CreateVectorResourceDictionary/README.md",
-    "Development/Projects/CreateVectorResourceDictionary",
-    "conflict-files-obsidian-git.md",
-    "Development/HNSoftwareDevelopment/Ebook Manager/tasks/todo.md",
-    "Development/HNSoftwareDevelopment/Ebook Manager/tasks/plan.md",
-    "Development/HNSoftwareDevelopment/Ebook Manager/tasks",
-    "Development/ChatGPT Improvements and tips/Humanize AI Writing.md",
-    "Development/Projects/InnoSetupHelpNL/00-kernpaginas/03-scriptindeling.md",
-    "Development/Projects/InnoSetupHelpNL/00-kernpaginas/02-installaties-maken.md",
-    "Development/Projects/InnoSetupHelpNL/00-kernpaginas/01-wat-is-inno-setup.md",
-    "Development/WPF Handboek/00 Start/Inhoudsopgave.md",
-    "Development/Projects/InnoSetupHelpNL/00-kernpaginas",
-    "Development/Projects/InnoSetupHelpNL",
-    "Development/Projects/Schrijfstijl",
-    "attachments/Humanize AI Writing-1.docx",
-    "attachments/Humanize AI Writing-1.png",
     "Untitled.canvas",
     "Naamloos.canvas"
   ]
