@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M03-S01-Standaardpaginaoverzicht.md",
+                "file": "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/Gebruikersdocumentatie/Inno-Setup-Constants.md",
                 "mode": "preview",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "M03-S01-Standaardpaginaoverzicht"
+              "title": "Inno-Setup-Constants"
             }
           }
         ],
@@ -122,7 +122,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 762.5
+    "width": 948.9285850524902
   },
   "right": {
     "id": "bc13cd1b6ba6f691",
@@ -383,10 +383,10 @@
   "active": "ed6ecfb578a343bc",
   "lastOpenFiles": [
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M03-S03-Gebruikersinformatie-en-startmenumap.md",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M03-S01-Standaardpaginaoverzicht.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M03-S02-Licentie-en-informatie.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M02-S05-Installertaal-export-en-proef.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/tasks/todo.md",
-    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M03-S01-Standaardpaginaoverzicht.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M02-S04-Vertaaloverzicht.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M02-S03-Eigen-teksten-per-taal.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M02-S02-Projecttalen-en-previewkeuze.md",

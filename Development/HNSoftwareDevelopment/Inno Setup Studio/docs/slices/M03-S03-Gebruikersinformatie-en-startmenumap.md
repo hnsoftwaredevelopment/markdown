@@ -1,6 +1,6 @@
 # M03-S03 — Gebruikersinformatie en startmenumap
 
-Status: geïmplementeerd; wacht op gebruikerscontrole en acceptatie op m03-wizardpaginas.
+Status: door de gebruiker getest en geaccepteerd op m03-wizardpaginas.
 
 Resultaat: vanuit het paginaoverzicht Gebruikersinformatie en Startmenumap instellen. Gebruikersinformatie: pagina aan/uit, standaardnaam en organisatie en vorige gegevens gebruiken. Startmenumap: automatisch/tonen/verbergen, standaardnaam, keuze om geen map te maken en vorige keuze gebruiken. Alleen native richtlijnen; serienummer vereist CheckSerial en hoort bij latere scripting.
 
@@ -26,6 +26,8 @@ Na gebruikersfeedback zijn de schakelaars bediening geworden voor Licentie, Info
 
 Aanvullend testen: schakel de licentie aan en kies een bron; schakel uit, sla op en heropen; schakel opnieuw aan en controleer behoud van algemene bron en taalvarianten. Controleer hetzelfde voor gebruikersinformatie. Controleer dubbelklik en F2, en dat Installeren niet uitgeschakeld kan worden. Sluit een nieuwe documentinstelling zonder een bron te kiezen: de pagina blijft uit.
 
-Het serienummerveld is op gebruikersverzoek geregistreerd voor de scriptingmilestone. Studio moet daarbij de benodigde CheckSerial-gebeurtenis kunnen genereren op basis van expliciet gekozen validatiegedrag; er wordt nu geen generieke controle toegevoegd die ieder serienummer accepteert. Het overige testresultaat is door de gebruiker bevestigd; akkoord op de aangepaste schakelaars volgt nog.
+Het serienummerveld is op gebruikersverzoek geregistreerd voor de scriptingmilestone. Studio moet daarbij de benodigde CheckSerial-gebeurtenis kunnen genereren op basis van expliciet gekozen validatiegedrag; er wordt nu geen generieke controle toegevoegd die ieder serienummer accepteert. De gebruiker heeft het overige testresultaat en daarna de aangepaste schakelaars bevestigd en M03-S03 geaccepteerd.
 
-Na de schakelaarwijzigingen: Release-build geslaagd zonder fouten of waarschuwingen; alle 211 tests geslaagd, inclusief behoud van documentbronnen bij uit/aan en migratie van formaat 8. Handmatige controle van de schakelaars en popupbediening wacht op de gebruiker.
+Na de schakelaarwijzigingen: Release-build geslaagd zonder fouten of waarschuwingen; alle 211 tests geslaagd, inclusief behoud van documentbronnen bij uit/aan en migratie van formaat 8. De gebruiker heeft bevestigd dat de schakelaars en popupbediening werken zoals verwacht.
+
+Gebruikersvraag: {sysuserinfoname} en {sysuserinfoorg} lezen de geregistreerde eigenaar en organisatie uit Windows op de doelcomputer, via HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion, RegisteredOwner en RegisteredOrganization. Dit zijn niet per definitie de ingelogde accountgegevens. In Studio kunnen deze native constanten al worden vervangen door vaste beginwaarden; de gebruiker van de installer kan ze vervolgens aanpassen. [Native constanten](https://jrsoftware.org/ishelp/topic_consts.htm).
