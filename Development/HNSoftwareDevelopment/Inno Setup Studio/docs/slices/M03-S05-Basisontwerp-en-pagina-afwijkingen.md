@@ -1,6 +1,6 @@
 # M03-S05 — Basisontwerp en pagina-afwijkingen
 
-Status: geïmplementeerd op m03-wizardpaginas; wacht op handmatige gebruikerscontrole en acceptatie. Nog niet gecommit of gepusht.
+Status: door de gebruiker geaccepteerd op m03-wizardpaginas.
 
 Resultaat: het eigenschappenpaneel vermeldt het werkelijke bereik van de geselecteerde instelling. Gedeelde Verder-tekst werkt op gewone native invoerpagina’s; Installeren, Voltooien en runtimevoorbereiding behouden native rollen. Lokale knopteksten van Welkom en Installatiemap blijven alleen op hun pagina en in hun taal geldig. Bij paginawisseling worden gedeelde waarden eerst opnieuw toegepast en daarna de lokale waarden.
 
@@ -15,3 +15,5 @@ Handmatig: stel per installertaal gedeelde Terug/Verder/Annuleren in. Geef Welko
 Afbakening: geen nieuwe vrije ontwerppagina’s of volledige uitprobeerroute. Die volgt in S06. Vormgeving blijft voor M06 en eigen scripting voor M08.
 
 Verificatie: Release-build geslaagd met 0 fouten en 0 waarschuwingen; alle 230 automatische tests geslaagd, zonder overgeslagen tests. De nieuwe ISCC-proef compileert gedeelde en lokale knopteksten in twee talen met alle drie documentsoorten en Gebruikersinformatie. De tests controleren de expliciete native pagina-ID’s, lokale voorrang en herstel per taal/pagina. De installer is niet gestart; visuele en runtimecontrole worden door de gebruiker uitgevoerd.
+
+Gebruikersacceptatie: de teksten verschijnen op de verwachte pagina’s. De gebouwde installer is getest in diverse talen, met en zonder aangepaste knoppen; deze slice is akkoord.
