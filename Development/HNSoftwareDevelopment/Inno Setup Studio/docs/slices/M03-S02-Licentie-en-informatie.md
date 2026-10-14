@@ -1,6 +1,6 @@
 # M03-S02 — Licentie en informatie
 
-Status: geïmplementeerd; wacht op handmatige gebruikerscontrole en acceptatie op m03-wizardpaginas.
+Status: door de gebruiker geaccepteerd op m03-wizardpaginas.
 
 Resultaat: via het paginaoverzicht Licentie, Informatie vóór en Informatie na installatie instellen. Eén algemeen TXT/RTF-document per pagina, met optionele variant per projecttaal. Een leeg algemeen pad schakelt de pagina uit en behoudt varianten; zonder taalvariant wordt het algemene document gebruikt. Het document is als bestand gekoppeld, niet als kopie in het project. Bronbestanden worden niet gewijzigd.
 
@@ -17,3 +17,5 @@ Verificatie: Release-build zonder fouten of waarschuwingen. Volledige regressier
 Formaat 7 voegt Documents toe; formaten 1–6 krijgen lege documentinstellingen bij migratie, met behoud van bestaande identiteit, teksten en talen. Opslaan als herbaseert algemene documentpaden en taalvarianten vanuit de oorspronkelijke projectmap. Uitgeschakelde pagina’s en talen bewaren varianten; alleen actieve bronnen worden geëxporteerd. Bij verwijderen van een taal vraagt Studio bevestiging voor de documentvarianten naast de eigen teksten.
 
 Het documentvoorbeeld gebruikt een eigen taalkeuze die bij openen de huidige wizardpreviewtaal overneemt. Het wijzigen daarvan wijzigt de algemene previewtaal niet. Klik Documentvoorbeeld tonen na bron- of taalwijzigingen. Bronnen van maximaal 4 MB worden als voorbeeld geladen; grotere documenten blijven exporteerbaar. RTF-opmaak en de uiteindelijke native wizard worden handmatig beoordeeld.
+
+Gebruikersacceptatie: de gebruiker heeft de gecompileerde installer getest. De Engelse licentievariant wordt bij Engels getoond; de overige talen gebruiken het algemene document. De tijdelijk gemelde onvolledige taallijst is niet opnieuw reproduceerbaar: alle projecttalen verschijnen, ook in een nieuw project. Een controle van het geïnitialiseerde documentvenster zonder GUI te openen bevestigde drie taalopties bij een Duitse beginselectie. Hiervoor is geen codewijziging gedaan. De gebruiker heeft vervolgwerk en afronding van deze slice geaccordeerd.
