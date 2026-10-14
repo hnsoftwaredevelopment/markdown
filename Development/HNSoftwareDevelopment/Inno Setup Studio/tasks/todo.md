@@ -196,6 +196,8 @@ M03-S04 is geïmplementeerd op m03-wizardpaginas: een korte simulatie van de vie
 
 Volledige regressiecontrole: alle 216 tests geslaagd, inclusief bestaande ISCC-compilatieproeven. De build heeft 0 fouten en 0 waarschuwingen. M03-S04 is door de gebruiker geaccepteerd.
 
+M03-S05 is geïmplementeerd op m03-wizardpaginas: bereik-uitleg per ontwerpeigenschap, een expliciete bewerkbaarheidslijst en gedeelde Verder-tekst op gewone native invoer- en documentpagina’s. Lokale afwijkingen blijven pagina- en taalgebonden; native actieknoppen houden hun rol. Release-build: 0 fouten en 0 waarschuwingen. Alle 230 tests geslaagd, inclusief de nieuwe meertalige ISCC-proef. [Scope en handmatige teststappen](../docs/slices/M03-S05-Basisontwerp-en-pagina-afwijkingen.md). Wacht op gebruikersacceptatie; nog niet gecommit of gepusht. S06 is nog niet gestart.
+
 Gebruikerscorrectie bij S04: Exporteer .iss moet een bestaande alternatieve export bewust kunnen vervangen. Expliciete vervangingsvraag en controle van de bevestigde inhoud zijn geïmplementeerd; project-Opslaan als is ook gecontroleerd. De gebruiker heeft de echte installer en projectopslag getest. De gebruiker heeft de Voltooid/Finish-rol en exportcorrectie getest en geaccepteerd.
 
 Na de exportcorrectie: Release-build zonder fouten/waarschuwingen; alle 221 tests geslaagd. Controles omvatten bevestigde vervanging, behoud zonder toestemming, wijziging/verwijdering na bevestiging, bronbescherming en vervangen van een bestaand alternatief .issstudio-project.
