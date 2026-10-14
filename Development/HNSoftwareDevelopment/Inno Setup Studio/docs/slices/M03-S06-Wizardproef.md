@@ -1,6 +1,6 @@
 # M03-S06 — Wizardproef
 
-Status: geïmplementeerd op m03-wizardpaginas; wacht op gebruikerscontrole en acceptatie. Nog niet gecommit of gepusht. M03 is nog niet gemerged.
+Status: wizardproef door de gebruiker geaccepteerd op m03-wizardpaginas. M03 is nog niet gemerged.
 
 ## Werking en grenzen
 
@@ -35,3 +35,5 @@ Native volgorde en knopzichtbaarheid zijn vergeleken met de aangeleverde Inno Se
 7. Bouw en draai het project met meerdere talen en pagina’s aan/uit. Vergelijk de native pagina’s, documenten en knopteksten met de proef. Constante-expansie en echte voortgang worden uitsluitend door de installer uitgevoerd.
 
 Na acceptatie wordt S06 gecommit/gepusht. M03 wordt pas na expliciet akkoord op de gehele milestone gemerged; M04 wordt niet automatisch gestart.
+
+Gebruikersacceptatie: vooruit/achteruit en verschillende talen werken. Native constanten blijven terecht zichtbaar in de simulatie. Aanvullend gevraagd: documentfouten automatisch en rood boven het documentvoorbeeld melden. Die aanvulling krijgt een afzonderlijke controle.

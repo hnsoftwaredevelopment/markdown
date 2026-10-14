@@ -67,7 +67,7 @@ Bestandsgroepen: Core/paginamodel/status; App/navigatie/preview/eigenschappen; g
 | [x] | M03-S03 Gebruikersinformatie en startmenumap | Ondersteunde velden en mapbeleid worden opgeslagen; preview toont toepasselijke invoer; export bevat de juiste reguliere instellingen. | B/T/C/U; S02 |
 | [x] | M03-S04 Gereed, voortgang en voltooid | Samenvatting en afsluitrollen zijn herkenbaar; simulatie wijzigt geen model; installeren/voltooien zijn geen vaste Verder-tekst. | B/T/C/U; S03 |
 | [x] | M03-S05 Basisontwerp en pagina-afwijkingen | Overerving heeft juiste taal/rol/scope; lokale wijzigingen lekken niet bij terugnavigeren; onbewezen properties zijn niet actief bewerkbaar. | B/T/C/I; S04 |
-| [ ] | M03-S06 Wizardproef | Een samengesteld voorbeeld toont de juiste pagina's en teksten; ontwerpselectie herstelt na Uitproberen; bestaande voorbeeldprojecten blijven bruikbaar. | B/T/C/I, milestonecheck; S05; geïmplementeerd, wacht op gebruikerscontrole |
+| [x] | M03-S06 Wizardproef | Een samengesteld voorbeeld toont de juiste pagina's en teksten; ontwerpselectie herstelt na Uitproberen; bestaande voorbeeldprojecten blijven bruikbaar. | B/T/C/I, milestonecheck; S05; wizardproef door gebruiker geaccepteerd |
 
 ## M04 — m04-installatiekeuzes
 
@@ -202,4 +202,6 @@ Gebruikerscorrectie bij S04: Exporteer .iss moet een bestaande alternatieve expo
 
 Na de exportcorrectie: Release-build zonder fouten/waarschuwingen; alle 221 tests geslaagd. Controles omvatten bevestigde vervanging, behoud zonder toestemming, wijziging/verwijdering na bevestiging, bronbescherming en vervangen van een bestaand alternatief .issstudio-project.
 
-M03-S06 is geïmplementeerd: één tijdelijke wizardroute via Uitproberen, actieve documenten en Gebruikersinformatie, licentieacceptatie, proefmap en samenvatting, native afsluitrollen en Informatie na vóór Voltooid. Alle 234 tests geslaagd; Release-build zonder fouten/waarschuwingen. [Scope en teststappen](../docs/slices/M03-S06-Wizardproef.md). Nog niet geaccepteerd/gecommit/gepusht; M03 is nog niet gemerged.
+M03-S06 is geïmplementeerd: één tijdelijke wizardroute via Uitproberen, actieve documenten en Gebruikersinformatie, licentieacceptatie, proefmap en samenvatting, native afsluitrollen en Informatie na vóór Voltooid. Alle 234 tests geslaagd; Release-build zonder fouten/waarschuwingen. [Scope en teststappen](../docs/slices/M03-S06-Wizardproef.md). De gebruiker heeft de wizardproef geaccepteerd. Aanvullende automatische documentfoutmelding wordt afzonderlijk uitgewerkt; M03 is nog niet gemerged.
+
+Aanvulling op de geaccepteerde M03-S06 (bb919b7): automatische documentcontrole met afzonderlijke rode fouten boven het voorbeeld, algemene bron en alle ingevulde taalvarianten, en dezelfde documentlezer in de simulatie. Release-build zonder fouten/waarschuwingen; 236 tests geslaagd en een niet-visuele WPF-proef voor alle drie documentvensters geslaagd. [Werking en controles](../docs/slices/M03-Documentfouten-direct-tonen.md). Deze aanvulling is nog niet geaccepteerd/gecommit/gepusht.
