@@ -1,6 +1,6 @@
 # M04-S02 — Mapregels
 
-Status: geïmplementeerd op m04-installatiekeuzes; wacht op gebruikerscontrole. M04-S01 is geaccepteerd en gepubliceerd als bec03f0. S02 is nog niet gecommit of gepusht.
+Status: door de gebruiker geaccepteerd op m04-installatiekeuzes. M04-S01 is geaccepteerd en gepubliceerd als bec03f0. De gebruiker heeft ook het resultaat van de uitgevoerde installer gecontroleerd.
 
 Doel: losse native Dirs-regels beheren, vooral voor lege mappen. Bestandsregels maken hun eigen doelmappen al aan. Mapregels blijven daarom een afzonderlijk onderdeel; het bestandsvoorbeeld doet geen uitspraak over expliciete lege doelmappen.
 
