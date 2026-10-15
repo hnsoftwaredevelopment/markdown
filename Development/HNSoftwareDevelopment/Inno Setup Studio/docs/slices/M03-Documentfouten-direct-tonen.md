@@ -1,6 +1,6 @@
 # M03 — Documentfouten direct tonen
 
-Status: aanvulling na gebruikersacceptatie van M03-S06; geïmplementeerd, wacht op afzonderlijke gebruikerscontrole. De geaccepteerde wizardproef is gepubliceerd als bb919b7. Deze aanvulling is nog niet gecommit of gepusht; M03 is niet gemerged.
+Status: aanvulling op M03-S06, door de gebruiker geaccepteerd op 15 oktober 2026. De geaccepteerde wizardproef is gepubliceerd als bb919b7; M03 is niet gemerged.
 
 ## Aanleiding en werking
 
@@ -22,4 +22,6 @@ Release-build: 0 fouten en 0 waarschuwingen. Alle 236 automatische tests geslaag
 4. Stel een foutieve variant in een andere taal in. Ook die wordt gemeld zonder eerst die taal te selecteren. Herstel alle fouten en controleer dat de melding verdwijnt.
 5. Wijzig snel van pad of taal en open een opgeslagen project opnieuw. Oude fouten mogen niet terugkomen bij de nieuwe bron. Controleer dezelfde documentfout ook in Uitproberen.
 
-Na akkoord wordt deze aanvulling afzonderlijk gecommit/gepusht. M03 wordt pas na expliciete acceptatie van de hele milestone gemerged.
+De gebruiker heeft de duidelijke meldingen gecontroleerd en akkoord gegeven. Deze aanvulling wordt afzonderlijk gecommit/gepusht. M03 wordt pas na expliciete acceptatie van de hele milestone gemerged.
+
+Milestoneafronding: M03 is na expliciet gebruikersakkoord op 15 oktober 2026 naar main gemerged en gepusht als 84c8a06.
