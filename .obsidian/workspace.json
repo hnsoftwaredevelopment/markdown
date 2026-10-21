@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Development/HNSoftwareDevelopment/Inno Setup Studio/tasks/todo.md",
+                "file": "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-10-21-saga-milestone-42-details-title-author-swap-verification-design.md",
                 "mode": "preview",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "todo"
+              "title": "2026-10-21-saga-milestone-42-details-title-author-swap-verification-design"
             }
           }
         ],
@@ -122,7 +122,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 688.3571739196777
+    "width": 828.3571739196777
   },
   "right": {
     "id": "bc13cd1b6ba6f691",
@@ -383,6 +383,13 @@
   },
   "active": "a76ab09dac4b2700",
   "lastOpenFiles": [
+    "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-10-21-saga-milestone-43-bulk-series-repair-design.md",
+    "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-42-checklist.md",
+    "Development/HNSoftwareDevelopment/Ebook Manager/docs/feature-requests/metadata-quality-dashboard.md",
+    "Development/HNSoftwareDevelopment/Ebook Manager/docs/project-preferences.md",
+    "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-10-21-saga-milestone-42-details-title-author-swap-verification-design.md",
+    "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-10-21-saga-milestone-41-bulk-language-repair-design.md",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/tasks/todo.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/gebruikershandleiding/Installatietypen.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M04-S04-Installatietypen.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/gebruikershandleiding/Snelkoppelingen.md",
@@ -393,7 +400,6 @@
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M03-S06-Wizardproef.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M03-S05-Basisontwerp-en-pagina-afwijkingen.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/Milestones.md",
-    "Development/HNSoftwareDevelopment/Inno Setup Studio/tasks/todo.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M03-S04-Gereed-voortgang-en-voltooid.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/tasks/plan.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M03-S03-Gebruikersinformatie-en-startmenumap.md",
@@ -404,12 +410,6 @@
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/Werkwijze.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/Productspecificatie.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/README.md",
-    "Development/HNSoftwareDevelopment/Inno Setup Studio/Architectuur-en-Ontwerp.md",
-    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M03-S01-Standaardpaginaoverzicht.md",
-    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M03-S02-Licentie-en-informatie.md",
-    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M02-S05-Installertaal-export-en-proef.md",
-    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M02-S04-Vertaaloverzicht.md",
-    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M02-S03-Eigen-teksten-per-taal.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/historie",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/decisions",
