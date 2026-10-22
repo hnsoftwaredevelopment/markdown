@@ -11,10 +11,24 @@
             "id": "7becbd544497fa16",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-46-checklist.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": true,
+                "backlinkOpts": {
+                  "collapseAll": false,
+                  "extraContext": false,
+                  "sortOrder": "alphabetical",
+                  "showSearch": false,
+                  "searchQuery": "",
+                  "backlinkCollapsed": false,
+                  "unlinkedCollapsed": true
+                }
+              },
               "icon": "lucide-file",
-              "title": "Nieuw tabblad"
+              "title": "milestone-46-checklist"
             }
           }
         ],
