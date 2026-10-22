@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-46-checklist.md",
+                "file": "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-47-checklist.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "milestone-46-checklist"
+              "title": "milestone-47-checklist"
             }
           }
         ],
@@ -384,6 +384,8 @@
   "active": "7becbd544497fa16",
   "lastOpenFiles": [
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-46-checklist.md",
+    "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-10-22-saga-milestone-47-quality-final-reliability-design.md",
+    "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-47-checklist.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-10-22-saga-milestone-46-repair-result-details-design.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-45-checklist.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/feature-requests/title-author-swap-detection.md",
@@ -408,8 +410,6 @@
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M03-S05-Basisontwerp-en-pagina-afwijkingen.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/Milestones.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M03-S04-Gereed-voortgang-en-voltooid.md",
-    "Development/HNSoftwareDevelopment/Inno Setup Studio/tasks/plan.md",
-    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M03-S03-Gebruikersinformatie-en-startmenumap.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/historie",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/decisions",
