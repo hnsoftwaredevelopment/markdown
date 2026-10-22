@@ -2,7 +2,7 @@
 
 ## Status en gebruikersdoel
 
-De gebruiker heeft het bestaande auteursbeheer getest en bevestigt de werking. De gewenste uitbreiding is hernoemen vanuit Auteurs beheren, waarbij alle gekoppelde boeken dezelfde nieuwe auteursnaam krijgen. Functionele afbakening bevestigd: een al bestaande doelnaam blokkeert de actie, zonder samenvoegoptie. Deze technische aanpak is voorbereid ter bevestiging; productcode en build zijn nog niet aangepast.
+De gebruiker heeft de aanpak goedgekeurd; hernoemen is geïmplementeerd als uitbreiding van de nog open PR #49. De gebruiker heeft auteursbeheer, hernoemen en het eigen auteuricoon getest en akkoord bevonden. Een al bestaande doelnaam blokkeert de actie, zonder samenvoegoptie. Alleen de laatste kleine-vensterindeling vraagt nog een gerichte handmatige controle.
 
 Voorbeeld: A.K. Straatsma wordt Anne Klaas Straatsma, mits die laatste naam niet al bij een andere auteursidentiteit voorkomt. Dezelfde auteur, foto, website en biografie blijven behouden. In het boekdetailscherm betekent een andere naam nog steeds een andere auteur toewijzen aan uitsluitend dat boek.
 
@@ -42,10 +42,10 @@ Eerst falende tests voor behoud van identiteit/profiel en het weigeren van een b
 - Build: `dotnet build src/EbookManager.App/EbookManager.App.csproj -c Debug --no-restore`.
 - Diff: `git diff --check`.
 
-Geen nieuwe tests/build uitgevoerd voor deze documentatievoorbereiding. Bestaande 911 tests en build 2026.10.22.88 bewijzen nog niet deze hernoemfunctie.
+Definitieve verificatie: 933 tests geslaagd, 0 mislukt of overgeslagen. Debug-build 2026.10.22.109, 22 oktober 2026 om 18:09 (Europe/Amsterdam), 0 waarschuwingen en fouten. Eigen review op correctheid, eenvoud, architectuur, veiligheid en prestaties uitgevoerd. De bestaande titelgesorteerde boekpagina's blijven bij hernoemen behouden; een regressietest met 205 boeken bewaakt Meer laden zonder doublures. Bij auteurswissel verdwijnen oude bestandswaarschuwingen. De twee relevante CodeRabbit-opmerkingen zijn verwerkt: passend werkbalkicoon en een scrollbaar profielpaneel met bereikbare onderknoppen op kleine vensters. Zie de afzonderlijke handmatige checklist voor de nog open layoutcontrole.
 
 ## Grenzen en beslispunt
 
 Altijd gegevensbehoud, bestaande duplicaatbescherming, eerst falende tests, eigen review, project-DoD en Markdown-spiegel toepassen. Eerst afstemmen bij noodzakelijke schemawijziging, nieuwe dependencies of uitbreiding naar samenvoegen/bulkbewerken. Nooit echte gebruikersgegevens voor fouttests veranderen, auteurs op naam automatisch samenvoegen, technische exceptions als gebruikersmelding tonen of zelf een PR mergen.
 
-De functionele keuze is duidelijk; bevestiging van bovenstaande transactionele aanpak en aparte bestandssynchronisatie gaat vooraf aan implementatie. De merge van PR #49 is nog niet door de gebruiker gemeld; niet als voltooid aannemen en niet alvast op een nieuwe main-basis bouwen.
+De functionele en technische keuzes zijn bevestigd en uitgevoerd op codex/milestone-48-author-profiles, vanaf main 1de190f. PR #49 is nog open; geen merge verondersteld. De databasewijziging is atomair, bestandssynchronisatie volgt apart met eerlijke waarschuwingen per boek. Bestaande auteuridentiteit en profiel blijven behouden; geen schemawijziging of nieuwe dependency nodig.

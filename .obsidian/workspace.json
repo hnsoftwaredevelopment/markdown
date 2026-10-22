@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-47-checklist.md",
+                "file": "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-48-checklist.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "milestone-47-checklist"
+              "title": "milestone-48-checklist"
             }
           }
         ],
@@ -383,6 +383,7 @@
   },
   "active": "a76ab09dac4b2700",
   "lastOpenFiles": [
+    "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-47-checklist.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-10-22-saga-author-rename-design.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-48-checklist.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/decisions/001-author-profile-storage.md",
@@ -390,7 +391,6 @@
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-10-22-saga-milestone-48-author-profiles-design.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-46-checklist.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-10-22-saga-milestone-47-quality-final-reliability-design.md",
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-47-checklist.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-10-22-saga-milestone-46-repair-result-details-design.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-45-checklist.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/feature-requests/title-author-swap-detection.md",
