@@ -1,4 +1,17 @@
-# Milestone 48: auteursbeheer voorbereiden
+# Vervolg auteursbeheer: hernoemen
+
+- [x] Gebruiker bevestigt: hernoemen werkt voor de bestaande auteur en alle gekoppelde boeken; boekdetails blijven alleen de auteur van dat boek wijzigen.
+- [x] Gebruiker kiest expliciet geen samenvoegen bij een bestaande doelnaam; dan verwijzen naar aanpassen via boekdetails. Twee personen met dezelfde naam onderscheiden valt buiten scope.
+- [x] Technische inventarisatie en voorstel vastgelegd; geen productcode/build gewijzigd en de gebruikerschecklist ongemoeid gelaten.
+- [ ] Technische aanpak met transactionele databasewijziging en afzonderlijke bestandssynchronisatie bevestigd.
+- [ ] PR #49-merge/basis voor implementatie controleren zonder een merge te veronderstellen.
+- [ ] Identiteitsbehoudend hernoemen, unieke naam en duplicaatsleutels testgestuurd bouwen.
+- [ ] Bestandsverwerking met veilige resultaatstatus en commit-/annuleringsgrenzen aansluiten.
+- [ ] Hernoemactie, bevestiging, selectie, hoofdschermactualisatie en zes talen bouwen/testen.
+- [ ] Volledige tests, Debug-build, eigen review, handmatige checklist en gespiegelde documentatie.
+- [ ] PR en handmatige gebruikersacceptatie van hernoemen.
+
+## Historie: Milestone 48 auteursbeheer voorbereiden
 
 - [x] Gebruiker kiest auteursbeheer met foto en optionele website; voorbereiding akkoord.
 - [x] Bestaande Authors/BookAuthors, profielwens, foto-opslag en beide orphan-opruimroutes onderzocht.
