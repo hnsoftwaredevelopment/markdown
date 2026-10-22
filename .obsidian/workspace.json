@@ -4,31 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "7d7cac82261fb600",
+        "id": "3ddcac3e843ec01e",
         "type": "tabs",
         "children": [
           {
-            "id": "ed6ecfb578a343bc",
+            "id": "7becbd544497fa16",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-44-checklist.md",
-                "mode": "preview",
-                "source": false,
-                "backlinks": true,
-                "backlinkOpts": {
-                  "collapseAll": false,
-                  "extraContext": false,
-                  "sortOrder": "alphabetical",
-                  "showSearch": false,
-                  "searchQuery": "",
-                  "backlinkCollapsed": false,
-                  "unlinkedCollapsed": true
-                }
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "milestone-44-checklist"
+              "title": "Nieuw tabblad"
             }
           }
         ],
@@ -381,9 +367,11 @@
       "modalforms:Edit forms": false
     }
   },
-  "active": "ed6ecfb578a343bc",
+  "active": "7becbd544497fa16",
   "lastOpenFiles": [
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-45-checklist.md",
+    "Development/HNSoftwareDevelopment/Ebook Manager/docs/feature-requests/title-author-swap-detection.md",
+    "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-44-checklist.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-10-22-saga-milestone-45-bulk-title-author-swap-design.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-43-checklist.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-10-21-saga-milestone-43-bulk-series-repair-design.md",
@@ -408,8 +396,6 @@
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M03-S03-Gebruikersinformatie-en-startmenumap.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/Gebruikersdocumentatie/Inno-Setup-Constants.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/Architectuur-en-Ontwerp.md",
-    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/InnoSetup-ondersteuning.md",
-    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/Feature-Checklist.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/historie",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/decisions",
