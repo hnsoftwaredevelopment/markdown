@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-43-checklist.md",
+                "file": "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-44-checklist.md",
                 "mode": "preview",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "milestone-43-checklist"
+              "title": "milestone-44-checklist"
             }
           }
         ],
@@ -381,11 +381,12 @@
       "modalforms:Edit forms": false
     }
   },
-  "active": "a76ab09dac4b2700",
+  "active": "ed6ecfb578a343bc",
   "lastOpenFiles": [
+    "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-10-22-saga-milestone-45-bulk-title-author-swap-design.md",
+    "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-43-checklist.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-10-21-saga-milestone-43-bulk-series-repair-design.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-10-21-saga-milestone-42-details-title-author-swap-verification-design.md",
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-43-checklist.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-42-checklist.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/feature-requests/metadata-quality-dashboard.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/project-preferences.md",
@@ -409,7 +410,6 @@
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/InnoSetup-ondersteuning.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/Feature-Checklist.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/Werkwijze.md",
-    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/Productspecificatie.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/historie",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/decisions",
