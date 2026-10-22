@@ -2,11 +2,13 @@
 
 - [x] Scope goedgekeurd; bestaande code onderzocht; featurebranch gemaakt.
 - [x] Specificatie en implementatieplan vastgelegd.
-- [ ] Previewmodel, expliciete selectie en snapshotcontrole met tests.
-- [ ] Dashboard en bibliotheekverversing met tests.
-- [ ] Overzicht en zes vertalingen.
-- [ ] Gerichte en volledige tests, Debug-build en eigen review.
-- [ ] Documentatie, Obsidian, gewone PR en GitHub-controles.
+- [x] Previewmodel, expliciete selectie en snapshotcontrole met tests.
+- [x] Dashboard en bibliotheekverversing met tests.
+- [x] Overzicht en zes vertalingen.
+- [x] Volledige set: 823 tests geslaagd, 0 overgeslagen. App-build: 0 waarschuwingen en fouten. Eigen review op correctheid, eenvoud, architectuur, beveiliging en prestaties uitgevoerd. Build 2026.10.22.24.
+- [x] Documentatie en checklist bijgewerkt en exact naar Obsidian gespiegeld.
+- [x] Gewone PR #46 geopend: https://github.com/hnsoftwaredevelopment/saga/pull/46.
+- [ ] GitHub-controles en externe review beoordelen.
 - [ ] Handmatige acceptatie door gebruiker.
 
 ## Afgerond Milestone 44
