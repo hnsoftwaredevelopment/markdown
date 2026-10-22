@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-10-21-saga-milestone-42-details-title-author-swap-verification-design.md",
+                "file": "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-43-checklist.md",
                 "mode": "preview",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "2026-10-21-saga-milestone-42-details-title-author-swap-verification-design"
+              "title": "milestone-43-checklist"
             }
           }
         ],
@@ -383,12 +383,12 @@
   },
   "active": "a76ab09dac4b2700",
   "lastOpenFiles": [
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-43-checklist.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-10-21-saga-milestone-43-bulk-series-repair-design.md",
+    "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-10-21-saga-milestone-42-details-title-author-swap-verification-design.md",
+    "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-43-checklist.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-42-checklist.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/feature-requests/metadata-quality-dashboard.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/project-preferences.md",
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-10-21-saga-milestone-42-details-title-author-swap-verification-design.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-10-21-saga-milestone-41-bulk-language-repair-design.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/tasks/todo.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/gebruikershandleiding/Installatietypen.md",

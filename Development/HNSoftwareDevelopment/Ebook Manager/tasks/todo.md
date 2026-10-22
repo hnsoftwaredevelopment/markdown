@@ -1,4 +1,17 @@
-# Milestone 43 todo
+# Milestone 44 todo
+
+- [x] Opdracht en scope goedgekeurd; bestaande code en DoD onderzocht.
+- [x] Branch, specificatie en plan gemaakt.
+- [x] Afzonderlijke previews en veilige opslag testgestuurd implementeren.
+- [x] Meervoudige selectie, resultaatverwerking en bibliotheekverversing.
+- [x] Scrollbaar overzicht en zes vertalingen.
+- [x] Gerichte controles: 200 tests; volledige set: 813 tests, geen fouten of overgeslagen tests. Debug-build 2026.10.22.15: 0 waarschuwingen en fouten. Eigen review uitgevoerd.
+- [x] Documentatie en checklist bijgewerkt; Obsidian-spiegel gecontroleerd gelijk.
+- [x] Gewone PR #45 geopend, zonder mergeconflicten: https://github.com/hnsoftwaredevelopment/saga/pull/45.
+- [ ] GitHub-controles en externe review beoordelen.
+- [ ] Handmatige acceptatie door gebruiker.
+
+## Afgerond Milestone 43
 
 - [x] PR #43 als gemerged vastgesteld en lokale `main` bijgewerkt.
 - [x] Branch `codex/milestone-43-bulk-series-repair` vanaf actuele `main` gemaakt.
@@ -19,8 +32,9 @@
 - [x] Schone Debug-build gecontroleerd: 0 waarschuwingen, 0 fouten, `Builds/Debug/Saga.exe` versie `2026.10.21.32`.
 - [x] Branchdiff zelf beoordeeld op correctheid, eenvoud, architectuur, beveiliging en prestaties; één onvertaalde legacy-route verwijderd en opnieuw volledig geverifieerd.
 - [x] Gewone, niet-draft PR #44 geopend.
-- [x] GitHub-controles van PR #44 beoordeeld: CodeQL en GitGuardian groen; CodeRabbit heeft wegens de gratis limiet geen inhoudelijke review uitgevoerd.
-- [ ] Handmatige acceptatiechecklist laten uitvoeren.
+- [x] GitHub-controles van PR #44 beoordeeld: CodeQL en GitGuardian groen; CodeRabbit vond in de volledige review geen inhoudelijke opmerkingen. De definitieve één-pixelcorrectie is aanvullend zelf beoordeeld doordat de herreview tegen de uurgrens liep.
+- [x] Alle handmatige controles voor bulk serieherstel door de gebruiker geaccepteerd.
+- [x] De definitieve 7-pixel lagere positie van de Splash-subtitel is door de gebruiker visueel goedgekeurd en vastgelegd in build `2026.10.22.6`.
 
 ## Buiten scope
 
