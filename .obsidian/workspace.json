@@ -381,8 +381,11 @@
       "modalforms:Edit forms": false
     }
   },
-  "active": "7becbd544497fa16",
+  "active": "a76ab09dac4b2700",
   "lastOpenFiles": [
+    "Development/HNSoftwareDevelopment/Ebook Manager/docs/decisions/001-author-profile-storage.md",
+    "Development/HNSoftwareDevelopment/Ebook Manager/docs/decisions",
+    "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-10-22-saga-milestone-48-author-profiles-design.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-46-checklist.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-10-22-saga-milestone-47-quality-final-reliability-design.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-47-checklist.md",
@@ -408,8 +411,6 @@
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M03-Documentfouten-direct-tonen.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M03-S06-Wizardproef.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M03-S05-Basisontwerp-en-pagina-afwijkingen.md",
-    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/Milestones.md",
-    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M03-S04-Gereed-voortgang-en-voltooid.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/historie",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/decisions",
@@ -423,7 +424,6 @@
     "attachments/README-2.png",
     "attachments/README-1.png",
     "Work/Voortman/Test-Templates",
-    "Work/Voortman/RC-Testing/_data/RC-4.33/numstat.txt",
     "attachments/Traktatielijst.xlsm-9.png",
     "attachments/Traktatielijst.xlsm-8.png",
     "attachments/Traktatielijst.xlsm-7.png",
