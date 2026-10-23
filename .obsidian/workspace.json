@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "3ddcac3e843ec01e",
+        "id": "7d7cac82261fb600",
         "type": "tabs",
         "children": [
           {
-            "id": "7becbd544497fa16",
+            "id": "74ccfcdd7539b7ab",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-48-checklist.md",
+                "file": "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/Ontwerp-Vaste-Knopbreedte-Voorvertoning.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,11 +28,10 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "milestone-48-checklist"
+              "title": "Ontwerp-Vaste-Knopbreedte-Voorvertoning"
             }
           }
-        ],
-        "stacked": true
+        ]
       }
     ],
     "direction": "vertical"
@@ -57,7 +56,7 @@
                 "searchQuery": ""
               },
               "icon": "lucide-folder-closed",
-              "title": "Verkenner"
+              "title": "Files"
             }
           },
           {
@@ -94,7 +93,7 @@
               "type": "empty",
               "state": {},
               "icon": "lucide-file",
-              "title": "Nieuw tabblad"
+              "title": "New tab"
             }
           },
           {
@@ -122,7 +121,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 828.3571739196777
+    "width": 762.5
   },
   "right": {
     "id": "bc13cd1b6ba6f691",
@@ -255,23 +254,10 @@
             "id": "528118691c9a17f3",
             "type": "leaf",
             "state": {
-              "type": "claudian-view",
-              "state": {
-                "tabWorkspace": {
-                  "version": 1,
-                  "openTabs": [
-                    {
-                      "tabId": "tab-1784716095777-2xepuoa",
-                      "conversationId": null,
-                      "draftModel": "haiku",
-                      "providerId": "claude"
-                    }
-                  ],
-                  "activeTabId": "tab-1784716095777-2xepuoa"
-                }
-              },
-              "icon": "bot",
-              "title": "Claudian"
+              "type": "empty",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "New tab"
             }
           },
           {
@@ -351,19 +337,18 @@
       }
     ],
     "direction": "horizontal",
-    "width": 202.2142333984375,
-    "collapsed": true
+    "width": 666.5
   },
   "left-ribbon": {
     "hiddenItems": {
-      "switcher:Open snel wisselen": false,
-      "graph:Open grafiek weergave": false,
-      "canvas:Nieuw doek aanmaken": false,
-      "daily-notes:Open de notitie van vandaag": false,
-      "templates:Sjabloon invoegen": false,
-      "command-palette:Open opdrachtenpaneel": false,
-      "workspaces:Beheer werkblad lay-outs": false,
-      "bases:Nieuwe basis maken": false,
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "workspaces:Manage workspace layouts": false,
+      "bases:Create new base": false,
       "smart-table:Insert Smart Table": false,
       "quickadd:QuickAdd": false,
       "iconic:Open rulebook": false,
@@ -376,59 +361,59 @@
       "obsidian-excalidraw-plugin:New drawing": false,
       "obsidian-kanban:Create new board": false,
       "templater-obsidian:Templater": false,
+      "modalforms:Edit forms": false,
       "cmdr:Toggle stacked tabs": false,
-      "cmdr:Omnisearch: Vault search": false,
-      "modalforms:Edit forms": false
+      "cmdr:Omnisearch: Vault search": false
     }
   },
   "active": "a76ab09dac4b2700",
   "lastOpenFiles": [
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-47-checklist.md",
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-10-22-saga-author-rename-design.md",
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-48-checklist.md",
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/decisions/001-author-profile-storage.md",
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/decisions",
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-10-22-saga-milestone-48-author-profiles-design.md",
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-46-checklist.md",
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-10-22-saga-milestone-47-quality-final-reliability-design.md",
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-10-22-saga-milestone-46-repair-result-details-design.md",
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-45-checklist.md",
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/feature-requests/title-author-swap-detection.md",
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-44-checklist.md",
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-10-22-saga-milestone-45-bulk-title-author-swap-design.md",
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-43-checklist.md",
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-10-21-saga-milestone-43-bulk-series-repair-design.md",
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-10-21-saga-milestone-42-details-title-author-swap-verification-design.md",
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-42-checklist.md",
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/feature-requests/metadata-quality-dashboard.md",
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/project-preferences.md",
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-10-21-saga-milestone-41-bulk-language-repair-design.md",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/decisions/ADR-002-Project-en-scriptbeheer.md",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/decisions/ADR-001-InnoSetup-als-productgrens.md",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/decisions",
+    "conflict-files-obsidian-git.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/tasks/todo.md",
-    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/gebruikershandleiding/Installatietypen.md",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/tasks/plan.md",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/tasks",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M04-S05-Componenten.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M04-S04-Installatietypen.md",
-    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/gebruikershandleiding/Snelkoppelingen.md",
-    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/gebruikershandleiding",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M04-S03-Snelkoppelingen.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M04-S02-Mapregels.md",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M04-S01-Bestandsverzamelingen.md",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M03-S06-Wizardproef.md",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M03-S05-Basisontwerp-en-pagina-afwijkingen.md",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M03-S04-Gereed-voortgang-en-voltooid.md",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M03-S03-Gebruikersinformatie-en-startmenumap.md",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M03-S02-Licentie-en-informatie.md",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M03-S01-Standaardpaginaoverzicht.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M03-Documentfouten-direct-tonen.md",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M02-S05-Installertaal-export-en-proef.md",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M02-S04-Vertaaloverzicht.md",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M02-S03-Eigen-teksten-per-taal.md",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M02-S02-Projecttalen-en-previewkeuze.md",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M02-S01-Beschikbare-taalbronnen.md",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M01-S06-Eenvoudige-installer-afronden.md",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M01-S05-Bouwmeldingen-en-annuleren.md",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M01-S04-Compiler-kiezen-en-bouwen.md",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M01-S03-Wizardontwerp-export.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/historie",
-    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/decisions",
-    "Development/Projects/Vacam RC-Testing",
-    "Development/Projects/TestPlans",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/gebruikershandleiding",
+    "Development/HNSoftwareDevelopment/Ebook Manager/docs/decisions",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/Gebruikersdocumentatie",
-    "Development/Code/Git",
+    "Traktatielijst.xlsm-1.base",
     "attachments/README-5.png",
     "attachments/README-4.png",
     "attachments/README-3.png",
     "attachments/README-2.png",
     "attachments/README-1.png",
-    "Work/Voortman/Test-Templates",
     "attachments/Traktatielijst.xlsm-9.png",
     "attachments/Traktatielijst.xlsm-8.png",
     "attachments/Traktatielijst.xlsm-7.png",
     "attachments/Traktatielijst.xlsm-6.png",
     "attachments/Traktatielijst.xlsm-5.png",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs",
+    "Work/Voortman/How to",
     "Untitled.canvas",
     "Naamloos.canvas"
   ]
