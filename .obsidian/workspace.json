@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-48-checklist.md",
+                "file": "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/Backlog.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "milestone-48-checklist"
+              "title": "Backlog"
             }
           }
         ]
@@ -366,8 +366,28 @@
       "cmdr:Omnisearch: Vault search": false
     }
   },
-  "active": "a76ab09dac4b2700",
+  "active": "74ccfcdd7539b7ab",
   "lastOpenFiles": [
+    "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/Workflow.md",
+    "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/Architecture.md",
+    "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E11-Release.md",
+    "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E10-Security.md",
+    "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E09-ObjectManagement.md",
+    "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E08-ViewData.md",
+    "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E07-QueryEditor.md",
+    "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E06-ScriptAndCode.md",
+    "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E05-DragAndDrop.md",
+    "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E04-PropertiesWindow.md",
+    "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E03-ObjectTree.md",
+    "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E02-ConnectionManagement.md",
+    "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E01-Foundation.md",
+    "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/Parked.md",
+    "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-48-checklist.md",
+    "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/Backlog.md",
+    "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog",
+    "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs",
+    "Development/HNSoftwareDevelopment/Object Explorer for MySQL/README.md",
+    "Development/HNSoftwareDevelopment/Object Explorer for MySQL",
     "Development/Projects/TestPlans/BT1-2308 Testplan.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/Ontwerp-Vaste-Knopbreedte-Voorvertoning.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/decisions/ADR-002-Project-en-scriptbeheer.md",
@@ -379,29 +399,11 @@
     "Development/HNSoftwareDevelopment/Inno Setup Studio/tasks",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M04-S05-Componenten.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M04-S04-Installatietypen.md",
-    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M04-S03-Snelkoppelingen.md",
-    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M04-S02-Mapregels.md",
-    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M04-S01-Bestandsverzamelingen.md",
-    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M03-S06-Wizardproef.md",
-    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M03-S05-Basisontwerp-en-pagina-afwijkingen.md",
-    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M03-S04-Gereed-voortgang-en-voltooid.md",
-    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M03-S03-Gebruikersinformatie-en-startmenumap.md",
-    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M03-S02-Licentie-en-informatie.md",
-    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M03-S01-Standaardpaginaoverzicht.md",
-    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M03-Documentfouten-direct-tonen.md",
-    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M02-S05-Installertaal-export-en-proef.md",
-    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M02-S04-Vertaaloverzicht.md",
-    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M02-S03-Eigen-teksten-per-taal.md",
-    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M02-S02-Projecttalen-en-previewkeuze.md",
-    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M02-S01-Beschikbare-taalbronnen.md",
-    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M01-S06-Eenvoudige-installer-afronden.md",
-    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M01-S05-Bouwmeldingen-en-annuleren.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/historie",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/gebruikershandleiding",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/decisions",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/Gebruikersdocumentatie",
-    "Traktatielijst.xlsm-1.base",
     "attachments/README-5.png",
     "attachments/README-4.png",
     "attachments/README-3.png",
@@ -412,8 +414,6 @@
     "attachments/Traktatielijst.xlsm-7.png",
     "attachments/Traktatielijst.xlsm-6.png",
     "attachments/Traktatielijst.xlsm-5.png",
-    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs",
-    "Work/Voortman/How to",
     "Untitled.canvas",
     "Naamloos.canvas"
   ]
