@@ -1,4 +1,4 @@
-﻿# Ontwerp: vaste knopbreedte in de voorvertoning
+# Ontwerp: vaste knopbreedte in de voorvertoning
 
 Datum: 2026-10-06. Status: goedgekeurd door Herbert, inclusief de indeling van de knoppen (sectie 4). Gebouwd in PR #33.
 

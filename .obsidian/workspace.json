@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/Ontwerp-Vaste-Knopbreedte-Voorvertoning.md",
+                "file": "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-48-checklist.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "Ontwerp-Vaste-Knopbreedte-Voorvertoning"
+              "title": "milestone-48-checklist"
             }
           }
         ]
@@ -368,6 +368,8 @@
   },
   "active": "a76ab09dac4b2700",
   "lastOpenFiles": [
+    "Development/Projects/TestPlans/BT1-2308 Testplan.md",
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/Ontwerp-Vaste-Knopbreedte-Voorvertoning.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/decisions/ADR-002-Project-en-scriptbeheer.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/decisions/ADR-001-InnoSetup-als-productgrens.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/decisions",
@@ -394,8 +396,6 @@
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M02-S01-Beschikbare-taalbronnen.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M01-S06-Eenvoudige-installer-afronden.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M01-S05-Bouwmeldingen-en-annuleren.md",
-    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M01-S04-Compiler-kiezen-en-bouwen.md",
-    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices/M01-S03-Wizardontwerp-export.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/historie",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/gebruikershandleiding",
