@@ -36,7 +36,7 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | US-0102 | Logging to the Output window | Done |
 | US-0103 | Localization-ready resources | Done |
 | US-0104 | Build pipeline | Done |
-| US-0201 | Add a server connection | Ready for test |
+| US-0201 | Add a server connection | Done |
 | US-0202 | Persist connections securely | Todo |
 | US-0203 | Edit, remove and reorder connections | Todo |
 | US-0204 | Connection state | Todo |
