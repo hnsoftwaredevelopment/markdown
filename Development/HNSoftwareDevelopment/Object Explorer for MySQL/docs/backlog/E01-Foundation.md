@@ -29,6 +29,8 @@ As a developer, I want a solution that builds a VSIX which installs in Visual St
 - The tool window opens as a tab next to Solution Explorer the first time. After that Visual Studio remembers the position you choose.
 - Tool window colors come from `EnvironmentColors`, so it follows the Light, Dark and Blue themes.
 - Building the VSIX needs Visual Studio's MSBuild (`dotnet build` cannot build the VSIX project). `dotnet test` works for the test project.
+- Do not add `Microsoft.VSSDK.BuildTools` explicitly. `Microsoft.VisualStudio.Extensibility.Build` brings a compatible version (17.14.x). An explicit 18.9.820 reference caused error VSSDK1031 ("Extension could not be found") when deploying to the Experimental Instance.
+- `UseCodebase` must stay `true` in the VSIX project. Without it the pkgdef has no `CodeBase` entry, Visual Studio looks for the package assembly in its own IDE folders and shows "The 'ObjectExplorerPackage' package did not load correctly" (FileNotFoundException in ActivityLog.xml).
 
 **Manual test**
 

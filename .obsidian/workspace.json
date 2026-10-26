@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/Backlog.md",
+                "file": "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E01-Foundation.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "Backlog"
+              "title": "E01-Foundation"
             }
           }
         ]
@@ -366,8 +366,9 @@
       "cmdr:Omnisearch: Vault search": false
     }
   },
-  "active": "a76ab09dac4b2700",
+  "active": "74ccfcdd7539b7ab",
   "lastOpenFiles": [
+    "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/Backlog.md",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/Workflow.md",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/Architecture.md",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E11-Release.md",
@@ -383,7 +384,6 @@
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E01-Foundation.md",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/Parked.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-48-checklist.md",
-    "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/Backlog.md",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/README.md",
