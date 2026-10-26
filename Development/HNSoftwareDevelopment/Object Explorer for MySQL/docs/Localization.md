@@ -31,6 +31,7 @@ Dutch is not on the list: Visual Studio has no Dutch user interface.
 |---|---|
 | Tool window, dialogs, messages, Output pane name | `src/ObjectExplorerForMySql.Vsix/Resources/Strings.resx`, read through `Strings.cs` |
 | Menu items, command names, option names and descriptions | `src/ObjectExplorerForMySql.Vsix/.vsextension/string-resources.json`, referenced in code as `"%Key%"` |
+| Tool window toolbar and context menus | `src/ObjectExplorerForMySql.Vsix/ObjectExplorerCommands.vsct` (ADR-011); translated with a copy per culture, for example `ObjectExplorerCommands.de.vsct`, compiled with its own `VSCTCompile` item |
 | Extension name and description in *Manage Extensions* | `source.extension.vsixmanifest`, translated with an `Extension.vsixlangpack` per culture |
 | Log entries in the Output pane | English only, in code (ADR-005) |
 

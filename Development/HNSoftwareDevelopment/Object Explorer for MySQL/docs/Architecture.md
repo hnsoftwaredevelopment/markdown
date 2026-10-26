@@ -111,6 +111,16 @@ Integration tests run against MySQL 8.0 and 8.4.
 
 **Decision.** The source code is published under the MIT license. All dependencies must be MIT-compatible (MySqlConnector is MIT).
 
+## ADR-011 Tool window toolbar and context menus in VSCT
+
+**Status:** Accepted (2026-10-26)
+
+**Context.** The explorer is a classic `ToolWindowPane` (ADR-001). VisualStudio.Extensibility toolbars only work for its own Remote UI tool windows, and a WPF toolbar or context menu drawn by the extension would not look or behave like Visual Studio (themes, keyboard, customization).
+
+**Decision.** The tool window toolbar and, later, the context menus of tree nodes are defined in `ObjectExplorerCommands.vsct` and handled by the VSSDK package through `OleMenuCommandService`. Commands outside the tool window, such as the View menu item, stay in VisualStudio.Extensibility. `Commands/CommandIds.cs` holds the same GUIDs and IDs as the VSCT file.
+
+**Consequence.** VSCT texts are not in `Strings.resx`; a language is added with a culture-specific VSCT file (see [Localization](Localization.md)).
+
 ## Parked topics
 
 - Table designer (visual create/alter table)
