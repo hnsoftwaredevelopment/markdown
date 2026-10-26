@@ -42,7 +42,9 @@
 5. Herbert tests and sets status to *Done* (or *Rejected* with notes).
 6. Claude commits the final changes (`US-0101: accepted`) and pushes to GitHub.
 
-Nothing is pushed to GitHub before a story is accepted. Local commits are made per completed task.
+Nothing is pushed to `main` before a story is accepted. Local commits are made per completed task.
+
+Exception: when a story can only be tested on GitHub (for example the build pipeline), it is developed on a branch `us-<number>-<name>` that is pushed for testing. After acceptance it is merged into `main` and the branch is deleted. The build workflow runs on these branches too.
 
 ## Self-review checklist
 

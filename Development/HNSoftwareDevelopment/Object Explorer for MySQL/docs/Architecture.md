@@ -51,16 +51,29 @@ Each tree level loads with one query per level, only when the node is expanded (
 
 ## ADR-005 Localization: resource files, follow the Visual Studio UI language
 
-**Status:** Accepted (2026-10-23)
+**Status:** Accepted (2026-10-23), language list superseded by ADR-010 (2026-10-26)
 
 **Decision.**
 
 - All user-visible text goes into `.resx` files from the first line of code. No hardcoded strings.
 - Visual Studio sets the UI culture of its process to the language chosen in *Tools > Options > Environment > International Settings*. .NET resource lookup then picks the right `.resx` automatically. No own language switch is needed.
 - Menu and command texts in VisualStudio.Extensibility use `string-resources.json` per language; the VSIX manifest is localized with a `Extension.vsixlangpack` per language.
+- Log entries in the Output window are English only, like Visual Studio's own diagnostic output. They are meant for troubleshooting and support, and one language makes them searchable.
 - **Version 1 ships English (neutral) and Dutch.** Other Visual Studio languages (cs, de, es, fr, it, ja, ko, pl, pt-BR, ru, tr, zh-Hans, zh-Hant) can be added later by adding resource files only, without code changes.
 
 **Reason.** Building for localization from day one costs little. Translating into 14 languages and keeping those translations correct costs a lot, so we only do that when users ask for it.
+
+## ADR-010 Version 1 ships English only
+
+**Status:** Accepted (2026-10-26). Supersedes the language list in ADR-005.
+
+**Context.** Visual Studio has a user interface in 14 languages; Dutch is not one of them (see the `/LCID` reference on Microsoft Learn). Because the extension follows the Visual Studio language, a Dutch translation would never be shown. Alternatives considered: an own language setting in the extension (menus and the Options page would stay English, so the user gets a mixed interface) and following the Windows display language (same mixed result, without a way to switch it off).
+
+**Decision.**
+
+- Keep following the Visual Studio UI language (ADR-005).
+- Version 1 ships English only. No Dutch resources.
+- The resource structure stays, and `ResourceConsistencyTests` guards it, so a Visual Studio language (for example German) can be added with resource files only. See [Localization](Localization.md).
 
 ## ADR-006 Security node only when permitted
 

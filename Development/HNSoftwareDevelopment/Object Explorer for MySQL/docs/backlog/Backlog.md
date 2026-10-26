@@ -32,10 +32,10 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 
 | ID | Story | Status |
 |---|---|---|
-| US-0101 | Solution and empty extension | Ready for test |
-| US-0102 | Logging to the Output window | Todo |
-| US-0103 | Localization infrastructure | Todo |
-| US-0104 | Build pipeline | Todo |
+| US-0101 | Solution and empty extension | Done |
+| US-0102 | Logging to the Output window | Done |
+| US-0103 | Localization-ready resources | Done |
+| US-0104 | Build pipeline | Ready for test |
 | US-0201 | Add a server connection | Todo |
 | US-0202 | Persist connections securely | Todo |
 | US-0203 | Edit, remove and reorder connections | Todo |
@@ -76,7 +76,7 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 
 | # | Question | Decision | Date |
 |---|---|---|---|
-| D-1 | Localization | English + Dutch, following the VS language (ADR-005) | 2026-10-23 |
+| D-1 | Localization | Follow the VS language; version 1 English only, because Visual Studio has no Dutch UI (ADR-005, ADR-010) | 2026-10-26 |
 | D-2 | License | MIT (ADR-009) | 2026-10-23 |
 | D-3 | Minimum MySQL version | 8.0 (ADR-008) | 2026-10-23 |
 | D-4 | Documentation language | English | 2026-10-23 |
