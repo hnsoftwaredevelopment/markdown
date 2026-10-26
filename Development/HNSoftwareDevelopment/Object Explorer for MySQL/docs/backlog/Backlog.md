@@ -15,7 +15,7 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 
 | ID | Epic | Release | Status |
 |---|---|---|---|
-| E01 | [Foundation](E01-Foundation.md) | 0.1 | In progress |
+| E01 | [Foundation](E01-Foundation.md) | 0.1 | Done |
 | E02 | [Connection management](E02-ConnectionManagement.md) | 0.1 | Todo |
 | E03 | [Object tree](E03-ObjectTree.md) | 0.1 | Todo |
 | E04 | [Properties window](E04-PropertiesWindow.md) | 0.1 | Todo |
@@ -35,7 +35,7 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | US-0101 | Solution and empty extension | Done |
 | US-0102 | Logging to the Output window | Done |
 | US-0103 | Localization-ready resources | Done |
-| US-0104 | Build pipeline | Ready for test |
+| US-0104 | Build pipeline | Done |
 | US-0201 | Add a server connection | Todo |
 | US-0202 | Persist connections securely | Todo |
 | US-0203 | Edit, remove and reorder connections | Todo |

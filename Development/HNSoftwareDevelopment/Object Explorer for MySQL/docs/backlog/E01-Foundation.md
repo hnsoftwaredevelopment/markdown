@@ -122,7 +122,7 @@ As a developer, I want all user-visible text in resource files that follow the V
 2026-10-26, Herbert: accepted.
 ## US-0104 Build pipeline
 
-**Status:** Ready for test
+**Status:** Done (accepted 2026-10-26)
 
 As a developer, I want GitHub Actions to build the solution and run unit tests on every push, so that broken builds are noticed.
 
@@ -152,9 +152,9 @@ As a developer, I want GitHub Actions to build the solution and run unit tests o
 
 1. Open the repository on GitHub, tab *Actions*, workflow *Build*. Expected: a green run for branch `us-0104-build-pipeline`.
 2. Open the run, section *Artifacts*: download `ObjectExplorerForMySql-vsix`, unzip it, and double-click `ObjectExplorerForMySql.vsix`. Expected: the VSIX installer offers "Object Explorer for MySQL" for Visual Studio 2026. You can cancel the installation; installing in your normal Visual Studio is also fine and can be undone in *Manage Extensions*.
-3. Optional: *Run workflow* on the *Build* page starts a run manually. Expected: green.
+3. Optional: *Run workflow* on the *Build* page starts a run manually. Expected: green. The button only appears once the workflow is on `main`.
 4. After the merge into `main`: the badge at the top of the README shows "passing".
 
 **Test result**
 
-_To be filled in by Herbert._
+2026-10-26, Herbert: accepted. Both runs on the story branch green, VSIX artifact installs. Step 3 (*Run workflow*) could not be tested on the branch: GitHub only shows that button when the workflow file is on the default branch. After the merge into `main` it is available.
