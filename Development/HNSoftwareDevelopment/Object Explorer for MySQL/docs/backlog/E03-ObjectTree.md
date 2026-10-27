@@ -122,7 +122,7 @@ As a developer, I want to see the tables of a database and their columns with da
 2026-10-27, Herbert: accepted. Expanding tables and columns works and looks good.
 ## US-0303 Keys, constraints, indexes and triggers
 
-**Status:** Ready for test
+**Status:** Done (accepted 2026-10-27)
 
 As a developer, I want to see the keys, check constraints, indexes and triggers of a table.
 
@@ -160,7 +160,7 @@ As a developer, I want to see the keys, check constraints, indexes and triggers 
 
 **Test result**
 
-_To be filled in by Herbert._
+2026-10-27, Herbert: accepted. Tested on sakila and world: keys, triggers and indexes show correctly, both empty and filled. These databases have no CHECK constraints, so the Constraints folder was only seen empty; a filled Constraints folder is covered by unit tests only.
 ## US-0304 Views
 
 **Status:** Todo
