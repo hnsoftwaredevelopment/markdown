@@ -15,6 +15,8 @@
 - At 16x16 (tool window tab, menu) the code tags and the text are not readable; a simplified small variant may be needed.
 - The Marketplace needs a 128x128 PNG, which can be exported from the SVG.
 
+**Update (2026-10-26):** Herbert removed the word "MySQL" from the icon, enlarged the `</>` symbols so they stay recognizable at small sizes, and added `docs/AppIcon.png` (128x128). The three points above are handled; using the files in the VSIX manifest and tool window is still open.
+
 ## US-1102 Marketplace listing
 
 **Status:** Todo

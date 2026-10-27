@@ -60,40 +60,109 @@ You need a reachable MySQL 8.x server, for example your local server.
 2026-10-26, Herbert: accepted after test round 2. All manual tests passed; dialog and tree colors are correct, also in the tree view; the connection name as first field is more logical.
 ## US-0202 Persist connections securely
 
-**Status:** Todo
+**Status:** Done (accepted 2026-10-27)
 
 As a developer, I want my connections kept after restarting Visual Studio, with passwords stored encrypted.
 
 **Acceptance criteria**
 
-- [ ] Connections saved in `%LOCALAPPDATA%\ObjectExplorerForMySql\connections.json`.
-- [ ] Password encrypted with DPAPI CurrentUser; plain text never in the file (unit test).
-- [ ] Without saved password, the user gets a password prompt on first expand.
-- [ ] Corrupt or missing file does not crash the extension; a warning is logged.
+- [x] Connections saved in `%LOCALAPPDATA%\ObjectExplorerForMySql\connections.json`.
+- [x] Password encrypted with DPAPI CurrentUser; plain text never in the file (unit test).
+- [ ] ~~Without saved password, the user gets a password prompt on first expand.~~ Moved to US-0301: servers cannot be expanded yet, so there is no moment to ask. Until then a connection without a saved password is loaded without password.
+- [x] Corrupt or missing file does not crash the extension; a warning is logged.
 
 **Tasks**
 
-- T-0202-01 `ConnectionStore` with JSON serialization + tests
-- T-0202-02 `ISecretProtector` with DPAPI implementation + tests
-- T-0202-03 Password prompt dialog
+- [x] T-0202-01 `ConnectionStore` with JSON serialization + tests
+- [x] T-0202-02 `ISecretProtector` with DPAPI implementation + tests
+- [ ] T-0202-03 Password prompt dialog: moved to US-0301
 
+**Implementation notes**
+
+- File format: indented JSON with `"version": 1` and one entry per connection. The password is only written as `protectedPassword` (DPAPI, scope CurrentUser, with extra entropy) and only when "Save password" is checked. Example:
+
+  ```json
+  {
+    "version": 1,
+    "connections": [
+      {
+        "id": "4b0d...",
+        "displayName": "Production",
+        "host": "db.local",
+        "port": 3306,
+        "userName": "app",
+        "savePassword": true,
+        "protectedPassword": "AQAAANCMnd8BFdERjHoAwE...",
+        "sslMode": "Preferred",
+        "connectionTimeoutSeconds": 15,
+        "allowPublicKeyRetrieval": false
+      }
+    ]
+  }
+  ```
+
+- Saving writes to `connections.json.tmp` first and then replaces the file, so a crash never leaves half a file.
+- An unreadable file is renamed to `connections.json.corrupt-<date>-<time>` before anything else happens, so the next save cannot overwrite the user's data. The Output pane shows a warning with the new name.
+- Invalid entries (for example an empty host after a manual edit) are skipped with a warning; missing values get their defaults; an unknown SSL mode becomes "Preferred". A file saved by Notepad with a byte order mark is read correctly.
+- A password that cannot be decrypted (file copied to another Windows user or computer) is loaded as empty, with a warning.
+- Connections are loaded when the package loads (opening the explorer) and saved after every change. If saving fails, a message says the list will be lost when Visual Studio closes.
+- The JSON is written with the .NET Framework's own `DataContractJsonSerializer`, so no extra JSON library ends up in the VSIX next to the one Visual Studio already loads.
+- 17 new unit tests (106 in total), including DPAPI round trips on Windows.
+
+**Manual test**
+
+1. Rebuild and press F5. Open the explorer and add two servers: A with "Save password" checked, B with "Save password" unchecked.
+2. Open `%LOCALAPPDATA%\ObjectExplorerForMySql\connections.json` in an editor. Expected: both connections; A has a long `protectedPassword` value, B has none; your password appears nowhere in the file.
+3. Close the Experimental Instance, start it again with F5 and open the explorer. Expected: both servers are back, sorted as before; the Output pane shows "Loaded 2 connection(s) from ...".
+4. Close the Experimental Instance. Replace the content of `connections.json` with `this is not json` and save. Start again and open the explorer. Expected: no error dialog, an empty explorer, a WARN line in the Output pane, and a file `connections.json.corrupt-...` next to it with your text.
+5. Add a server again. Expected: a new `connections.json` is written; the corrupt copy stays.
+6. Optional: make the folder read-only (or open `connections.json` exclusively in another program) and add a server. Expected: a message that the list could not be saved, and an ERROR line in the Output pane.
+
+**Test result**
+
+2026-10-27, Herbert: accepted. All manual tests passed as expected.
 ## US-0203 Edit, remove and reorder connections
 
-**Status:** Todo
+**Status:** Ready for test
 
 As a developer, I want to change or delete a server connection.
 
 **Acceptance criteria**
 
-- [ ] Context menu on server node: Properties (edit dialog), Remove (with confirmation), Disconnect, Refresh.
-- [ ] Removing deletes the stored password as well.
-- [ ] Servers sorted alphabetically by display name.
+- [x] Context menu on server node: Properties (edit dialog), Remove (with confirmation), Disconnect, Refresh. *(Disconnect and Refresh are shown but disabled until US-0204 and US-0301)*
+- [x] Removing deletes the stored password as well.
+- [x] Servers sorted alphabetically by display name, also after a change of name.
 
 **Tasks**
 
-- T-0203-01 Context menu on server node
-- T-0203-02 Edit and remove logic in `ConnectionStore` + tests
+- [x] T-0203-01 Context menu on server node (VSCT, ADR-011)
+- [x] T-0203-02 Edit and remove logic in `ExplorerViewModel` and `ConnectionEditorViewModel` + tests
 
+**Implementation notes**
+
+- The context menu is a Visual Studio menu from the VSCT file, so it has the Visual Studio look, icons and access keys. It opens with a right-click (which selects the node first, like Solution Explorer), Shift+F10 or the context menu key.
+- **Delete** on a selected server runs *Remove*. Remove asks for confirmation with *No* as default button and says that the server itself is not changed.
+- **Properties** opens the connection dialog with the title *Connection Properties* and the current values. The password field starts empty; when a password is saved, the hint "Leave empty to keep the current password." is shown. Typing a password replaces it. The connection keeps its ID, so later features (open queries, settings per connection) stay linked.
+- After a change of name the node moves to its new alphabetical position.
+- Every change is saved directly to `connections.json` (US-0202).
+- 12 new unit tests (118 in total).
+
+**Manual test**
+
+1. Rebuild and press F5. Open the explorer with at least two saved servers, A (with saved password) and B.
+2. Right-click server B. Expected: B is selected and a menu shows *Refresh* and *Disconnect* (disabled), *Remove*, and *Properties*, with icons and separator lines.
+3. Select A and press Shift+F10. Expected: the same menu at the node.
+4. Choose *Properties* on A. Expected: title "Connection Properties", all fields filled except the password, with the hint below the password field.
+5. Change only the connection name to "Z test", click OK. Expected: the node is renamed and moves to the bottom; the Output pane shows "changed and renamed".
+6. Open *Properties* again and click *Test Connection* without typing a password. Expected: the test succeeds (the saved password is used).
+7. Restart the Experimental Instance. Expected: "Z test" is still there with its new name and still connects with the saved password (step 6 again).
+8. Select B and press Delete. Expected: a question with *No* as default. Press Enter: nothing changes.
+9. Press Delete again and choose *Yes*. Expected: B disappears; `connections.json` no longer contains B or its `protectedPassword`.
+10. Remove the last server. Expected: the hint text "No MySQL servers yet ..." is back.
+
+**Test result**
+
+_To be filled in by Herbert._
 ## US-0204 Connection state
 
 **Status:** Todo

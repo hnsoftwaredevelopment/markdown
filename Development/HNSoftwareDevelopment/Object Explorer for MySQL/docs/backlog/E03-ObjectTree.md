@@ -41,6 +41,7 @@ As a developer, I want to see all databases on a server, with system databases g
 - [ ] Children load only on expand (lazy loading) and off the UI thread.
 - [ ] A loading placeholder "Loading..." is shown while querying.
 - [ ] Errors show as a red child node with the message.
+- [ ] When a connection has no password (not saved, or not decryptable), a password prompt appears on first expand; Cancel leaves the node collapsed. *(moved from US-0202)*
 
 **Tasks**
 
@@ -48,6 +49,7 @@ As a developer, I want to see all databases on a server, with system databases g
 - T-0301-02 `IMetadataProvider` + database query in Core + tests
 - T-0301-03 Server and database nodes in the tree
 - T-0301-04 Integration test against MySQL 8 container
+- T-0301-05 Password prompt dialog (moved from T-0202-03)
 
 ## US-0302 Tables and columns
 
