@@ -41,8 +41,8 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | US-0203 | Edit, remove and reorder connections | Done |
 | US-0204 | Connection state | Done |
 | US-0301 | Databases and system databases | Done |
-| US-0302 | Tables and columns | Ready for test |
-| US-0303 | Keys, constraints, indexes and triggers | Todo |
+| US-0302 | Tables and columns | Done |
+| US-0303 | Keys, constraints, indexes and triggers | Ready for test |
 | US-0304 | Views | Todo |
 | US-0305 | Stored procedures, functions and parameters | Todo |
 | US-0306 | Events | Todo |

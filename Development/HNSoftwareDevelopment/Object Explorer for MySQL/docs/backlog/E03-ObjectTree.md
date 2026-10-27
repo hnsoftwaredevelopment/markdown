@@ -82,7 +82,7 @@ You need a reachable MySQL 8.x server. Turn on *Debug logging* to see the querie
 2026-10-27, Herbert: accepted. Password prompt, save / not save, System Databases first and collapsed, Access denied on a wrong password: all as described. Finding: *Refresh* collapses the server to its "Databases" folder; Herbert expects Refresh to keep the expanded folders and only update their content (for example a new or deleted database). Moved to US-0307.
 ## US-0302 Tables and columns
 
-**Status:** Ready for test
+**Status:** Done (accepted 2026-10-27)
 
 As a developer, I want to see the tables of a database and their columns with data type and nullability.
 
@@ -119,25 +119,48 @@ As a developer, I want to see the tables of a database and their columns with da
 
 **Test result**
 
-_To be filled in by Herbert._
+2026-10-27, Herbert: accepted. Expanding tables and columns works and looks good.
 ## US-0303 Keys, constraints, indexes and triggers
 
-**Status:** Todo
+**Status:** Ready for test
 
 As a developer, I want to see the keys, check constraints, indexes and triggers of a table.
 
 **Acceptance criteria**
 
-- [ ] Keys: primary key, unique keys, foreign keys (with referenced table in label).
-- [ ] Constraints: check constraints (MySQL 8.0.16+); folder hidden on older versions.
-- [ ] Indexes: name, unique/non-unique, columns in order.
-- [ ] Triggers: name, timing and event (for example `BEFORE INSERT`).
+- [x] Keys: primary key, unique keys, foreign keys (with referenced table in label).
+- [x] Constraints: check constraints (MySQL 8.0.16+); folder hidden on older versions.
+- [x] Indexes: name, unique/non-unique, columns in order.
+- [x] Triggers: name, timing and event (for example `BEFORE INSERT`).
 
 **Tasks**
 
-- T-0303-01 Queries + models + tests
-- T-0303-02 Folder and child nodes
+- [x] T-0303-01 Queries + models + tests
+- [x] T-0303-02 Folder and child nodes
 
+**Implementation notes**
+
+- Folders below a table, in the same order as SQL Server Object Explorer: Columns, Keys, Constraints, Triggers, Indexes. Each folder runs its own query on first expand.
+- **Keys** (`TABLE_CONSTRAINTS` + `KEY_COLUMN_USAGE`): primary key first, then unique keys, then foreign keys, each by name. Labels: `PRIMARY (order_id, line)`, `uq_number (number)`, `fk_order_customer (customer_id) → customers (id)`. A referenced table in another database gets the database name: `→ geo.countries (code)`. Composite keys list their columns in key order.
+- **Constraints** (`CHECK_CONSTRAINTS`): label `chk_price ((`price` >= 0))`, with ", not enforced" for a disabled constraint (`NOT ENFORCED`). Long expressions are shortened to 60 characters; the tooltip shows the full expression. The folder only appears on MySQL 8.0.16+ and MariaDB 10.2+ (`ServerCapabilities`, read from the server version of the connection). MariaDB uses its own query, because its `CHECK_CONSTRAINTS` table has a different layout.
+- **Triggers** (`TRIGGERS`): label `trg_orders_bi (BEFORE INSERT)`, ordered by timing, event and trigger order.
+- **Indexes** (`STATISTICS`): PRIMARY first, then by name. Labels: `ix_name (non-unique: name(10), city)` with prefix length, `uq_email (unique: email)`, `ft_body (fulltext: body)`, `ix_func (non-unique: (expression))` for a functional index.
+- Icons: key, unique key, foreign key, check constraint, trigger; PRIMARY index = clustered index icon (InnoDB stores rows in primary key order), FULLTEXT = search icon, other indexes = sort icon.
+- 19 new unit tests (171 in total).
+
+**Manual test**
+
+1. Rebuild and press F5. Expand a server > Databases > a database > Tables > a table. Expected: folders Columns, Keys, Constraints, Triggers, Indexes (Constraints only on MySQL 8.0.16+).
+2. Expand Keys on a table with a primary key and a foreign key. Expected: `PRIMARY (...)` first with a key icon, then the foreign key with `→ table (column)`.
+3. Expand Indexes. Expected: `PRIMARY (unique: ...)` first with the clustered index icon, then the other indexes with their columns in order.
+4. If you have a table with a CHECK constraint (for example `ALTER TABLE t ADD CONSTRAINT chk_x CHECK (x >= 0);`): Expand Constraints. Expected: `chk_x ((`x` >= 0))`; tooltip with the expression.
+5. If you have a trigger: Expand Triggers. Expected: `name (BEFORE INSERT)` or similar.
+6. A table without keys, constraints, triggers or indexes: the folders expand and stay empty, without an error.
+7. Check `mysql` > Tables > `user` > Keys and Indexes. Expected: `PRIMARY (Host, User)`.
+
+**Test result**
+
+_To be filled in by Herbert._
 ## US-0304 Views
 
 **Status:** Todo

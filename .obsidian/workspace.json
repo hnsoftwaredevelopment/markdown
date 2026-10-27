@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E02-ConnectionManagement.md",
+                "file": "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E03-ObjectTree.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "E02-ConnectionManagement"
+              "title": "E03-ObjectTree"
             }
           }
         ]
@@ -368,8 +368,8 @@
   },
   "active": "74ccfcdd7539b7ab",
   "lastOpenFiles": [
-    "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E03-ObjectTree.md",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E02-ConnectionManagement.md",
+    "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E03-ObjectTree.md",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/Backlog.md",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E01-Foundation.md",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/Localization.md",
