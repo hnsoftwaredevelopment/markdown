@@ -16,7 +16,7 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | ID | Epic | Release | Status |
 |---|---|---|---|
 | E01 | [Foundation](E01-Foundation.md) | 0.1 | Done |
-| E02 | [Connection management](E02-ConnectionManagement.md) | 0.1 | In progress |
+| E02 | [Connection management](E02-ConnectionManagement.md) | 0.1 | Done |
 | E03 | [Object tree](E03-ObjectTree.md) | 0.1 | In progress |
 | E04 | [Properties window](E04-PropertiesWindow.md) | 0.1 | Todo |
 | E05 | [Drag & drop to the editor](E05-DragAndDrop.md) | 0.1 | Todo |
@@ -39,8 +39,8 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | US-0201 | Add a server connection | Done |
 | US-0202 | Persist connections securely | Done |
 | US-0203 | Edit, remove and reorder connections | Done |
-| US-0204 | Connection state | Ready for test |
-| US-0301 | Databases and system databases | Ready for test |
+| US-0204 | Connection state | Done |
+| US-0301 | Databases and system databases | Done |
 | US-0302 | Tables and columns | Todo |
 | US-0303 | Keys, constraints, indexes and triggers | Todo |
 | US-0304 | Views | Todo |

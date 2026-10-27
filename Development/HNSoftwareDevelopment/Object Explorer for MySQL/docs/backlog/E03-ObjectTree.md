@@ -31,7 +31,7 @@ Server (host:port, MySQL 8.4.x)
 
 ## US-0301 Databases and system databases
 
-**Status:** Ready for test (built and tested together with US-0204)
+**Status:** Done (accepted 2026-10-27, built and tested together with US-0204)
 
 As a developer, I want to see all databases on a server, with system databases grouped separately.
 
@@ -79,7 +79,7 @@ You need a reachable MySQL 8.x server. Turn on *Debug logging* to see the querie
 
 **Test result**
 
-_To be filled in by Herbert._
+2026-10-27, Herbert: accepted. Password prompt, save / not save, System Databases first and collapsed, Access denied on a wrong password: all as described. Finding: *Refresh* collapses the server to its "Databases" folder; Herbert expects Refresh to keep the expanded folders and only update their content (for example a new or deleted database). Moved to US-0307.
 ## US-0302 Tables and columns
 
 **Status:** Todo
@@ -158,6 +158,7 @@ As a developer, I want to refresh any node, so that I see changes made outside V
 - [ ] Context menu "Refresh" and F5 key on every node reload that node's children.
 - [ ] Toolbar button refreshes the selected node.
 - [ ] Expanded state of child nodes is kept where the objects still exist.
+- [ ] Refresh does not collapse anything: expanded folders stay expanded and only their content is updated, so a database that was added or dropped elsewhere appears or disappears. *(finding from the US-0301 test, 2026-10-27; today Refresh on a server collapses it to its "Databases" folder)*
 
 ## US-0308 Toolbar and filter
 

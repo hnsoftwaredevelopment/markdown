@@ -165,7 +165,7 @@ As a developer, I want to change or delete a server connection.
 2026-10-27, Herbert: accepted. All manual tests passed as described.
 ## US-0204 Connection state
 
-**Status:** Ready for test (built and tested together with US-0301)
+**Status:** Done (accepted 2026-10-27, built and tested together with US-0301)
 
 As a developer, I want to see whether a server is connected, connecting or in error.
 
@@ -185,4 +185,4 @@ As a developer, I want to see whether a server is connected, connecting or in er
 
 **Test result**
 
-_To be filled in by Herbert._
+2026-10-27, Herbert: accepted together with US-0301. Open question from the test: Disconnect keeps a password that was entered in the prompt without "Save password", so expanding again does not ask for it. Herbert expected a new prompt; decision pending.
