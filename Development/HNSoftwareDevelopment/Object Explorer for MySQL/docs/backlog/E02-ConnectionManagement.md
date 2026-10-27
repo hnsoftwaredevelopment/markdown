@@ -123,7 +123,7 @@ As a developer, I want my connections kept after restarting Visual Studio, with 
 2026-10-27, Herbert: accepted. All manual tests passed as expected.
 ## US-0203 Edit, remove and reorder connections
 
-**Status:** Ready for test
+**Status:** Done (accepted 2026-10-27)
 
 As a developer, I want to change or delete a server connection.
 
@@ -162,15 +162,27 @@ As a developer, I want to change or delete a server connection.
 
 **Test result**
 
-_To be filled in by Herbert._
+2026-10-27, Herbert: accepted. All manual tests passed as described.
 ## US-0204 Connection state
 
-**Status:** Todo
+**Status:** Ready for test (built and tested together with US-0301)
 
 As a developer, I want to see whether a server is connected, connecting or in error.
 
 **Acceptance criteria**
 
-- [ ] Server icon shows state: not connected, connecting (animated or overlay), connected, error.
-- [ ] Tooltip shows server version, user and the last error.
-- [ ] Disconnect clears loaded children; expand reconnects.
+- [x] Server icon shows state: not connected (dimmed server icon), connecting (sync icon), connected (server icon), error (error icon).
+- [x] Tooltip shows server and port, user, state, server version and the last error.
+- [x] Disconnect clears loaded children; expand reconnects.
+
+**Implementation notes**
+
+- The state belongs to `ServerNodeViewModel` in Core (`NotConnected`, `Connecting`, `Connected`, `Error`) and is unit tested; the extension only maps it to Visual Studio icons (`NodeIconConverter`).
+- *Disconnect* (context menu) closes the pooled connections of the server (`MySqlConnection.ClearPool`), removes the loaded children and collapses the node. It is enabled when the server is connected or in error.
+- *Refresh* (context menu) reconnects and reloads an expanded, connected server. Refresh for other node types follows in US-0307.
+- Changing a connection with *Properties* disconnects it first, so the next expand uses the new settings.
+- Manual test: see US-0301 in `E03-ObjectTree.md`.
+
+**Test result**
+
+_To be filled in by Herbert._
