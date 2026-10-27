@@ -82,21 +82,44 @@ You need a reachable MySQL 8.x server. Turn on *Debug logging* to see the querie
 2026-10-27, Herbert: accepted. Password prompt, save / not save, System Databases first and collapsed, Access denied on a wrong password: all as described. Finding: *Refresh* collapses the server to its "Databases" folder; Herbert expects Refresh to keep the expanded folders and only update their content (for example a new or deleted database). Moved to US-0307.
 ## US-0302 Tables and columns
 
-**Status:** Todo
+**Status:** Ready for test
 
 As a developer, I want to see the tables of a database and their columns with data type and nullability.
 
 **Acceptance criteria**
 
-- [ ] Column label format: `name (type, null)` or `name (PK, type, not null)`, same style as SSOX (for example `optname (varchar(128), null)`).
-- [ ] Icons differ for normal column, primary key column and foreign key column.
-- [ ] Columns in ordinal position order.
+- [x] Column label format: `name (type, null)` or `name (PK, type, not null)`, same style as SSOX (for example `optname (varchar(128), null)`).
+- [x] Icons differ for normal column, primary key column and foreign key column.
+- [x] Columns in ordinal position order.
 
 **Tasks**
 
-- T-0302-01 Table and column queries + label formatter + tests
-- T-0302-02 Table and column nodes with icons
+- [x] T-0302-01 Table and column queries + label formatter + tests
+- [x] T-0302-02 Table and column nodes with icons
 
+**Implementation notes**
+
+- A database node now expands to a "Tables" folder; a table expands to a "Columns" folder. Views, routines and events get their own folders in US-0304 to US-0306; keys, constraints, indexes and triggers below a table in US-0303.
+- Tables: `INFORMATION_SCHEMA.TABLES` with `TABLE_TYPE = 'BASE TABLE'`, sorted by name. `information_schema` itself has no base tables (its tables are system views), so its "Tables" folder is empty; they appear under Views in US-0304. The table comment is shown as tooltip.
+- Columns: `INFORMATION_SCHEMA.COLUMNS` in `ORDINAL_POSITION` order, with a foreign key flag from `KEY_COLUMN_USAGE`. One query per table, only when its "Columns" folder is expanded. Database and table names are passed as query parameters, never pasted into the SQL.
+- Label: `name (PK, FK, type, null|not null)`. The type is the full MySQL type (`int unsigned`, `decimal(10,2)`, `varchar(128)`); ENUM and SET lists longer than 60 characters are shortened with "...". The full type will be in the Properties window (US-0401).
+- Icons: primary key column = key column icon, foreign key column = foreign key icon, generated (virtual or stored) column = computed column icon, other columns = column icon. A column that is both PK and FK shows the key icon.
+- With *Debug logging* on, each query appears with its parameters, duration and row count.
+- 12 new unit tests (152 in total).
+
+**Manual test**
+
+1. Rebuild and press F5. Expand a server, "Databases", one of your databases. Expected: a folder "Tables".
+2. Expand "Tables". Expected: the base tables of that database, sorted by name, with a table icon. Hover a table that has a comment: the comment as tooltip.
+3. Expand a table and its "Columns" folder. Expected: the columns in the order of the table definition, for example `id (PK, int unsigned, not null)`, `name (varchar(100), null)`.
+4. Check a table with a foreign key. Expected: the FK column shows `(FK, ...)` and the foreign key icon.
+5. Check a table with a generated column, if you have one. Expected: the computed column icon.
+6. Expand `mysql` under "System Databases" > "Tables" > `user` > "Columns". Expected: many columns, ENUM columns shown as `enum('N','Y')`.
+7. With *Debug logging* on: the Output pane shows the TABLES and COLUMNS queries with `@schema` and `@table` values.
+
+**Test result**
+
+_To be filled in by Herbert._
 ## US-0303 Keys, constraints, indexes and triggers
 
 **Status:** Todo

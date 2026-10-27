@@ -185,4 +185,13 @@ As a developer, I want to see whether a server is connected, connecting or in er
 
 **Test result**
 
-2026-10-27, Herbert: accepted together with US-0301. Open question from the test: Disconnect keeps a password that was entered in the prompt without "Save password", so expanding again does not ask for it. Herbert expected a new prompt; decision pending.
+2026-10-27, Herbert: accepted together with US-0301. Open question from the test: Disconnect keeps a password that was entered in the prompt without "Save password", so expanding again does not ask for it. Herbert expected a new prompt.
+
+**Follow-up 2026-10-27 (decision: Herbert):** *Disconnect* now forgets a password that is not saved, so the next expand shows the password prompt again, like SQL Server Management Studio without "Remember password". A saved password is kept. Collapsing and expanding without Disconnect does not ask again. Two unit tests added (140 in total).
+
+Manual test of the follow-up:
+
+1. Expand a server whose password is not saved and enter the password in the prompt ("Save password" unchecked).
+2. *Disconnect*, then expand again. Expected: the password prompt appears.
+3. Do the same with a server whose password is saved. Expected: no prompt after Disconnect.
+4. Collapse and expand a connected server without Disconnect. Expected: no prompt.
