@@ -160,38 +160,98 @@ As a developer, I want to see the keys, check constraints, indexes and triggers 
 
 **Test result**
 
-2026-10-27, Herbert: accepted. Tested on sakila and world: keys, triggers and indexes show correctly, both empty and filled. These databases have no CHECK constraints, so the Constraints folder was only seen empty; a filled Constraints folder is covered by unit tests only.
+2026-10-27, Herbert: accepted. Tested on sakila and world: keys, triggers and indexes show correctly, both empty and filled. These databases have no CHECK constraints, so the Constraints folder was only seen empty; a filled Constraints folder was then checked with a test table `sakila.oefm_check_test` (one enforced and one NOT ENFORCED check constraint): both shown correctly.
 ## US-0304 Views
 
-**Status:** Todo
+**Status:** Ready for test
+
+As a developer, I want to see the views of a database and their columns, so that I can use them like tables.
 
 **Acceptance criteria**
 
-- [ ] Views folder per database with views and their columns.
+- [x] Views folder per database with views and their columns.
+- [x] System views (`information_schema`, `performance_schema`, `sys`) appear under Views, not under Tables.
+
+**Tasks**
+
+- [x] T-0304-01 `TABLES` query with `TABLE_TYPE IN ('VIEW', 'SYSTEM VIEW')` + `TableInfo.IsView`
+- [x] T-0304-02 View node with Columns folder + tests
+
+**Implementation notes**
+
+- The database node now has five folders, in SSOX order: Tables, Views, Stored Procedures, Functions, Events.
+- View columns use the same `COLUMNS` query and column node as tables, so labels and icons match.
+
+**Manual test**
+
+1. Connect to a server with the `sakila` sample database.
+2. Expand *sakila*. Expected: folders Tables, Views, Stored Procedures, Functions, Events in that order.
+3. Expand *Views*. Expected: `actor_info`, `customer_list`, `film_list`, `nicer_but_slower_film_list`, `sales_by_film_category`, `sales_by_store`, `staff_list`, with the view icon.
+4. Expand *customer_list > Columns*. Expected: `ID`, `name`, `address` and so on, with data type and nullability.
+5. Expand *Tables*. Expected: no views in this list.
+6. Expand *System Databases > information_schema > Views*. Expected: the system views (`COLUMNS`, `TABLES`, ...). *Tables* is empty for this database.
 
 ## US-0305 Stored procedures, functions and parameters
 
-**Status:** Todo
+**Status:** Ready for test
 
 As a developer, I want to see procedures and functions including their parameters, so that I can drag them into code correctly.
 
 **Acceptance criteria**
 
-- [ ] Parameters show direction and type: `p_id (IN, int)`, `p_total (OUT, decimal(10,2))`.
-- [ ] Function nodes show the return type.
+- [x] Parameters show direction and type: `p_id (IN, int)`, `p_total (OUT, decimal(10,2))`.
+- [x] Function nodes show the return type.
 
 **Tasks**
 
-- T-0305-01 `ROUTINES` and `PARAMETERS` queries + tests
-- T-0305-02 Routine and parameter nodes
+- [x] T-0305-01 `ROUTINES` and `PARAMETERS` queries + tests
+- [x] T-0305-02 Routine and parameter nodes
+
+**Implementation notes**
+
+- Separate folders for Stored Procedures and Functions, like SSOX.
+- Function label: `name (returns type)`. The return value row of a function (`ORDINAL_POSITION = 0`) is not listed as a parameter.
+- Function parameters have no mode in MySQL; they show as IN.
+- Icons: input, output and input/output parameter icons from the VS image catalog. The routine comment is the tooltip.
+
+**Manual test**
+
+1. Expand *sakila > Stored Procedures*. Expected: `film_in_stock`, `film_not_in_stock`, `rewards_report`.
+2. Expand *film_in_stock > Parameters*. Expected: `p_film_id (IN, int)`, `p_store_id (IN, int)`, `p_film_count (OUT, int)`; the OUT parameter has a different icon.
+3. Expand *sakila > Functions*. Expected: `get_customer_balance (returns decimal(5,2))`, `inventory_held_by_customer (returns int)`, `inventory_in_stock (returns tinyint(1))`.
+4. Expand *get_customer_balance > Parameters*. Expected: `p_customer_id (IN, int)`, `p_effective_date (IN, datetime)`; no return value row.
 
 ## US-0306 Events
 
-**Status:** Todo
+**Status:** Ready for test
 
 **Acceptance criteria**
 
-- [ ] Events folder per database with name, status (enabled/disabled) and schedule in tooltip.
+- [x] Events folder per database with name, status (enabled/disabled) and schedule in tooltip.
+
+**Tasks**
+
+- [x] T-0306-01 `EVENTS` query, `EventInfo` with schedule text + tests
+- [x] T-0306-02 Event nodes
+
+**Implementation notes**
+
+- Label `name (enabled)` or `name (disabled)`. `REPLICA_SIDE_DISABLED` / `SLAVESIDE_DISABLED` show as disabled.
+- Tooltip in MySQL syntax: `AT '2026-10-27 12:00:00'` or `EVERY 1 DAY STARTS '...' ENDS '...'`.
+- The list only shows events the account can see (`EVENT` privilege).
+
+**Manual test**
+
+sakila has no events. Create two test events:
+
+```sql
+CREATE EVENT sakila.oefm_daily ON SCHEDULE EVERY 1 DAY STARTS '2026-11-01 02:00:00' DO SELECT 1;
+CREATE EVENT sakila.oefm_once ON SCHEDULE AT '2027-01-01 00:00:00' DISABLE DO SELECT 1;
+```
+
+1. Expand *sakila > Events*. Expected: `oefm_daily (enabled)` and `oefm_once (disabled)` with the timer icon.
+2. Hover each event. Expected: `EVERY 1 DAY STARTS '2026-11-01 02:00:00'` and `AT '2027-01-01 00:00:00'`.
+3. Clean up: `DROP EVENT sakila.oefm_daily; DROP EVENT sakila.oefm_once;`
 
 ## US-0307 Refresh
 
