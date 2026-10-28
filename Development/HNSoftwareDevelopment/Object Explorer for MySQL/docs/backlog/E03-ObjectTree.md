@@ -301,7 +301,7 @@ Use sakila and a MySQL client (Workbench or the `mysql` command line) next to Vi
 
 ## US-0308 Toolbar and filter
 
-**Status:** Ready for test
+**Status:** Done (accepted 2026-10-28)
 
 As a developer, I want to filter the tree by name and collapse it with one click, so that I find objects fast in large databases.
 
