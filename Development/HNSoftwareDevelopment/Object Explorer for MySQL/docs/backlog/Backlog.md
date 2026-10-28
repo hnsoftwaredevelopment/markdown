@@ -18,8 +18,8 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | E01 | [Foundation](E01-Foundation.md) | 0.1 | Done |
 | E02 | [Connection management](E02-ConnectionManagement.md) | 0.1 | Done |
 | E03 | [Object tree](E03-ObjectTree.md) | 0.1 | Done |
-| E04 | [Properties window](E04-PropertiesWindow.md) | 0.1 | In progress |
-| E05 | [Drag & drop to the editor](E05-DragAndDrop.md) | 0.1 | Todo |
+| E04 | [Properties window](E04-PropertiesWindow.md) | 0.1 | Done |
+| E05 | [Drag & drop to the editor](E05-DragAndDrop.md) | 0.1 | In progress |
 | E06 | [Script and view code](E06-ScriptAndCode.md) | 0.2 | Todo |
 | E07 | [Query editor](E07-QueryEditor.md) | 0.2 | Todo |
 | E08 | [View data](E08-ViewData.md) | 0.3 | Todo |
@@ -49,8 +49,8 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | US-0307 | Refresh | Done |
 | US-0308 | Toolbar and filter | Done |
 | US-0401 | Column properties | Done |
-| US-0402 | Properties for other objects | Ready for test |
-| US-0501 | Drag a single object name | Todo |
+| US-0402 | Properties for other objects | Done |
+| US-0501 | Drag a single object name | Ready for test |
 | US-0502 | Drag multiple columns | Todo |
 | US-0503 | Drag a stored procedure or function as a call | Todo |
 | US-0504 | Drop format options | Todo |

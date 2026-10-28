@@ -56,7 +56,7 @@ Use sakila.
 
 ## US-0402 Properties for other objects
 
-**Status:** Ready for test
+**Status:** Done (accepted 2026-10-28)
 
 As a developer, I want to see the properties of every object in the Properties window, not only of columns.
 
