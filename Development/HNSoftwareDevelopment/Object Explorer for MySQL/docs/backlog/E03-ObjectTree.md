@@ -255,22 +255,86 @@ CREATE EVENT sakila.oefm_once ON SCHEDULE AT '2027-01-01 00:00:00' DISABLE DO SE
 
 ## US-0307 Refresh
 
-**Status:** Todo
+**Status:** Done (accepted 2026-10-28)
 
 As a developer, I want to refresh any node, so that I see changes made outside Visual Studio.
 
 **Acceptance criteria**
 
-- [ ] Context menu "Refresh" and F5 key on every node reload that node's children.
-- [ ] Toolbar button refreshes the selected node.
-- [ ] Expanded state of child nodes is kept where the objects still exist.
-- [ ] Refresh does not collapse anything: expanded folders stay expanded and only their content is updated, so a database that was added or dropped elsewhere appears or disappears. *(finding from the US-0301 test, 2026-10-27; today Refresh on a server collapses it to its "Databases" folder)*
+- [x] Context menu "Refresh" and F5 key on every node reload that node's children.
+- [x] Toolbar button refreshes the selected node.
+- [x] Expanded state of child nodes is kept where the objects still exist.
+- [x] Refresh does not collapse anything: expanded folders stay expanded and only their content is updated, so a database that was added or dropped elsewhere appears or disappears. *(finding from the US-0301 test, 2026-10-27)*
+
+**Tasks**
+
+- [x] T-0307-01 Refresh in `TreeNodeViewModel`: keep children visible while loading, restore expanded and selected state by type and key + tests
+- [x] T-0307-02 Refresh command on toolbar, server menu and a new context menu for all other nodes
+- [x] T-0307-03 F5 in its own key binding scope (tool window only)
+
+**Implementation notes**
+
+- Refresh works on the selected node. On a node without children (column, key, parameter, event, "Loading...", error) it refreshes the nearest parent, so Refresh on an error node retries the load.
+- The current children stay visible until the new ones arrive; no "Loading..." flash. A failed reload shows the error node, as before.
+- Nodes are matched on type and object name (`Key`), not on the label. A function whose return type changed, or an event that was disabled, keeps its expanded and selected state.
+- Only expanded nodes are restored. A node that was loaded but collapsed loads fresh on the next expand.
+- When the selected object was dropped, the refreshed node gets the selection.
+- Refresh on a server reconnects first (the icon briefly shows "connecting"), then restores the tree below it.
+- F5: the tool window is a key binding scope (`ProvideKeyBindingTable` + `VSFPROPID_InheritKeyBindings` on the frame). The scope is listed as "Object Explorer for MySQL" in *Tools > Options > Environment > Keyboard*, where the shortcut can be changed.
+- Shift+F10 / context menu key now also works on nested nodes (it only worked on servers).
+
+**Manual test**
+
+Use sakila and a MySQL client (Workbench or the `mysql` command line) next to Visual Studio.
+
+1. Expand the server, *Databases*, *sakila*, *Tables*, *actor* and *actor > Columns*. Also expand *sakila > Views*.
+2. Select *film* under Tables. Press F5 with the focus in the explorer. Expected: the tree stays as it is, *film* stays selected, no debug session starts.
+3. Click in a code file and press F5. Expected: *Start Debugging* (or the message that there is nothing to start).
+4. In the client: `CREATE DATABASE oefm_refresh;` Select the server node, press F5. Expected: `oefm_refresh` appears under Databases; *sakila*, *Tables*, *actor*, *Columns* and *Views* stay expanded.
+5. In the client: `CREATE TABLE sakila.oefm_new (id int primary key);` Right-click *Tables*, choose *Refresh*. Expected: `oefm_new` appears; *actor* stays expanded.
+6. Select `oefm_new`. In the client: `DROP TABLE sakila.oefm_new;` Press the Refresh button on the explorer toolbar. Expected: the table is gone and *Tables* is selected.
+7. Select a column of *actor*, press F5. Expected: the *Columns* folder reloads (the column list stays visible).
+8. Select a node with the keyboard and press Shift+F10. Expected: the context menu with *Refresh* appears below that node.
+9. *Tools > Options > Environment > Keyboard*, search for `Refresh` in the command list. Expected: the command shows *F5 (Object Explorer for MySQL)*.
+10. Disconnect the server, select it. Expected: *Refresh* is disabled on the toolbar and in the menu.
+11. Clean up: `DROP DATABASE oefm_refresh;`
 
 ## US-0308 Toolbar and filter
 
-**Status:** Todo
+**Status:** Ready for test
+
+As a developer, I want to filter the tree by name and collapse it with one click, so that I find objects fast in large databases.
 
 **Acceptance criteria**
 
-- [ ] Tool window toolbar: Refresh, Add server, Collapse all.
-- [ ] Filter box filters loaded tables, views and routines by name (case-insensitive).
+- [x] Tool window toolbar: Add server (done in US-0201), Refresh (done in US-0307), Collapse All.
+- [x] Filter box filters loaded tables, views and routines by name (case-insensitive). Events are filtered too.
+- [x] The list filters while typing; a clear button (x) empties the filter. *(decision 2026-10-28)*
+- [x] No Expand All: it would fill the window and load every object from the server. *(decision 2026-10-28)*
+
+**Tasks**
+
+- [x] T-0308-01 `ExplorerFilter`, node visibility, filterable folders with "(filtered)" label, Collapse All + tests
+- [x] T-0308-02 Visual Studio search box on the tool window (instant search) and Collapse All button
+
+**Implementation notes**
+
+- The filter box is the standard Visual Studio tool window search box, like Solution Explorer: it follows the theme, filters on every keystroke and has the (x) clear button. Esc in the box also clears it.
+- Matching: the name contains the text, ignoring case. Leading and trailing spaces are ignored.
+- The filter applies to the objects in the folders Tables, Views, Stored Procedures, Functions and Events, in every database and on every server. Servers, databases, columns, keys and other table folders are not filtered.
+- A filtered folder shows as `Tables (filtered)`, like SQL Server Management Studio.
+- The filter also applies to folders that load later (expand, refresh). Error and "Loading..." nodes stay visible.
+- The filter only hides nodes; it does not query the server.
+- Collapse All collapses every node at every level, keeps the connections and the loaded data, and moves a selection inside a server to that server. Expanding a server afterwards shows only its Databases folder, collapsed.
+
+**Manual test**
+
+1. Connect to the server, expand *sakila > Tables*, *sakila > Views* and *sakila > Functions*. Also expand *world > Tables*.
+2. Click in the search box above the tree and type `cust`. Expected: the list filters while you type. *Tables (filtered)* shows `customer` only; *Views (filtered)* shows `customer_list`; *Functions (filtered)* shows `get_customer_balance` and `inventory_held_by_customer`; *world > Tables (filtered)* is empty.
+3. Type `CUST` instead. Expected: same result (case-insensitive).
+4. With the filter active, expand *sakila > Stored Procedures*. Expected: *Stored Procedures (filtered)* is empty (no procedure name contains "cust").
+5. Click the (x) in the search box. Expected: all objects are back and the folder labels lose "(filtered)".
+6. Type `film`, select *sakila > Tables* and press F5. Expected: after the refresh the filter still applies.
+7. Clear the filter. Expand several databases and tables, select a column. Click *Collapse All* on the toolbar. Expected: everything collapses to the server list, the server stays connected (icon) and is selected.
+8. Expand the server again. Expected: only *Databases*, collapsed; expanding it shows the databases without a new "Loading..." (the data was kept).
+9. Switch to the Dark and the Light theme. Expected: the search box and the Collapse All icon follow the theme.

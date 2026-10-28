@@ -46,8 +46,8 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | US-0304 | Views | Done |
 | US-0305 | Stored procedures, functions and parameters | Done |
 | US-0306 | Events | Done |
-| US-0307 | Refresh | Todo |
-| US-0308 | Toolbar and filter | Todo |
+| US-0307 | Refresh | Done |
+| US-0308 | Toolbar and filter | Ready for test |
 | US-0401 | Column properties | Todo |
 | US-0402 | Properties for other objects | Todo |
 | US-0501 | Drag a single object name | Todo |
