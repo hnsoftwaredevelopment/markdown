@@ -163,7 +163,7 @@ As a developer, I want to see the keys, check constraints, indexes and triggers 
 2026-10-27, Herbert: accepted. Tested on sakila and world: keys, triggers and indexes show correctly, both empty and filled. These databases have no CHECK constraints, so the Constraints folder was only seen empty; a filled Constraints folder was then checked with a test table `sakila.oefm_check_test` (one enforced and one NOT ENFORCED check constraint): both shown correctly.
 ## US-0304 Views
 
-**Status:** Ready for test
+**Status:** Done (accepted 2026-10-28)
 
 As a developer, I want to see the views of a database and their columns, so that I can use them like tables.
 
@@ -193,7 +193,7 @@ As a developer, I want to see the views of a database and their columns, so that
 
 ## US-0305 Stored procedures, functions and parameters
 
-**Status:** Ready for test
+**Status:** Done (accepted 2026-10-28)
 
 As a developer, I want to see procedures and functions including their parameters, so that I can drag them into code correctly.
 
@@ -223,7 +223,7 @@ As a developer, I want to see procedures and functions including their parameter
 
 ## US-0306 Events
 
-**Status:** Ready for test
+**Status:** Done (accepted 2026-10-28)
 
 **Acceptance criteria**
 

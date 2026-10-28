@@ -43,9 +43,9 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | US-0301 | Databases and system databases | Done |
 | US-0302 | Tables and columns | Done |
 | US-0303 | Keys, constraints, indexes and triggers | Done |
-| US-0304 | Views | Ready for test |
-| US-0305 | Stored procedures, functions and parameters | Ready for test |
-| US-0306 | Events | Ready for test |
+| US-0304 | Views | Done |
+| US-0305 | Stored procedures, functions and parameters | Done |
+| US-0306 | Events | Done |
 | US-0307 | Refresh | Todo |
 | US-0308 | Toolbar and filter | Todo |
 | US-0401 | Column properties | Todo |
