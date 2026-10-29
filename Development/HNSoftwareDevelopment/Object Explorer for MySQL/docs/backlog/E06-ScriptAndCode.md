@@ -78,7 +78,7 @@ As a developer, I want ready-made SQL for common statements on a table.
 - SELECT lists every column in table order. INSERT skips auto-increment and generated columns. UPDATE sets every column except the primary key, auto-increment and generated columns. UPDATE and DELETE filter on the primary key (`WHERE actor_id = @actor_id AND film_id = @film_id` for a composite key).
 - Without a primary key, UPDATE and DELETE get `WHERE 1 = 0` and a comment, so a script that is run by accident changes no rows.
 - Scripts always name the database (`sakila.film`), so they run whatever database is active. Backticks follow the option *Backticks in .sql files* (US-0504); user variables get backticks only when needed.
-- CREATE uses `SHOW CREATE` as in View Code, with DELIMITER for procedures and functions. DROP is a plain `DROP TABLE|VIEW|PROCEDURE|FUNCTION db.name;` (no `IF EXISTS`, so a typo gives an error).
+- CREATE uses `SHOW CREATE` as in View Code, with DELIMITER for procedures and functions. MySQL quotes every name in that output; with *Only when needed* the script removes the backticks where that is safe (decision 2026-10-29, Herbert). Strings, comments and version comments (`/*!50100 ... */`) stay unchanged, and names that need backticks (`order`, `first name`) keep them. View Code keeps the server output as it is. DROP is a plain `DROP TABLE|VIEW|PROCEDURE|FUNCTION db.name;` (no `IF EXISTS`, so a typo gives an error).
 - *New Query Window* opens `<database>.<object>.<STATEMENT>.sql` (for example `sakila.film.INSERT.sql`) with a comment line, linked to the connection like View Code; an open document is shown, not overwritten. *Clipboard* copies only the statement.
 - Columns and parameters are read from the server at the moment of scripting, so the script matches the current definition, also when the tree was not refreshed.
 - Fix found while testing the scripts (since US-0302): columns with an expression default such as `last_update ... DEFAULT CURRENT_TIMESTAMP` (EXTRA `DEFAULT_GENERATED`) counted as generated columns: computed-column icon in the tree, *Is Generated* True in the Properties window. Now only `VIRTUAL GENERATED`, `STORED GENERATED` and `PERSISTENT GENERATED` count.
@@ -92,9 +92,9 @@ Use sakila and the New Query Window target unless stated otherwise.
 3. INSERT To. Expected: `INSERT INTO sakila.actor (first_name, last_name, last_update) VALUES (@first_name, @last_name, @last_update);` (no `actor_id`, which is auto-increment).
 4. UPDATE To. Expected: `SET first_name = @first_name, last_name = @last_name, last_update = @last_update` and `WHERE actor_id = @actor_id;`.
 5. DELETE To on *film_actor*. Expected: `WHERE actor_id = @actor_id AND film_id = @film_id;`.
-6. CREATE To and DROP To on *actor*. Expected: the CREATE TABLE statement as in View Code; `DROP TABLE sakila.actor;`.
+6. CREATE To and DROP To on *actor*. Expected: the CREATE TABLE statement without backticks (`CREATE TABLE actor (actor_id smallint unsigned NOT NULL AUTO_INCREMENT, ...`); strings such as `DEFAULT CURRENT_TIMESTAMP` or comments unchanged; `DROP TABLE sakila.actor;`. View Code on *actor* still shows the backticks.
 7. Script As on view *actor_info*. Expected: only CREATE, DROP and SELECT.
-8. Procedure *film_in_stock*: CALL To > Clipboard, paste. Expected: `CALL sakila.film_in_stock(@p_film_id, @p_store_id, @p_film_count);` without comment line.
+8. Procedure *film_in_stock*: CALL To > Clipboard (the second item, below New Query Window), paste. Expected: `CALL sakila.film_in_stock(@p_film_id, @p_store_id, @p_film_count);` without comment line; no document opens.
 9. Function *get_customer_balance*: SELECT To. Expected: `SELECT sakila.get_customer_balance(@p_customer_id, @p_effective_date);`.
 10. Right-click a column, a trigger or a folder. Expected: no *Script As*.
 11. Set *Backticks in .sql files* to *Always* and script INSERT for *actor*. Expected: `` `sakila`.`actor` `` and backticked column names; the `@` variables stay as they are. Reset the option.
