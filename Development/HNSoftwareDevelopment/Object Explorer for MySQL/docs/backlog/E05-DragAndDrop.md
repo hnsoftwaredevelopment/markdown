@@ -137,7 +137,7 @@ Use sakila and a `.sql` file.
 
 ## US-0504 Drop format options
 
-**Status:** Ready for test
+**Status:** Done (accepted 2026-10-29)
 
 As a developer, I want to configure how names are inserted.
 
