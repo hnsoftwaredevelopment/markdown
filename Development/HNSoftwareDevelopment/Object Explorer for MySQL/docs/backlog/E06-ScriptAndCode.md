@@ -4,7 +4,7 @@ Open the source of objects and generate standard SQL scripts.
 
 ## US-0601 View Code
 
-**Status:** Ready for test
+**Status:** Done (accepted 2026-10-29)
 
 As a developer, I want to open the definition of a table, view, procedure, function, trigger or event.
 
@@ -42,7 +42,7 @@ Use sakila.
 6. Change something in `sakila.film.sql` without saving, then View Code on *film* again. Expected: the open document is shown, your change is still there.
 7. Close it without saving and run View Code again. Expected: the definition from the server.
 8. Right-click a column, key, index or folder. Expected: no *View Code* in the menu.
-9. Optional: copy the procedure document into a MySQL client and run it on a test database. Expected: it runs because of the DELIMITER lines.
+9. Optional: copy the procedure document into a MySQL client and run it on a test database. Expected: it runs because of the DELIMITER lines. *(Checked 2026-10-29 in DBeaver.)*
 
 ## US-0602 Script As
 

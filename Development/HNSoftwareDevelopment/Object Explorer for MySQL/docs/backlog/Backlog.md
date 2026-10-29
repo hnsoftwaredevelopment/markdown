@@ -54,7 +54,7 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | US-0502 | Drag multiple columns | Done |
 | US-0503 | Drag a stored procedure or function as a call | Done |
 | US-0504 | Drop format options | Done |
-| US-0601 | View Code | Ready for test |
+| US-0601 | View Code | Done |
 | US-0602 | Script As | Todo |
 | US-0603 | Script database | Todo |
 | US-0701 | New Query | Todo |
