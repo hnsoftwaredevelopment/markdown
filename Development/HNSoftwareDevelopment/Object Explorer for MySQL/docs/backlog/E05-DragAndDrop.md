@@ -54,7 +54,7 @@ CREATE TABLE sakila.oefm_drag (`order` int, `first name` varchar(20), customer_i
 
 ## US-0502 Drag multiple columns
 
-**Status:** Ready for test
+**Status:** Done (accepted 2026-10-29)
 
 As a developer, I want to drag several selected columns at once, so that I get a column list.
 
@@ -99,20 +99,41 @@ Use sakila, table *film*.
 
 ## US-0503 Drag a stored procedure or function as a call
 
-**Status:** Todo
+**Status:** Ready for test
 
 As a developer, I want to drag a procedure and get a complete call with the correct parameter names.
 
 **Acceptance criteria**
 
-- [ ] Procedure in `.sql`: `` CALL `db`.`sp_name`(@p_id, @p_name); ``
-- [ ] Function in `.sql`: `` SELECT `db`.`fn_name`(@p1); ``
-- [ ] Holding Alt while dropping inserts only the name.
+- [x] Procedure in `.sql`: `` CALL `db`.`sp_name`(@p_id, @p_name); `` (quoting only when needed, D-5: `CALL db.sp_name(@p_id, @p_name);`)
+- [x] Function in `.sql`: `` SELECT `db`.`fn_name`(@p1); `` (likewise `SELECT db.fn_name(@p1);`)
+- [x] Holding Alt while dropping inserts only the name.
 
 **Tasks**
 
-- T-0503-01 Call format builder + tests
-- T-0503-02 Modifier key handling
+- [x] T-0503-01 Call format builder + tests
+- [x] T-0503-02 Modifier key handling
+
+**Implementation notes**
+
+- Every parameter becomes a user variable with the parameter name: `@p_film_id`. A name with characters a user variable cannot have unquoted gets backticks: `` @`p id` ``.
+- The call always includes the database, so it works whatever database is active in the query window. US-0504 adds an option for the prefix.
+- When the routine was never expanded, the parameters are loaded at the start of the drag (one short query). If that fails, the drag drops only the name and the Output window logs a warning.
+- In C#, VB and other files, and in other applications, the drag drops only the name (as in US-0501). Ctrl+C also copies only the name.
+- Alt is read at the moment of dropping: hold Alt while you release the mouse button.
+
+**Manual test**
+
+Use sakila and a `.sql` file.
+
+1. Drag procedure `film_in_stock` (without expanding it first) into the `.sql` file. Expected: `CALL sakila.film_in_stock(@p_film_id, @p_store_id, @p_film_count);`
+2. Drag procedure `rewards_report`. Expected: `CALL sakila.rewards_report(@min_monthly_purchases, @min_dollar_amount_purchased, @count_rewardees);`
+3. Drag function `get_customer_balance`. Expected: `SELECT sakila.get_customer_balance(@p_customer_id, @p_effective_date);`
+4. Expand `inventory_in_stock > Parameters`, then drag the function. Expected: `SELECT sakila.inventory_in_stock(@p_inventory_id);`
+5. Drag `film_in_stock` again and hold Alt while releasing. Expected: `film_in_stock`.
+6. Drag `film_in_stock` into a `.cs` file. Expected: `film_in_stock`.
+7. Select `get_customer_balance`, press Ctrl+C, paste. Expected: `get_customer_balance`.
+8. Optional: run the dropped CALL in a MySQL client after `SET @p_film_id = 1, @p_store_id = 1;` and check `SELECT @p_film_count;`.
 
 ## US-0504 Drop format options
 
