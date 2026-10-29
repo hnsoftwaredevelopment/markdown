@@ -137,18 +137,48 @@ Use sakila and a `.sql` file.
 
 ## US-0504 Drop format options
 
-**Status:** Todo
+**Status:** Ready for test
 
 As a developer, I want to configure how names are inserted.
 
 **Acceptance criteria**
 
-- [ ] Options page *Tools > Options > Object Explorer for MySQL > Drag & Drop*.
-- [ ] Settings: quote identifiers (Always / When needed / Never), include database prefix (yes/no), column list separator (comma + space / comma + newline).
-- [ ] Default for quoting is *When needed* (decision D-5); the setting also applies to Copy (Ctrl+C).
-- [ ] Settings stored with the VisualStudio.Extensibility settings API.
+- [x] Options page *Tools > Options > Object Explorer for MySQL > Drag & Drop*.
+- [x] Settings (changed 2026-10-29, see notes):
+  - Backticks in .sql files: Only when needed (default, D-5) / Always
+  - Backticks in other files: Never (default) / Only when needed / Always
+  - Database prefix for tables and views: off (default) / on
+  - Database prefix in procedure and function calls: on (default) / off
+  - Column list separator: comma and space (default) / comma and new line
+- [x] Settings stored with the VisualStudio.Extensibility settings API.
+- [x] The setting for other files also applies to Copy (Ctrl+C).
 
 **Tasks**
 
-- T-0504-01 Settings definitions
-- T-0504-02 Apply settings in `DropTextBuilder` + tests
+- [x] T-0504-01 Settings definitions
+- [x] T-0504-02 Apply settings in `DropTextBuilder` + tests
+
+**Implementation notes**
+
+- Decision 2026-10-29 (Herbert): two quoting settings instead of one, so you can have backticks in SQL and plain names in C# (where you add your own quotes). Two prefix settings instead of one: a call usually needs the database, a table name usually not.
+- "Never" is not offered for .sql files: a reserved word such as `order` without backticks is invalid SQL.
+- Ctrl+C follows the setting for other files, because the clipboard does not know where you paste.
+- The table prefix applies in all files (`sakila.actor`); columns, databases and the name-only drop of a routine (Alt) get no prefix. The call prefix applies to the CALL/SELECT in .sql files.
+- Parameter variables (`@p_film_id`) are not affected by the quoting settings; they get backticks only when the name needs them.
+- Changes apply to the next drag without restarting Visual Studio. The options are read when you open the explorer from the View menu or when the first editor opens; before that, the defaults apply.
+- The "Debug logging" option is now also read when the first editor opens, so it works when Visual Studio restores the explorer window at startup.
+
+**Manual test**
+
+Use sakila and a `.sql` and a `.cs` file.
+
+1. Open *Tools > Options > Object Explorer for MySQL > Drag & Drop*. Expected: the five settings with the defaults above and their descriptions.
+2. Without changing anything, drag table `actor` into the `.sql` and the `.cs` file. Expected: `actor` in both.
+3. Set *Backticks in .sql files* to *Always*. Drag `actor` into the `.sql` file: `` `actor` ``. Into the `.cs` file: `actor`. Drag `film_in_stock` into the `.sql` file: `` CALL `sakila`.`film_in_stock`(@p_film_id, @p_store_id, @p_film_count); ``.
+4. Set *Backticks in other files* to *Always*. Drag `actor` into the `.cs` file: `` `actor` ``. Select `actor`, press Ctrl+C, paste: `` `actor` ``. Set it to *Only when needed*: column `order` of the test table (`CREATE TABLE sakila.oefm_drag (`order` int, customer_id int);`) gives `` `order` ``, `customer_id` stays plain.
+5. Turn on *Database prefix for tables and views*. Drag `actor`: `.sql` gives `sakila.actor` (or `` `sakila`.`actor` `` with Always); `.cs` gives `sakila.actor`. Drag a column: no prefix.
+6. Turn off *Database prefix in procedure and function calls*. Drag `get_customer_balance` into the `.sql` file: `SELECT get_customer_balance(@p_customer_id, @p_effective_date);`
+7. Set *Column list separator* to *Comma and new line*. Drag the Columns folder of `actor` into the `.sql` file. Expected: one column per line, each line except the last ending with a comma.
+8. Restart Visual Studio (the explorer window opens again by itself), open the `.sql` file and drag `actor`. Expected: the changed settings still apply.
+9. Reset the settings to their defaults. Clean up: `DROP TABLE sakila.oefm_drag;`
+

@@ -53,7 +53,7 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | US-0501 | Drag a single object name | Done |
 | US-0502 | Drag multiple columns | Done |
 | US-0503 | Drag a stored procedure or function as a call | Done |
-| US-0504 | Drop format options | Todo |
+| US-0504 | Drop format options | Ready for test |
 | US-0601 | View Code | Todo |
 | US-0602 | Script As | Todo |
 | US-0603 | Script database | Todo |
@@ -81,3 +81,4 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | D-3 | Minimum MySQL version | 8.0 (ADR-008) | 2026-10-23 |
 | D-4 | Documentation language | English | 2026-10-23 |
 | D-5 | Quoting of dragged names in .sql files | Only when needed (default); Always / Never as option in US-0504 | 2026-10-28 |
+| D-6 | Drag & Drop options | Separate quoting for .sql and other files; separate database prefix for tables/views and for calls (US-0504) | 2026-10-29 |
