@@ -56,7 +56,7 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | US-0504 | Drop format options | Done |
 | US-0601 | View Code | Done |
 | US-0602 | Script As | Done |
-| US-0603 | Script database | Todo |
+| US-0603 | Script database | Ready for test |
 | US-0701 | New Query | Todo |
 | US-0702 | MySQL syntax coloring | Todo |
 | US-0703 | Execute and show results | Todo |
@@ -82,3 +82,4 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | D-4 | Documentation language | English | 2026-10-23 |
 | D-5 | Quoting of dragged names in .sql files | Only when needed (default); Always / Never as option in US-0504 | 2026-10-28 |
 | D-6 | Drag & Drop options | Separate quoting for .sql and other files; separate database prefix for tables/views and for calls (US-0504) | 2026-10-29 |
+| D-7 | Data in Script Database | With or without data only: all rows of every table, no row limit and no selection per table, because partial data breaks foreign keys (US-0603) | 2026-10-29 |

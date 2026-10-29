@@ -103,12 +103,51 @@ Use sakila and the New Query Window target unless stated otherwise.
 
 ## US-0603 Script database
 
-**Status:** Todo
+**Status:** Ready for test
 
 As a developer, I want a full DDL script of a database (replacement for the SQL Server "Extract Data-tier Application").
 
 **Acceptance criteria**
 
-- [ ] Context menu on database "Script Database" generates CREATE statements for tables (in foreign-key order), views, routines, triggers and events.
-- [ ] Optional: include data as INSERT statements, with a row limit per table.
-- [ ] Result opens in a new `.sql` document or is saved to a file.
+- [x] Context menu on database "Script Database" generates CREATE statements for tables (in foreign-key order), views, routines, triggers and events.
+- [x] Optional: include data as INSERT statements. All rows of every table or no data at all; no row limit and no selection per table (decision D-7).
+- [x] Result opens in a new `.sql` document or is saved to a file.
+
+**Tasks**
+
+- [x] T-0603-01 `DatabaseScripter`, `SqlLiteral` and `DependencyOrder` in Core, new metadata calls (SHOW CREATE DATABASE, foreign key dependencies, read rows) + tests
+- [x] T-0603-02 Command *Script Database...*, options dialog, wait dialog with cancel, window or file output
+
+**Implementation notes**
+
+- *Script Database...* is in the context menu of user databases only (not mysql, information_schema, performance_schema, sys). It needs a connected server.
+- Dialog: *Include CREATE DATABASE and USE* (default on), *Include data* (default off), output *New query window* (default) or *File...* (save dialog, UTF-8 without BOM).
+- Order of the script:
+  1. Header comment with database, connection and time.
+  2. `SHOW CREATE DATABASE IF NOT EXISTS` output and `USE`, when chosen.
+  3. `SET NAMES utf8mb4`, `FOREIGN_KEY_CHECKS = 0`, `SQL_MODE = 'NO_AUTO_VALUE_ON_ZERO'`, `TIME_ZONE = '+00:00'`, each with the old value saved in a user variable, as mysqldump does.
+  4. Tables in foreign key order (a table follows the tables it references; alphabetical otherwise). Tables in a cycle, such as *store* and *staff* in sakila, and the tables that depend on them follow at the end, alphabetically; they still load because foreign key checks are off.
+  5. Data, when chosen: `INSERT INTO table (columns) VALUES (...), (...);` with at most 100 rows or about 1 MB per statement. Generated columns are left out. Binary values are written as hex (`0x...`), zero dates stay `0000-00-00`, TIMESTAMP values are read and written in UTC.
+  6. The saved settings are restored, so routines and triggers get the SQL mode of the session that runs the script.
+  7. Functions, procedures, views (a view that uses another view follows it; views come after the functions they may call), triggers, events. Triggers come after the data, so they do not fire while the rows load.
+- One change against the design: views now come after functions and procedures instead of before them, because MySQL refuses a view that calls a function that does not exist yet.
+- CREATE statements follow the option *Backticks in .sql files* (US-0504), as in Script As.
+- Objects without source (routines of another definer without the SHOW_ROUTINE privilege) are written as a comment; a message lists them afterwards.
+- Progress and cancel use the Visual Studio wait dialog. Cancel during a file output deletes the incomplete file.
+- *New query window* opens `<database>.DATABASE.sql`. When that document is already open, the new script gets `<database>.DATABASE (2).sql`, so a second run with other options always shows its own result.
+- Known limits, the same as mysqldump: `SHOW CREATE VIEW` names the tables with their database (`sakila.actor`), so views in a copy under another name still point to the original database. DEFINER clauses are kept. `DECIMAL` values with more than 28 digits cannot be read by .NET and stop the script with an error.
+
+**Manual test**
+
+Use sakila.
+
+1. Right-click database *sakila*. Expected: *Script Database...* in the menu, in the group of *View Code* and *Script As*. Right-click *mysql* (System Databases) or a table. Expected: no *Script Database...*.
+2. Open the dialog. Expected: *Include CREATE DATABASE and USE* on, *Include data* off, *New query window* selected. Click *Script*.
+3. Expected: `sakila.DATABASE.sql` opens with the header, `CREATE DATABASE /*!32312 IF NOT EXISTS*/ sakila ...;`, `USE sakila;`, the SET lines, then 16 tables, no INSERT statements, the restore lines, 3 functions, 3 procedures, 7 views, 6 triggers and no events section (sakila has no events).
+4. Check the order: *country* before *city* before *address*. *staff* and *store* reference each other, so they and the tables that depend on them (*customer*, *inventory*, *payment*, *rental*) come last, alphabetically. Trigger *ins_film* comes after the views.
+5. Check the backticks: no backticks where they are not needed, the same as Script As CREATE To.
+6. Run *Script Database...* again with *Include data* on and *File...*. Save as `sakila-full.sql`. Expected: a wait dialog with progress (Tables, Data, ...) and then a message with the path. The file contains `INSERT INTO rental (...) VALUES` in blocks of 100 rows; *address* rows contain a hex value for `location`; *staff* has a hex value for `picture` where it is filled.
+7. Run with data and click *Cancel* in the wait dialog while it reads *Data*. Expected: no message, no file left behind (when *File...* was chosen).
+8. Run with data to a new query window twice without closing the first document. Expected: the second result opens as `sakila.DATABASE (2).sql`.
+9. Restore test in DBeaver: create an empty database *sakila_copy*. Script *sakila* with data, *Include CREATE DATABASE and USE* off, to a file. Open the file in DBeaver with *sakila_copy* as active database and run it as script (Alt+X). Expected: no errors; 16 tables with the same row counts as sakila (for example *rental* 16044, *payment* 16049); `SELECT COUNT(*) FROM film_text` gives 1000 (the triggers did not add rows twice). The views still read from *sakila* (known limit).
+10. Set *Backticks in .sql files* to *Always* and script again. Expected: `` USE `sakila`; `` and backticks in all CREATE and INSERT statements. Reset the option.
