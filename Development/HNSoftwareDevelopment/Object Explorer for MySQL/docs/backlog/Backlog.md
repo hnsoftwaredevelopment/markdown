@@ -50,8 +50,8 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | US-0308 | Toolbar and filter | Done |
 | US-0401 | Column properties | Done |
 | US-0402 | Properties for other objects | Done |
-| US-0501 | Drag a single object name | Ready for test |
-| US-0502 | Drag multiple columns | Todo |
+| US-0501 | Drag a single object name | Done |
+| US-0502 | Drag multiple columns | Ready for test |
 | US-0503 | Drag a stored procedure or function as a call | Todo |
 | US-0504 | Drop format options | Todo |
 | US-0601 | View Code | Todo |
@@ -80,3 +80,4 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | D-2 | License | MIT (ADR-009) | 2026-10-23 |
 | D-3 | Minimum MySQL version | 8.0 (ADR-008) | 2026-10-23 |
 | D-4 | Documentation language | English | 2026-10-23 |
+| D-5 | Quoting of dragged names in .sql files | Only when needed (default); Always / Never as option in US-0504 | 2026-10-28 |

@@ -4,7 +4,7 @@ Drag object names from the tree into any editor so they are used without typing 
 
 ## US-0501 Drag a single object name
 
-**Status:** Ready for test
+**Status:** Done (accepted 2026-10-28)
 
 As a developer, I want to drag a column, table, view, procedure or function into the editor, so that its exact name is inserted.
 
@@ -54,20 +54,48 @@ CREATE TABLE sakila.oefm_drag (`order` int, `first name` varchar(20), customer_i
 
 ## US-0502 Drag multiple columns
 
-**Status:** Todo
+**Status:** Ready for test
 
 As a developer, I want to drag several selected columns at once, so that I get a column list.
 
 **Acceptance criteria**
 
-- [ ] Tree supports multi-select with Ctrl and Shift within the same table.
-- [ ] Dragging the "Columns" folder drops all columns.
-- [ ] Result: comma-separated list in ordinal order, for example `` `id`, `name`, `created_at` ``.
+- [x] Tree supports multi-select with Ctrl and Shift within the same table.
+- [x] Dragging the "Columns" folder drops all columns.
+- [x] Result: comma-separated list in ordinal order, for example `` `id`, `name`, `created_at` `` (quoting follows D-5: only when needed, so `id, name, created_at`).
 
 **Tasks**
 
-- T-0502-01 Multi-select support in tree
-- T-0502-02 Column list format + tests
+- [x] T-0502-01 Multi-select support in tree
+- [x] T-0502-02 Column list format + tests
+
+**Implementation notes**
+
+- Multi-select works only for columns of the same table or view, starting from the selected column:
+  - Ctrl+click adds a column or removes it again.
+  - Shift+click selects the range from the selected column to the clicked one (both directions).
+  - Ctrl or Shift+click on a node that is not a column of the same table selects that node as usual and ends the multi-selection.
+- The extra columns get the same highlight as the selected node. The Properties window shows the column that was selected first.
+- Pressing the mouse on one of the selected columns keeps the selection, so you can drag all of them. Releasing without dragging selects only that column, like Windows Explorer.
+- Dragging a column outside the selection drags only that column.
+- The list is always in ordinal (table) order, whatever the click order.
+- Dragging or copying the Columns folder gives all columns of the table or view. When the folder was never expanded, it is loaded first (one short query).
+- Ctrl+C copies the same list as a drag. The separator is `, ` for now; US-0504 adds comma + newline as option.
+
+**Manual test**
+
+Use sakila, table *film*.
+
+1. Expand *film > Columns*, click `film_id`.
+2. Ctrl+click `title` and `release_year`. Expected: three columns highlighted.
+3. Drag `title` into a `.cs` file. Expected: `film_id, title, release_year`.
+4. Click `rating`, Shift+click `description`. Expected: `description` up to `rating` highlighted (`description, release_year, language_id, original_language_id, rental_duration, rental_rate, length, replacement_cost, rating`).
+5. Drag the selection into a `.sql` file. Expected: the same list; no backticks needed for these names.
+6. Ctrl+click `release_year` again. Expected: it is no longer highlighted. Press Ctrl+C, paste. Expected: the list without `release_year`.
+7. With several columns selected, click one of them and release without moving. Expected: only that column is selected.
+8. With several columns selected, Ctrl+click a column of another table (for example *actor > Columns > first_name*). Expected: only `first_name` is selected.
+9. Collapse *actor*, then drag *actor > Columns* (the folder) into the editor without expanding it. Expected: `actor_id, first_name, last_name, last_update`.
+10. With the test table from US-0501 (`CREATE TABLE sakila.oefm_drag (`order` int, `first name` varchar(20), customer_id int);`): drag its Columns folder into the `.sql` file. Expected: `` `order`, `first name`, customer_id ``. Clean up with `DROP TABLE sakila.oefm_drag;`.
 
 ## US-0503 Drag a stored procedure or function as a call
 
@@ -96,6 +124,7 @@ As a developer, I want to configure how names are inserted.
 
 - [ ] Options page *Tools > Options > Object Explorer for MySQL > Drag & Drop*.
 - [ ] Settings: quote identifiers (Always / When needed / Never), include database prefix (yes/no), column list separator (comma + space / comma + newline).
+- [ ] Default for quoting is *When needed* (decision D-5); the setting also applies to Copy (Ctrl+C).
 - [ ] Settings stored with the VisualStudio.Extensibility settings API.
 
 **Tasks**

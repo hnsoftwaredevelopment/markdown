@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/Backlog.md",
+                "file": "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E05-DragAndDrop.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "Backlog"
+              "title": "E05-DragAndDrop"
             }
           }
         ]
@@ -366,10 +366,10 @@
       "cmdr:Omnisearch: Vault search": false
     }
   },
-  "active": "74ccfcdd7539b7ab",
+  "active": "a76ab09dac4b2700",
   "lastOpenFiles": [
-    "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E04-PropertiesWindow.md",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/Backlog.md",
+    "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E04-PropertiesWindow.md",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E05-DragAndDrop.md",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E03-ObjectTree.md",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E02-ConnectionManagement.md",
