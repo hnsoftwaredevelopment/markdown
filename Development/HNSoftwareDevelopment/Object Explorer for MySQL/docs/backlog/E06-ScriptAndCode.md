@@ -46,7 +46,7 @@ Use sakila.
 
 ## US-0602 Script As
 
-**Status:** Ready for test
+**Status:** Done (accepted 2026-10-29)
 
 As a developer, I want ready-made SQL for common statements on a table.
 
