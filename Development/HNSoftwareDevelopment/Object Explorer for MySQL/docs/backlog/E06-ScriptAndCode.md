@@ -46,21 +46,60 @@ Use sakila.
 
 ## US-0602 Script As
 
-**Status:** Todo
+**Status:** Ready for test
 
 As a developer, I want ready-made SQL for common statements on a table.
 
 **Acceptance criteria**
 
-- [ ] Context menu *Script Table As*: CREATE, DROP, SELECT, INSERT, UPDATE, DELETE.
-- [ ] Target: new query window, or clipboard.
-- [ ] INSERT and UPDATE use placeholders for values, skip generated and auto-increment columns in INSERT.
-- [ ] *Script Procedure As*: CREATE, DROP, CALL.
+- [x] Context menu *Script Table As*: CREATE, DROP, SELECT, INSERT, UPDATE, DELETE.
+- [x] Target: new query window, or clipboard.
+- [x] INSERT and UPDATE use placeholders for values, skip generated and auto-increment columns in INSERT.
+- [x] *Script Procedure As*: CREATE, DROP, CALL.
+- [x] Added (decision 2026-10-29): views (CREATE, DROP, SELECT) and functions (CREATE, DROP, SELECT of a call).
 
 **Tasks**
 
-- T-0602-01 `ScriptGenerator` in Core + tests per statement
-- T-0602-02 Context menus
+- [x] T-0602-01 `ScriptGenerator` in Core + tests per statement
+- [x] T-0602-02 Context menus
+
+**Implementation notes**
+
+- Menu: *Script As > CREATE To / DROP To / SELECT To / INSERT To / UPDATE To / DELETE To / CALL To > New Query Window / Clipboard*, like SQL Server Object Explorer. Only the statements of the selected object type are shown.
+
+| Object | CREATE | DROP | SELECT | INSERT | UPDATE | DELETE | CALL |
+|---|---|---|---|---|---|---|---|
+| Table | yes | yes | yes | yes | yes | yes | |
+| View | yes | yes | yes | | | | |
+| Procedure | yes | yes | | | | | yes |
+| Function | yes | yes | yes (`SELECT fn(...)`) | | | | |
+
+- Placeholders are user variables named after the column or parameter (decision 2026-10-29): `VALUES (@title, @description)`, `SET title = @title`, `CALL sakila.film_in_stock(@p_film_id, ...)`. The script runs after `SET @title = ...;`.
+- SELECT lists every column in table order. INSERT skips auto-increment and generated columns. UPDATE sets every column except the primary key, auto-increment and generated columns. UPDATE and DELETE filter on the primary key (`WHERE actor_id = @actor_id AND film_id = @film_id` for a composite key).
+- Without a primary key, UPDATE and DELETE get `WHERE 1 = 0` and a comment, so a script that is run by accident changes no rows.
+- Scripts always name the database (`sakila.film`), so they run whatever database is active. Backticks follow the option *Backticks in .sql files* (US-0504); user variables get backticks only when needed.
+- CREATE uses `SHOW CREATE` as in View Code, with DELIMITER for procedures and functions. DROP is a plain `DROP TABLE|VIEW|PROCEDURE|FUNCTION db.name;` (no `IF EXISTS`, so a typo gives an error).
+- *New Query Window* opens `<database>.<object>.<STATEMENT>.sql` (for example `sakila.film.INSERT.sql`) with a comment line, linked to the connection like View Code; an open document is shown, not overwritten. *Clipboard* copies only the statement.
+- Columns and parameters are read from the server at the moment of scripting, so the script matches the current definition, also when the tree was not refreshed.
+- Fix found while testing the scripts (since US-0302): columns with an expression default such as `last_update ... DEFAULT CURRENT_TIMESTAMP` (EXTRA `DEFAULT_GENERATED`) counted as generated columns: computed-column icon in the tree, *Is Generated* True in the Properties window. Now only `VIRTUAL GENERATED`, `STORED GENERATED` and `PERSISTENT GENERATED` count.
+
+**Manual test**
+
+Use sakila and the New Query Window target unless stated otherwise.
+
+1. Right-click table *actor*, open *Script As*. Expected: CREATE To, DROP To, SELECT To, INSERT To, UPDATE To, DELETE To; no CALL To.
+2. SELECT To > New Query Window. Expected: `sakila.actor.SELECT.sql` with `SELECT actor_id, first_name, last_name, last_update FROM sakila.actor;` (one column per line).
+3. INSERT To. Expected: `INSERT INTO sakila.actor (first_name, last_name, last_update) VALUES (@first_name, @last_name, @last_update);` (no `actor_id`, which is auto-increment).
+4. UPDATE To. Expected: `SET first_name = @first_name, last_name = @last_name, last_update = @last_update` and `WHERE actor_id = @actor_id;`.
+5. DELETE To on *film_actor*. Expected: `WHERE actor_id = @actor_id AND film_id = @film_id;`.
+6. CREATE To and DROP To on *actor*. Expected: the CREATE TABLE statement as in View Code; `DROP TABLE sakila.actor;`.
+7. Script As on view *actor_info*. Expected: only CREATE, DROP and SELECT.
+8. Procedure *film_in_stock*: CALL To > Clipboard, paste. Expected: `CALL sakila.film_in_stock(@p_film_id, @p_store_id, @p_film_count);` without comment line.
+9. Function *get_customer_balance*: SELECT To. Expected: `SELECT sakila.get_customer_balance(@p_customer_id, @p_effective_date);`.
+10. Right-click a column, a trigger or a folder. Expected: no *Script As*.
+11. Set *Backticks in .sql files* to *Always* and script INSERT for *actor*. Expected: `` `sakila`.`actor` `` and backticked column names; the `@` variables stay as they are. Reset the option.
+12. Check the fix: expand *actor > Columns*. Expected: `last_update` has the normal column icon; Properties shows *Is Generated* False.
+13. Optional: run the INSERT in DBeaver after `SET @first_name = 'TEST', @last_name = 'USER', @last_update = NOW();`, then the DELETE with `SET @actor_id = LAST_INSERT_ID();`.
 
 ## US-0603 Script database
 
