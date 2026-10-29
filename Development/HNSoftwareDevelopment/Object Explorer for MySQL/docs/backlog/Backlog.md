@@ -52,7 +52,7 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | US-0402 | Properties for other objects | Done |
 | US-0501 | Drag a single object name | Done |
 | US-0502 | Drag multiple columns | Done |
-| US-0503 | Drag a stored procedure or function as a call | Ready for test |
+| US-0503 | Drag a stored procedure or function as a call | Done |
 | US-0504 | Drop format options | Todo |
 | US-0601 | View Code | Todo |
 | US-0602 | Script As | Todo |

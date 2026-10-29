@@ -99,7 +99,7 @@ Use sakila, table *film*.
 
 ## US-0503 Drag a stored procedure or function as a call
 
-**Status:** Ready for test
+**Status:** Done (accepted 2026-10-29)
 
 As a developer, I want to drag a procedure and get a complete call with the correct parameter names.
 
