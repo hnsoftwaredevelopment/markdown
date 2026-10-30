@@ -37,7 +37,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/Parked.md",
+                "file": "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E07-QueryEditor.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -52,11 +52,10 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "Parked"
+              "title": "E07-QueryEditor"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -391,7 +390,7 @@
       "cmdr:Omnisearch: Vault search": false
     }
   },
-  "active": "1982f7e044b7c34a",
+  "active": "74ccfcdd7539b7ab",
   "lastOpenFiles": [
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E07-QueryEditor.md",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/Parked.md",

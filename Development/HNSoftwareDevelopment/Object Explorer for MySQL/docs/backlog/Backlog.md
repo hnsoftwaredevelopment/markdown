@@ -21,7 +21,7 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | E04 | [Properties window](E04-PropertiesWindow.md) | 0.1 | Done |
 | E05 | [Drag & drop to the editor](E05-DragAndDrop.md) | 0.1 | Done |
 | E06 | [Script and view code](E06-ScriptAndCode.md) | 0.2 | Done |
-| E07 | [Query editor](E07-QueryEditor.md) | 0.2 | In progress |
+| E07 | [Query editor](E07-QueryEditor.md) | 0.2 | Done |
 | E08 | [View data](E08-ViewData.md) | 0.3 | Todo |
 | E09 | [Object management](E09-ObjectManagement.md) | 0.3 | Todo |
 | E10 | [Security](E10-Security.md) | 0.3 | Todo |
@@ -60,7 +60,7 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | US-0701 | New Query | Done |
 | US-0702 | MySQL syntax coloring | Done |
 | US-0703 | Execute and show results | Done |
-| US-0704 | Export results | Ready for test |
+| US-0704 | Export results | Done |
 | US-0801 | View data (read-only) | Todo |
 | US-0802 | Edit data | Todo |
 | US-0901 | Delete objects | Todo |

@@ -154,7 +154,7 @@ Use sakila.
 
 ## US-0704 Export results
 
-**Status:** Ready for test
+**Status:** Done (accepted 2026-10-30)
 
 As a developer, I want to save a result set as a file, so I can use it in Excel or another tool.
 
