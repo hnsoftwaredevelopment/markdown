@@ -22,7 +22,7 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | E05 | [Drag & drop to the editor](E05-DragAndDrop.md) | 0.1 | Done |
 | E06 | [Script and view code](E06-ScriptAndCode.md) | 0.2 | Done |
 | E07 | [Query editor](E07-QueryEditor.md) | 0.2 | Done |
-| E08 | [View data](E08-ViewData.md) | 0.3 | Todo |
+| E08 | [View data](E08-ViewData.md) | 0.3 | In progress |
 | E09 | [Object management](E09-ObjectManagement.md) | 0.3 | Todo |
 | E10 | [Security](E10-Security.md) | 0.3 | Todo |
 | E11 | [Packaging and release](E11-Release.md) | 1.0 | Todo |
@@ -61,7 +61,7 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | US-0702 | MySQL syntax coloring | Done |
 | US-0703 | Execute and show results | Done |
 | US-0704 | Export results | Done |
-| US-0801 | View data (read-only) | Todo |
+| US-0801 | View data (read-only) | Ready for test |
 | US-0802 | Edit data | Todo |
 | US-0901 | Delete objects | Todo |
 | US-0902 | Rename objects | Todo |
@@ -88,3 +88,4 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | D-9 | Editor for query documents | Own *MySQL Query Editor* (code editor with content type `MySql`), not the T-SQL editor of SSDT and no own file extension (ADR-012, US-0701) | 2026-10-30 |
 | D-10 | Syntax coloring | Own classifier with a tokenizer in Core, not a TextMate grammar: a grammar is bound to the .sql extension, which already has one, and cannot target the `MySql` content type (US-0702) | 2026-10-30 |
 | D-11 | Server session of a query document | One session per document that stays open between runs (variables, temporary tables, USE and transactions carry over), closed with the document. An exception to "connections per operation" in the workflow checklist (US-0703) | 2026-10-30 |
+| D-12 | View Data window and filter | A tab in the document well per table (multi-instance tool window, not reopened at startup); a filter box below each column header: contains for text, equal for numbers and dates, NULL / NOT NULL (US-0801) | 2026-10-30 |
