@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E06-ScriptAndCode.md",
+                "file": "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/Backlog.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "E06-ScriptAndCode"
+              "title": "Backlog"
             }
           }
         ]
@@ -368,6 +368,7 @@
   },
   "active": "74ccfcdd7539b7ab",
   "lastOpenFiles": [
+    "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E06-ScriptAndCode.md",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E05-DragAndDrop.md",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/Backlog.md",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E04-PropertiesWindow.md",
@@ -382,7 +383,6 @@
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E09-ObjectManagement.md",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E08-ViewData.md",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E07-QueryEditor.md",
-    "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E06-ScriptAndCode.md",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/Parked.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-48-checklist.md",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog",

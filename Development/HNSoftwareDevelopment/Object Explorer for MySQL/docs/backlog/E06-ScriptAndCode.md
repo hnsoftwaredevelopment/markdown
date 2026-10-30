@@ -103,7 +103,7 @@ Use sakila and the New Query Window target unless stated otherwise.
 
 ## US-0603 Script database
 
-**Status:** Ready for test
+**Status:** Done (accepted 2026-10-29)
 
 As a developer, I want a full DDL script of a database (replacement for the SQL Server "Extract Data-tier Application").
 
@@ -128,8 +128,8 @@ As a developer, I want a full DDL script of a database (replacement for the SQL 
   3. `SET NAMES utf8mb4`, `FOREIGN_KEY_CHECKS = 0`, `SQL_MODE = 'NO_AUTO_VALUE_ON_ZERO'`, `TIME_ZONE = '+00:00'`, each with the old value saved in a user variable, as mysqldump does.
   4. Tables in foreign key order (a table follows the tables it references; alphabetical otherwise). Tables in a cycle, such as *store* and *staff* in sakila, and the tables that depend on them follow at the end, alphabetically; they still load because foreign key checks are off.
   5. Data, when chosen: `INSERT INTO table (columns) VALUES (...), (...);` with at most 100 rows or about 1 MB per statement. Generated columns are left out. Binary values are written as hex (`0x...`), zero dates stay `0000-00-00`, TIMESTAMP values are read and written in UTC.
-  6. The saved settings are restored, so routines and triggers get the SQL mode of the session that runs the script.
-  7. Functions, procedures, views (a view that uses another view follows it; views come after the functions they may call), triggers, events. Triggers come after the data, so they do not fire while the rows load.
+  6. The saved settings are restored, so routines and triggers get the SQL mode of the session that runs the script. Each restore line has a fallback: `SET FOREIGN_KEY_CHECKS = IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1);`, and the global value for SQL_MODE and TIME_ZONE. DBeaver can run this part in another session than the header; without the fallback the user variables are NULL and MySQL gives error 1231.
+  7. Functions, procedures, views (a view that uses another view follows it; views come after the functions they may call), triggers, events. Triggers come after the data, so they do not fire while the rows load. Views are written as `CREATE OR REPLACE ... VIEW`, so running the script again on an existing database does not stop at error 1050. Tables, routines, triggers and events are not; the script is meant for an empty database (decision D-8).
 - One change against the design: views now come after functions and procedures instead of before them, because MySQL refuses a view that calls a function that does not exist yet.
 - CREATE statements follow the option *Backticks in .sql files* (US-0504), as in Script As.
 - Objects without source (routines of another definer without the SHOW_ROUTINE privilege) are written as a comment; a message lists them afterwards.

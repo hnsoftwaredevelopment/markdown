@@ -20,7 +20,7 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | E03 | [Object tree](E03-ObjectTree.md) | 0.1 | Done |
 | E04 | [Properties window](E04-PropertiesWindow.md) | 0.1 | Done |
 | E05 | [Drag & drop to the editor](E05-DragAndDrop.md) | 0.1 | Done |
-| E06 | [Script and view code](E06-ScriptAndCode.md) | 0.2 | In progress |
+| E06 | [Script and view code](E06-ScriptAndCode.md) | 0.2 | Done |
 | E07 | [Query editor](E07-QueryEditor.md) | 0.2 | Todo |
 | E08 | [View data](E08-ViewData.md) | 0.3 | Todo |
 | E09 | [Object management](E09-ObjectManagement.md) | 0.3 | Todo |
@@ -56,7 +56,7 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | US-0504 | Drop format options | Done |
 | US-0601 | View Code | Done |
 | US-0602 | Script As | Done |
-| US-0603 | Script database | Ready for test |
+| US-0603 | Script database | Done |
 | US-0701 | New Query | Todo |
 | US-0702 | MySQL syntax coloring | Todo |
 | US-0703 | Execute and show results | Todo |
@@ -83,3 +83,4 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | D-5 | Quoting of dragged names in .sql files | Only when needed (default); Always / Never as option in US-0504 | 2026-10-28 |
 | D-6 | Drag & Drop options | Separate quoting for .sql and other files; separate database prefix for tables/views and for calls (US-0504) | 2026-10-29 |
 | D-7 | Data in Script Database | With or without data only: all rows of every table, no row limit and no selection per table, because partial data breaks foreign keys (US-0603) | 2026-10-29 |
+| D-8 | Re-running Script Database | The script targets an empty database. Views use CREATE OR REPLACE and the settings restore has an IFNULL fallback; no DROP or IF NOT EXISTS for other objects, because the extension is an object explorer, not a full database management tool (US-0603) | 2026-10-29 |
