@@ -47,7 +47,7 @@ Use the connection with sakila. SSDT is installed, so a `.sql` file normally ope
 
 ## US-0702 MySQL syntax coloring
 
-**Status:** Ready for test
+**Status:** Done (accepted 2026-10-30)
 
 **Acceptance criteria**
 
