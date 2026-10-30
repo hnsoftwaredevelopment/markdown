@@ -59,7 +59,7 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | US-0603 | Script database | Done |
 | US-0701 | New Query | Done |
 | US-0702 | MySQL syntax coloring | Done |
-| US-0703 | Execute and show results | Todo |
+| US-0703 | Execute and show results | Ready for test |
 | US-0801 | View data (read-only) | Todo |
 | US-0802 | Edit data | Todo |
 | US-0901 | Delete objects | Todo |
@@ -86,3 +86,4 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | D-8 | Re-running Script Database | The script targets an empty database. Views use CREATE OR REPLACE and the settings restore has an IFNULL fallback; no DROP or IF NOT EXISTS for other objects, because the extension is an object explorer, not a full database management tool (US-0603) | 2026-10-29 |
 | D-9 | Editor for query documents | Own *MySQL Query Editor* (code editor with content type `MySql`), not the T-SQL editor of SSDT and no own file extension (ADR-012, US-0701) | 2026-10-30 |
 | D-10 | Syntax coloring | Own classifier with a tokenizer in Core, not a TextMate grammar: a grammar is bound to the .sql extension, which already has one, and cannot target the `MySql` content type (US-0702) | 2026-10-30 |
+| D-11 | Server session of a query document | One session per document that stays open between runs (variables, temporary tables, USE and transactions carry over), closed with the document. An exception to "connections per operation" in the workflow checklist (US-0703) | 2026-10-30 |

@@ -92,23 +92,63 @@ Use the connection with sakila. SSDT is installed, so a `.sql` file normally ope
 
 ## US-0703 Execute and show results
 
-**Status:** Todo
+**Status:** Ready for test
 
 As a developer, I want to execute the query and see the results in a grid.
 
 **Acceptance criteria**
 
-- [ ] Ctrl+Shift+E executes the selection, or the full document when nothing is selected.
-- [ ] Results pane below the editor with tabs *Results* (one grid per result set) and *Messages* (rows affected, warnings, duration).
-- [ ] Cancel button stops a running query (`KILL QUERY`).
-- [ ] Large result sets: grid virtualization, default limit 1000 rows with a notice.
-- [ ] Copy cells, copy with headers.
+- [x] Ctrl+Shift+E executes the selection, or the full document when nothing is selected.
+- [x] Results pane below the editor with tabs *Results* (one grid per result set) and *Messages* (rows affected, warnings, duration).
+- [x] Cancel button stops a running query (`KILL QUERY`).
+- [x] Large result sets: grid virtualization, default limit 1000 rows with a notice.
+- [x] Copy cells, copy with headers.
 
 **Tasks**
 
-- T-0703-01 Query executor in Core (multiple result sets, cancel) + integration tests
-- T-0703-02 Results pane UI with virtualized grid
-- T-0703-03 Execute and cancel commands
+- [x] T-0703-01 Query executor in Core: `SqlScriptSplitter` (with DELIMITER), `MySqlQuerySession`, `QueryRunner`, `QueryValueFormatter` + unit tests. Integration tests against a real server are not added; the runner is tested with a fake session.
+- [x] T-0703-02 Results pane UI with virtualized grid (editor margin below the main view)
+- [x] T-0703-03 Execute and cancel commands: key binding scope *MySQL Query Editor* (ADR-013), context menu, buttons in the bar
+
+**Implementation notes**
+
+- *Execute*: Ctrl+Shift+E, the Run button in the bar above the editor, or *Execute* in the context menu of the editor. Runs the selection, or the whole document when nothing is selected. *Cancel Query*: Alt+Break, the Stop button, or the context menu.
+- The shortcuts belong to the key binding scope *MySQL Query Editor* (*Tools > Options > Environment > Keyboard*, commands `MySQL.Execute` and `MySQL.CancelQuery`). The editor window inherits the Text Editor shortcuts, so normal editing keys keep working. Ctrl+Shift+E outside this editor keeps its own meaning (ADR-013).
+- The script is split into statements as the mysql client does: on `;` outside strings, backtick names and comments; `DELIMITER $$` changes the delimiter, so procedures and triggers from *View Code* and *Script Database* run as they are. Comments before a statement are left out; `/*! ... */` and `/*+ ... */` are code.
+- Statements run one by one, in the database of the bar. Execution stops at the first error; the Messages tab shows the MySQL error number, the line in the editor and the message.
+- One server session per document (decision D-11): user variables, temporary tables, `USE` and an open transaction carry over to the next run, as in MySQL Workbench and SSMS. The session closes with the document, and is replaced when another connection is chosen or the connection was lost. A `USE` in the script updates the Database list in the bar.
+- *Results* tab: one grid per result set; several result sets are stacked, each with its own scroll bar. At most 1000 rows per result set are shown; the rest is read and counted, so the Messages tab gives the real total (`16044 row(s) returned; the first 1000 are shown.`). Cancel stops reading a large result.
+- Values: `NULL` for NULL, numbers and dates in invariant format (`2026-10-30 14:05:00`, DATE as `2026-10-30`), TIME as `838:59:59`, binary data as hex (first 64 bytes), zero dates as `0000-00-00`. TINYINT(1) shows 0/1 and CHAR(36) the text, as the server stores them.
+- *Messages* tab: rows returned or affected per statement, warnings and notes of the server, and the total duration. After a run the pane shows *Results* when there are result sets and no error, otherwise *Messages*.
+- Copy: Ctrl+C or *Copy* in the context menu of a grid copies the selected cells (all cells when nothing is selected), tab-separated; *Copy with Headers* adds the column names.
+- The pane appears at the first run, can be resized by dragging its top edge and closed with the ✕ button; the next run shows it again.
+- Not in this story: sorting the grid, export (US-0704), a setting for the row limit.
+
+**Manual test**
+
+Use sakila.
+
+1. *New Query* on *sakila*. Type `SELECT * FROM actor;` and press Ctrl+Shift+E. Expected: the results pane opens below the editor with 200 rows in a grid; Messages: `200 row(s) returned.` and `1 statement(s) completed in ... ms.`
+2. Check the editor still works normally: arrow keys, Ctrl+Z, Ctrl+L (cut line), Alt+Up (move line), Ctrl+F. Press Ctrl+Shift+E in a C# file: Visual Studio's own command (or nothing), no MySQL execution.
+3. Type a second statement `SELECT * FROM film_text LIMIT 5;`, select only that line and click the Run button in the bar. Expected: only that statement runs (5 rows).
+4. Run `SELECT * FROM rental;` Expected: 1000 rows in the grid; Messages: `16044 row(s) returned; the first 1000 are shown.`
+5. Run without selection:
+   ```sql
+   SELECT COUNT(*) FROM actor;
+   SELECT * FROM category;
+   UPDATE actor SET first_name = first_name WHERE actor_id = 1;
+   ```
+   Expected: two grids stacked; Messages has `1 row(s) returned.`, `16 row(s) returned.`, `0 row(s) affected.`
+6. Error: `SELECT 1;` on line 1, `SELEC 2;` on line 3, `SELECT 3;` on line 4. Run all. Expected: Messages tab is shown with `Error 1064 at line 3: You have an error in your SQL syntax...`; `SELECT 3` did not run.
+7. Session: run `SET @x = 42;`, then run `SELECT @x;` separately. Expected: 42. Run `USE world;` Expected: the Database list in the bar shows *world*.
+8. DELIMITER: *View Code* on procedure *film_in_stock*, change `CREATE PROCEDURE` into `CREATE PROCEDURE film_in_stock_copy` (name only), run the whole document. Expected: no error; the procedure exists (Refresh in the explorer). Drop it afterwards with `DROP PROCEDURE film_in_stock_copy;`.
+9. Cancel: run `SELECT SLEEP(30);` and press Alt+Break (or click Stop) after a few seconds. Expected: `Cancelled after ...`; the Run button is enabled again; `SELECT 1;` runs right after.
+10. Warnings: run `SELECT CAST('12abc' AS UNSIGNED);` Expected: Messages shows `Warning 1292: Truncated incorrect INTEGER value: '12abc'`.
+11. Values: `SELECT NULL, 1.50, NOW(), CURDATE(), CAST('838:59:59' AS TIME), 0x0AFF, picture FROM staff LIMIT 1;` Expected: `NULL`, `1.50`, date-time, date only, `838:59:59`, `0x0AFF`, the picture as hex ending with `...`.
+12. Copy: click a cell in the grid, press Ctrl+C and paste in Notepad: the value. Select a block of cells with the mouse, right-click > *Copy with Headers*: column names and values, tab-separated. Press the arrow keys in the grid: the cell selection moves (not the editor caret).
+13. Pane: drag the top edge to make it larger and smaller; close it with ✕; run again: it opens again. Switch the theme (Dark, Light, Blue): the pane, grid headers and selection follow the theme.
+14. Connection: pick a connection without a saved password and run. Expected: the password prompt; Cancel runs nothing. A document without connection: Messages says *Choose a connection in the bar above the editor.*
+15. Close the document after step 7 and open the server's process list (`SHOW PROCESSLIST;` in another query window). Expected: no session of the closed document left.
 
 ## US-0704 Export results
 

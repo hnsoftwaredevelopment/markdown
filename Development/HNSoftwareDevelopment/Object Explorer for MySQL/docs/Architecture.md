@@ -135,6 +135,20 @@ Integration tests run against MySQL 8.0 and 8.4.
 
 **Consequence.** Files keep the `.sql` extension. A user who wants all `.sql` files in the MySQL Query Editor uses *Open With > Set as Default*.
 
+## ADR-013 Own key binding scope for the MySQL Query Editor
+
+**Status:** Accepted (2026-10-30)
+
+**Context.** Execute must be Ctrl+Shift+E, as in SSMS and the T-SQL editor. A binding in the Text Editor scope would take the key in every text editor (C#, XML) and hide Visual Studio's own Ctrl+Shift+E there. Results are shown in editor margins (US-0703); their grid needs the arrow keys and Ctrl+C, which Visual Studio normally sends to the text view.
+
+**Decision.**
+
+- The editor factory reports its own GUID as command UI context. That GUID is a key binding scope *MySQL Query Editor* (`ProvideKeyBindingTable`) with Ctrl+Shift+E (Execute) and Alt+Break (Cancel Query).
+- Each window of the editor inherits the Text Editor bindings (`VSFPROPID_InheritKeyBindings`, set when the window is first shown), so all editing shortcuts stay.
+- While the keyboard is in the results pane, a command filter on the text view reports editor commands (VSStd2K, and Copy, Cut, Paste, Select All, Delete, Undo, Redo) as not supported, so Visual Studio passes the keys on to the grid.
+
+**Consequence.** Users can change the shortcuts in *Tools > Options > Environment > Keyboard* under the scope *MySQL Query Editor*.
+
 ## Parked topics
 
 - Table designer (visual create/alter table)
