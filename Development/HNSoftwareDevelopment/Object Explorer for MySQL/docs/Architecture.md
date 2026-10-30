@@ -121,6 +121,20 @@ Integration tests run against MySQL 8.0 and 8.4.
 
 **Consequence.** VSCT texts are not in `Strings.resx`; a language is added with a culture-specific VSCT file (see [Localization](Localization.md)).
 
+## ADR-012 Query documents open in an own MySQL Query Editor
+
+**Status:** Accepted (2026-10-30)
+
+**Context.** With SQL Server Data Tools (SSDT) installed, Visual Studio opens every `.sql` file in the T-SQL editor. That editor marks MySQL syntax (backticks, `LIMIT`, `DELIMITER`) as errors, has its own connection bar and uses Ctrl+Shift+E for SQL Server. Alternatives considered: an own file extension `.mysql` (no conflict, but existing `.sql` files and the documents of View Code and Script As would need another extension) and adding our bar to the T-SQL editor (least code, but the T-SQL errors and the second connection bar stay).
+
+**Decision.**
+
+- An editor factory *MySQL Query Editor* creates the standard Visual Studio code editor with an own content type `MySql` (base type `code`). Language detection from the file extension is switched off for its buffers (`VsBufferDetectLangSID` = false), so `.sql` does not switch them to T-SQL.
+- The factory is registered for `.sql` with priority 0: it is listed in *Open With* but never becomes the default by itself. Documents created by the extension always open with it.
+- Editor features of the query editor (connection bar, later coloring and execution) are MEF parts for the content type `MySql`, so they never appear in other editors.
+
+**Consequence.** Files keep the `.sql` extension. A user who wants all `.sql` files in the MySQL Query Editor uses *Open With > Set as Default*.
+
 ## Parked topics
 
 - Table designer (visual create/alter table)
