@@ -59,7 +59,8 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | US-0603 | Script database | Done |
 | US-0701 | New Query | Done |
 | US-0702 | MySQL syntax coloring | Done |
-| US-0703 | Execute and show results | Ready for test |
+| US-0703 | Execute and show results | Done |
+| US-0704 | Export results | Ready for test |
 | US-0801 | View data (read-only) | Todo |
 | US-0802 | Edit data | Todo |
 | US-0901 | Delete objects | Todo |

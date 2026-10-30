@@ -92,7 +92,7 @@ Use the connection with sakila. SSDT is installed, so a `.sql` file normally ope
 
 ## US-0703 Execute and show results
 
-**Status:** Ready for test
+**Status:** Done (accepted 2026-10-30)
 
 As a developer, I want to execute the query and see the results in a grid.
 
@@ -123,7 +123,7 @@ As a developer, I want to execute the query and see the results in a grid.
 - Copy: Ctrl+C or *Copy* in the context menu of a grid copies the selected cells (all cells when nothing is selected), tab-separated; *Copy with Headers* adds the column names.
 - The pane appears at the first run, can be resized by dragging its top edge and closed with the ✕ button; the next run shows it again.
 - The editor keeps the keyboard focus during and after a run; the Run and Stop buttons take no focus. Only when the user clicked into the results pane during the run, the focus stays there.
-- Not in this story: sorting the grid, export (US-0704), a setting for the row limit.
+- Not in this story: sorting the grid, export (US-0704), a setting for the row limit (P-05).
 
 **Manual test**
 
@@ -154,8 +154,31 @@ Use sakila.
 
 ## US-0704 Export results
 
-**Status:** Parked candidate
+**Status:** Ready for test
+
+As a developer, I want to save a result set as a file, so I can use it in Excel or another tool.
 
 **Acceptance criteria**
 
-- [ ] Save a result set as CSV or JSON.
+- [x] Save a result set as CSV or JSON.
+
+**Tasks**
+
+- [x] T-0704-01 `QueryResultExporter` in Core (CSV and JSON) + tests; *Save Results As...* in the context menu of a result grid
+
+**Implementation notes**
+
+- Picked up from the parked list (P-04) on 2026-10-30.
+- *Save Results As...* in the context menu of a grid saves that result set. The file type follows the choice in the save dialog: CSV or JSON.
+- Only the rows shown are saved (at most 1000, US-0703). When the result had more rows, a question first says how many rows are saved. Saving the full result is parked as P-05.
+- CSV: RFC 4180, comma separated, a header line with the column names, fields with a comma, quote or line break in double quotes, NULL as an empty field. UTF-8 with BOM, so Excel shows accents right. Values as in the grid (invariant numbers, ISO dates); binary data in full as hex.
+- JSON: an array with one object per row; numbers stay numbers, NULL is `null`, other values are strings. A column name that occurs twice gets a suffix (`id_2`). UTF-8 without BOM.
+
+**Manual test**
+
+1. Run `SELECT * FROM actor;` Right-click the grid > *Save Results As...*, keep *CSV file*, save as `actor.csv`. Open it in Notepad: a header line `actor_id,first_name,last_name,last_update` and 200 lines. Open it in Excel (*Data > From Text/CSV*): 200 rows, 4 columns.
+2. Save the same result as `actor.json` (choose *JSON file* in the dialog). Open it in Visual Studio: valid JSON, `"actor_id": 1` as a number, `last_update` as a string.
+3. Run `SELECT NULL AS a, 'x,"y"' AS b, 1 AS a;` and save as CSV and as JSON. Expected CSV: `a,b,a` and `,"x,""y""",1`. Expected JSON: `{"a": null, "b": "x,\"y\"", "a_2": 1}`.
+4. Run `SELECT * FROM rental;` and choose *Save Results As...* Expected: the question that only 1000 of 16044 rows are saved; *No* saves nothing, *Yes* opens the save dialog.
+5. With two result sets (`SELECT * FROM category; SELECT * FROM language;`): *Save Results As...* on the second grid saves only the languages.
+6. Save to a read-only file or a folder without write access. Expected: an error message; Visual Studio keeps running.

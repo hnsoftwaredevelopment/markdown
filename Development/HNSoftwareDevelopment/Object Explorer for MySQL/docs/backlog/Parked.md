@@ -16,4 +16,12 @@ Compare two databases (or a database and a script) and generate a migration scri
 
 ## P-04 Export query results
 
-CSV/JSON export of result sets (US-0704).
+Picked up on 2026-10-30 as US-0704 in E07: CSV and JSON export of the rows shown in a result grid.
+
+## P-05 Full result beyond the row limit
+
+The results pane keeps at most 1000 rows per result set (US-0703), and the export saves those rows (US-0704). Ideas:
+
+- *Show all rows* in the grid on request, with a warning for very large results (memory of Visual Studio).
+- *Export full result*: run the statement again and stream all rows straight to the CSV or JSON file, without keeping them in memory, with progress and Cancel. Needs care: the statement runs a second time, so only for statements without side effects (SELECT, SHOW).
+- A setting for the row limit.
