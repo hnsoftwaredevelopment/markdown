@@ -122,6 +122,7 @@ As a developer, I want to execute the query and see the results in a grid.
 - *Messages* tab: rows returned or affected per statement, warnings and notes of the server, and the total duration. After a run the pane shows *Results* when there are result sets and no error, otherwise *Messages*.
 - Copy: Ctrl+C or *Copy* in the context menu of a grid copies the selected cells (all cells when nothing is selected), tab-separated; *Copy with Headers* adds the column names.
 - The pane appears at the first run, can be resized by dragging its top edge and closed with the ✕ button; the next run shows it again.
+- The editor keeps the keyboard focus during and after a run; the Run and Stop buttons take no focus. Only when the user clicked into the results pane during the run, the focus stays there.
 - Not in this story: sorting the grid, export (US-0704), a setting for the row limit.
 
 **Manual test**
@@ -149,6 +150,7 @@ Use sakila.
 13. Pane: drag the top edge to make it larger and smaller; close it with ✕; run again: it opens again. Switch the theme (Dark, Light, Blue): the pane, grid headers and selection follow the theme.
 14. Connection: pick a connection without a saved password and run. Expected: the password prompt; Cancel runs nothing. A document without connection: Messages says *Choose a connection in the bar above the editor.*
 15. Close the document after step 7 and open the server's process list (`SHOW PROCESSLIST;` in another query window). Expected: no session of the closed document left.
+16. Focus (fix after the first test round): run with Ctrl+Shift+E and with the Run button. Expected: right after the run the arrow keys move the caret in the editor without clicking in it first. Click a cell in the grid during a long run (`SELECT SLEEP(5), 1;`): the focus stays in the grid.
 
 ## US-0704 Export results
 
