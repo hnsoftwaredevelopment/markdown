@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/Backlog.md",
+                "file": "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E07-QueryEditor.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "Backlog"
+              "title": "E07-QueryEditor"
             }
           }
         ]
@@ -368,9 +368,9 @@
   },
   "active": "74ccfcdd7539b7ab",
   "lastOpenFiles": [
+    "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/Backlog.md",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E06-ScriptAndCode.md",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E05-DragAndDrop.md",
-    "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/Backlog.md",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E04-PropertiesWindow.md",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E03-ObjectTree.md",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E02-ConnectionManagement.md",

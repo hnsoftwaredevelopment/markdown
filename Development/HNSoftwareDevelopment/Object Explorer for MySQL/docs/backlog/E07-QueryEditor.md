@@ -4,7 +4,7 @@ Write and execute SQL against a selected server and database inside Visual Studi
 
 ## US-0701 New Query
 
-**Status:** Ready for test
+**Status:** Done (accepted 2026-10-30)
 
 As a developer, I want to open a query window for a selected database.
 
@@ -47,12 +47,48 @@ Use the connection with sakila. SSDT is installed, so a `.sql` file normally ope
 
 ## US-0702 MySQL syntax coloring
 
-**Status:** Todo
+**Status:** Ready for test
 
 **Acceptance criteria**
 
-- [ ] `.sql` documents linked to a MySQL connection use MySQL keywords for coloring (TextMate grammar).
-- [ ] Coloring follows the Visual Studio theme.
+- [x] Documents in the MySQL Query Editor use MySQL keywords for coloring (own classifier instead of a TextMate grammar, decision D-10).
+- [x] Coloring follows the Visual Studio theme.
+
+**Tasks**
+
+- [x] T-0702-01 `MySqlTokenizer`, `MySqlKeywords` and `MySqlLineStates` in Core + tests
+- [x] T-0702-02 `MySqlClassifier` (MEF) for the content type `MySql`
+
+**Implementation notes**
+
+- Colors come from the standard Visual Studio classifications, so they follow the theme and *Tools > Options > Environment > Fonts and Colors*: *Keyword*, *Comment*, *String*, *Number*, and *Identifier* for backtick names and variables.
+- Keywords: the reserved words of MySQL 8.0/8.4, frequent non-reserved keywords (data types, ENGINE, DEFINER, BEGIN/END, ...) and `DELIMITER`. Built-in functions (COUNT, NOW, CONCAT) keep the text color. A word after a dot (`t.status`) is never a keyword.
+- Comments: `-- ` (only with a space or at the line end, as in MySQL, so `5--3` stays a calculation), `#` and `/* */`, also over several lines. `/*!40101 ... */` is colored as a comment, although MySQL runs it.
+- Strings in single and double quotes with `''` and backslash escapes; backtick identifiers with ` `` `; strings and backticks can continue on the next line.
+- Variables: `@name`, `@@sql_mode`, `@@global.max_connections`, `` @`my var` ``.
+- Only the changed lines are read again after an edit, plus the lines after them when a comment or string opens or closes, so large scripts (Script Database with data) stay fast.
+- Only documents in the MySQL Query Editor are colored; .sql files in the T-SQL editor are not affected.
+
+**Manual test**
+
+1. *New Query* and type:
+
+   ```sql
+   -- line comment
+   # hash comment
+   SELECT a.actor_id, `first name`, 'it''s', "dq", 12, 1.5, 0x1F, @total, @@sql_mode
+   FROM sakila.actor a /* block
+   comment */ WHERE a.last_name LIKE 'A%' AND 5--3 = 8
+   LIMIT 10;
+   ```
+
+   Expected: comments green (Dark theme default), keywords blue, strings red/brown, numbers in the number color, `` `first name` ``, `@total` and `@@sql_mode` in the identifier color. `actor_id`, `last_name` and `a` keep the text color. `5--3` is not a comment.
+2. Type `/*` at the start of the first line. Expected: the whole document turns into a comment color. Type `*/` at the end of line 2: the rest gets its colors back.
+3. Start a string with `'` on a line and do not close it. Expected: the following lines show the string color until the next `'`.
+4. *View Code* on a procedure (for example *film_in_stock*). Expected: `DELIMITER`, `CREATE`, `PROCEDURE`, `BEGIN`, `END`, `IN`, `OUT`, `INT` are keywords.
+5. *Script Database...* on modelbuilder with data to a new query window. Expected: the document opens without a noticeable delay; scrolling and typing in the INSERT lines stays smooth.
+6. Switch the theme (Dark, Light, Blue). Expected: the colors follow the theme. Change *Keyword* in *Fonts and Colors*: the query editor uses the new color.
+7. Open a `.sql` file in the T-SQL editor (double-click in Solution Explorer). Expected: unchanged T-SQL coloring.
 
 ## US-0703 Execute and show results
 
