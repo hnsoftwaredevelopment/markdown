@@ -8,7 +8,7 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 |---|---|
 | 0.1 (first usable) | E01, E02, E03, E04, E05 |
 | 0.2 | E06, E07 |
-| 0.3 | E08, E09, E10 |
+| 0.3 | E08, E09, E10, US-0505 |
 | 1.0 | E11, fixes from use |
 
 ## Epics
@@ -19,12 +19,12 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | E02 | [Connection management](E02-ConnectionManagement.md) | 0.1 | Done |
 | E03 | [Object tree](E03-ObjectTree.md) | 0.1 | Done |
 | E04 | [Properties window](E04-PropertiesWindow.md) | 0.1 | Done |
-| E05 | [Drag & drop to the editor](E05-DragAndDrop.md) | 0.1 | Done |
+| E05 | [Drag & drop to the editor](E05-DragAndDrop.md) | 0.1, 0.3 | In progress |
 | E06 | [Script and view code](E06-ScriptAndCode.md) | 0.2 | Done |
 | E07 | [Query editor](E07-QueryEditor.md) | 0.2 | Done |
 | E08 | [View data](E08-ViewData.md) | 0.3 | Done |
 | E09 | [Object management](E09-ObjectManagement.md) | 0.3 | Done |
-| E10 | [Security](E10-Security.md) | 0.3 | In progress |
+| E10 | [Security](E10-Security.md) | 0.3 | Done |
 | E11 | [Packaging and release](E11-Release.md) | 1.0 | Todo |
 | - | [Parked](Parked.md) | - | Parked |
 
@@ -54,6 +54,7 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | US-0502 | Drag multiple columns | Done |
 | US-0503 | Drag a stored procedure or function as a call | Done |
 | US-0504 | Drop format options | Done |
+| US-0505 | Drag a connection string | Ready for test |
 | US-0601 | View Code | Done |
 | US-0602 | Script As | Done |
 | US-0603 | Script database | Done |
@@ -67,9 +68,11 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | US-0902 | Rename objects | Done |
 | US-0903 | Create database | Done |
 | US-0904 | New object from template | Done |
-| US-1001 | Privilege detection | Ready for test |
-| US-1002 | Security node with users and roles | Todo |
-| US-1003 | Manage users | Todo |
+| US-1001 | Privilege detection | Done |
+| US-1002 | Security node with users and roles | Done |
+| US-1003 | Manage users | Done |
+| US-1004 | New role | Done |
+| US-1005 | Grant a role to a user | Done |
 | US-1101 | Visual identity | Todo |
 | US-1102 | Marketplace listing | Todo |
 | US-1103 | Release workflow | Todo |
@@ -94,3 +97,5 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | D-14 | Deleting objects | Own themed dialog with the exact SQL and Copy SQL, Cancel as default button; one selected object at a time; a database needs its exact name typed; nothing in system databases (US-0901) | 2026-11-02 |
 | D-15 | Creating objects | Not a designer: New Table, View, Procedure, Function, Event, Column, Trigger and Index open a query document with a template that the user completes and runs (US-0904); Create Database is a dialog, as in SSMS (US-0903) | 2026-11-02 |
 | D-16 | Reading users | Users can be read with SELECT on mysql.user (via *.*, mysql.* or the table), not with CREATE USER alone; roles count through the test query on mysql.user, which reflects the roles active in a new session (US-1001) | 2026-11-02 |
+| D-17 | Managing users | Only with Can Manage Users; every action shows its SQL first; passwords are parameters and shown as '********'; grants on a database only, revoke from any grant line; Delete on accounts, not on the own account or mysql.* system accounts (US-1003) | 2026-11-02 |
+| D-18 | Follow-up after E10 | Roles can be created and granted to users (US-1004, US-1005), granting sets a default role by default; a dragged connection string follows the file type and has a password placeholder, never the password (US-0505) | 2026-11-02 |

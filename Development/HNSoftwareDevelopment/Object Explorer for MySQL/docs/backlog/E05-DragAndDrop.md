@@ -182,3 +182,47 @@ Use sakila and a `.sql` and a `.cs` file.
 8. Restart Visual Studio (the explorer window opens again by itself), open the `.sql` file and drag `actor`. Expected: the changed settings still apply.
 9. Reset the settings to their defaults. Clean up: `DROP TABLE sakila.oefm_drag;`
 
+## US-0505 Drag a connection string
+
+**Status:** Ready for test
+
+As a developer, I want to drag a server into my application code or configuration, so that I get a working connection string without typing host, port and user.
+
+**Acceptance criteria**
+
+- [x] Dragging a server node into an editor drops a connection string with host, port, user, the default database (when set) and the SSL mode (when not the default).
+- [x] The format follows the file type: `.json` gives a ConnectionStrings entry (`"Local": "Server=...;"`), `.cs` a C# string, `.config` an `<add name="..." connectionString="..." providerName="MySqlConnector" />` element, other files the plain string.
+- [x] The password is never inserted: the string contains `Password=<password>;` as a placeholder (decision 2026-11-02).
+- [x] Context menu *Copy Connection String* on a server and on a database (with that database); the clipboard gets the plain string with the placeholder.
+- [x] Dragging a database keeps inserting its name (US-0501).
+
+**Tasks**
+
+- [x] T-0505-01 `ConnectionStringText` (build, target per file type, escaping per target) + tests
+- [x] T-0505-02 Server drag (`DragData.CreateConnectionString`), drop handler, *Copy Connection String* on servers and databases
+
+**Implementation notes**
+
+- The string: `Server=db.local;Port=3306;Database=shop;User ID=app;Password=<password>;`. Database only when the connection has a default database (or, with *Copy Connection String* on a database, that database). `SslMode=...` when the SSL mode is not *Preferred* (the MySqlConnector default); `AllowPublicKeyRetrieval=true` when that option is on. The order is fixed, so the text is the same every time. A value with `;`, `=`, quotes or spaces at the ends is put between double quotes.
+- Per file type when dropped in a Visual Studio editor:
+  - `.json`: `"Local": "Server=...;"`, the connection name as key, JSON-escaped. Drop it inside `"ConnectionStrings": { }`; a comma between entries is up to you.
+  - `.cs`: `"Server=...;"` as a C# string; `.vb`: as a Visual Basic string.
+  - `.config`: `<add name="Local" connectionString="Server=...;" providerName="MySqlConnector" />`, XML-escaped.
+  - Any other file (also `.sql`) and other applications: the plain string.
+- The password is never in the text, not even when it is saved: `Password=<password>;`. Use user secrets or an environment variable for the real one.
+- Ctrl+C on a server also copies the plain connection string (the Copy of US-0501 now works on servers).
+- *Copy Connection String* is in the context menu of a server (above *Remove*) and of a database (below *Copy*); for a database the string has that database. Dragging a database still inserts its name.
+
+**Manual test**
+
+Use a connection with default database *sakila*.
+
+1. Drag the server into an empty line of `appsettings.json`, inside `"ConnectionStrings": { }`: `"Local": "Server=localhost;Port=3306;Database=sakila;User ID=root;Password=<password>;"` (with your names).
+2. Drag the server into a `.cs` file: `"Server=...;Password=<password>;"` as a string. Into a `.vb` file: the same in VB.
+3. Drag the server into `app.config` or `web.config`: an `<add name="..." connectionString="..." providerName="MySqlConnector" />` element; `<password>` is written as `&lt;password&gt;`.
+4. Drag the server into a `.txt` or `.sql` file and into Notepad: the plain string.
+5. Right-click the server: *Copy Connection String*; paste: the plain string. Right-click database *world*: *Copy Connection String* gives `Database=world`.
+6. Ctrl+C on the server: the same plain string.
+7. Drag a database into a `.sql` file: still its name.
+8. A connection with SSL mode *Required* and *Allow public key retrieval* on: `SslMode=Required;AllowPublicKeyRetrieval=true;` at the end. With a saved password: the password is not in the text.
+9. Use the string from step 1 in a small console app with MySqlConnector, replace `<password>`: it connects.

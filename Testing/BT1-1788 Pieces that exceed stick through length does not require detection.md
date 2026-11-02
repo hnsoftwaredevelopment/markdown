@@ -58,6 +58,9 @@ Hij wordt ook doorgegeven in de mappers `DetectMaterialMapper`, `ClampMaterialDu
 
 ## Grenswaarden voor de backup
 
+> [!note] Outfeed-positie in de backup is 2750 mm
+> Tijdens de test bleek dat VACAM als outfeed-positie de `MinimumXPosition` van de outfeed gebruikt, en die is in deze backup 2750 mm (de outfeed zet producten af op X 2750). De echte grens is dus 6800 - 2750 = **4050 mm**. De tabel hieronder gaat nog uit van de 2500 mm uit het ticket.
+
 Met stick through 6800 mm en outfeed-positie 2500 mm ligt de nieuwe grens op **6800 - 2500 = 4300 mm** voor de lengte van het reststuk.
 
 | Lengte reststuk | Oud (2.150) | Nieuw (>= 2.151) |
@@ -140,9 +143,9 @@ Zonder detectie hoort het reststuk na de laatste zaagsnede op de infeed te blijv
 
 | TC | Resultaat | Opmerking |
 |---|---|---|
-| TC1 | | |
-| TC2 | | |
-| TC3 | | |
+| TC1 | OK | Batch 18 staat niet in de backup, dus batch 17 gebruikt: HE300A van 8500 mm, 1 product van 3500 mm, reststuk 4968 mm (in het gebied 4300 tot 6800). Baseline develop e75a2a2 (2.150.0): na de afvoer van het product volgen *Adjust unit*, *Infeed current material*, *Detect front material (4968.05)*, *Move X -3001.6* en *Carry off*, en pas dan *Remove material manually*. Met de fix (PR #22780, 2.154.0): direct na de afvoer van het product *Infeed: Remove material manually. Length: 4968.1 mm*. Die 5 stappen zijn weg. (2026-11-02) |
+| TC2 | OK | Batch 17 op 7480 mm, reststuk 3948 mm (onder de grens van 4050). Met de fix: *Adjust unit*, *Infeed current material*, *Detect front material (3948.05)*, *Take over* en *Carry off*, daarna *Outfeed: Carry off material 3948.1 mm* op X 2750 (2750 + 3948 = 6698, onder 6800). Het reststuk gaat naar de outfeed zoals verwacht. (2026-11-02) |
+| TC3 | OK | Batch 17 op 7740 mm, reststuk 4208 mm. Met de fix: geen detectie, direct *Remove material manually. Length: 4208.1 mm*. De outfeed zet het product af op X 2750 (MinimumXPosition van de outfeed), dus in deze configuratie is de outfeed-positie 2750 en niet 2500 zoals het ticket zegt. De grens ligt dan op 6800 - 2750 = 4050 mm, en 4208 zit daarboven. (2026-11-02) |
 | TC4 | | |
 | TC5 | | |
 | TC6 | | |

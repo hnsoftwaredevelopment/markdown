@@ -37,7 +37,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E07-QueryEditor.md",
+                "file": "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E05-DragAndDrop.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -52,10 +52,11 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "E07-QueryEditor"
+              "title": "E05-DragAndDrop"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -391,16 +392,18 @@
       "cmdr:Omnisearch: Vault search": false
     }
   },
-  "active": "74ccfcdd7539b7ab",
+  "active": "1982f7e044b7c34a",
   "lastOpenFiles": [
-    "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/Parked.md",
+    "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E07-QueryEditor.md",
+    "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E10-Security.md",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/Backlog.md",
+    "Testing/BT1-1788 Pieces that exceed stick through length does not require detection.md.tmp.17616.57d05b776f55",
+    "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/Parked.md",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E09-ObjectManagement.md",
     "Testing/BT1-2161 - Testing VB_StandardStandalone templates using DNA/3. Test plan.md",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E08-ViewData.md",
     "Testing/BT1-1788 Pieces that exceed stick through length does not require detection.md",
     "Testing/BT1-1788 Pieces that exceed stick through length does not require detection.md.tmp.17616.de6e442c7a0e",
-    "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E07-QueryEditor.md",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E06-ScriptAndCode.md",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E05-DragAndDrop.md",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E04-PropertiesWindow.md",
@@ -411,7 +414,6 @@
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/Workflow.md",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/Architecture.md",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E11-Release.md",
-    "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E10-Security.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-48-checklist.md",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs",
@@ -423,12 +425,10 @@
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/decisions/ADR-001-InnoSetup-als-productgrens.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/decisions",
     "conflict-files-obsidian-git.md",
-    "Development/HNSoftwareDevelopment/Inno Setup Studio/tasks/todo.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/tasks",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/historie",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/gebruikershandleiding",
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/decisions",
     "attachments/README-5.png",
     "attachments/README-4.png",
     "attachments/README-3.png",
