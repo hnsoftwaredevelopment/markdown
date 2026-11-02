@@ -17,7 +17,7 @@ tags: [testplan, epic]
 # Epic test plan {{title}}
 
 > [!info] How to use
-> The epic plan covers what single stories cannot: the full workflow, the combination of stories, cycle time, upgrade and release readiness. Story details stay in the story test plans ([[TPL User Story Testplan]]). Set `epic:` in each story plan to this epic's Jira key, so the table in section 3 fills itself.
+> The epic plan covers what single stories cannot: the full workflow, the combination of stories, cycle time, upgrade and release readiness. Story details stay in the story test plans ([[Testing/TestPlans/TPL User Story Testplan]]). Set `epic:` in each story plan to this epic's Jira key, so the table in section 3 fills itself.
 
 ## 1. Goal
 
