@@ -63,7 +63,7 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | US-0704 | Export results | Done |
 | US-0801 | View data (read-only) | Done |
 | US-0802 | Edit data | Done |
-| US-0901 | Delete objects | Todo |
+| US-0901 | Delete objects | Ready for test |
 | US-0902 | Rename objects | Todo |
 | US-0903 | Create database | Todo |
 | US-1001 | Privilege detection | Todo |
@@ -90,3 +90,4 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | D-11 | Server session of a query document | One session per document that stays open between runs (variables, temporary tables, USE and transactions carry over), closed with the document. An exception to "connections per operation" in the workflow checklist (US-0703) | 2026-10-30 |
 | D-12 | View Data window and filter | A tab in the document well per table (multi-instance tool window, not reopened at startup); a filter box below each column header: contains for text, equal for numbers and dates, NULL / NOT NULL (US-0801) | 2026-10-30 |
 | D-13 | Saving edited rows | Per row when the grid leaves it, no Save button; text NULL sets NULL; binary, generated and spatial columns are read-only (US-0802) | 2026-11-02 |
+| D-14 | Deleting objects | Own themed dialog with the exact SQL and Copy SQL, Cancel as default button; one selected object at a time; a database needs its exact name typed; nothing in system databases (US-0901) | 2026-11-02 |
