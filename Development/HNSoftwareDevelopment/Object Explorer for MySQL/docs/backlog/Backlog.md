@@ -61,8 +61,8 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | US-0702 | MySQL syntax coloring | Done |
 | US-0703 | Execute and show results | Done |
 | US-0704 | Export results | Done |
-| US-0801 | View data (read-only) | Ready for test |
-| US-0802 | Edit data | Todo |
+| US-0801 | View data (read-only) | Done |
+| US-0802 | Edit data | Ready for test |
 | US-0901 | Delete objects | Todo |
 | US-0902 | Rename objects | Todo |
 | US-0903 | Create database | Todo |
@@ -89,3 +89,4 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | D-10 | Syntax coloring | Own classifier with a tokenizer in Core, not a TextMate grammar: a grammar is bound to the .sql extension, which already has one, and cannot target the `MySql` content type (US-0702) | 2026-10-30 |
 | D-11 | Server session of a query document | One session per document that stays open between runs (variables, temporary tables, USE and transactions carry over), closed with the document. An exception to "connections per operation" in the workflow checklist (US-0703) | 2026-10-30 |
 | D-12 | View Data window and filter | A tab in the document well per table (multi-instance tool window, not reopened at startup); a filter box below each column header: contains for text, equal for numbers and dates, NULL / NOT NULL (US-0801) | 2026-10-30 |
+| D-13 | Saving edited rows | Per row when the grid leaves it, no Save button; text NULL sets NULL; binary, generated and spatial columns are read-only (US-0802) | 2026-11-02 |
