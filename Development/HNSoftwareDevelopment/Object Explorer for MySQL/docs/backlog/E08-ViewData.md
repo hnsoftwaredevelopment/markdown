@@ -49,7 +49,7 @@ Use sakila.
 
 ## US-0802 Edit data
 
-**Status:** Ready for test
+**Status:** Done (accepted 2026-11-02)
 
 As a developer, I want to change, add or delete rows in the grid.
 

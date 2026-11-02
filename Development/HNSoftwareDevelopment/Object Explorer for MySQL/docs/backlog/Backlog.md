@@ -22,8 +22,8 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | E05 | [Drag & drop to the editor](E05-DragAndDrop.md) | 0.1 | Done |
 | E06 | [Script and view code](E06-ScriptAndCode.md) | 0.2 | Done |
 | E07 | [Query editor](E07-QueryEditor.md) | 0.2 | Done |
-| E08 | [View data](E08-ViewData.md) | 0.3 | In progress |
-| E09 | [Object management](E09-ObjectManagement.md) | 0.3 | Todo |
+| E08 | [View data](E08-ViewData.md) | 0.3 | Done |
+| E09 | [Object management](E09-ObjectManagement.md) | 0.3 | In progress |
 | E10 | [Security](E10-Security.md) | 0.3 | Todo |
 | E11 | [Packaging and release](E11-Release.md) | 1.0 | Todo |
 | - | [Parked](Parked.md) | - | Parked |
@@ -62,7 +62,7 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | US-0703 | Execute and show results | Done |
 | US-0704 | Export results | Done |
 | US-0801 | View data (read-only) | Done |
-| US-0802 | Edit data | Ready for test |
+| US-0802 | Edit data | Done |
 | US-0901 | Delete objects | Todo |
 | US-0902 | Rename objects | Todo |
 | US-0903 | Create database | Todo |
