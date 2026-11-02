@@ -23,8 +23,8 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | E06 | [Script and view code](E06-ScriptAndCode.md) | 0.2 | Done |
 | E07 | [Query editor](E07-QueryEditor.md) | 0.2 | Done |
 | E08 | [View data](E08-ViewData.md) | 0.3 | Done |
-| E09 | [Object management](E09-ObjectManagement.md) | 0.3 | In progress |
-| E10 | [Security](E10-Security.md) | 0.3 | Todo |
+| E09 | [Object management](E09-ObjectManagement.md) | 0.3 | Done |
+| E10 | [Security](E10-Security.md) | 0.3 | In progress |
 | E11 | [Packaging and release](E11-Release.md) | 1.0 | Todo |
 | - | [Parked](Parked.md) | - | Parked |
 
@@ -64,10 +64,10 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | US-0801 | View data (read-only) | Done |
 | US-0802 | Edit data | Done |
 | US-0901 | Delete objects | Done |
-| US-0902 | Rename objects | Todo |
-| US-0903 | Create database | Todo |
-| US-0904 | New object from template | Todo |
-| US-1001 | Privilege detection | Todo |
+| US-0902 | Rename objects | Done |
+| US-0903 | Create database | Done |
+| US-0904 | New object from template | Done |
+| US-1001 | Privilege detection | Ready for test |
 | US-1002 | Security node with users and roles | Todo |
 | US-1003 | Manage users | Todo |
 | US-1101 | Visual identity | Todo |
@@ -93,3 +93,4 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | D-13 | Saving edited rows | Per row when the grid leaves it, no Save button; text NULL sets NULL; binary, generated and spatial columns are read-only (US-0802) | 2026-11-02 |
 | D-14 | Deleting objects | Own themed dialog with the exact SQL and Copy SQL, Cancel as default button; one selected object at a time; a database needs its exact name typed; nothing in system databases (US-0901) | 2026-11-02 |
 | D-15 | Creating objects | Not a designer: New Table, View, Procedure, Function, Event, Column, Trigger and Index open a query document with a template that the user completes and runs (US-0904); Create Database is a dialog, as in SSMS (US-0903) | 2026-11-02 |
+| D-16 | Reading users | Users can be read with SELECT on mysql.user (via *.*, mysql.* or the table), not with CREATE USER alone; roles count through the test query on mysql.user, which reflects the roles active in a new session (US-1001) | 2026-11-02 |
