@@ -72,6 +72,7 @@ As a developer, I want to change, add or delete rows in the grid.
 - Edit a cell with a double-click or by typing. A row is saved when the grid leaves it (another row, Enter on the last cell); there is no separate Save button (decision D-13). The save is `UPDATE ... SET <changed columns> WHERE <primary key> = <old values>`, all values as parameters; afterwards the row is read back, so the grid shows what the server stored (for example a trimmed value or a default).
 - Text `NULL` (any case) sets NULL, as in SSMS. An empty cell is an empty string.
 - Row header: `*` unsaved changes, `+` new row, `!` error. The tooltip of `!` shows the server message; the row keeps its edited values. Fix the value and leave the row again, or *Undo Changes* in the context menu.
+- A row with an error gets a red background and a red `!` (after the first test round: the `!` alone was easy to miss). When the server message names a column (`Data too long for column 'name'`, `Column 'name' cannot be null`, `Field 'name' doesn't have a default value`, `... for column `db`.`t`.`name``), that cell is marked stronger, with a red border and the message as tooltip. A message without column (for example a duplicate key) marks only the row.
 - An UPDATE that finds no row (someone else changed the key or deleted the row) gives the error *The row was not found...* on the row.
 - *Add row* (toolbar) adds an empty row at the end of the page and starts editing the first editable cell. Empty columns get their default; an empty AUTO_INCREMENT key gets the next value, which the grid shows after the save.
 - *Delete selected rows* (toolbar and context menu) deletes the rows with a selected cell, after a confirmation with the number of rows. A new row that was never saved is only removed.
@@ -91,7 +92,7 @@ CREATE TABLE sakila.no_key_test (a INT, b VARCHAR(10));
 1. Refresh the explorer, *View Data* on *edit_test*. Expected: the Add row and Delete buttons in the toolbar; no read-only notice. The paging buttons look like one set.
 2. Double-click *name* of row 1, change it to `uno`, press Enter and click another row. Expected: no marker; `SELECT * FROM edit_test` in a query window shows `uno`.
 3. Change *note* of row 2 to `null` (lower case) and leave the row. Expected: the cell shows `NULL`; in the database the value is NULL. Change *note* of row 1 to an empty text: an empty string, not NULL.
-4. Error: change *name* of row 3 to a text of 25 characters and leave the row. Expected: `!` in the row header, the tooltip shows *Data too long for column 'name'*; the cell keeps the 25 characters. Shorten it and leave the row: the `!` disappears.
+4. Error: change *name* of row 3 to a text of 25 characters and leave the row. Expected: the row turns red with a red `!`; the *name* cell is darker red with a red border; hovering the cell or the `!` shows *Data too long for column 'name'*; the cell keeps the 25 characters. Shorten it and leave the row: the red marking and the `!` disappear.
 5. *Undo Changes*: change *note* of row 1, then right-click > *Undo Changes* before leaving the row. Expected: the old value is back, no marker.
 6. *Add row*: a new row with `+`, the cursor in *name*. Type `four`, leave the row. Expected: *id* shows the next number, *created* the current time; the row count goes up by 1.
 7. Add a row and leave it empty with *name* empty: the server error about *name* (no default) appears on the row. Delete that row with *Delete selected rows*: removed without a question (it was never saved).
@@ -100,5 +101,6 @@ CREATE TABLE sakila.no_key_test (a INT, b VARCHAR(10));
 10. *View Data* on *no_key_test*: read-only notice about the primary key; cells cannot be edited; no Add/Delete buttons. *View Data* on view *actor_info*: read-only notice for a view.
 11. *View Data* on *staff*: *picture* (BLOB) cannot be edited; the other columns can.
 12. Theme (Dark, Light, Blue): the edit box of a cell, the row markers and the drawn paging buttons follow the theme.
+13. Error without column: add a row and type the *id* of an existing row (for example `1`) and a *name*. Expected: *Duplicate entry '1' for key ...*; the row is red, no cell has the red border. Type `abc` in *id* of a new row: *Incorrect integer value ... for column ... id*: the *id* cell is marked. Check the red is readable in Dark, Light and Blue.
 
 Clean up afterwards: `DROP TABLE sakila.edit_test, sakila.no_key_test;`
