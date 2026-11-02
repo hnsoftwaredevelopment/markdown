@@ -4,7 +4,7 @@ Make small changes directly from the tree. Full visual table design is parked (s
 
 ## US-0901 Delete objects
 
-**Status:** Ready for test
+**Status:** Done (accepted 2026-11-02)
 
 **Acceptance criteria**
 
@@ -71,3 +71,37 @@ Use a test database, for example `CREATE DATABASE oe_delete_test;` with a table 
 **Acceptance criteria**
 
 - [ ] Context menu "Create Database" on the Databases folder: name, character set, collation.
+
+**Note:** a dialog, as in SSMS (*New Database...* opens a dialog there). Decision D-15.
+
+## US-0904 New object from template
+
+**Status:** Todo
+
+As a developer, I want to start a new object from the tree with a script I complete and run myself, so I do not have to remember the syntax. This is not a designer: the explorer only opens a query document with a template (decision D-15).
+
+**Acceptance criteria**
+
+- [ ] Context menu "New ..." on the folders: Tables (New Table), Views (New View), Stored Procedures (New Procedure), Functions (New Function), Events (New Event), and under a table: Columns (New Column), Triggers (New Trigger), Indexes (New Index).
+- [ ] The command opens a new query document in the MySQL Query Editor, linked to the server and database of the folder.
+- [ ] The template has the database (and for a column, trigger or index the table) filled in, and placeholder names to replace.
+- [ ] Procedures, functions, triggers and events use `DELIMITER $$`, like View Code.
+- [ ] Not on system databases. After running the script, F5 on the folder shows the new object.
+
+**Templates**
+
+| Folder | Statement |
+|---|---|
+| Tables | `CREATE TABLE` with an `id` AUTO_INCREMENT primary key |
+| Views | `CREATE VIEW ... AS SELECT` |
+| Stored Procedures | `CREATE PROCEDURE` with an IN parameter |
+| Functions | `CREATE FUNCTION ... RETURNS ... DETERMINISTIC` |
+| Events | `CREATE EVENT ... ON SCHEDULE EVERY 1 DAY` |
+| Columns | `ALTER TABLE <table> ADD COLUMN` |
+| Triggers | `CREATE TRIGGER ... BEFORE INSERT ON <table>` |
+| Indexes | `CREATE INDEX ... ON <table>` |
+
+**Tasks**
+
+- T-0904-01 Template generator per object kind + tests
+- T-0904-02 Commands on the folders, open as query document

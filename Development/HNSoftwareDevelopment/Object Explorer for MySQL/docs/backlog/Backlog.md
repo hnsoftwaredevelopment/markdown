@@ -63,9 +63,10 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | US-0704 | Export results | Done |
 | US-0801 | View data (read-only) | Done |
 | US-0802 | Edit data | Done |
-| US-0901 | Delete objects | Ready for test |
+| US-0901 | Delete objects | Done |
 | US-0902 | Rename objects | Todo |
 | US-0903 | Create database | Todo |
+| US-0904 | New object from template | Todo |
 | US-1001 | Privilege detection | Todo |
 | US-1002 | Security node with users and roles | Todo |
 | US-1003 | Manage users | Todo |
@@ -91,3 +92,4 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | D-12 | View Data window and filter | A tab in the document well per table (multi-instance tool window, not reopened at startup); a filter box below each column header: contains for text, equal for numbers and dates, NULL / NOT NULL (US-0801) | 2026-10-30 |
 | D-13 | Saving edited rows | Per row when the grid leaves it, no Save button; text NULL sets NULL; binary, generated and spatial columns are read-only (US-0802) | 2026-11-02 |
 | D-14 | Deleting objects | Own themed dialog with the exact SQL and Copy SQL, Cancel as default button; one selected object at a time; a database needs its exact name typed; nothing in system databases (US-0901) | 2026-11-02 |
+| D-15 | Creating objects | Not a designer: New Table, View, Procedure, Function, Event, Column, Trigger and Index open a query document with a template that the user completes and runs (US-0904); Create Database is a dialog, as in SSMS (US-0903) | 2026-11-02 |
