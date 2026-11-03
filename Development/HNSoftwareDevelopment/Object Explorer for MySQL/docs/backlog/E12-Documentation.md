@@ -4,7 +4,7 @@ Generate a document of a database: tables, columns, keys, indexes, views, routin
 
 ## US-1201 Documentation as Markdown
 
-**Status:** Ready for test
+**Status:** Done (accepted 2026-11-03)
 
 As a developer, I want to generate a document of a database, so that I can keep it in a repository or Obsidian and share it.
 

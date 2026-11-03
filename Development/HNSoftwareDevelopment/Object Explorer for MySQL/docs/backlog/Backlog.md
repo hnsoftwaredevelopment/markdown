@@ -81,7 +81,7 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | US-1101 | Visual identity | Todo |
 | US-1102 | Marketplace listing | Todo |
 | US-1103 | Release workflow | Todo |
-| US-1201 | Documentation as Markdown | Ready for test |
+| US-1201 | Documentation as Markdown | Done |
 | US-1202 | Documentation as PDF | Todo |
 | US-1301 | Explain plan | Done |
 | US-1302 | Explain analyze | Done |
