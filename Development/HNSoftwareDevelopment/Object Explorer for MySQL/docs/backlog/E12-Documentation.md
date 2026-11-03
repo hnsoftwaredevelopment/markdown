@@ -78,9 +78,49 @@ Use *sakila*.
 
 ## US-1202 Documentation as PDF
 
-**Status:** Todo
+**Status:** Ready for test
+
+As a developer, I want the documentation of a database as a PDF, so that I can print it or send it to people who do not use Markdown.
 
 **Acceptance criteria**
 
-- [ ] The same content as US-1201 as a PDF file, with page numbers and the table of contents.
-- [ ] Library: MigraDoc with PDFsharp (MIT license, .NET Framework, made for documents with tables, headings and a table of contents). Syncfusion (free license of Herbert, non-commercial) is the fallback; check first whether its license allows distribution through the Marketplace and how the license key is kept out of the public repository (decision D-20).
+- [x] The same content as US-1201 as a PDF file, with page numbers and the table of contents.
+- [x] Library: MigraDoc with PDFsharp, MIT license (D-20). Version 6.2.4, because 6.5 needs an AGPL or commercial license (D-22). Syncfusion was not needed.
+- [x] Added at the acceptance of US-1201 (Herbert, 2026-11-03): the dependency diagram per object in the PDF too, drawn by the extension in the style of Mermaid, without a browser or an online service.
+
+**Tasks**
+
+- [x] T-1202-01 `PdfDocumentWriter` on the `DatabaseDocument` of US-1201: styles, header and footer with page numbers, contents with page numbers and links, outline, tables + tests
+- [x] T-1202-02 `DependencyDiagram`: the Mermaid-style diagram drawn with PDFsharp + tests
+- [x] T-1202-03 Format choice in the dialog (Markdown or PDF), save dialog per format, open the PDF in the PDF viewer of Windows
+
+**Implementation notes**
+
+- The dialog *Generate Documentation* starts with *Format*: *Markdown (.md)* or *PDF (.pdf)*. The choice is kept for the rest of the Visual Studio session. The save dialog proposes `<database>.md` or `<database>.pdf`. Afterwards the message asks to open the file: Markdown opens in Visual Studio, a PDF in the default PDF viewer of Windows.
+- Same `DatabaseDocument`, same texts and parts as the Markdown file; the PDF writer only formats.
+- Layout (A4, margins 2 cm, Segoe UI 9 pt):
+  - page 1: title, connection and server version, character set and collation, generation time, notes about the dependencies, then *Contents* with a dotted line to the page number; every line is a link;
+  - each part (Tables, Views, Procedures, Functions, Events) starts on a new page; objects follow each other on the page;
+  - tables have a lilac header row that repeats when a table runs over a page; line breaks in comments stay line breaks;
+  - header *Database <name>* on every page, footer *Page x of y*;
+  - the PDF outline (bookmarks pane of the viewer) lists the parts and the objects.
+- Dependencies: the same lists as in Markdown, with links to the objects in the document. The diagram has the look of the Mermaid default theme: rounded lilac boxes with name and kind, users on the left, the object in the middle with a thick border, used objects on the right, curved arrows, the foreign key name on a grey label, dashed lines for text matches. Labels are drawn on top of the lines. A wide or tall diagram is scaled down to fit the page, never enlarged.
+- The diagram is drawn with PDFsharp into a one-page PDF and placed as an image, so it stays vector graphics (sharp when zoomed and printed).
+- Fonts: Segoe UI from the Windows font folder, Arial when Segoe UI is missing; the fonts are embedded (subset) in the PDF.
+- PDFsharp 6.2.4 brings `System.Security.Cryptography.Pkcs` 8.0.1 with known vulnerabilities; Core references 8.0.2 directly.
+
+**Manual test**
+
+Use *sakila*.
+
+1. Right-click *sakila* > *Generate Documentation...*: the dialog starts with *Format*, Markdown selected. Choose *PDF*; the save dialog proposes `sakila.pdf` with the PDF filter.
+2. Generate with all parts. The wait dialog shows the progress; the message asks to open the file; *Yes* opens it in the PDF viewer.
+3. Page 1: title, server, character set, generation time and *Contents* with page numbers. Click a line: it jumps to that page.
+4. Every page has the header *Database sakila* and *Page x of y* at the bottom. Tables, Views, Procedures, Functions and Events each start on a new page.
+5. The bookmarks pane of the viewer shows the parts with their objects.
+6. Table *film*: the same content as in Markdown (columns, primary key, foreign keys, indexes, triggers). A long column table continues on the next page with its header row.
+7. Dependencies of *film*: *Used by* and *Uses*, links jump to the objects. The diagram: users on the left, *film* in the middle with a thick border, *language* on the right, foreign key names on the arrows, text matches dashed. Zoom in: the diagram stays sharp.
+8. Generate again: the dialog remembers *PDF*. Uncheck *With a diagram per object*: lists without diagrams.
+9. Choose *Markdown* again: the result is as in US-1201 and opens in Visual Studio.
+10. Cancel on a large database: no file is left.
+11. Print a page (or print to PDF): margins and page numbers are correct.

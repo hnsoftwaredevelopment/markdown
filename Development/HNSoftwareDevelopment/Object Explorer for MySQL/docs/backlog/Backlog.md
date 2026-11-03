@@ -82,7 +82,7 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | US-1102 | Marketplace listing | Todo |
 | US-1103 | Release workflow | Todo |
 | US-1201 | Documentation as Markdown | Done |
-| US-1202 | Documentation as PDF | Todo |
+| US-1202 | Documentation as PDF | Ready for test |
 | US-1301 | Explain plan | Done |
 | US-1302 | Explain analyze | Done |
 | US-1303 | View dependencies | Done |
@@ -114,3 +114,4 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | D-19 | Scope after 0.3 | P-01 table designer and P-03 schema compare dropped; P-02 becomes E12; from SSMS: execution plan and dependencies (E13) and IntelliSense (E14); activity monitor parked as P-06 | 2026-11-02 |
 | D-20 | Full result and PDF | Export runs a read-only statement again and streams all rows to the file, with progress and Cancel (US-0705; paging the results pane would not make the export complete); PDF with MigraDoc/PDFsharp (MIT), Syncfusion as fallback (US-1202); P-06 activity monitor as the last item of 0.4 | 2026-11-03 |
 | D-21 | Completion list | No commit with the space bar (an alias after a table would be replaced); commit with Tab, Enter and `.` `,` `(` `)` `;`. Not a copy of SSMS. The list never asks for a password and typing never waits for the server (US-1401) | 2026-11-03 |
+| D-22 | PDFsharp version | Stay on PDFsharp/MigraDoc 6.2.x, the last MIT version. From 6.5 the code must load an AGPL or commercial license, which does not fit the MIT license of the extension (D-2). The PDF diagrams are drawn by the extension itself, offline (US-1202) | 2026-11-03 |
