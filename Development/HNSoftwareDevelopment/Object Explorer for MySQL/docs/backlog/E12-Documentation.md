@@ -15,12 +15,14 @@ As a developer, I want to generate a document of a database, so that I can keep 
 - [x] Views (columns and comment), procedures and functions (parameters, return type, comment), events (schedule, status).
 - [x] A table of contents with links; objects sorted by name; the generation time and server version at the top.
 - [x] Runs in the background with progress and Cancel, like Script Database (US-0603).
+- [x] Added after the first test (Herbert, 2026-11-03): per table, view, procedure and function its dependencies, *Used by* and *Uses* as in US-1303, as text with links, and optionally a small diagram per object (not one large ERD).
 
 **Tasks**
 
 - [x] T-1201-01 `DatabaseDocumenter` (reads a `DatabaseDocument`, independent of the format, so US-1202 reuses it) + tests
 - [x] T-1201-02 `MarkdownDocumentWriter` with table of contents and anchors + tests
 - [x] T-1201-03 Dialog, command on a user database, wait dialog with progress and Cancel, open the file afterwards
+- [x] T-1201-04 Dependencies per object (list with links, Mermaid diagram) + tests
 
 **Implementation notes**
 
@@ -36,6 +38,23 @@ As a developer, I want to generate a document of a database, so that I can keep 
 - The text of the document is English, like the scripts of Script Database. Line breaks in comments become `<br>`, a `|` in a cell is escaped; underscores are not escaped, so names stay readable in the file.
 - Links use the heading anchors as GitHub and the Visual Studio Markdown preview make them (lower case, spaces to `-`, punctuation removed, a repeated heading gets `-1`). Obsidian resolves links to headings by their text; for names of lower case letters, digits and `_` that is the same. Names with capitals or spaces may not jump in Obsidian; check in the test.
 - Check constraints are only read on servers that have them (MySQL 8.0.16+, MariaDB 10.2+).
+- Dependencies: the dialog has *Dependencies per table, view and routine* and, below it, *With a diagram per object*, both on by default. The dependency catalog of US-1303 is read once for the whole database; each documented table, view, procedure and function gets a block **Dependencies** below its own content:
+  - *Used by* and *Uses* as lists: the object (a link when it is in the document, with the database name when it is in another database), its kind and the reason: *foreign key fk_...*, *trigger on the table*, *text match*;
+  - *None found.* when there are none;
+  - with diagrams, a Mermaid `flowchart LR`: what uses the object on the left, the object in the middle (thick border), what it uses on the right. Foreign keys carry their name, text matches are dashed lines. GitHub and Obsidian draw Mermaid; whether the Markdown preview of Visual Studio draws it depends on its version (check in the test). Other viewers show the code block.
+- When the dependencies cannot be read, the rest of the document is still written and the header says why. When sources could not be read with the account, the header says that text matches can be missing.
+
+**Example of a dependency diagram** (table *film*)
+
+```mermaid
+flowchart LR
+  s["film<br/>table"]
+  u0["film_actor<br/>table"] -->|"fk_film_actor_film"| s
+  u1["film_list<br/>view"] --> s
+  u2["film_in_stock<br/>procedure"] -.-> s
+  s -->|"fk_film_language"| d0["language<br/>table"]
+  style s stroke-width:3px
+```
 
 **Manual test**
 
@@ -52,6 +71,10 @@ Use *sakila*.
 9. Generate again with only *Views*: only the Views part.
 10. Start on a large database and press Cancel: no file is left.
 11. Theme (Dark, Light, Blue): the dialog is readable.
+12. Dependencies: in the new file, table *film* has **Dependencies** with *Used by* (*film_actor*, *film_category*, *inventory* with their foreign keys, the views, the triggers, routines as text match) and *Uses* (*language*). The links jump to those objects.
+13. The diagram below it: in Obsidian and on GitHub *film* in the middle, users on the left, *language* on the right, text matches dashed. Check whether the Visual Studio Markdown preview draws it too.
+14. Uncheck *With a diagram per object*: lists, no diagrams. Uncheck *Dependencies*: the diagram option is disabled and no **Dependencies** blocks appear.
+15. A table without dependencies: *None found.*
 
 ## US-1202 Documentation as PDF
 
