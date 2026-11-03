@@ -184,7 +184,7 @@ Use sakila and a `.sql` and a `.cs` file.
 
 ## US-0505 Drag a connection string
 
-**Status:** Ready for test
+**Status:** Done (accepted 2026-11-02)
 
 As a developer, I want to drag a server into my application code or configuration, so that I get a working connection string without typing host, port and user.
 

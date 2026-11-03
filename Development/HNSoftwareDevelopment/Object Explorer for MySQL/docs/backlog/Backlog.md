@@ -9,6 +9,7 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | 0.1 (first usable) | E01, E02, E03, E04, E05 |
 | 0.2 | E06, E07 |
 | 0.3 | E08, E09, E10, US-0505 |
+| 0.4 | E13, E14, E12, US-0705, P-06 (last) |
 | 1.0 | E11, fixes from use |
 
 ## Epics
@@ -19,13 +20,16 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | E02 | [Connection management](E02-ConnectionManagement.md) | 0.1 | Done |
 | E03 | [Object tree](E03-ObjectTree.md) | 0.1 | Done |
 | E04 | [Properties window](E04-PropertiesWindow.md) | 0.1 | Done |
-| E05 | [Drag & drop to the editor](E05-DragAndDrop.md) | 0.1, 0.3 | In progress |
+| E05 | [Drag & drop to the editor](E05-DragAndDrop.md) | 0.1, 0.3 | Done |
 | E06 | [Script and view code](E06-ScriptAndCode.md) | 0.2 | Done |
-| E07 | [Query editor](E07-QueryEditor.md) | 0.2 | Done |
+| E07 | [Query editor](E07-QueryEditor.md) | 0.2, 0.4 | In progress |
 | E08 | [View data](E08-ViewData.md) | 0.3 | Done |
 | E09 | [Object management](E09-ObjectManagement.md) | 0.3 | Done |
 | E10 | [Security](E10-Security.md) | 0.3 | Done |
 | E11 | [Packaging and release](E11-Release.md) | 1.0 | Todo |
+| E12 | [Database documentation](E12-Documentation.md) | 0.4 | Todo |
+| E13 | [Query insight](E13-QueryInsight.md) | 0.4 | Todo |
+| E14 | [IntelliSense](E14-IntelliSense.md) | 0.4 | Todo |
 | - | [Parked](Parked.md) | - | Parked |
 
 ## User stories
@@ -54,7 +58,7 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | US-0502 | Drag multiple columns | Done |
 | US-0503 | Drag a stored procedure or function as a call | Done |
 | US-0504 | Drop format options | Done |
-| US-0505 | Drag a connection string | Ready for test |
+| US-0505 | Drag a connection string | Done |
 | US-0601 | View Code | Done |
 | US-0602 | Script As | Done |
 | US-0603 | Script database | Done |
@@ -62,6 +66,7 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | US-0702 | MySQL syntax coloring | Done |
 | US-0703 | Execute and show results | Done |
 | US-0704 | Export results | Done |
+| US-0705 | Export the full result | Todo |
 | US-0801 | View data (read-only) | Done |
 | US-0802 | Edit data | Done |
 | US-0901 | Delete objects | Done |
@@ -76,6 +81,13 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | US-1101 | Visual identity | Todo |
 | US-1102 | Marketplace listing | Todo |
 | US-1103 | Release workflow | Todo |
+| US-1201 | Documentation as Markdown | Todo |
+| US-1202 | Documentation as PDF | Todo |
+| US-1301 | Explain plan | Ready for test |
+| US-1302 | Explain analyze | Todo |
+| US-1303 | View dependencies | Todo |
+| US-1401 | Completion of names | Todo |
+| US-1402 | Parameter info and quick info | Todo |
 
 ## Decisions
 
@@ -99,3 +111,5 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | D-16 | Reading users | Users can be read with SELECT on mysql.user (via *.*, mysql.* or the table), not with CREATE USER alone; roles count through the test query on mysql.user, which reflects the roles active in a new session (US-1001) | 2026-11-02 |
 | D-17 | Managing users | Only with Can Manage Users; every action shows its SQL first; passwords are parameters and shown as '********'; grants on a database only, revoke from any grant line; Delete on accounts, not on the own account or mysql.* system accounts (US-1003) | 2026-11-02 |
 | D-18 | Follow-up after E10 | Roles can be created and granted to users (US-1004, US-1005), granting sets a default role by default; a dragged connection string follows the file type and has a password placeholder, never the password (US-0505) | 2026-11-02 |
+| D-19 | Scope after 0.3 | P-01 table designer and P-03 schema compare dropped; P-02 becomes E12; from SSMS: execution plan and dependencies (E13) and IntelliSense (E14); activity monitor parked as P-06 | 2026-11-02 |
+| D-20 | Full result and PDF | Export runs a read-only statement again and streams all rows to the file, with progress and Cancel (US-0705; paging the results pane would not make the export complete); PDF with MigraDoc/PDFsharp (MIT), Syncfusion as fallback (US-1202); P-06 activity monitor as the last item of 0.4 | 2026-11-03 |

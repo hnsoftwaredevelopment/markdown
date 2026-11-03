@@ -182,3 +182,18 @@ As a developer, I want to save a result set as a file, so I can use it in Excel 
 4. Run `SELECT * FROM rental;` and choose *Save Results As...* Expected: the question that only 1000 of 16044 rows are saved; *No* saves nothing, *Yes* opens the save dialog.
 5. With two result sets (`SELECT * FROM category; SELECT * FROM language;`): *Save Results As...* on the second grid saves only the languages.
 6. Save to a read-only file or a folder without write access. Expected: an error message; Visual Studio keeps running.
+
+## US-0705 Export the full result
+
+**Status:** Todo
+
+As a developer, I want to export all rows of a query result, also beyond the 1000 rows the results pane shows, so that an export is complete. From P-05 (decision D-20).
+
+**Acceptance criteria**
+
+- [ ] When a result was cut off at the row limit, *Save Results As...* asks: *Save the 1000 rows shown* or *Run the statement again and save all rows*.
+- [ ] Running again is only offered for statements without side effects: SELECT, SHOW, DESCRIBE, EXPLAIN and WITH ... SELECT. Other statements only save the rows shown.
+- [ ] The rows go straight from the server to the CSV or JSON file, without keeping them in memory; same format as US-0704.
+- [ ] Progress with the number of rows and Cancel (the Visual Studio wait dialog, as in Script Database); Visual Studio stays usable. A cancelled export removes the incomplete file.
+- [ ] The statement runs on its own connection, not in the session of the document (D-11), so temporary tables and variables of the session are not available: the message says so when the statement fails.
+- [ ] A result that was not cut off is saved as before, without running anything.
