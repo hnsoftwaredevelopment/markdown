@@ -32,7 +32,7 @@ As a developer, I want to see the execution plan of a query, so that I can find 
 - Marked: access type `ALL` (full table scan, not for the target table of an INSERT), `using_filesort`, `using_temporary_table`, and the MariaDB `filesort` and `temporary_table` steps.
 - The *Plan* tab only shows while there is a plan and opens after *Explain*. The Messages tab gets *Estimated plan of the statement at line n in ...; the statement did not run.* plus the warnings of the server; MySQL adds note 1003 with the rewritten query.
 - Ctrl+L only works in the MySQL Query Editor (its own key binding scope, ADR-013); in other editors Ctrl+L stays *Cut Line*.
-- Icon: the Visual Studio catalog has no icon for an estimated plan, so *Explain* has its own image: a small plan tree with the costly step in orange (decision 2026-11-03, may be replaced in E11). It comes from `ObjectExplorerImages.imagemanifest` (PNG 16/24/32, drawn from `Resources/Images/Explain.svg`) and is used by the menu command and the button in the query bar (`ObjectExplorerMonikers.Explain`). The grey parts are inverted in the dark theme.
+- Icon: the Visual Studio catalog has no icon for an estimated plan, so *Explain* has its own image: a small plan tree with the costly step in orange (decision 2026-11-03, may be replaced in E11). It comes from `ObjectExplorerImages.imagemanifest` (PNG 16/24/32, drawn from `Resources/Images/Explain.svg`) and is used by the menu command and the button in the query bar (`ObjectExplorerMonikers.Explain`). The grey parts are inverted in the dark theme. The manifest must be an asset of type `Microsoft.VisualStudio.ImageManifest` in `source.extension.vsixmanifest`; only including the file in the VSIX is not enough (found in the US-1302 test: both icons were empty). Visual Studio reads it into its image cache when the installed extensions change. In the experimental instance the old cache stayed in use after the fix; deleting `%LOCALAPPDATA%\Microsoft\VisualStudio\18.0_<id>Exp\ImageLibrary\ImageLibrary.cache` (or `devenv /rootsuffix Exp /updateconfiguration`) solved it. A normal VSIX install rebuilds the cache.
 
 **Manual test**
 
@@ -54,7 +54,7 @@ Use the *sakila* sample database (or any database with a few tables).
 
 ## US-1302 Explain analyze
 
-**Status:** Ready for test
+**Status:** Done (accepted 2026-11-03)
 
 As a developer, I want to see how many rows each step really read and how long it took, so that I can see where the optimizer guessed wrong.
 
@@ -99,13 +99,48 @@ Use *sakila* on MySQL 8.0.18 or later.
 
 ## US-1303 View dependencies
 
-**Status:** Todo
+**Status:** Ready for test
 
 As a developer, I want to see what uses a table or routine before I change it.
 
 **Acceptance criteria**
 
-- [ ] Context menu *View Dependencies* on a table, view, procedure and function.
-- [ ] *Used by*: views (`INFORMATION_SCHEMA.VIEW_TABLE_USAGE`, MySQL 8.0.13+), foreign keys of other tables, triggers, and routines and events whose source contains the name (marked as a text match).
-- [ ] *Uses*: the tables of a view, the tables a table refers to with foreign keys.
-- [ ] Shown as a tree in a tool window; double-click selects the object in the explorer.
+- [x] Context menu *View Dependencies* on a table, view, procedure and function.
+- [x] *Used by*: views (`INFORMATION_SCHEMA.VIEW_TABLE_USAGE`, MySQL 8.0.13+), foreign keys of other tables, triggers, and routines and events whose source contains the name (marked as a text match).
+- [x] *Uses*: the tables of a view, the tables a table refers to with foreign keys.
+- [x] Shown as a tree in a tool window; double-click selects the object in the explorer.
+
+**Tasks**
+
+- [x] T-1303-01 `DependencyCatalog`, `MySqlDependencySource` (INFORMATION_SCHEMA), `DependencyFinder` and `SourceMatcher` + tests
+- [x] T-1303-02 `DependencyViewModel` and `DependencyNavigator` (subject of a node, select an object in the tree) + tests
+- [x] T-1303-03 Tool window *MySQL Dependencies*, command *View Dependencies*, selection scrolls into view in the explorer
+
+**Implementation notes**
+
+- *View Dependencies* is in the context menu of tables, views, stored procedures and functions, below *View Code*; enabled when the server is connected.
+- One read per request: the tables, views, routines, triggers and events of the database with their source, the foreign keys from and to the database (`REFERENTIAL_CONSTRAINTS`, also from other databases), and on MySQL 8.0.13+ `VIEW_TABLE_USAGE` and `VIEW_ROUTINE_USAGE`.
+- *Used by*:
+  - views that select from the object (usage tables; on MariaDB and older MySQL a text match on the view definition),
+  - tables with a foreign key to the table (with the constraint name),
+  - the triggers of the table,
+  - routines, triggers on other tables, events (and views without usage tables) whose source names the object: *text match*.
+- *Uses*: a table lists the tables its foreign keys refer to; a view lists its tables, views and functions (usage tables, or a text match on MariaDB); a procedure or function lists the tables, views and routines its body names (text match; not in the acceptance criteria, but the same source is already read).
+- Text match: the name as a whole word, ignoring case. `film` matches ``` `film` ``` and `sakila.film`, not `film_actor`. A name in a comment or string also matches; that is why these lines say *text match*. Text matches only look in the same database; usage tables and foreign keys also show other databases (the label then has the database name).
+- MySQL gives `ROUTINE_DEFINITION` only to the definer or with enough privileges, and `VIEW_DEFINITION` only with SHOW VIEW. When a source is missing, the window says *Some sources could not be read with this account, so text matches can be missing.*
+- The window *MySQL Dependencies* opens as a tab next to the Output window; each View Dependencies replaces its content. Double-click or Enter on an object shows the explorer, expands the tree to the object and selects it (a trigger: under its table). An object that no longer exists is only logged.
+- The core type is `SchemaObject` (not `DependencyObject`, which clashes with WPF).
+
+**Manual test**
+
+Use *sakila* on MySQL 8.0.13 or later.
+
+1. Right-click table *film*: *View Dependencies* is below *View Code*. It is also on a view, a procedure and a function, not on a column, key, trigger or database. With the server disconnected it is disabled.
+2. *View Dependencies* on *film*: the window *MySQL Dependencies* opens next to Output with the title *Table sakila.film*. *Used by* shows *film_actor* and *film_category* (foreign key ...), *inventory* (foreign key ...), the views *film_list*, *nicer_but_slower_film_list*, the triggers *ins_film*, *upd_film*, *del_film* (trigger on the table) and routines such as *film_in_stock* (text match). *Uses* shows *language* (foreign key fk_film_language ...).
+3. *View Dependencies* on view *film_list*: *Uses* shows *film*, *film_actor*, *actor*, *category*, *film_category*.
+4. *View Dependencies* on procedure *film_in_stock*: *Uses* shows *inventory* (text match), and the function *inventory_in_stock* when its body calls it.
+5. Double-click *film_actor* in the window: the explorer opens, the tree expands to *Tables > film_actor* and selects it, scrolled into view. Double-click a trigger: it is selected under *film > Triggers*.
+6. A table without dependencies: both groups show *(none found)*.
+7. Connect as a user without rights on the routines (for example *oe_reader*): the note about sources that could not be read.
+8. MariaDB (if available): views appear as *text match*.
+9. Theme (Dark, Light, Blue): the window is readable.

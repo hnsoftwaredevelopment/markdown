@@ -84,8 +84,8 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | US-1201 | Documentation as Markdown | Todo |
 | US-1202 | Documentation as PDF | Todo |
 | US-1301 | Explain plan | Done |
-| US-1302 | Explain analyze | Ready for test |
-| US-1303 | View dependencies | Todo |
+| US-1302 | Explain analyze | Done |
+| US-1303 | View dependencies | Ready for test |
 | US-1401 | Completion of names | Todo |
 | US-1402 | Parameter info and quick info | Todo |
 
