@@ -37,7 +37,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E13-QueryInsight.md",
+                "file": "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E14-IntelliSense.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -52,7 +52,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "E13-QueryInsight"
+              "title": "E14-IntelliSense"
             }
           }
         ],
@@ -394,6 +394,7 @@
   },
   "active": "1982f7e044b7c34a",
   "lastOpenFiles": [
+    "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E13-QueryInsight.md",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E05-DragAndDrop.md",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E07-QueryEditor.md",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E10-Security.md",

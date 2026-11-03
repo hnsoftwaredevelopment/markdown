@@ -1,5 +1,7 @@
 # E13 Query insight
 
+**Status:** Done (accepted 2026-11-03)
+
 See how MySQL runs a query and how objects depend on each other. From the comparison with SSMS (Display Execution Plan, View Dependencies).
 
 ## US-1301 Explain plan
@@ -99,7 +101,7 @@ Use *sakila* on MySQL 8.0.18 or later.
 
 ## US-1303 View dependencies
 
-**Status:** Ready for test
+**Status:** Done (accepted 2026-11-03)
 
 As a developer, I want to see what uses a table or routine before I change it.
 
