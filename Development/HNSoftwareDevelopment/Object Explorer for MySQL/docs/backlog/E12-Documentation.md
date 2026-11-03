@@ -78,7 +78,7 @@ Use *sakila*.
 
 ## US-1202 Documentation as PDF
 
-**Status:** Ready for test
+**Status:** Done (accepted 2026-11-03)
 
 As a developer, I want the documentation of a database as a PDF, so that I can print it or send it to people who do not use Markdown.
 

@@ -27,7 +27,7 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | E09 | [Object management](E09-ObjectManagement.md) | 0.3 | Done |
 | E10 | [Security](E10-Security.md) | 0.3 | Done |
 | E11 | [Packaging and release](E11-Release.md) | 1.0 | Todo |
-| E12 | [Database documentation](E12-Documentation.md) | 0.4 | Todo |
+| E12 | [Database documentation](E12-Documentation.md) | 0.4 | Done |
 | E13 | [Query insight](E13-QueryInsight.md) | 0.4 | Done |
 | E14 | [IntelliSense](E14-IntelliSense.md) | 0.4 | Done |
 | - | [Parked](Parked.md) | - | Parked |
@@ -82,7 +82,7 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | US-1102 | Marketplace listing | Todo |
 | US-1103 | Release workflow | Todo |
 | US-1201 | Documentation as Markdown | Done |
-| US-1202 | Documentation as PDF | Ready for test |
+| US-1202 | Documentation as PDF | Done |
 | US-1301 | Explain plan | Done |
 | US-1302 | Explain analyze | Done |
 | US-1303 | View dependencies | Done |
