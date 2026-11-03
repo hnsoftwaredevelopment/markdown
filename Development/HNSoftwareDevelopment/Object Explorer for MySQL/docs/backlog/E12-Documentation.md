@@ -102,6 +102,7 @@ As a developer, I want the documentation of a database as a PDF, so that I can p
   - page 1: title, connection and server version, character set and collation, generation time, notes about the dependencies, then *Contents* with a dotted line to the page number; every line is a link;
   - each part (Tables, Views, Procedures, Functions, Events) starts on a new page; objects follow each other on the page;
   - tables have a lilac header row that repeats when a table runs over a page; line breaks in comments stay line breaks;
+  - a word wider than its column is split over lines, preferably after `_`, `,`, `.`, `(` or `-` (`CURRENT_` / `TIMESTAMP`); MigraDoc itself only wraps at spaces, so such a word ran into the next column (found in the first test, 2026-11-03);
   - header *Database <name>* on every page, footer *Page x of y*;
   - the PDF outline (bookmarks pane of the viewer) lists the parts and the objects.
 - Dependencies: the same lists as in Markdown, with links to the objects in the document. The diagram has the look of the Mermaid default theme: rounded lilac boxes with name and kind, users on the left, the object in the middle with a thick border, used objects on the right, curved arrows, the foreign key name on a grey label, dashed lines for text matches. Labels are drawn on top of the lines. A wide or tall diagram is scaled down to fit the page, never enlarged.
