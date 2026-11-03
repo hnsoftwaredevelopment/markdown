@@ -130,6 +130,7 @@ As a developer, I want to see what uses a table or routine before I change it.
 - MySQL gives `ROUTINE_DEFINITION` only to the definer or with enough privileges, and `VIEW_DEFINITION` only with SHOW VIEW. When a source is missing, the window says *Some sources could not be read with this account, so text matches can be missing.*
 - The window *MySQL Dependencies* opens as a tab next to the Output window; each View Dependencies replaces its content. Double-click or Enter on an object shows the explorer, expands the tree to the object and selects it (a trigger: under its table). An object that no longer exists is only logged.
 - The core type is `SchemaObject` (not `DependencyObject`, which clashes with WPF).
+- Found in the first test: `VIEW_ROUTINE_USAGE` names the view `TABLE_SCHEMA`/`TABLE_NAME`, not `VIEW_SCHEMA`/`VIEW_NAME` as `VIEW_TABLE_USAGE` does; the query failed on every object. Fixed, and when the usage tables cannot be read, the window now falls back to the text match for views (logged as a warning) instead of failing.
 
 **Manual test**
 
