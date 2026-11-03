@@ -29,7 +29,7 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | E11 | [Packaging and release](E11-Release.md) | 1.0 | Todo |
 | E12 | [Database documentation](E12-Documentation.md) | 0.4 | Todo |
 | E13 | [Query insight](E13-QueryInsight.md) | 0.4 | Done |
-| E14 | [IntelliSense](E14-IntelliSense.md) | 0.4 | Todo |
+| E14 | [IntelliSense](E14-IntelliSense.md) | 0.4 | Done |
 | - | [Parked](Parked.md) | - | Parked |
 
 ## User stories
@@ -81,13 +81,13 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | US-1101 | Visual identity | Todo |
 | US-1102 | Marketplace listing | Todo |
 | US-1103 | Release workflow | Todo |
-| US-1201 | Documentation as Markdown | Todo |
+| US-1201 | Documentation as Markdown | Ready for test |
 | US-1202 | Documentation as PDF | Todo |
 | US-1301 | Explain plan | Done |
 | US-1302 | Explain analyze | Done |
 | US-1303 | View dependencies | Done |
-| US-1401 | Completion of names | Ready for test |
-| US-1402 | Parameter info and quick info | Todo |
+| US-1401 | Completion of names | Done |
+| US-1402 | Parameter info and quick info | Done |
 
 ## Decisions
 
@@ -113,3 +113,4 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | D-18 | Follow-up after E10 | Roles can be created and granted to users (US-1004, US-1005), granting sets a default role by default; a dragged connection string follows the file type and has a password placeholder, never the password (US-0505) | 2026-11-02 |
 | D-19 | Scope after 0.3 | P-01 table designer and P-03 schema compare dropped; P-02 becomes E12; from SSMS: execution plan and dependencies (E13) and IntelliSense (E14); activity monitor parked as P-06 | 2026-11-02 |
 | D-20 | Full result and PDF | Export runs a read-only statement again and streams all rows to the file, with progress and Cancel (US-0705; paging the results pane would not make the export complete); PDF with MigraDoc/PDFsharp (MIT), Syncfusion as fallback (US-1202); P-06 activity monitor as the last item of 0.4 | 2026-11-03 |
+| D-21 | Completion list | No commit with the space bar (an alias after a table would be replaced); commit with Tab, Enter and `.` `,` `(` `)` `;`. Not a copy of SSMS. The list never asks for a password and typing never waits for the server (US-1401) | 2026-11-03 |

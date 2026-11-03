@@ -37,7 +37,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E14-IntelliSense.md",
+                "file": "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E12-Documentation.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -52,7 +52,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "E14-IntelliSense"
+              "title": "E12-Documentation"
             }
           }
         ],
@@ -394,11 +394,12 @@
   },
   "active": "1982f7e044b7c34a",
   "lastOpenFiles": [
+    "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/Backlog.md",
+    "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E14-IntelliSense.md",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E13-QueryInsight.md",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E05-DragAndDrop.md",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E07-QueryEditor.md",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E10-Security.md",
-    "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/Backlog.md",
     "Testing/BT1-1788 Pieces that exceed stick through length does not require detection.md.tmp.17616.57d05b776f55",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/Parked.md",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E09-ObjectManagement.md",
@@ -425,7 +426,6 @@
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/decisions/ADR-002-Project-en-scriptbeheer.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/decisions/ADR-001-InnoSetup-als-productgrens.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/decisions",
-    "conflict-files-obsidian-git.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/tasks",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/historie",

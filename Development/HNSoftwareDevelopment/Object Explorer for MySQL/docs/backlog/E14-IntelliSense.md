@@ -1,10 +1,12 @@
 # E14 IntelliSense in the query editor
 
+**Status:** Done (accepted 2026-11-03)
+
 Completion of names in the MySQL Query Editor from the metadata of the linked connection. From the comparison with SSMS.
 
 ## US-1401 Completion of names
 
-**Status:** Ready for test
+**Status:** Done (accepted 2026-11-03)
 
 As a developer, I want the editor to suggest databases, tables, views, columns and routines while I type, so that I type less and make fewer mistakes.
 
@@ -28,7 +30,7 @@ As a developer, I want the editor to suggest databases, tables, views, columns a
 - After a dot: `alias.` and `table.` give the columns in table order; `database.` gives the tables, views and routines of that database; `database.table.` gives its columns.
 - Tables and aliases come from the FROM (with commas), JOIN, UPDATE and INTO parts of the statement at the caret. `AS` is optional; a keyword after the table is no alias. A statement ends at `;` (a procedure body with `;` inside counts as several statements, so aliases do not reach across them).
 - Quoting follows the Drag & Drop option *Quote SQL names* (US-0504). After a typed backtick the name is always quoted.
-- The chosen name is committed with Tab, Enter, or by typing `.`, `,`, `(`, `)` or `;`. Not with a space: when you type an alias such as `f` after `film`, a space would replace it with a name from the list.
+- The chosen name is committed with Tab, Enter, or by typing `.`, `,`, `(`, `)` or `;`. Not with a space: when you type an alias such as `f` after `film`, a space would replace it with a name from the list. Kept on purpose after the test (decision D-21).
 - `SchemaCache`: per connection the list of databases, per database its tables, views and routines, per table its columns. Read once on a background thread and kept; a failed read is not kept, so the next keystroke tries again. *Refresh* on any node of a server clears the cache of that server.
 - The list never asks for a password: when the password of the connection is not known yet (not saved and not connected), only keywords are offered. Waiting for metadata only delays the list; typing goes on.
 
@@ -49,9 +51,45 @@ Use *sakila* on a connected server, in a New Query on *sakila*.
 
 ## US-1402 Parameter info and quick info
 
-**Status:** Todo
+**Status:** Done (accepted 2026-11-03)
+
+As a developer, I want to see the parameters of a routine while I type the call, and the details of a table or column when I hover over it.
 
 **Acceptance criteria**
 
-- [ ] Parameter info for procedures and functions after `(`.
-- [ ] Quick info on hover over a table or column: type, nullable, key, comment.
+- [x] Parameter info for procedures and functions after `(`.
+- [x] Quick info on hover over a table or column: type, nullable, key, comment.
+
+**Tasks**
+
+- [x] T-1402-01 `SqlCompletionAnalyzer.SignatureAt` and `SymbolAt`, `IntelliSenseInfoBuilder` (signature, quick info), parameters and details in `SchemaCache` + tests
+- [x] T-1402-02 Quick info source, signature help source and the command filter that opens and follows parameter info
+
+**Implementation notes**
+
+- Parameter info opens after `(` and `,`, and with Ctrl+Shift+Space (Edit.ParameterInfo), when the name before the parenthesis is a procedure or function of the database (or `db.routine`). Built-in functions such as `COUNT(` get no tip; a keyword before `(` (`IN (`, `VALUES (`) is no call.
+- Procedures show the mode of each parameter: `film_in_stock(IN p_film_id int, IN p_store_id int, OUT p_film_count int)`. Functions show the return type: `inventory_in_stock(p_inventory_id int) RETURNS tinyint(1)`. The routine comment is the description.
+- The parameter at the caret is in bold; it follows the caret and the commas (commas inside strings and nested parentheses do not count). The tip closes when the caret leaves the call, after `)`, and with Esc.
+- Quick info on a name:
+  - column (`f.title`, `title` of a table in the statement, `db.table.column`): `film.title (column)`, then the type, NULL or NOT NULL, primary key, foreign key, extra (`auto_increment`), and the comment;
+  - table or view: `sakila.film (table)`, the engine and the comment;
+  - procedure or function: its signature and comment;
+  - database: `sakila (database)`.
+  Keywords and unknown names show nothing.
+- Same rules as the completion list (US-1401, D-21): data from `SchemaCache` (parameters are cached per routine too), never a password dialog, and the tip only appears when the data is there; typing never waits.
+
+**Manual test**
+
+Use *sakila* on a connected server, in a New Query on *sakila*.
+
+1. Type `CALL film_in_stock(`: the tip shows `film_in_stock(IN p_film_id int, IN p_store_id int, OUT p_film_count int)` with *p_film_id* in bold.
+2. Type `1, `: *p_store_id* is bold. Move the caret back into the first argument: *p_film_id* is bold again.
+3. Type `)`: the tip closes. Esc also closes it.
+4. `SELECT inventory_in_stock(`: the tip ends with `RETURNS tinyint(1)`.
+5. Ctrl+Shift+Space inside the parentheses of an existing call: the tip opens.
+6. `SELECT COUNT(` and `WHERE id IN (`: no tip.
+7. Hover over `film` in `SELECT * FROM film`: `sakila.film (table)`, InnoDB and the comment.
+8. Hover over `title` in `SELECT f.title FROM film f` and in `SELECT title FROM film`: `film.title (column)`, `varchar(128) NOT NULL` and so on. Hover over `film_id`: also *primary key* and *auto_increment*.
+9. Hover over a procedure name and over `sakila` in `USE sakila`: the signature, and `sakila (database)`.
+10. Hover over `SELECT`: nothing.
+11. A connection whose password is not known yet: no tips, no password dialog.
