@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-48-checklist.md",
+                "file": "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/author-rename-checklist.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "milestone-48-checklist"
+              "title": "author-rename-checklist"
             }
           }
         ],
@@ -383,9 +383,9 @@
   },
   "active": "a76ab09dac4b2700",
   "lastOpenFiles": [
+    "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-48-checklist.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-47-checklist.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-10-22-saga-author-rename-design.md",
-    "Development/HNSoftwareDevelopment/Ebook Manager/docs/manual-tests/milestone-48-checklist.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/decisions/001-author-profile-storage.md",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/decisions",
     "Development/HNSoftwareDevelopment/Ebook Manager/docs/superpowers/specs/2026-10-22-saga-milestone-48-author-profiles-design.md",

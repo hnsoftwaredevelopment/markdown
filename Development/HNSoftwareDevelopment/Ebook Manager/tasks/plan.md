@@ -1,6 +1,149 @@
-# Vervolg auteursbeheer: hernoemen
+# Milestone 56: volgnummer wijzigen in Series beheren
 
-Status: aanpak goedgekeurd en onderstaande stappen uitgevoerd binnen de bestaande open PR #49. De gebruiker accepteert hernoemen en het eigen icoon. 933 tests geslaagd; Debug-build 2026.10.22.109 heeft 0 waarschuwingen/fouten. Eigen review corrigeert waarschuwingen bij auteurswissel, paginering na hernoemen en de kleine-vensterindeling. Alleen die laatste indeling vraagt nog gerichte handmatige controle. Specificatie: docs/superpowers/specs/2026-10-22-saga-author-rename-design.md. De oorspronkelijke gebruikersvinkjes blijven behouden; PR #49 is niet gemerged. Onderstaande volgorde blijft als uitvoeringshistorie behouden.
+Goedgekeurd door de gebruiker. Basis main 373d45f met afrondingsnotitie a18571b; branch codex/milestone-56-series-number. Specificatie: docs/superpowers/specs/2026-10-31-saga-milestone-56-series-number-design.md.
+
+1. Gerichte snapshot/transactie en behoud van andere velden testgestuurd bouwen.
+2. Bestaande bestandssynchronisatie, annulering en bestandswaarschuwingen testen.
+3. Dialoog en beheerselectie: cultuur/lege invoer, informatieve doublure, sortering en veilige feedback.
+4. WPF en zes talen aansluiten; gerichte en volledige tests, echte UI-proeven en schone Debug-build.
+5. Eigen review, checklist/README/featurestatus, exacte spiegels en gewone PR. Gebruiker accepteert en mergt.
+
+Uitgevoerd: 1166 tests en 29 WPF-proeven groen. Schone enige Debug-build 2026.10.31.17 van 31 oktober 00:54:49 Europe/Amsterdam, 0 waarschuwingen/fouten. Eigen review, zes talen, beide thema’s en 600 geladen boeken afgedekt. Checklist 56 klaar; gewone niet-draft PR #58 geopend naar main en aan de chat gekoppeld. Mergeable bij opening, GitGuardian groen en CodeQL bezig. Elf Markdown-bestanden exact gespiegeld en met SHA256 gecontroleerd. De gebruiker heeft op 3 november 2026 getest en geaccepteerd. Alleen de merge van PR #58 staat nog open.
+
+## Historie: Milestone 55
+# Milestone 55: seriesvarianten vinden en samenvoegen
+
+Afronding 31 oktober 2026: de gebruiker heeft het samenvoegen van series opnieuw getest zonder problemen en bevestigt dat PR #56 en PR #57 zijn gemerged. GitHub bevestigt beide merges; lokale main is bijgewerkt naar 373d45f. Milestones 54 en 55 zijn afgerond. Onderstaande uitvoeringsnotities en individuele checklistvakjes blijven als historie behouden. De UI-/icoonharmonisatie blijft een afzonderlijke wens voor later.
+
+Goedgekeurde bouwopdracht; basis PR #56 head 56c4f49, branch codex/milestone-55-series-merge. Specificatie: docs/superpowers/specs/2026-10-30-saga-milestone-55-series-merge-design.md. Vorige PR staat bij aanvang open; zo nodig later herplaatsen op gemergede main. Geen agents, schema of dependencies.
+
+1. Gerichte modellen en EF-transactie; eerst falende tests voor behoud van nummers/metadata, bestaande doelboeken, meer dan 500 boeken, stale preview en rollback (3–5 bestanden per increment).
+2. Conservatieve naamindex en bestaande BookService-synchronisatie met aparte waarschuwingen; tests voor betekenisvolle cijfers, geen detectieschrijfacties, metadata.json en annulering na commit.
+3. Testbare zoek-/vergelijkingsmodellen: gehele preview, numerieke volgorde, gelijke/lege nummers zichtbaar, 200 zichtbare rijen en expliciete bestaande bestemming. Opslag blijft gescheiden.
+4. WPF-voorstellen en vergelijking aansluiten op Series beheren, zoek/focus en ongefilterde lijst na sluiten; eigen route gebruikt bestaande metadatareconciliatie. Zes talen en echte WPF-proeven.
+5. Volledige suite, schone enige Debug-build, eigen vijfassige review, handmatige checklist, README/featurestatus en exacte Markdown-spiegels; gewone PR en gebruikersacceptatie.
+
+Grootste risico's: cijfers uit namen weg-normaliseren (behouden), oude preview overschrijven (volledige snapshotcontrole), nummers stil wijzigen (alleen Series/UpdatedUtc schrijven), latere fouten als rollback melden (opgeslagen status/IDs/waarschuwingen behouden). Afhankelijkheden in deze volgorde, ieder increment verifiëren en committen.
+
+Uitgevoerd: opslag/detectie en WPF-workflow afzonderlijk gecommit; 1131 tests en 28 WPF-scenario's slagen. Definitieve Debug-build 2026.10.31.6 van 31 oktober 00:08:58 Europe/Amsterdam heeft 0 waarschuwingen/fouten; één Saga.exe. Eigen vijfassige review en beide thema's bij minimumgrootte afgerond. De gebruiker heeft Milestone 55 op 31 oktober 2026 geaccepteerd; checklist 55 bewaart de gedetailleerde teststappen. Gewone niet-draft PR #57 is geopend en gekoppeld; mergeable bij opening. GitGuardian groen, CodeRabbit overgeslagen; CodeQL-resultaat op deze vervolgbranch nog niet beschikbaar. Na omrichten naar main opnieuw controleren. PR #56 is nog open; daarom een gewone vervolg-PR op die branch, daarna naar main na merge van de afhankelijkheid.
+
+## Historie: Milestone 54
+# Milestone 54: auteursduplicaten vinden en vergelijken
+
+Goedgekeurd vervolg op de werkende handmatige samenvoeging. Begonnen vanaf PR #55 head 877fb91; inmiddels herplaatst op gemergede main 3377d8e met een exact gelijke bronboom. Branch codex/milestone-54-author-duplicate-discovery. Specificatie: docs/superpowers/specs/2026-10-30-saga-milestone-54-author-discovery-design.md.
+
+1. Vergelijkingskaarten met beschikbare foto's, volledige profielwaarden, veldkeuzes en zichtbaar resultaat; bestaande opslag hergebruiken. Verify: dialoogmodellen en echte WPF-bronknoppen, foto-loading en scrollen.
+2. Pure, conservatieve naamvergelijking en lichte volledige indexpaginering. Verify: rood/groen voorbeelden en negatieve gevallen, 500+ auteurs, grens en annulering; geen foto-/boekbestanden laden.
+3. Voorstellenoverzicht met namen, tellingen, reden en filter; expliciete vergelijking/samenvoeging via bestaande service. Verify: late zoekresultaten, geen keuze betekent geen schrijven, refresh na merge en behoud van waarschuwingen.
+4. Zes talen, volledige suite, WPF/visuele controle, schone Debug-build, eigen review, gewone vervolg-PR, checklist en exacte Markdown-spiegels. Gebruiker accepteert en mergt de gewone PR naar main; PR #55 is inmiddels gemerged.
+
+Geen schema, dependencies, automatische merge, nieuwe doelnaam of online namenbron. Geen agents. Foto's alleen voor zichtbare vergelijking, maximaal twee gelijktijdige bronloads; zoekwerk buiten UI-thread en beperkt tot achternaam/initiaalbuckets.
+
+Reviewcorrectie 31 oktober 2026: CodeRabbit-opmerking 4428707720 is eerst falend gereproduceerd in de echte WPF-proef. ComparisonCards gebruikt nu doorlopende Tab-navigatie; alle acht bronknoppen op twee auteurskaarten zijn bereikbaar en Tab gaat daarna naar de resultaatkeuzes. 1099 tests en 26 WPF-proeven slagen. Schone tussentijdse PR #56-build 2026.10.31.3 van 31 oktober 00:06:12 Europe/Amsterdam, 0 waarschuwingen/fouten. De correctie wordt ook in vervolg-PR #57 meegenomen; de uiteindelijke gecombineerde testbuild wordt daar geregistreerd.
+
+## Historie: Milestone 53
+# Milestone 53: auteurs bewust samenvoegen
+
+Goedgekeurde bouwopdracht 30 oktober 2026. Specificatie: docs/superpowers/specs/2026-10-30-saga-milestone-53-author-merge-design.md. Basis main 7d3ed6e, branch codex/milestone-53-author-merge. Alleen handmatig gekozen auteurs; bestemming is één geselecteerde bestaande auteur. Geen schema, dependencies of agents.
+
+1. **Transactie en boekveiligheid.** Gerichte mergecontracten + EF-partial + eerst falende SQLite-tests (3–5 bestanden). Preview bevat profielen en volledige boeksets; valideer opnieuw, dedupliceer auteurkoppelingen met behoud van volgorde, herbereken DuplicateKey en weiger dubbelboeken. Verifieer rollback, stale preview, leeg/ongeldig en >500 boeken.
+2. **Profiel- en bestandsroute.** Service met expliciete veldbronnen, doel-eigen fotokopie, veilige opruiming en bestaande BookService na commit (2–4 bestanden). Verifieer waarschuwingen, foto-fouten en annulering. Checkpoint: gerichte opslag-/servicetests groen en commit.
+3. **Dialoogkeuzes.** Testbaar dialoogviewmodel en WPF-venster voor doel + website/biografie/foto per auteur, expliciete conflictoplossing en samenvatting (3–5 bestanden). Verifieer geen impliciete keuze bij verschillende waarden, annuleren en toetsenbord.
+4. **Auteursselectie en verversing.** Native Ctrl/Shift-selectie in Auteurs beheren, zichtbaar aantal en samenvoegactie, pending edits beschermen, doelauteur herladen en bestaande hoofdschermreconciliatie (3–5 bestanden). Eerst viewmodeltests; daarna WPF-selectie/focus/paginering. Checkpoint: volledige workflow groen.
+5. **Teksten en verificatie.** Zes talen in gerichte resource-increment, assettests/WPF-proef, volledige suite, schone enige Debug-build, eigen vijfassige review, checklist, README/featurestatus en exacte Obsidian-spiegels. Gewone PR, gebruiker accepteert en mergt.
+
+Risico's: onbedoeld same-person aannemen (alleen expliciete selectie), profielverlies (veldkeuzes en stale snapshot), dubbele boeken (gehele transactie weigeren), foto-eigenaarschap (kopie onder doel-ID vóór commit en controle vóór opruimen), focus/verborgen selectie (native selectie met ID-reconciliatie, reset bij nieuw zoeken). Afhankelijkheden: 1 vóór 2, 1–2 vóór 3–4, 5 na bewezen workflow. Bestaande goedgekeurde scope volstaat voor routinekeuzes; geen nieuwe akkoordronde.
+
+Verificatie: 1074 tests en 22 WPF-scenario's groen; Debug-build 2026.10.30.20 van 30 oktober 19:25:45 Europe/Amsterdam, 0 waarschuwingen/fouten en één Saga.exe. Foto-/bestandsfouten en stale/conflict/rollback gedekt; licht/donker bekeken en eigen vijfassige review uitgevoerd. Handmatige checklist milestone-53 staat open. Eén bestaande migratietest faalde eenmalig in een tussentijdse volledige run, maar slaagt afzonderlijk en in de volledige diagnostische hercontrole; oorzaak niet reproduceerbaar, migratiecode ongewijzigd.
+
+## Historie: Milestone 52 — geaccepteerd en gemerged in PR #54
+# Milestone 52: tags beheren
+
+Scope op 29 oktober 2026 door de gebruiker goedgekeurd. Specificatie: docs/superpowers/specs/2026-10-29-saga-milestone-52-tag-management-design.md. Basis geaccepteerde en gemergede PR #53 / main e8e024c, branch codex/milestone-52-tag-management. Geen schemawijziging, dependency, bibliotheekconversie of agents.
+
+Uitgevoerd in geteste increments; de gebruiker heeft de volledige slice op 29 oktober 2026 geaccepteerd, inclusief selectieacties en globaal samenvoegen. PR #54 is op 30 oktober 2026 gemerged. 1054 gewone tests en twintig interactieve WPF-scenario's slagen. Debug-build 2026.10.29.51 van 29 oktober om 16:05:02 (Europe/Amsterdam) heeft 0 waarschuwingen/fouten en is de enige Saga.exe onder Builds/Debug. Eigen vijfassige review en visuele controle in beide thema's afgerond. De aanvullende auteursvariantenwens is als latere, afzonderlijke feature vastgelegd.
+
+1. **Lichte leescontracten en paginering.** Afzonderlijke tag-IDs, zoeken met aantallen en boeken op titel/ID. Verificatie: SQLite-pagina's met meer dan 200 tags/boeken en Unicode; geen coverblobs of ebookbestanden voor lijsten.
+2. **Transactioneel hernoemen.** Bron-ID/naam en bevestigde boekset opnieuw controleren; een unieke doelnaam wijzigen of de bestaande doelidentiteit hergebruiken, bronkoppelingen dedupliceren en de lege bron verwijderen; alleen betrokken UpdatedUtc wijzigen. Verificatie: eerst falende tests, behoud van andere tags/volgorde en alle boekvelden, 510 boeken, rollback, gewijzigde bronkoppelingen, ongewijzigde/ongeldige naam en annulering.
+3. **Bestandssynchronisatie na commit.** Bestaande BookService-route en afzonderlijke bestandswaarschuwingen. Verificatie: eerst falende echte metadata.json-/waarschuwingsproeven en voltooiing bij annulering na commit.
+4. **Beheerviewmodel.** Zoeken, paginering, selectie, bevestiging, annuleren, bezetstatus en nieuwe naam behouden. Verificatie: gerichte tests; extra eerst falende regressies voor stale preview en eerlijk opgeslagen-maar-niet-ververst resultaat zijn opgelost.
+5. **Venster, werkbalk en talen.** Bestaande SeriesManagement-bediening volgen, tagicoon, zichtbare splitter, bereikbare knoppen en zes talen. Verificatie: XAML-/resourcetests en echte WPF-focustests voor laden, fout, nieuwere focus, zoektekst en annuleren/opslaan. Licht/donker op minimale grootte bekeken.
+6. **Opleveren.** Volledige suite, schone Debug-build, eigen review, actuele README/featurestatus, handmatige checklist en exacte Obsidian-spiegels. Gewone niet-draft PR; alleen de gebruiker accepteert en mergt.
+
+Afhankelijkheden: 1 vóór 2/4, 2 vóór 3, 3/4 vóór 5, 6 na alles. Checkpoints en commits volgen deze volgorde; de venster-/resourceaansluiting is apart gecommit. Opslagrisico's zijn afgedekt met transactie/ID-setcontrole, bestandsproblemen worden na commit onderscheiden en focus gebruikt het beproefde herstelpatroon van seriesbeheer. De aanvullende gebruikersopdracht breidt deze slice wel uit met wijzigen/verwijderen van de brontag op geselecteerde boeken. Expliciet globaal hernoemen naar een bestaande tag voegt de bron samen met het doel. Splitsen, zelfstandig globaal verwijderen en auteurs samenvoegen blijven buiten scope.
+Aanvulling na gebruikerstest: bron-/doelboeklijsten worden na een selectieactie opnieuw uit opslag geladen. Nieuwe of bestaande doeltag wordt hergebruikt; een reeds aanwezige doeltag blijft op haar bestaande positie en alleen de brontag verdwijnt. Native boekselectie wordt expliciet gesynchroniseerd bij paginering en reset bij een andere bron. Eerst falende repository/service/viewmodel/dialoog/resourceproeven en twee extra echte WPF-proeven zijn groen. De oorspronkelijke hernoemactie is expliciet globaal benoemd; moeilijke bestandswaarschuwingen hoeven niet handmatig te worden geforceerd.
+
+## Historie: Milestone 51 — geaccepteerd en gemerged
+# Milestone 51: meervoudige boekenkastselectie
+
+Actuele verificatie 29 oktober: de gedeelde boek-ID krijgt nu ook de juiste groepsvermelding voor focus en scroll. De nieuwe WPF-regressie bewijst de focus op de bedoelde groepslijst, verder navigeren en Shift/Ctrl. 993 tests en vijftien WPF-scenario's groen, inclusief de normale Debug-build 2026.10.29.9 van 08:59:31 (Europe/Amsterdam), met 0 waarschuwingen/fouten en één Saga.exe onder Builds. Op 29 oktober zijn alle resterende checklistpunten door de gebruiker getest en akkoord bevonden. Eigen review opnieuw zonder aanvullende bevindingen; CodeQL en GitGuardian groen. CodeRabbit kan de laatste fix door haar limiet niet beoordelen; de eigen review, regressietests en gebruikersacceptatie zijn vastgelegd. Oudere build-/testblokken hieronder zijn uitvoeringshistorie; het onterecht actuele blok van 27 oktober is historisch gemarkeerd.
+
+Reviewstatus 29 oktober 2026: de nog geldige CodeRabbit-opmerking over Up/Down bij gedeeltelijke boekenplankgroepen is eerst falend bewezen en gericht hersteld. Groepslokale rij/kolom en expliciete overgang vervangen de globale indexstap; Shift-reeksen behouden hun bestaande unieke volgorde. 993 tests en veertien WPF-scenario's groen, Debug-build 2026.10.29.5 om 08:15 zonder waarschuwingen/fouten en één Saga.exe. Eigen vijfassige review uitgevoerd; nieuwe handmatige hercontrole toegevoegd zonder eerdere acceptatie te wijzigen. Eerdere kolombreedte-/documentatieopmerkingen waren al verwerkt. Geen nieuwe afhankelijkheden of agents.
+
+Actuele gebruikersacceptatie, 27 oktober 2026: meerdere boeken selecteren en metadata bewerken werkt in alle drie de weergaven zoals verwacht. De gegroepeerde-rijencorrectie is akkoord; niet afzonderlijk bevestigde detailchecks blijven in de checklist staan. PR #53 staat nog open. Geen codewijziging of nieuwe build voor deze acceptatieregistratie; onderstaande stappen bewaren de uitvoeringshistorie.
+
+Voorstel en bouwopdracht zijn door de gebruiker goedgekeurd. Specificatie: docs/superpowers/specs/2026-10-27-saga-milestone-51-bookshelf-selection-design.md. Basis main 5360aed plus acceptatiedocumentatie PR #52. Geen nieuwe dependency, schema of opslagroute; geen agents nodig.
+
+Historische verificatie van 27 oktober 2026: onderstaande stappen en reviewcorrecties zijn uitgevoerd in geteste commits. Destijds slaagden 993 gewone tests en dertien interactieve WPF-scenario's. Debug-build 2026.10.27.34 van 27 oktober 16:03 (Europe/Amsterdam) heeft 0 waarschuwingen/fouten en is de enige Saga.exe onder Builds/Debug. De gebruiker heeft de knopcorrectie en groepsselectie op de boekenplank bevestigd. De nieuwe melding over enkelvoudige selectie in gegroepeerde Lijst/Gedetailleerd is eerst falend bewezen en hersteld met gedeelde inputafhandeling en stijl. Beide views houden hun eigen groepering en dezelfde geselecteerde IDs. Eigen vijfassige review en visuele rijcontrole uitgevoerd. Handmatige acceptatie blijft gedeeltelijk open voor de resterende groeps-/weergave-/filterpunten, smalle-paneelnavigatie en de nieuwe gegroepeerde-rijencontroles.
+
+Reviewafronding: de dubbele knop is door de gebruiker geaccepteerd als verwijderd. CodeRabbit wees op een afwijkende kolomberekening bij scrollbar/padding; navigatie gebruikt nu de werkelijke ColumnCount van het paneel. Een extra WPF-regressie controleert gerenderde posities in vier layouts. README/checklist/spec/taken geven dezelfde gedeeltelijk open acceptatie aan. PR #52 is gemerged; main ea65412 is geïntegreerd. De onderstaande lijst loopt ononderbroken door.
+
+1. **Selectie bewijzen.** Eerst falende tests voor Ctrl/Shift/range en unieke IDs; gerichte Presentation-selectiepartial en afgeleide rijstatus. Circa 3–5 bestanden. Verificatie: selectie blijft na filterdoorsnede en rijvervanging juist.
+
+2. **Tegels aansluiten.** Eén centrale selectie voor gewone en open gegroepeerde tegels, duidelijke rand/focus en modificatietoetsen. Circa 2–4 bestanden. Verificatie: echte WPF-selectie en dubbele groepsvermeldingen.
+3. **Toetsenbord en scroll.** Pijltjes/Home/End/Spatie/Escape binnen tegels, Ctrl-focus zonder selectiewijziging, virtualisatie behouden. Circa 2–4 bestanden. Verificatie: voorbij de viewport en geen focusverlies.
+
+   Checkpoint: unieke-ID-selectie en inputroutes bewezen vóór aansluiting van viewwissels en bulkuitkomsten.
+
+4. **Weergavewissel en bulk.** Bestaande grids veilig synchroniseren; tijdelijke resetselectie niet terugschrijven. Bestaande metadata-opdracht verwerkt dezelfde IDs en houdt foutselectie zichtbaar. Opsplitsen in increments van circa 3–5 bestanden. Verificatie: grid→tegels→grid, filters, annuleren en fouten.
+5. **Telling en talen.** Telling/uitleg bij de tegels, de bestaande actie in de hoofdwerkbalk en zes talen in kleine increments. Verificatie: resources, thema's en kleine werkgebieden.
+6. **Opleveren.** Volledige suite en WPF-controles, schone enige Debug-build, eigen review, checklist/README/featurestatus en exacte Obsidian-spiegels. Gewone PR; alleen gebruiker mergt en accepteert de handmatige checklist.
+
+Afhankelijkheden: 1 vóór 2–3; 2–3 vóór 4; 5 na bewezen interactie; 6 na alles. Grootste risico's: native ListBox-selectie versus centrale selectie, dubbele taggroepen, gridresets, rijen met nieuwe referenties en focus op niet-gerealiseerde containers. Mitigatie: identiteit centraal, beperkte synchronisatiebewaking en echte WPF-tests met fictieve gegevens. Het goedgekeurde voorstel bepaalt de scope; de technische uitwerking vraagt geen nieuwe akkoordronde.
+
+## Historie: Milestone 50
+
+# Milestone 50: seriesbeheer
+
+Richting en concrete specificatie door gebruiker bevestigd: docs/superpowers/specs/2026-10-24-saga-milestone-50-series-management-design.md. Gebouwd op codex/milestone-50-series-management vanaf geaccepteerde main f8ad6fa. Onderstaande increments zijn uitgevoerd met gerichte tests en commits. Numerieke SQLite-paginering, transactioneel hernoemen, bestandssynchronisatie, viewmodel, vensters en zes talen zijn aangesloten. 980 tests slagen; Debug-build 2026.10.24.52 van 24 oktober 15:01 (Europe/Amsterdam), 0 waarschuwingen/fouten en één Saga.exe. Eigen vijfassige review en WPF-rendercontrole uitgevoerd. Geen schemawijziging of nieuwe dependency. De gebruiker heeft ook de aanvullende toetsenbordcontrole op build 2026.10.24.61 geaccepteerd; PR #51 is gemerged naar main 5360aed. Milestone 50 is afgerond; onderstaande stappen blijven uitvoeringshistorie.
+
+1. **Bewijs namenindex en boekvolgorde.** Gerichte seriesrecords/repositorycontract en lichte EF-projecties met eerst falende tests. Acceptatie: juiste groepering/aantallen, alleen geselecteerde serie, exacte numerieke nummering vóór paginering, null onderaan en meer dan 200 boeken correct. Verificatie: tijdelijke SQLite-tests; circa 3–5 bestanden per increment. Bevestig de numerieke queryaanpak vóór verdere bouw.
+2. **Bouw transactioneel hernoemen.** Eerst tests voor bron/doelvalidatie, volledige bevestigde ID-set, schrijfwijzecorrectie en rollback. Acceptatie: alles in de database of niets; alleen Series/UpdatedUtc verandert, nummers en duplicaatsleutels blijven behouden. Verificatie: transactionele repositorytests inclusief tussentijdse bronwijziging. Circa 3–5 bestanden; geen per-boek-databaseloop als vervanging voor de transactie.
+3. **Sluit bestanden en uitkomsten aan.** Application-orkestratie na commit via bestaande BookService-route. Acceptatie: huidige metadata schrijven, één waarschuwing per probleemboek, geen onterechte volledige mislukking of automatische herhaling. Verificatie: echte metadata.json- en fout-/annuleringsgevallen in tijdelijke bibliotheek. Circa 3–5 bestanden.
+
+Checkpoint na 1–3: geen migratie nodig, juiste namen en nummering, atomiciteit en bestandsgrenzen bewezen vóór UI-aansluiting.
+
+4. **Bouw beheer-viewmodel.** Zoeken, paginering, selectie, bevestiging, bezetstatus, behoud van nieuwe zoeknaam en late resultaten bewaken. Acceptatie: hoofdschermvoorraad niet dupliceren en geen omslagen laden voor lijsten. Verificatie: gerichte viewmodeltests; circa 2–4 bestanden.
+5. **Sluit venster en talen aan.** Werkbalkactie, zichtbare splitter, begrensde boeken-/waarschuwingslijst en bereikbare knoppen bij verkleinen. Acceptatie: toetsenbord/focus, huidige serie zichtbaar na hernoemen en afsluitende bestaande hoofdschermreconciliatie. Verificatie: layout-/resource-/integratietests en WPF-render met fictieve gegevens. Opsplitsen in venster, interacties en vertaalincrements van hoogstens circa 3–5 bestanden.
+6. **Verifieer en lever op.** Volledige suite en schone Debug-build, eigen vijfassige review, README/featurestatus en handmatige checklist, exacte Obsidian-spiegels. Normale PR; gebruikersacceptatie blijft open tot de verse build getest is. Moeilijke fouten alleen automatisch in tijdelijke bibliotheken.
+
+Afhankelijkheden: 1 vóór 2 en 4; 2 vóór 3; 3–4 vóór 5; 6 na alles. Risico's: afwijkende naamvergelijking, tekstsortering van nummers, veranderde bron tussen bevestiging en commit, en foutmeldingen na commit. Mitigatie: één vergelijking, SQLite-proof vóór paginering, transactionele hercontrole en aparte bestands-/verversingsstatus. Geen agents of nieuwe dependency nodig. De specificatiegate is met het gebruikersakkoord gepasseerd. Eigen review corrigeerde nog splittercontrast en feedback bij een weergavefout ná commit; regressietest groen.
+
+Aanvulling na gebruikerstoets: hoofdroute akkoord volgens de eigen vinkjes; resterend focusverlies door tijdelijk uitschakelen gereproduceerd met een echte WPF-regressieproef en gericht hersteld. Eerst falende extra proef bewijst dat vertraagd herstel een nieuwere focuskeuze niet mag overnemen. 980 tests en vijf interactieve WPF-scenario's slagen; build 2026.10.24.61 van 15:35 heeft 0 waarschuwingen/fouten. Eigen review opnieuw uitgevoerd. Ook de toetsenbordhercontrole is inmiddels afgevinkt en geaccepteerd. Bestaande gebruikersvinkjes zijn behouden.
+
+## Historie: Milestone 49 meervoudige metadatawijzigingen
+
+Laatste status: oorspronkelijke slice en invoerverbetering zijn volledig door de gebruiker geaccepteerd. Alle vijf CodeRabbit-voorstellen zijn daarna goedgekeurd en verwerkt met gerichte regressietests: juiste beschikbaarheidsnotificaties, feedback behouden bij annuleren, eerlijke fase-afhankelijke foutmelding en twee testversterkingen. 959 tests slagen; Debug-build 2026.10.24.37 is schoon geplaatst op 24 oktober om 14:21 (Europe/Amsterdam). Alleen de korte annuleercontrole onderaan de checklist staat nog open. Historische uitvoeringsstappen hieronder blijven behouden.
+
+Aanvulling na gebruikersacceptatie: de oorspronkelijke slice is handmatig akkoord. Op verzoek is de standaardtekstinvoer voor auteur, serie, tags en taal vereenvoudigd met automatisch aanvinken bij typen en uitvinken bij wissen, terwijl handmatig leeg aanvinken en gevuld uitvinken blijven werken. Tags is direct bewerkbaar; swap, tagmodi, custom velden en leesstatus behouden hun bestaande betekenis. 955 tests slagen en build 2026.10.24.33 is schoon geplaatst. Alleen de vier nieuwe controles onderaan de checklist staan nog open; eerdere gebruikersvinkjes blijven behouden.
+
+Status: richting en concrete specificatie bevestigd; implementatie in geteste increments uitgevoerd. Specificatie: docs/superpowers/specs/2026-10-24-saga-milestone-49-multi-edit-results-design.md. PR #49 is gemerged en geaccepteerd; nieuwe branch vanaf actuele main 96fe288. Per-boekresultaten, eerlijke opslagfases, custom deelresultaten, selectie en zes talen zijn aangesloten. Eigen review en WPF-rendercontrole uitgevoerd; actuele verificatie in tasks/todo.md. Handmatige acceptatie van deze nieuwe slice staat open. De onderstaande stappen blijven als uitvoeringshistorie behouden.
+
+1. **Maak de bestaande bulksemantiek afzonderlijk testbaar.** Verplaats alleen bulklogica naar gerichte partial/gerichte opdrachtmapping; expliciet Application-contract zonder Presentation-afhankelijkheid. Acceptatie: bestaande velden, tagmodi, custom parsing en swapgedrag onveranderd. Test: bestaande MultiEdit-tests plus regressies voor opdrachtmapping. Circa 3–5 bestanden per increment.
+2. **Bewijs resultaten en opslagfase.** Eerst falende tests voor gemengd succes/conflict, ontbrekend boek, algemene fout en geen wijziging. Gebruik BookService en controleer opgeslagen toestand; bestandwaarschuwingen onderscheiden van niet-opgeslagen wijzigingen. Acceptatie: volgende boek wordt verwerkt en successen blijven behouden. Service/resultaat/tests in kleine increments van circa 3–5 bestanden.
+3. **Bewaak custom deelresultaten.** Eerst tests voor custom-only, standaardconflict zonder custom writes, standaard succesvol/custom mislukt en fout na enkele custom velden. Acceptatie: eerlijke deels-opgeslagen uitkomst, geen automatische herhaling van oude swapopdracht en geen stil succes bij ontbrekende custom opslag. Circa 3–5 bestanden; geen nieuwe gezamenlijke transactielaag.
+
+Checkpoint na 1–3: alle bestaande semantiek blijft, batchuitkomsten zijn betrouwbaar en gegevens-/bestandsgrenzen getest vóór nieuwe feedback-UI.
+
+4. **Sluit reconciliatie en selectie aan.** Gerichte partial/viewmodeltests; één eindverversing, geladen omslagen behouden, falende/deels opgeslagen zichtbare boeken blijven geselecteerd zonder nieuwere context te overschrijven. Acceptatie: details, filters en zoeken tonen werkelijk opgeslagen waarden. Verificatie: MultiEdit-, selectie- en omslagtests. Circa 3–5 bestanden.
+5. **Toon begrijpelijke feedback.** Korte groene succesroute; compact resultaat met uitklapbare, begrensde/gevirtualiseerde fout-/waarschuwingsdetails. Geen extra selectie-/previewvenster. Tests voor layout, aantallen en oude feedback verwijderen. Zes talen in kleine vertaalincrements. Circa 3–5 bestanden per increment.
+6. **Verifieer en lever op.** Volledige tests, schone Debug-build, eigen vijfassige review, README/featurestatus/checklist en gecontroleerde Markdown-spiegels. Normale PR na bevestigde scope; gebruikersacceptatie pas na nieuwe buildtest. Gericht handmatig: alles goed, conflict naast succes, volgende poging en annuleren; moeilijke fouten automatisch in tijdelijke bibliotheek.
+
+Afhankelijkheden: 1 vóór 2; 2 vóór 3; 2–3 vóór 4–5; 6 na alles. Risico's zijn faseverlies na commit, custom gedeeltelijke opslag en niet-idempotent omwisselen. Mitigatie: expliciete per-boekuitkomsten, herlezen, selectie-/retrygrenzen en eerst falende tests. Geen parallelle agents of nieuwe dependencies nodig. De specificatiegate is door gebruikersakkoord gepasseerd.
+
+## Historie: auteursbeheer hernoemen
+
+Status: aanpak goedgekeurd en onderstaande stappen uitgevoerd binnen de bestaande open PR #49. De gebruiker accepteert de slice inclusief 318 boeken, het eigen icoon, foto-validatie en vensterindeling. De twee vervolgopmerkingen van CodeRabbit zijn op 24 oktober testgestuurd verwerkt: zoeken op de nieuwe auteursnaam en metadata in begrensde groepen ophalen zonder geladen omslagen kwijt te raken. 936 tests geslaagd; Debug-build 2026.10.24.7 heeft 0 waarschuwingen/fouten. Eigen review afgerond; alleen de twee reviewcorrecties hebben nog een gerichte handmatige nacontrole, geen volledige heracceptatie. Specificatie: docs/superpowers/specs/2026-10-22-saga-author-rename-design.md. De oorspronkelijke gebruikersvinkjes blijven behouden; PR #49 is niet gemerged. Onderstaande volgorde blijft als uitvoeringshistorie behouden.
 
 1. **Transactioneel hernoemen bewijzen.** Eerst falende repositorytests voor dezelfde auteur-id/profiel, gekoppelde boeken en bezette naam. Voeg gericht contract/resultaat en een EF-transactie toe; valideer bron/doel opnieuw en herbereken alle betrokken duplicaatsleutels. Circa 3–4 bestanden. Acceptatie: alles in de database of niets, geen auteurs samenvoegen. Verificatie: Author-repositorytests, inclusief mede-auteurs, nul boeken, pagina-overstijgend en rollback.
 2. **Bestandssynchronisatie aansluiten.** Inventariseer en test eerst de gedeelde BookService/MetadataSidecarWriter-route; eventuele minimale extractie als eigen increment. Voeg daarna Application-orkestratie toe voor uitsluitend de succesvol hernoemde boeken. Maximaal circa 5 bestanden per increment. Acceptatie: geen nieuwere metadata overschrijven en opgeslagen databasewijziging niet als geheel mislukt presenteren bij een bestandwaarschuwing. Verificatie: sidecar-/servicetests, commitgrens en annulering.
