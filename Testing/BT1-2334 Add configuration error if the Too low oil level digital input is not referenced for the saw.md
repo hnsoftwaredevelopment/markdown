@@ -30,8 +30,12 @@ VACAM moet ondanks de fout gewoon starten, zodat de service-engineer de referent
 
 | # | Resultaat | Opmerking |
 |---|---|---|
-| T1 | **Fout:** geen configuratiefout, niet zonder TwinCAT (08:00) en niet met TwinCAT en VASIM rc (08:20). Ook niets in het VACAM-log. Referentie `TooLowOilLevel` van `HydraulicGeneratorSaw[0]` is 0 (leeg) | gezien door Herbert |
-| T2 | | |
-| T3 | | |
-| T4 | | |
-| T5 | | |
+| T1 | **OK:** met de VACAM Launcher RC en TwinCAT in Run geeft VACAM de configuratiefout. Referentie `TooLowOilLevel` van `HydraulicGeneratorSaw[0]` is 0 (leeg) | Eerdere pogingen met de plugin (08:00 zonder TwinCAT, 08:20 met TwinCAT) gaven geen fout. TwinCAT bleef toen in Config door de trial license, en zonder PLC is de knop Machines er niet. Launcher-databases: `MC_20250008_VB1250`, `VACAM_20250008` |
+| T2 | **OK:** Too low oil level op DI 6 gezet (10:35). De melding bleef staan tot VACAM en TwinCAT herstart waren, daarna weg. Eindstand: Too low oil level DI 6, High oil temperature DI 5, Low oil level leeg | onderweg was High oil temperature per ongeluk losgekoppeld, daarna teruggezet op DI 5 |
+| T3 | niet apart uitgevoerd | |
+| T4 | **OK:** dezelfde test op 3 andere V100-configuraties, overal werkt het zoals beschreven | Herbert |
+| T5 | niet apart uitgevoerd | |
+
+## Conclusie
+
+De configuratiefout "Reference 'Too low oil level' of the hydraulic generator is not configured" verschijnt bij een VBS1x50b-zaag zonder koppeling. VACAM start gewoon op, en na het koppelen en herstarten van VACAM en TwinCAT is de fout weg. Dit klopt met de instructie in de mail van André aan service. Let op: de fout verdwijnt pas na een herstart, niet direct na het opslaan.

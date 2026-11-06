@@ -37,7 +37,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Testing/BT1-2334 Add configuration error if the Too low oil level digital input is not referenced for the saw.md",
+                "file": "Testing/V631 met VACAM develop 4.3x (leverbaarheid).md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -52,7 +52,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "BT1-2334 Add configuration error if the Too low oil level digital input is not referenced for the saw"
+              "title": "V631 met VACAM develop 4.3x (leverbaarheid)"
             }
           }
         ],
@@ -394,6 +394,7 @@
   },
   "active": "1982f7e044b7c34a",
   "lastOpenFiles": [
+    "Testing/BT1-2334 Add configuration error if the Too low oil level digital input is not referenced for the saw.md",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/Workflow.md",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/Backlog.md",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E15-ActivityMonitor.md",
@@ -424,7 +425,6 @@
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/README.md",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL",
     "Testing/TestPlans/BT1-2308 Testplan.md",
-    "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/Ontwerp-Vaste-Knopbreedte-Voorvertoning.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/decisions",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/tasks",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/slices",
