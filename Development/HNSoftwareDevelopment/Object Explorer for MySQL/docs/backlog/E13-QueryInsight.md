@@ -36,6 +36,8 @@ As a developer, I want to see the execution plan of a query, so that I can find 
 - Ctrl+L only works in the MySQL Query Editor (its own key binding scope, ADR-013); in other editors Ctrl+L stays *Cut Line*.
 - Icon: the Visual Studio catalog has no icon for an estimated plan, so *Explain* has its own image: a small plan tree with the costly step in orange (decision 2026-11-03, may be replaced in E11). It comes from `ObjectExplorerImages.imagemanifest` (PNG 16/24/32, drawn from `Resources/Images/Explain.svg`) and is used by the menu command and the button in the query bar (`ObjectExplorerMonikers.Explain`). The grey parts are inverted in the dark theme. The manifest must be an asset of type `Microsoft.VisualStudio.ImageManifest` in `source.extension.vsixmanifest`; only including the file in the VSIX is not enough (found in the US-1302 test: both icons were empty). Visual Studio reads it into its image cache when the installed extensions change. In the experimental instance the old cache stayed in use after the fix; deleting `%LOCALAPPDATA%\Microsoft\VisualStudio\18.0_<id>Exp\ImageLibrary\ImageLibrary.cache` (or `devenv /rootsuffix Exp /updateconfiguration`) solved it. A normal VSIX install rebuilds the cache.
 
+- Readability fix before the Marketplace release (Herbert, 2026-11-04): MySQL returns costs and row estimates with up to 15 decimals (`cost 5780.574485667104`). The Plan tab now shows figures of 1 and more with at most two decimals (`5780.57`, `1000`), smaller values such as `0.006 ms` with up to five decimals. The tooltip keeps the exact values.
+
 **Manual test**
 
 Use the *sakila* sample database (or any database with a few tables).

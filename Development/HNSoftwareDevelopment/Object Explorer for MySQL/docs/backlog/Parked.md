@@ -36,6 +36,6 @@ The results pane keeps at most 1000 rows per result set (US-0703), and the expor
 
 ## P-06 Activity monitor
 
-**Planned** (2026-11-03) as the last item of release 0.4.
+**Picked up** on 2026-11-03 as E15 / US-1501 (decision D-23), the last item of release 0.4.
 
 From the comparison with SSMS: running statements of the server (`SHOW PROCESSLIST` or `performance_schema`) with *Kill Query*. Useful when a statement waits on a lock. Parked on 2026-11-02.

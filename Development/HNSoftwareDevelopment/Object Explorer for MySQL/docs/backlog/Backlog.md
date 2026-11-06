@@ -9,7 +9,7 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | 0.1 (first usable) | E01, E02, E03, E04, E05 |
 | 0.2 | E06, E07 |
 | 0.3 | E08, E09, E10, US-0505 |
-| 0.4 | E13, E14, E12, US-0705, P-06 (last) |
+| 0.4 | E13, E14, E12, US-0705, E15 (last) |
 | 1.0 | E11, fixes from use |
 
 ## Epics
@@ -22,14 +22,15 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | E04 | [Properties window](E04-PropertiesWindow.md) | 0.1 | Done |
 | E05 | [Drag & drop to the editor](E05-DragAndDrop.md) | 0.1, 0.3 | Done |
 | E06 | [Script and view code](E06-ScriptAndCode.md) | 0.2 | Done |
-| E07 | [Query editor](E07-QueryEditor.md) | 0.2, 0.4 | In progress |
+| E07 | [Query editor](E07-QueryEditor.md) | 0.2, 0.4 | Done |
 | E08 | [View data](E08-ViewData.md) | 0.3 | Done |
 | E09 | [Object management](E09-ObjectManagement.md) | 0.3 | Done |
 | E10 | [Security](E10-Security.md) | 0.3 | Done |
-| E11 | [Packaging and release](E11-Release.md) | 1.0 | Todo |
+| E11 | [Packaging and release](E11-Release.md) | 1.0 | Done |
 | E12 | [Database documentation](E12-Documentation.md) | 0.4 | Done |
 | E13 | [Query insight](E13-QueryInsight.md) | 0.4 | Done |
 | E14 | [IntelliSense](E14-IntelliSense.md) | 0.4 | Done |
+| E15 | [Activity monitor](E15-ActivityMonitor.md) | 0.4 | Done |
 | - | [Parked](Parked.md) | - | Parked |
 
 ## User stories
@@ -66,7 +67,7 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | US-0702 | MySQL syntax coloring | Done |
 | US-0703 | Execute and show results | Done |
 | US-0704 | Export results | Done |
-| US-0705 | Export the full result | Ready for test |
+| US-0705 | Export the full result | Done |
 | US-0801 | View data (read-only) | Done |
 | US-0802 | Edit data | Done |
 | US-0901 | Delete objects | Done |
@@ -78,9 +79,9 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | US-1003 | Manage users | Done |
 | US-1004 | New role | Done |
 | US-1005 | Grant a role to a user | Done |
-| US-1101 | Visual identity | Todo |
-| US-1102 | Marketplace listing | Todo |
-| US-1103 | Release workflow | Todo |
+| US-1101 | Visual identity | Done |
+| US-1102 | Marketplace listing | Done |
+| US-1103 | Release workflow | Done |
 | US-1201 | Documentation as Markdown | Done |
 | US-1202 | Documentation as PDF | Done |
 | US-1301 | Explain plan | Done |
@@ -88,6 +89,7 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | US-1303 | View dependencies | Done |
 | US-1401 | Completion of names | Done |
 | US-1402 | Parameter info and quick info | Done |
+| US-1501 | Activity monitor | Done |
 
 ## Decisions
 
@@ -115,3 +117,5 @@ Status values and Definition of Done: see [Workflow](../Workflow.md).
 | D-20 | Full result and PDF | Export runs a read-only statement again and streams all rows to the file, with progress and Cancel (US-0705; paging the results pane would not make the export complete); PDF with MigraDoc/PDFsharp (MIT), Syncfusion as fallback (US-1202); P-06 activity monitor as the last item of 0.4 | 2026-11-03 |
 | D-21 | Completion list | No commit with the space bar (an alias after a table would be replaced); commit with Tab, Enter and `.` `,` `(` `)` `;`. Not a copy of SSMS. The list never asks for a password and typing never waits for the server (US-1401) | 2026-11-03 |
 | D-22 | PDFsharp version | Stay on PDFsharp/MigraDoc 6.2.x, the last MIT version. From 6.5 the code must load an AGPL or commercial license, which does not fit the MIT license of the extension (D-2). The PDF diagrams are drawn by the extension itself, offline (US-1202) | 2026-11-03 |
+| D-23 | Activity monitor | P-06 becomes E15. First version compact: sessions of one server from performance_schema.processlist (fallback SHOW FULL PROCESSLIST), refresh by hand and every 5 seconds, hide idle sessions, Kill Query and Kill Connection with a question. Lock waits and server statistics not now (US-1501) | 2026-11-03 |
+| D-24 | Public repository | A new repository `ObjectExplorerForMySQL` with one clean commit (0.5.0), without the development history, the backlog and Workflow.md. The old repository is kept private as `ObjectExplorerForMySQL-archive`. From now on the backlog, user stories and workflow live only in Obsidian; the repository has the code, README, CHANGELOG, Architecture and Localization | 2026-11-04 |

@@ -185,7 +185,7 @@ As a developer, I want to save a result set as a file, so I can use it in Excel 
 
 ## US-0705 Export the full result
 
-**Status:** Ready for test
+**Status:** Done (accepted 2026-11-03)
 
 As a developer, I want to export all rows of a query result, also beyond the 1000 rows the results pane shows, so that an export is complete. From P-05 (decision D-20).
 

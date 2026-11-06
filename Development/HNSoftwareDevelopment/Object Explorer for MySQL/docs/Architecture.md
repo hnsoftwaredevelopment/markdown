@@ -87,7 +87,7 @@ Each tree level loads with one query per level, only when the node is expanded (
 
 - **Unit tests (xUnit, .NET 10):** Core library: SQL generation, quoting of identifiers, drag & drop text formats, parsing of metadata rows, settings serialization, privilege detection logic.
 - **Integration tests (optional):** Metadata queries against a real MySQL 8 server in Docker via Testcontainers. These run when Docker is available and are skipped otherwise.
-- **Manual tests (Herbert):** Everything that needs a running Visual Studio: tool window, tree behavior, drag & drop into the editor, Properties window, theming (light/dark/blue), localization.
+- **Manual tests:** Everything that needs a running Visual Studio: tool window, tree behavior, drag & drop into the editor, Properties window, theming (light/dark/blue), localization.
 
 ## ADR-008 Minimum supported version: MySQL 8.0
 
