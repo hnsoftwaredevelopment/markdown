@@ -30,7 +30,7 @@ VACAM moet ondanks de fout gewoon starten, zodat de service-engineer de referent
 
 | # | Resultaat | Opmerking |
 |---|---|---|
-| T1 | zonder TwinCAT: **geen** configuratiefout zichtbaar (Herbert), ook niets in het VACAM-log | 2026-11-06 08:00, opnieuw met TwinCAT en VASIM rc |
+| T1 | **Fout:** geen configuratiefout, niet zonder TwinCAT (08:00) en niet met TwinCAT en VASIM rc (08:20). Ook niets in het VACAM-log. Referentie `TooLowOilLevel` van `HydraulicGeneratorSaw[0]` is 0 (leeg) | gezien door Herbert |
 | T2 | | |
 | T3 | | |
 | T4 | | |
