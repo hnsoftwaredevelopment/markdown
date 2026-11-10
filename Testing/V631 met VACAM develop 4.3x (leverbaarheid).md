@@ -21,7 +21,7 @@ Geen ticket. Vraag: de V631 wordt nu geleverd met VACAM 4.11. Kan hij ook geleve
 
 | # | Resultaat | Opmerking |
 |---|---|---|
-| C1 | | |
-| C2 | | |
+| C1 | **OK met opmerkingen:** na de Reset (16:16:10) zijn alle startmeldingen weg (luchtdruk, noodstop, deuren, lichtschermen). Er staan nog 2 waarschuwingen: W1-103 "Machine reference point invalid" (verdwijnt met de reference run) en W70-111 LayoutMarkingUnit "Z-axis not in rest position". Alleen in het log: 6 keer ERROR "TwinCAT truncated the implemented interfaces of ..." bij het opstarten (FB_MeasureUnit, FB_Shear, FB_Imprint, FB_DrillV2, FB_Saw, FB_InkJetMarker) en 1 keer "Missing translation for keys: Main.Unknown.Tags.Unknown" | Gestart via VACAM Launcher RC (kernel mode TwinCAT), VACAM `4.34.0-develop.2611061323`, VASIM rc. Log `Log 2026-11-06 15-50-51.log`. Eerst de configuratiefout van BT1-2334: "Too low oil level" van de zaag op DI 113 gezet |
+| C2 | **OK:** reference run zelfstandig gestart (Reset 16:21:40, Start 16:21:44, dialogen "Reference run" en "Reference points unknown" automatisch afgehandeld). W70-111 "Z-axis not in rest position" verdween bij de start, W1-103 "Machine reference point invalid" om 16:22:38. Geen nieuwe meldingen | ongeveer 1 minuut, script `reference-only.ps1` op basis van de produce-scripts van de plugin |
 | C3 | | |
 | C4 | | |

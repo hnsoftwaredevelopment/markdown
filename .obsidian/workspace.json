@@ -362,8 +362,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 204.699951171875,
-    "collapsed": true
+    "width": 204.699951171875
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -392,7 +391,7 @@
       "cmdr:Omnisearch: Vault search": false
     }
   },
-  "active": "1982f7e044b7c34a",
+  "active": "a76ab09dac4b2700",
   "lastOpenFiles": [
     "Testing/RC-Testing/RC-4.33 Test cases.md",
     "Testing/RC-Testing/RC-4.33 Testplan.md",

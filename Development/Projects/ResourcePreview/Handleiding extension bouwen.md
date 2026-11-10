@@ -6,7 +6,7 @@ Hover je over de definitie zelf (`x:Key="Renew"`), dan krijg je ook een preview.
 
 Bij een `Style` toont de tooltip een tabel: `TargetType`, `BasedOn`, de setters met kleurvakjes en mini-iconen, de setters die uit basisstijlen komen, en de triggers.
 
-Klik op het plaatje of op de bestandsnaam onder de preview, en VS opent het bestand met de naam in `x:Key` geselecteerd. Staat een key in meerdere bestanden, dan staan de andere definities eronder, elk als eigen link.
+Klik op het plaatje of op de bestandsnaam onder de preview, en VS opent het bestand met de naam in `x:Key` geselecteerd. Staat een key in meerdere bestanden, dan staat bovenaan de definitie die WPF echt gebruikt, en de andere eronder, elk als eigen link met "overschreven door ..." of "in geen enkele MergedDictionaries" erachter. Definities die WPF nooit gebruikt, staan ook als waarschuwing in de Error List.
 
 ## Mappen
 
@@ -18,10 +18,13 @@ ResourcePreview/
 │  ├─ QuickInfo/                    ← koppeling met de editor van VS
 │  ├─ Resources/                    ← zoeken en XAML samenstellen (geen VS, geen WPF)
 │  ├─ Preview/                      ← WPF-weergave in de tooltip
-│  ├─ Navigation/                   ← bestand openen en naar x:Key springen
+│  ├─ Navigation/                   ← springen, de menu-commands en het venster met verwijzingen
+│  ├─ IntelliSense/                 ← iconen en tooltip in de IntelliSense-lijst
+│  ├─ Diagnostics/                  ← waarschuwingen voor overschreven keys in de Error List
 │  ├─ Localization/                 ← teksten per taal (Strings.resx + 14 vertalingen)
 │  ├─ Options/                      ← instellingen: registration.json, SettingsService, oude Opties-pagina
-│  └─ ResourcePreviewPackage.cs     ← AsyncPackage, nodig voor de Opties-pagina
+│  ├─ ResourcePreviewPackage.cs     ← AsyncPackage: Opties-pagina en het menu-command
+│  └─ ResourcePreviewPackage.vsct   ← menu-item en sneltoets voor Go To Resource Definition
 ├─ tests/ResourcePreview.Tests/     ← unit tests (MSTest)
 └─ samples/SampleApp/               ← WPF-app om mee te testen, ook gebruikt door de tests
 ```
@@ -37,6 +40,10 @@ Extra > Opties > XAML Resource Preview. Dat werkt in het nieuwe Opties-venster v
 | Tegelgrootte | 64 | Breedte en hoogte van een tegel in pixels, 16 tot 256. |
 | Tegels | Licht en donker | Beide tegels, alleen de lichte of alleen de donkere. |
 | Kleuren | zwart op wit, wit op #1E1E1E | Voorgrond en achtergrond per tegel. De voorgrond geldt alleen voor een `Geometry`, die zelf geen kleur heeft. |
+| Waarschuwen bij overschreven keys | Aan | Een waarschuwing in de Error List voor elke definitie die WPF nooit gebruikt, omdat een later gemergde dictionary dezelfde key heeft. |
+| Resource-verwijzingen controleren | Aan | Een waarschuwing in de Error List voor verwijzingen die WPF tijdens runtime niet vindt (sectie 18). |
+| Ongebruikte resources melden | Aan | Een bericht in de Error List voor resources die nergens gebruikt worden (sectie 20). |
+| Previews tonen in IntelliSense | Aan | Iconen en de preview-tooltip in de IntelliSense-lijst na `{StaticResource `. |
 | Live voorbeeld tonen | Aan | Een echt control met de stijl of ControlTemplate erop. Uit: alleen de setter-tabel, en bij een ControlTemplate de boom. |
 
 Kleuren vul je in het nieuwe venster in als `#RRGGBB`, `#AARRGGBB` of een WPF-kleurnaam (`Red`, `SteelBlue`). Het Legacy-venster heeft een kleurkiezer.
@@ -342,7 +349,7 @@ Niet elke resource is een plaatje. Voor deze types toont de preview iets anders:
 
 ### 13. Live voorbeeld en templates
 
-**Live voorbeeld bij een Style.** Boven de setter-tabel staat een echt control met die stijl. Reageert de stijl op `IsEnabled`, dan staat er een tweede naast, met `IsEnabled="False"`. Bij `SearchBox` zie je zo meteen dat de trigger de achtergrond grijs maakt. Zonder zo'n trigger zou je twee keer hetzelfde plaatje zien; daarom komt de tweede dan niet. `HasIsEnabledTrigger` zoekt in de hele `BasedOn`-keten, in een ControlTemplate die de stijl via een setter zet, en herkent `Trigger`, `MultiTrigger`, `DataTrigger` en `MultiDataTrigger`. Het live voorbeeld is uit te zetten in de Opties. `IsMouseOver` en `IsPressed` bootsen we niet na: die zet WPF zelf op basis van de muis. Het voorbeeld is ook `IsHitTestVisible="False"`, anders reageert het op je muis in de tooltip en ziet het er elke keer anders uit.
+**Live voorbeeld bij een Style.** Boven de setter-tabel staat een echt control met die stijl. Reageert de stijl op `IsEnabled`, dan staat er een tweede naast, met `IsEnabled="False"`. Bij `SearchBox` zie je zo meteen dat de trigger de achtergrond grijs maakt. Zonder zo'n trigger zou je twee keer hetzelfde plaatje zien; daarom komt de tweede dan niet. `HasIsEnabledTrigger` zoekt in de hele `BasedOn`-keten, in een ControlTemplate die de stijl via een setter zet, en herkent `Trigger`, `MultiTrigger`, `DataTrigger` en `MultiDataTrigger`. Het live voorbeeld is uit te zetten in de Opties. Reageert de stijl op `IsMouseOver` of `IsPressed`, dan komen daar ook voorbeelden van; hoe dat werkt staat in sectie 16. Het voorbeeld is ook `IsHitTestVisible="False"`, anders reageert het op je muis in de tooltip en ziet het er elke keer anders uit.
 
 Hoe het werkt (`LiveSampleRenderer`):
 
@@ -357,7 +364,7 @@ Geen voorbeeld bij:
 - **`Window`, `Page`, `ToolTip`, `ContextMenu`, `Popup`.** Die mogen niet in een `StackPanel` staan. Die slaan we zonder melding over.
 - **Een stijl zonder `TargetType`.** Dan weten we niet welk control we moeten maken.
 
-**ControlTemplate.** Voor een standaard control werkt dit net zo: een `Button` met jouw template, normaal en uitgeschakeld. Zonder `TargetType` gebruiken we een `ContentControl`, zodat een `ContentPresenter` iets toont. Lukt het niet (eigen type), dan tonen we de boom hieronder, plus de reden.
+**ControlTemplate.** Voor een standaard control werkt dit net zo: een `Button` met jouw template, normaal, en per toestand waar de template op reageert. Zonder `TargetType` gebruiken we een `ContentControl`, zodat een `ContentPresenter` iets toont. Lukt het niet (eigen type), dan tonen we de boom hieronder, plus de reden.
 
 **DataTemplate: de boom als tekst.** Een DataTemplate heeft data nodig. Zonder data blijft elk `{Binding}`-veld leeg en zie je een leeg kader. Daarom toont de preview wat erin zit:
 
@@ -405,14 +412,349 @@ Wordt er zo'n type gevonden, dan:
 
 Om dezelfde reden leest `ColorParser` kleuren nu zelf in plaats van via `ColorConverter.ConvertFromString`, die bij een ongeldige kleur een `FormatException` gooit.
 
+### 14. Ga naar resourcedefinitie (menu-command)
+
+Rechtsklik in een XAML-bestand op `{StaticResource PrimaryButton}` en kies **Go To Resource Definition**, of druk op **Ctrl+Alt+F12**. VS opent het bestand met de definitie en selecteert de key. F12 blijft van VS zelf.
+
+Tot nu toe kwam alles via MEF of via de Opties-pagina. Een menu-item is het derde soort onderdeel: een **command**. Dat bestaat uit twee delen.
+
+**1. Het .vsct-bestand: wat en waar.** `ResourcePreviewPackage.vsct` beschrijft het menu-item zonder code:
+
+| Element | Wat het doet |
+|---|---|
+| `<Group>` | een groep met een eigen scheidingslijn, met als ouder het contextmenu van de XAML-editor (`guidXamlUiCmds` / `IDM_XAML_EDITOR`, `0x0103`) |
+| `<Button>` | het menu-item zelf, met een GUID en een ID (`cmdidGoToResourceDefinition`, `0x0100`) |
+| `<CommandPlacement>` | dezelfde groep ook in het contextmenu van de code-editor (`IDM_VS_CTXT_CODEWIN`), voor `.xaml`-bestanden die in de XML-editor openen |
+| `<KeyBinding>` | Ctrl+Alt+F12 in de scope Text Editor (zie sectie 15 waarom niet globaal) |
+
+Drie `CommandFlag`s op de button:
+
+- `DefaultInvisible`: verborgen zolang ons package niet geladen is.
+- `DynamicVisibility`: de code mag zichtbaarheid per keer bepalen.
+- `TextChanges`: de code mag de tekst wijzigen. Zo volgt de menutekst de taalinstelling van de extensie.
+
+De GUID van het contextmenu van de XAML-editor staat nergens in de documentatie. Ik vond hem in de broncode van XAML Styler, die zijn "Format XAML" op dezelfde plek zet.
+
+**2. Van .vsct naar VS.** In de `.csproj` staat het bestand als `VSCTCompile` met `ResourceName` `Menus.ctmenu`. De build maakt er een binaire resource van in de DLL. `[ProvideMenuResource("Menus.ctmenu", 1)]` op het package zet in de `.pkgdef` dat die resource bestaat. VS leest hem bij de eerste start na installatie en onthoudt de menu's in een cache. Verander je de `.vsct` en zie je niets, reset dan de Experimental Instance (sectie 2).
+
+**3. De code: wat er gebeurt.** `GoToResourceDefinitionCommand.InitializeAsync` vraagt `IMenuCommandService` op en koppelt een `OleMenuCommand` aan dezelfde GUID en ID als in de `.vsct`:
+
+```csharp
+var command = new OleMenuCommand(instance.Execute, new CommandID(CommandSet, CommandId));
+command.BeforeQueryStatus += instance.OnBeforeQueryStatus;
+commandService.AddCommand(command);
+```
+
+`OleMenuCommandService` erft van `MenuCommandService` uit `System.Design.dll`. Die referentie staat daarom in de `.csproj`. Zonder kreeg ik `CS0012`.
+
+**BeforeQueryStatus.** VS vraagt dit elke keer dat het contextmenu opent of de sneltoets ingedrukt wordt. Daarom doet `OnBeforeQueryStatus` zo weinig mogelijk: de actieve editor ophalen, de regel onder de cursor lezen en kijken of daar een verwijzing staat. `Visible` en `Enabled` volgen daaruit. De index doorzoeken gebeurt pas bij `Execute`.
+
+**Het package moet geladen zijn.** `BeforeQueryStatus` werkt pas als ons package geladen is. Tot dan geldt `DefaultInvisible`, en het item verschijnt nooit. Daarom laadt het package zichzelf zodra er een XAML-bestand actief is:
+
+```csharp
+[ProvideAutoLoad(XamlFileContextGuidString, PackageAutoLoadFlags.BackgroundLoad)]
+[ProvideUIContextRule(XamlFileContextGuidString, name: "XAML file active",
+    expression: "XamlEditor | XamlFile",
+    termNames: new[] { "XamlEditor", "XamlFile" },
+    termValues: new[] { "ActiveEditorContentType:XAML", "HierSingleSelectionName:.xaml$" })]
+```
+
+Een **UI context rule** is een voorwaarde die VS zelf bijhoudt. Wordt hij waar, dan laadt VS het package op de achtergrond. Zo kost de extensie niets in een solution zonder XAML.
+
+**Van de cursor naar de key.** Hier zie je weer de twee API-werelden uit sectie 6:
+
+1. `IVsTextManager.GetActiveView` geeft de actieve editor als `IVsTextView` (shell).
+2. `IVsEditorAdaptersFactoryService.GetWpfTextView` maakt daar een `IWpfTextView` van (editor).
+3. `ITextDocumentFactoryService` geeft het bestandspad. Eindigt dat niet op `.xaml`, dan geen menu-item.
+4. `ResourceReferenceFinder.TryFindReference` zoekt in de regel onder de cursor.
+
+`TryFindReference` is `TryFind` zonder het laatste patroon, `x:Key`. Op een definitie springen naar de definitie heeft geen zin.
+
+**Execute.** De tekst van de editor gaat mee, inclusief niet-opgeslagen wijzigingen (`SetLiveText`). Het zoeken gebeurt op een achtergrondthread, het springen op de UI-thread, via dezelfde `DefinitionNavigator` als de klik in de tooltip. Bij meerdere definities springt het naar de eerste (huidige bestand eerst, dan alfabetisch), en de statusbalk meldt hoeveel er nog zijn.
+
+Bij de eerste keer hangt de command een handler aan `view.Closed`. Sluit je het bestand, dan haalt die de live tekst uit de index (`ClearLiveText`). Anders blijft de index een oude, niet-opgeslagen versie gebruiken.
+
+**Andere sneltoets?** Extra > Opties > Omgeving > Toetsenbord, zoek op `ResourcePreview.GoToResourceDefinition`. Die naam komt uit `CanonicalName` in de `.vsct`.
+
+### 15. Welke definitie wint: MergedDictionaries volgen
+
+Staat een key in twee bestanden, dan gebruikt WPF er maar één. Welke, hangt af van de volgorde in `MergedDictionaries`. Wijzig je de verkeerde, dan zie je je wijziging nooit terug. Sinds deze versie volgt de extensie dezelfde volgorde als WPF.
+
+**De volgorde van WPF.** Een `{StaticResource X}` zoekt zo:
+
+1. het element zelf en zijn ouders, tot en met het `Window`;
+2. daarna `Application.Resources` in `App.xaml`;
+3. binnen één dictionary: eerst zijn eigen keys, dan de `MergedDictionaries` van **achter naar voor**, elk weer met zijn eigen merges.
+
+Een voorbeeld uit de SampleApp. `App.xaml` merget onder andere:
+
+```xml
+<ResourceDictionary Source="Resources/Brushes.xaml" />   <!-- InfoBrush: blauw -->
+<ResourceDictionary Source="Resources/Styles.xaml" />
+<ResourceDictionary Source="Resources/Values.xaml" />    <!-- InfoBrush: groen -->
+```
+
+`Values.xaml` staat later, dus WPF zoekt daar eerst en de tekst wordt groen. De blauwe in `Brushes.xaml` doet niets.
+
+**Wat de index nu onthoudt.** Per bestand bewaart `ResourceIndex` een `XamlFileModel` in plaats van alleen een lijst keys:
+
+| Onderdeel | Voorbeeld |
+|---|---|
+| `RootKind` | `Application` (App.xaml), `ResourceDictionary`, of `Other` (Window, UserControl) |
+| `MergedSources` | de `Source`-waarden uit `ResourceDictionary.MergedDictionaries`, in volgorde |
+| `ResourceEntry.IsRootScope` | staat de key in de hoofd-dictionary van het bestand? Een key in `Grid.Resources` of `Style.Resources` is voor andere bestanden onzichtbaar |
+
+**Source omzetten naar een pad.** `ResourceIndex.ResolveSource` doet wat WPF doet bij gecompileerde XAML:
+
+| Source | Wordt |
+|---|---|
+| `Brushes.xaml`, `../Themes/Dark.xaml` | relatief aan de map van het bestand dat merget |
+| `/Themes/Dark.xaml` | relatief aan de projectmap |
+| `/MyApp.Styles;component/Dark.xaml` | in het project `MyApp.Styles.csproj` |
+| `pack://application:,,,/...` | hetzelfde, zonder het voorvoegsel |
+| `pack://siteoforigin:...` | niet gevolgd (null) |
+
+**De graaf.** `MergeGraph` (in `Resources\MergeGraph.cs`) bouwt hieruit wie wie merget. `GetChain(bestand)` geeft het bestand, en daarna wat het merget: de laatste eerst, diepte-eerst. Elk bestand komt er één keer in, zodat twee dictionaries die elkaar mergen geen oneindige lus geven. `GetLookupChain` plakt daar de keten van `App.xaml` achter. Welke `App.xaml`? Eerst een die het bestand (via een omweg) merget, dan die in hetzelfde project, en anders de enige in de solution.
+
+`Resolve` loopt die keten af en geeft elke definitie een status:
+
+| Status | Betekenis | In de tooltip |
+|---|---|---|
+| `Used` | WPF vindt deze als eerste | "WPF gebruikt hier deze definitie." (alleen als er een andere overschreven is) |
+| `Overridden` | wel bereikbaar, maar een andere komt eerst | "· overschreven door Values.xaml" |
+| `Unknown` | niet op het zoekpad, bijvoorbeeld de resources van een ander venster | geen opmerking |
+
+Los daarvan krijgt een definitie `IsInUnmergedFile` als het bestand een ResourceDictionary is die nergens gemerged wordt. `IconsLegacy.xaml` in de SampleApp is daar een voorbeeld van. `Themes\Generic.xaml` telt niet mee: die laadt WPF zelf.
+
+`Find` gebruikt `Resolve` ook. Daardoor volgen de tooltip, Ga naar resourcedefinitie, `BasedOn` in de stijltabel en de afhankelijkheden in de preview allemaal dezelfde volgorde.
+
+**Cache.** Een `Source` omzetten zoekt op schijf naar een `.csproj`. Daarom bouwt de index de graaf alleen opnieuw als er iets veranderd is. Elke wijziging (opslaan, live tekst uit de editor) verhoogt een versienummer, en de graaf onthoudt bij welke versie hij hoort. De projectmap per map staat in een eigen cache.
+
+**De Error List.** `OverriddenKeyScanner` loopt voor elke `App.xaml` en elk venster de keten af. De eerste definitie van een key wint; elke volgende in een ander bestand is een waarschuwing. Niet gemeld:
+
+- een venster dat een key uit `App.xaml` overschrijft: dat is meestal bewust;
+- twee keer dezelfde key in één bestand: dat meldt de XAML-compiler al;
+- dezelfde dictionary die twee keer gemerged wordt: dat is één definitie;
+- keys in geneste scopes, zoals `Style.Resources`.
+
+`OverriddenKeyErrorList` (in `Diagnostics\`) zet de resultaten in de Error List. Dat gaat via `ErrorListProvider`, de klassieke API van de VS SDK:
+
+```csharp
+var task = new ErrorTask
+{
+    ErrorCategory = TaskErrorCategory.Warning,
+    Text = "...",
+    Document = definition.FilePath,
+    Line = definition.LineNumber - 1,   // de Error List telt vanaf 0
+    Column = definition.Column - 1,
+};
+task.Navigate += (s, e) => _navigator.NavigateTo(definition);
+_errorList.Tasks.Add(task);
+```
+
+Wanneer er gescand wordt:
+
+| Moment | Hoe |
+|---|---|
+| het package laadt | `InitializeAsync`, na het openen van een XAML-bestand |
+| een solution opent of sluit | `SolutionEvents.OnAfterOpenSolution` / `OnAfterCloseSolution` uit `Microsoft.VisualStudio.Shell.Events` |
+| een .xaml-bestand wijzigt op schijf | het nieuwe event `ResourceIndex.FilesChanged`, vanuit de `FileSystemWatcher` |
+| de instelling wijzigt | het nieuwe event `SettingsService.Changed` |
+
+Elke aanvraag wacht 1,5 seconde en annuleert de vorige. Een Save All of een git checkout geeft zo één scan in plaats van tien. Het scannen zelf gebeurt op een achtergrondthread, het bijwerken van de Error List op de UI-thread.
+
+De instelling "Waarschuwen bij overschreven keys" (standaard aan) zet dit uit. Die staat in `registration.json`, `ExtensionSettings`, `SettingsService` en `GeneralOptionsPage`, net als de andere instellingen (sectie 10).
+
+**Sneltoets: scope en cache.** Ctrl+Alt+F12 opende eerst "Find Symbol Results". VS heeft die toets globaal aan `Edit.FindSymbol` gekoppeld, en onze binding was ook globaal (`editor="guidVSStd97"`). Nu staat hij in de scope **Text Editor** (`{8B382828-6202-11d1-8870-0000F87579D2}`). Een binding in een specifiekere scope wint zolang de cursor in een editor staat. Buiten de editor doet Ctrl+Alt+F12 nog steeds Find Symbol.
+
+VS leest de menu's en sneltoetsen uit `Menus.ctmenu` maar één keer en bewaart ze in een cache. Na een wijziging in de `.vsct` moet die cache vernieuwd worden. De simpelste manier: verhoog het tweede getal in `[ProvideMenuResource("Menus.ctmenu", 2)]` (inmiddels 3). Ziet VS een hoger nummer, dan leest het de menu's opnieuw in. Dat werkt ook bij gebruikers die een nieuwe versie installeren. De andere manier is de Experimental Instance resetten (sectie 2).
+
+### 16. Muis erover en ingedrukt nabootsen
+
+Het live voorbeeld toont nu ook hoe een knop eruitziet met de muis erover en ingedrukt:
+
+```
+[ Voorbeeld ] [ Voorbeeld ] [ Voorbeeld ] [ Voorbeeld ]
+   Normaal     Muis erover    Ingedrukt   Uitgeschakeld
+```
+
+**Het probleem.** `IsEnabled` kun je gewoon op `False` zetten, en WPF voert de triggers zelf uit. `IsMouseOver` en `IsPressed` zijn **read-only**: WPF zet ze alleen op basis van de echte muis. Er is geen `SetValue` voor. Ze faken via reflection zou kunnen, maar dat is breekbaar en kan per .NET-versie anders werken.
+
+**De oplossing: doen wat de trigger doet.** Een trigger is niets anders dan "als deze voorwaarde waar is, zet dan deze waarden". `StateSimulator` (in `Preview\StateSimulator.cs`) zoekt de triggers die bij die toestand actief zouden zijn, en zet hun setters zelf als **lokale waarde** op het control. Een lokale waarde wint van stijl- en templatewaarden, net als een actieve trigger.
+
+Zo gaat het, per voorbeeld:
+
+1. `TriggersOf(style)` verzamelt alle triggers in de volgorde waarin WPF ze toepast. Eerst de triggers van de ControlTemplate, dan die van de stijl, van de basisstijl naar beneden. Een latere trigger wint, en in WPF wint een stijltrigger van een templatetrigger.
+2. `IsActive` beslist per trigger of hij aan zou staan. `IsMouseOver` (en bij Ingedrukt ook `IsPressed`) telt als `True`. De andere condities van een `MultiTrigger` worden echt nagekeken op het control. Een trigger op `IsMouseOver` + `IsFocused` gaat dus niet aan, want het voorbeeld heeft geen focus.
+3. Voor elke setter: zonder `TargetName` op het control zelf, met `TargetName` op het onderdeel uit de template (`Template.FindName("Chrome", control)`).
+4. Gebruikt de template de `VisualStateManager` in plaats van triggers, dan gaat het control naar de toestand `MouseOver` of `Pressed` met `VisualStateManager.GoToState`.
+
+Ingedrukt zet ook `IsMouseOver` op waar. Een knop indrukken kan alleen met de muis erop, en veel stijlen rekenen daarop.
+
+**Welke kolommen er komen.** Net als bij Uitgeschakeld alleen als de stijl erop reageert: een trigger met setters op `IsMouseOver="True"` of `IsPressed="True"`, of een `VisualState` met die naam. Bij drie of vier voorbeelden wordt elk voorbeeld smaller (150 in plaats van 220 pixels), zodat de tooltip niet te breed wordt.
+
+**Geen excepties.** Past een waarde niet bij de property, dan slaan we hem over. `DependencyProperty.IsValidValue` controleert dat vooraf, zodat `NoFirstChanceExceptionTests` groen blijft.
+
+**Wat niet werkt:**
+
+- `EnterActions` en `ExitActions` (storyboards in een trigger) voeren we niet uit. Een trigger met alleen een animatie levert geen extra kolom op.
+- Een trigger op `IsMouseOver="False"` zetten we niet uit in het Muis erover-voorbeeld.
+- Zit de trigger alleen in de standaardtemplate van WPF zelf (jouw stijl zet alleen kleuren), dan tonen we geen extra kolom. Dat is dezelfde keuze als bij Uitgeschakeld.
+
+### 17. Previews in IntelliSense
+
+Typ je `{StaticResource `, dan toont de XAML-editor een lijst met keys. De extensie zet daar een icoontje bij (een plaatje, geometrie of kleurvakje), en de tooltip van het geselecteerde item toont dezelfde preview als bij hoveren.
+
+**Eerst uitzoeken welke API de XAML-editor gebruikt.** VS heeft twee completion-API's:
+
+| API | Herkenbaar aan | Wie gebruikt hem |
+|---|---|---|
+| klassiek | `ICompletionSource`, `CompletionSet`, `Completion` | o.a. de XAML-editor |
+| async (nieuw) | `IAsyncCompletionSource`, `CompletionItem` | C#, de meeste nieuwe editors |
+
+Welke de XAML-editor gebruikt, staat nergens. Ik heb `Microsoft.VisualStudio.DesignTools.XamlLanguageService.dll` uit de VS-installatie onderzocht (de metadata gelezen, zonder hem te laden). Daarin staat een `XamlCompletionSourceProvider` met `[Export(typeof(ICompletionSourceProvider))]`, `[ContentType("XAML")]` en `[Name("XAML Completion Source")]`. Dus de klassieke API, en we weten de naam.
+
+**Geen eigen items, wel versieren.** Met de klassieke API roept VS elke `ICompletionSource` aan met dezelfde lijst `IList<CompletionSet>`. Voegen we zelf items toe, dan staat elke key er twee keer in. Daarom draait onze bron ná die van XAML:
+
+```csharp
+[Export(typeof(ICompletionSourceProvider))]
+[ContentType("XAML")]
+[Order(After = "XAML Completion Source")]
+```
+
+In `AugmentCompletionSession` lopen we de items van XAML af. Is `DisplayText` een key uit de index, dan:
+
+1. krijgt het item een icoon via `Completion.IconSource`;
+2. zetten we de `ResourceEntry` in de property bag van het item (`item.Properties`), zodat de tooltip hem terugvindt.
+
+Dat gebeurt alleen als het stuk regel vóór de cursor eruitziet als `{StaticResource Acc` (`ResourceCompletionSource.IsKeyPosition`). In een `{Binding ` doen we niets.
+
+**De UI-thread.** `AugmentCompletionSession` draait op de UI-thread, bij elke toetsaanslag in de lijst. Daarom:
+
+- Is de index nog niet gevuld (`ResourceIndex.IsReady`), dan starten we de scan op de achtergrond en doen we deze keer niets. De volgende lijst heeft wel iconen.
+- Iconen komen er alleen voor plaatjes, geometrieën, drawings, brushes en kleuren (`CompletionIconFactory.HasIcon`). Een stijl of template parsen voor elk item zou het typen traag maken.
+- Elk icoon wordt één keer gemaakt en bewaard in een `ConditionalWeakTable<ResourceEntry, ...>`. Wijzigt een bestand, dan maakt de index nieuwe `ResourceEntry`-objecten, en verdwijnen de oude iconen vanzelf uit de cache.
+- Lijsten met meer dan 500 items slaan we over.
+- Iconen worden `Freeze()`d: dan zijn ze onveranderlijk en mag WPF ze overal delen.
+
+**De tooltip.** De klassieke completion heeft een eigen uitbreidingspunt voor de tooltip van een item:
+
+```csharp
+[Export(typeof(IUIElementProvider<Completion, ICompletionSession>))]
+[ContentType("XAML")]
+[Order(Before = "Default")]
+```
+
+`GetUIElement` krijgt het geselecteerde item. Heeft het onze `ResourceEntry` in de property bag, dan geven we de preview terug. Anders `null`, en dan toont VS zijn eigen tooltip.
+
+De preview zelf is dezelfde als bij hoveren. De code die de gegevens verzamelt (XAML met afhankelijkheden, stijltabel, templateboom) stond in `ResourceQuickInfoSource` en staat nu in `ResourcePreviewData.Create`, zodat Quick Info en IntelliSense hem allebei gebruiken.
+
+**Wat nog onzeker is.** De XAML-items kunnen ook een `IconMoniker` hebben (de nieuwere manier om iconen aan te geven). Als VS die voorrang geeft boven `IconSource`, zie je geen icoon maar werkt de tooltip wel. Dat kan alleen in VS zelf getest worden.
+
+De instelling "Previews tonen in IntelliSense" (standaard aan) zet dit uit.
+
+### 18. Verwijzingen controleren die WPF niet vindt
+
+Een `{StaticResource X}` die WPF niet kan vinden, compileert gewoon. Pas als de app de XAML laadt, volgt een `XamlParseException`. Deze stap vindt zulke fouten al in de editor.
+
+**Drie soorten problemen** (`ReferenceProblemKind`):
+
+| Soort | Voorbeeld | Wanneer gemeld |
+|---|---|---|
+| `Missing` | `{StaticResource AccentBrsh}` | nergens in de solution gedefinieerd |
+| `DefinedLater` | een stijl die `LateBrush` gebruikt boven `<SolidColorBrush x:Key="LateBrush">` | de enige bereikbare definitie staat lager in hetzelfde bestand |
+| `NotLoaded` | `LegacyArrow`, dat alleen in het niet-gemergde `IconsLegacy.xaml` staat | er zijn definities, maar geen enkele op het zoekpad van WPF |
+
+Een StaticResource kijkt niet vooruit: tijdens het laden kent WPF alleen wat erboven al gelezen is. Een DynamicResource zoekt tijdens runtime opnieuw, en code kan de key nog toevoegen (`Resources["X"] = ...`). Daarom krijgt een DynamicResource alleen een melding bij `Missing`, en dan als bericht in plaats van waarschuwing.
+
+**Verwijzingen verzamelen.** De index bewaarde tot nu toe alleen definities. Nu krijgt elk bestand ook een lijst `Uses` met elke `{StaticResource X}` en `{DynamicResource X}`, met regel en kolom (`ResourceIndex.FindUses`). Dat gaat met een reguliere expressie per regel, niet via de XML: zo hebben we de exacte kolom van de key, voor de Error List. Commentaar wordt eerst vervangen door spaties, met behoud van de regeleinden, zodat de regelnummers kloppen.
+
+**Liever een melding te weinig dan een valse.** Een extensie die onterecht klaagt, wordt snel uitgezet. Daarom meldt `ReferenceChecker` alleen wat zeker is:
+
+- **`MergeGraph.IsLookupComplete`.** Merget `App.xaml` (of iets op de weg) een dictionary van buiten de solution, zoals `/MahApps.Metro;component/...`, dan kan die elke key bevatten. Is er geen `App.xaml` (een class library), dan bepaalt de app die de library gebruikt wat er geladen is. In beide gevallen geen `Missing` en geen `NotLoaded`. Om dat te weten geeft `ResolveSource` nu `null` terug voor een assembly die niet in de solution zit, in plaats van terug te vallen op het eigen project.
+- **`NotLoaded` alleen voor Window, App.xaml en dictionaries.** Een UserControl ziet tijdens runtime ook de resources van het venster waar hij in staat. Welk venster dat is, weten we niet.
+- **`DefinedLater` alleen als er nergens anders een bereikbare definitie is.** Staat de key ook in `App.xaml`, dan vindt WPF die, en gaat er niets mis.
+
+**Hoofdletters.** Keys zijn hoofdlettergevoelig. Bestaat `AccentBrush` wel en verwijs je naar `accentBrush`, dan zegt de melding: "Bedoel je 'AccentBrush'?". Daarvoor houdt de checker een tabel bij met alle keys op hun kleine-letterversie.
+
+**Waar je het ziet.**
+
+- **Error List.** `OverriddenKeyErrorList` heet nu `ResourceErrorList` en toont beide soorten meldingen. Dubbelklik op een verwijzingsprobleem opent het bestand op de plek van de verwijzing (`ErrorListProvider.Navigate`).
+- **Tooltip.** Hover je over een verwijzing met een probleem, dan staat de melding direct onder de kop. Quick Info en de Error List gebruiken dezelfde tekst, via `ProblemText.Describe`.
+
+De SampleApp heeft een bestand `Broken\ReferenceProblems.xaml` met van elke soort een voorbeeld. Niets merget dat bestand, dus de SampleApp start nog steeds. De test `Sample_FindsExactlyTheKnownProblems` controleert dat er precies die vijf meldingen zijn: komt er per ongeluk een valse bij, dan faalt hij.
+
+Uitzetten kan met de instelling "Resource-verwijzingen controleren".
+
+### 19. Alle verwijzingen naar een key vinden
+
+Rechtsklik op `{StaticResource AccentBrush}` of op `x:Key="AccentBrush"` en kies **Find Resource References** (Shift+Alt+F12). Er opent een venster met de definities en alle verwijzingen, per bestand.
+
+**Geen nieuwe zoektocht.** Voor de controle uit sectie 18 houdt de index al per bestand alle verwijzingen bij (`XamlFileModel.Uses`). `UsageFinder` filtert die op de key. Er wordt dus geen bestand opnieuw gelezen. `ResourceUse` kreeg er alleen `LineText` bij: de regel zelf, voor in de lijst.
+
+**Welke definitie krijgt elke verwijzing?** Per bestand bepaalt `MergeGraph.Resolve` welke definitie WPF daar neemt, net als in de tooltip. Begin je bij de definitie in `Brushes.xaml` en gebruikt een venster de versie uit `Values.xaml`, dan staat daar "gebruikt de definitie in Values.xaml". Zo zie je meteen welke verwijzingen een wijziging in jouw definitie niet zien. Vindt WPF de key op een plek helemaal niet, dan staat er "WPF vindt de key hier niet".
+
+**Een eigen toolvenster.** Tot nu toe toonde de extensie alles in bestaande VS-onderdelen (tooltip, Error List, IntelliSense). Voor een lijst met resultaten is een eigen venster nodig: een `ToolWindowPane`.
+
+```csharp
+[ProvideToolWindow(typeof(ResourceReferencesWindow), Style = VsDockStyle.Tabbed,
+    Window = "34E76E81-EE4A-11D0-AE2E-00A0C90FFFC3")]   // naast het Output-venster
+```
+
+- `[ProvideToolWindow]` op het package zet het venster in de `.pkgdef`. `Window` is de GUID van het venster waar het als tabblad naast komt, de eerste keer. Daarna onthoudt VS waar jij het neerzet.
+- `ResourceReferencesWindow` erft van `ToolWindowPane` en heeft een eigen `[Guid]`. `Content` is gewoon een WPF-element, hier in code opgebouwd: een `DockPanel` met een samenvatting en een `TreeView`.
+- De command opent het met `await package.ShowToolWindowAsync(typeof(ResourceReferencesWindow), 0, create: true, ...)`. Bestaat het nog niet, dan maakt VS het aan. Daarna vult `Show(report, ...)` de lijst.
+
+**Thema.** Een standaard WPF-`TreeView` is wit met een blauwe selectie, ook in het donkere thema. VS levert stijlen die het thema volgen:
+
+```csharp
+tree.SetResourceReference(StyleProperty, VsResourceKeys.ThemedDialogTreeViewStyleKey);
+item.SetResourceReference(StyleProperty, VsResourceKeys.ThemedDialogTreeViewItemStyleKey);
+```
+
+`SetResourceReference` (in plaats van een vaste waarde) zorgt dat de kleuren meeveranderen als je van thema wisselt. De achtergrond en tekstkleur komen uit `EnvironmentColors.ToolWindowBackgroundBrushKey` en `ToolWindowTextBrushKey`.
+
+**Gedeelde code voor de twee commands.** Go To Resource Definition en Find Resource References moeten allebei weten wat er onder de cursor staat. Die code zat in `GoToResourceDefinitionCommand` en staat nu in `CaretResource.TryGet`. Find Resource References werkt ook op een `x:Key` (`includeDefinitions: true`); Go To niet, want op een definitie valt niets te springen.
+
+`DefinitionNavigator` kan nu ook naar een verwijzing springen (`NavigateToUse`). Bij een definitie zoekt hij `"Key"` tussen aanhalingstekens; bij een verwijzing zoekt hij de key zelf, vanaf de kolom die de index onthouden heeft.
+
+**Nieuwe sneltoets, nieuwe menu-versie.** De tweede knop in de `.vsct` heeft ID `0x0101` en zit in dezelfde groep. Shift+Alt+F12 staat, net als Ctrl+Alt+F12, in de scope Text Editor. Omdat de `.vsct` veranderd is, staat `[ProvideMenuResource("Menus.ctmenu", 3)]` nu op 3 (sectie 15).
+
+### 20. Ongebruikte resources
+
+Een resource die nergens gebruikt wordt, staat als **bericht** in de Error List (zet Messages aan in de werkbalk). Bericht en geen waarschuwing: het is opruimwerk, geen fout.
+
+**Wanneer telt een key als gebruikt?** `UnusedResourceScanner` kijkt op twee plekken:
+
+1. **XAML.** Alle `{StaticResource}`- en `{DynamicResource}`-verwijzingen uit de index (`XamlFileModel.Uses`, sectie 18). Ook `BasedOn="{StaticResource X}"` en `{Binding Source={StaticResource X}}` tellen mee.
+2. **Code.** Elke string in een `.cs`- of `.vb`-bestand. `FindResource("AccentBrush")`, `Resources["AccentBrush"]` en `SetResourceReference(..., "AccentBrush")` bevatten de key als tekst. `CodeStrings` haalt met een reguliere expressie alle strings uit de code. Een key die je in code samenstelt (`"Icon" + name`) ziet hij niet; daarvoor is de instelling om dit uit te zetten.
+
+`CodeStrings` onthoudt per bestand de strings en de laatste schrijftijd. Een volgende scan leest alleen gewijzigde bestanden opnieuw. Het zoeken naar bestanden deelt hij met de index (`ResourceIndex.EnumerateFiles`), dus `bin`, `obj` en `.git` worden ook hier overgeslagen.
+
+**Welke bestanden worden gecontroleerd?** Een library-dictionary kan keys bevatten die een andere solution gebruikt. Om valse meldingen te voorkomen, alleen bestanden die de app zelf laadt:
+
+| Bestand | Gecontroleerd |
+|---|---|
+| `App.xaml`, vensters, UserControls | ja |
+| een dictionary die iets merget | ja |
+| een dictionary die niets merget | nee: misschien laadt code of een andere solution hem |
+| `Themes\Generic.xaml` en andere themabestanden | nee: WPF zoekt daar zelf, zonder key |
+| de dictionaries in `ThemeDictionaries` (`x:Key="Dark"`) | nee: die keys gebruikt WPF zelf |
+| een solution zonder `App.xaml` | nee: de app die de library gebruikt, zit ergens anders |
+
+**Wanneer bijgewerkt?** Net als de andere meldingen na het opslaan van een `.xaml`-bestand. De `FileSystemWatcher` let alleen op `.xaml`. Gebruik je een key voor het eerst in code, dan verdwijnt de melding pas bij de volgende scan: na het opslaan van een `.xaml`-bestand of het opnieuw openen van de solution.
+
+In de SampleApp is `UnusedBrush` in `Brushes.xaml` ongebruikt. `CodeOnlyBrush` wordt alleen in `MainWindow.xaml.cs` gebruikt (`TryFindResource("CodeOnlyBrush")`) en krijgt dus geen melding.
+
 ## Hoe het zoeken werkt
 
 VS heeft geen publieke API om te vragen waar een resource gedefinieerd is. `ResourceIndex` bouwt dat zelf op:
 
 1. Zoek de solution-map: de eerste map boven het bestand met een `.sln` of `.slnx`. Geen gevonden, dan de root van de git-repository.
-2. Lees alle `.xaml`-bestanden daaronder (behalve `bin`, `obj`, `.vs`, `.git`, `node_modules`) en onthoud elk element met een `x:Key`.
+2. Lees alle `.xaml`-bestanden daaronder (behalve `bin`, `obj`, `.vs`, `.git`, `node_modules`) en onthoud elk element met een `x:Key`, plus de `MergedDictionaries` van elk bestand.
 3. Een `FileSystemWatcher` houdt bij welke bestanden daarna wijzigen. Die worden bij de volgende hover opnieuw gelezen.
 4. Het bestand dat open staat in de editor telt mee inclusief niet-opgeslagen wijzigingen.
+5. Bij meerdere definities bepaalt `MergeGraph` de volgorde, zoals WPF dat doet (sectie 15).
 
 ### Afhankelijkheden
 
@@ -440,16 +782,22 @@ Aanpassingen die de builder doet voor de preview:
 
 ### Unit tests
 
-`tests\ResourcePreview.Tests` bevat 413 tests die zonder Visual Studio draaien. Open Test Explorer (Test > Test Explorer) en klik op Run All. Dat duurt een paar seconden.
+`tests\ResourcePreview.Tests` bevat 500 tests die zonder Visual Studio draaien. Open Test Explorer (Test > Test Explorer) en klik op Run All. Dat duurt een paar seconden.
 
 | Bestand | Wat het test |
 |---|---|
-| `ResourceReferenceFinderTests` | welke key onder de muis staat: `{StaticResource X}`, `ResourceKey=`, element-syntax, `x:Key`, nesting, net ernaast |
+| `ResourceReferenceFinderTests` | welke key onder de muis staat: `{StaticResource X}`, `ResourceKey=`, element-syntax, `x:Key`, nesting, net ernaast, en `TryFindReference` dat definities overslaat |
 | `ResourceIndexTests` | parsen, regel en kolom, ongeldige XML, de solution-map vinden, zoeken over bestanden, `bin`/`obj` overslaan, live tekst uit de editor, wijzigingen op schijf |
 | `PreviewXamlBuilderTests` | volgorde van afhankelijkheden, kringverwijzingen, ontbrekende keys, `DynamicResource` → `StaticResource`, pack-URI's, relatieve paden |
 | `EndToEndTests` | de iconen uit `samples\SampleApp` door de hele keten tot en met `XamlReader`, en de renderer: tegels, grootte, kleuren, foutmeldingen |
 | `ValuePreviewTests` | fonts (geïnstalleerd, ontbrekend, in een map), `Thickness` en `CornerRadius` met schalen, losse waarden met Nederlandse regio-instellingen, effecten, font-paden in alle schrijfwijzen, `System.Runtime` → `mscorlib` |
 | `TemplateTests` | de boom (bindings, property-elementen, prefixen, maximum aan regels en diepte), het live voorbeeld bij Style en ControlTemplate, eigen types, welke controls we kunnen maken, `FillContent` per control |
+| `MergeGraphTests` | `MergedDictionaries` lezen, `Source` in alle schrijfwijzen, de opzoekvolgorde (laatste merge wint, eigen keys eerst, geneste merges, kringen), niet-gemergde bestanden, de Error List-scan, en `InfoBrush` en `Check` uit de SampleApp |
+| `StateSimulatorTests` | Muis erover en Ingedrukt: setters met `TargetName`, de volgorde van triggers, `MultiTrigger` met andere condities, `BasedOn`, `DataTrigger` op `IsMouseOver`, de `VisualStateManager` |
+| `IntelliSenseTests` | wanneer de cursor op een key-plek staat, welke types een icoon krijgen, iconen uit de SampleApp en de cache |
+| `ReferenceCheckerTests` | verwijzingen vinden (ook in commentaar en element-syntax), ontbrekende keys met hoofdlettersuggestie, keys die verderop staan, keys in een niet-geladen bestand, geen meldingen bij externe dictionaries, zonder App.xaml of in een UserControl, en precies de bekende problemen in de SampleApp |
+| `UsageFinderTests` | alle verwijzingen naar een key, welke definitie elke verwijzing krijgt, een key zonder definities, en `InfoBrush` uit de SampleApp |
+| `UnusedResourceTests` | ongebruikte keys, gebruik vanuit code, keys in Window.Resources, geen meldingen in niet-gemergde dictionaries, themabestanden, ThemeDictionaries en zonder App.xaml, en alleen `UnusedBrush` in de SampleApp |
 | `NoExceptionTests` | welke types VS niet kan laden, in elementen, attributen en waarden, ook via afhankelijkheden; elke resource uit de SampleApp zonder één exceptie; `ColorParser` tegen alle WPF-kleurnamen |
 | `StyleTests` | `TargetType` in alle schrijfwijzen, de `BasedOn`-keten met overschreven setters, de soorten waarden, triggers en binding-paden, en de weergave van de tabel |
 | `SettingsAndLanguageTests` | kleuren en getallen, taalcodes van VS, de converters van de Opties-pagina, `Localizer` |
@@ -505,9 +853,15 @@ Wat VS zelf doet, kun je niet met unit tests afdekken. Loop dit na vóór een re
 3. Hover over `Check`: onder de preview staat "Also defined in:" met `IconsLegacy.xaml`.
 4. Hover over `PrimaryButton` en `DangerButton` in `MainWindow.xaml`: een tabel met setters, kleurvakjes, het icoontje bij `Tag`, "inherited from ..." en de triggerregel. Boven de tabel staat een echte knop. Controleer in een donker en een licht thema dat de tekst leesbaar is.
 5. Hover over de resources in het grijze kader in `MainWindow.xaml` (`CardPadding`, `CardCorners`, `CardShadow`, `AppTitle`, `HeaderFont`, `HeaderFontSize`, `HeaderWeight`, `CodeFont`, `MissingFont`, `DebugVisibility`, `WideMargin`, `TabCorners`, `SoftBlur`, `MaxItems`, `ShowDebugInfo`): elk krijgt een schets, voorbeeldtekst of waarde. Bij `MissingFont` staat de melding dat het font niet geïnstalleerd is.
-6. Hover over `SearchBox`, `RoundButtonTemplate`, `BookTemplate`, `FancyTemplate`, `FancyStyle` en `WrapPanelTemplate` onderaan `MainWindow.xaml`. `SearchBox` en `RoundButtonTemplate` tonen een echt control, normaal en uitgeschakeld, en die zien er verschillend uit. `DangerButton` toont er één, zonder label: die stijl heeft geen trigger op `IsEnabled`. `BookTemplate` toont de boom met bindings. `FancyTemplate` en `FancyStyle` tonen de melding dat VS `local:FancyControl` niet kan laden.
+6. Hover over `SearchBox`, `RoundButtonTemplate`, `BookTemplate`, `FancyTemplate`, `FancyStyle` en `WrapPanelTemplate` onderaan `MainWindow.xaml`. `SearchBox` en `RoundButtonTemplate` tonen een echt control, normaal en uitgeschakeld, en die zien er verschillend uit. `DangerButton` toont er drie: Normaal, Muis erover en Ingedrukt, met een steeds lagere doorzichtigheid (1, 0,8 en 0,6). Uitgeschakeld ontbreekt: die stijl heeft geen trigger op `IsEnabled`. `BookTemplate` toont de boom met bindings. `FancyTemplate` en `FancyStyle` tonen de melding dat VS `local:FancyControl` niet kan laden.
 7. Klik op de bestandsnaam en op het plaatje: VS opent het bestand met de key geselecteerd, ook als het al open stond.
+   Rechtsklik op `{StaticResource PrimaryButton}`: **Go To Resource Definition** staat in het menu en springt naar `Styles.xaml`. Op een regel zonder verwijzing staat het item er niet. Ctrl+Alt+F12 doet hetzelfde, en opent geen "Find Symbol Results".
+   Rechtsklik op `x:Key="InfoBrush"` in `Brushes.xaml` en kies Find Resource References (of Shift+Alt+F12): het venster toont twee definities en één verwijzing in `MainWindow.xaml`, met "gebruikt de definitie in Values.xaml". Dubbelklik op de verwijzing opent `MainWindow.xaml` op die regel.
+   In de Error List (met Messages aan) staat ook een bericht voor `UnusedBrush` in `Brushes.xaml`, en niet voor `CodeOnlyBrush`.
+   Hover over `InfoBrush` in `MainWindow.xaml`: bovenaan `Values.xaml` met "WPF gebruikt hier deze definitie.", eronder `Brushes.xaml` met "overschreven door Values.xaml". Bij `Check` staat achter `IconsLegacy.xaml` "in geen enkele MergedDictionaries".
+   Open de Error List: één waarschuwing voor `InfoBrush` in `Brushes.xaml`. Dubbelklik springt naar de definitie. Haal `InfoBrush` weg uit `Values.xaml` en sla op: na een paar seconden is de waarschuwing weg. Zet hem daarna terug.
 8. Typ in `Icons.xaml` een nieuwe `<Geometry x:Key="Nieuw">` zonder op te slaan, en hover erover in hetzelfde bestand: de preview werkt al.
+   Open `Broken\ReferenceProblems.xaml` en de Error List: vier meldingen uit dat bestand (`LateBrush`, `accentBrush` met "Bedoel je 'AccentBrush'?", `LegacyArrow`, en `ThemeBackgroundFromCode` als bericht) plus `DoesNotExist` uit `MainWindow.xaml`. Hover over `LateBrush`: de melding staat ook in de tooltip.
 9. Nieuw Opties-venster > XAML Resource Preview: er staat maar één categorie, met General en Appearance, en de labels zijn tekst (geen `@...`).
 10. Zet Tegels op "Dark only" en tegelgrootte op 32, en hover: één kleine donkere tegel. De kleurvelden van de lichte tegel zijn grijs.
 11. Legacy-Opties-venster: dezelfde waarden als in het nieuwe venster. Wijzig daar de taal naar Deutsch, klik OK en hover: "Zeile" in plaats van "line".
@@ -517,15 +871,12 @@ Wat VS zelf doet, kun je niet met unit tests afdekken. Loop dit na vóór een re
 
 - **Eigen types.** Een resource die zelf een type uit je project is (`<local:IconDefinition x:Key=... />`) of een eigen markup extension bevat, kan niet laden. VS draait op .NET Framework 4.8 en kent je assembly niet. De tooltip toont dan de foutmelding.
 - **Keys buiten de solution.** Resources uit een NuGet-pakket of een theme-DLL worden niet gevonden.
-- **Meerdere definities.** Staat een key in meerdere bestanden, dan wint het huidige bestand, daarna alfabetisch. De tooltip meldt hoeveel andere definities er zijn. De echte volgorde van `MergedDictionaries` volgen we (nog) niet.
+- **Scopes binnen een bestand.** Het hele huidige bestand telt als één scope. Een key in `Grid.Resources` wint dus van `App.xaml`, ook voor elementen buiten die grid.
+- **Resources uit code** (`Application.Current.Resources.MergedDictionaries.Add(...)`) volgen we niet. Zo'n bestand krijgt "in geen enkele MergedDictionaries".
+- **Een UserControl** ziet tijdens runtime ook de resources van het venster waar hij in staat. Dat venster kennen we niet; we volgen alleen de UserControl zelf en `App.xaml`.
 - **Excepties die blijven.** Twee situaties gooien nog een exceptie die we zelf opvangen: een XAML-bestand dat tijdens het typen even geen geldige XML is (`XmlException` in `ResourceIndex`), en een template die wel laadt maar pas bij het tekenen faalt (in `LiveSampleRenderer`). Het eerste valt niet vooraf te controleren zonder een eigen XML-parser. Zie je ze in de debugger, dan is dat geen fout.
 - **Verwijzingen over meerdere regels** worden niet herkend. De finder kijkt per regel.
 
 ## Ideeën voor later
 
-- Een instelling om het live voorbeeld uit te zetten, voor wie een kleinere tooltip wil.
-- IsMouseOver en IsPressed tonen door de triggers van de stijl zelf toe te passen, zonder muis.
-- Waarden die je al in het Legacy-venster had ingesteld automatisch overzetten naar Unified Settings (`migration` in `registration.json`, of eenmalig in code).
-- `MergedDictionaries` volgen vanaf `App.xaml` om te bepalen welke definitie WPF echt gebruikt.
-- De icoon-preview ook in IntelliSense tonen bij het typen van `{StaticResource `.
-- Publiceren op de Visual Studio Marketplace: icoon en preview-afbeelding toevoegen aan het manifest.
+Geen open punten. Nieuwe ideeën komen hier.

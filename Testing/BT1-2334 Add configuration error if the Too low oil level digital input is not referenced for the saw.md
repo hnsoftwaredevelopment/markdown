@@ -39,3 +39,33 @@ VACAM moet ondanks de fout gewoon starten, zodat de service-engineer de referent
 ## Conclusie
 
 De configuratiefout "Reference 'Too low oil level' of the hydraulic generator is not configured" verschijnt bij een VBS1x50b-zaag zonder koppeling. VACAM start gewoon op, en na het koppelen en herstarten van VACAM en TwinCAT is de fout weg. Dit klopt met de instructie in de mail van André aan service. Let op: de fout verdwijnt pas na een herstart, niet direct na het opslaan.
+
+## Bevinding: het nummer van de ingang verschilt per machine
+
+Bij de AMADA V631 (`20250067_V631_260404`, met een VBS1x50b-zaag, `Saw.Type` = 17) was "Too low oil level" na het koppelen aan DI 6 nog steeds fout. Daarna bleef de melding "Oil level too low" staan. DI 6 is bij deze machine `Power24VBussystemOK` (onder `SystemError`). De juiste ingang is hier DI 113 `LowOilLevel`. Na het koppelen aan DI 113 en een herstart was de melding weg (bevestigd door Herbert, 2026-11-06).
+
+| Machine | Ingang voor "Too low oil level" | High oil temperature |
+|---|---|---|
+| VB1250 William Hare (20250008) | DI 6 `LowOilLevel` | DI 5 |
+| V631 AMADA (20250067) | DI 113 `LowOilLevel` | DI 112 |
+
+Een V631 met zaag heeft twee hydraulic generators: die van de boorstraat (`HydraulicGenerator[0]`, eigen ingang DI 62 `TooLowOilLevel`, al goed gekoppeld) en die van de zaag (`HydraulicGeneratorSaw`). De configuratiefout gaat alleen over die van de zaag.
+
+### Zo vind je de juiste ingang
+
+1. Open in de machineconfiguratie de hydraulic generator van de **zaag**: `SawZone → Saw → SawFrame → HydraulicGeneratorSaw`. Neem niet die van de boorstraat.
+2. Onder dit object hangen de digitale ingangen die bij de generator horen. Zoek de ingang met de naam **"Low oil level"** (of "Too low oil level"). Het nummer achter "Digital input" is het part number dat je nodig hebt.
+3. Ter controle: "High oil temperature" van dezelfde generator staat meestal al op de ingang ernaast (bij AMADA 112 en 113, bij William Hare 5 en 6).
+4. Kies bij de referentie "Too low oil level" als part type DigitalInput en als part number het nummer uit stap 2. Sla op en herstart VACAM en TwinCAT.
+
+Niet doen: een nummer van een andere machine overnemen. Een verkeerde ingang geeft geen configuratiefout meer, maar wel de melding "Oil level too low" tijdens het gebruik.
+
+Voor testers met toegang tot de database geeft deze query de ingangen onder de zaaggenerator:
+
+```sql
+SELECT o.Tag, o.ObjectNumber
+FROM Object o JOIN Object p ON p.ID = o.Parent
+WHERE p.Tag = 'HydraulicGeneratorSaw' AND o.ClassID = 2;
+```
+
+**Voorstel voor André:** neem stap 1 en 2 op in de mail aan service, zodat de engineer de ingang onder de zaaggenerator kiest en geen vast nummer.
