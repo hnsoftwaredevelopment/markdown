@@ -746,6 +746,34 @@ Een resource die nergens gebruikt wordt, staat als **bericht** in de Error List 
 
 In de SampleApp is `UnusedBrush` in `Brushes.xaml` ongebruikt. `CodeOnlyBrush` wordt alleen in `MainWindow.xaml.cs` gebruikt (`TryFindResource("CodeOnlyBrush")`) en krijgt dus geen melding.
 
+### 21. Een key hernoemen
+
+Rechtsklik op een verwijzing of een `x:Key` en kies **Rename Resource Key...**. Na een nieuwe naam verandert de key in alle definities en verwijzingen van de solution.
+
+**Twee helften.** Het tekstwerk staat los van VS, zodat het getest kan worden:
+
+| Klasse | Doet | VS nodig |
+|---|---|---|
+| `KeyRenamer` | welke bestanden veranderen (`Plan`), of de naam mag (`Check`), en waar in de tekst de key staat (`FindSpans`) | nee |
+| `RenameResourceKeyCommand` | de dialoog tonen en de wijzigingen in de editorbuffers zetten | ja |
+
+`FindSpans` zoekt `x:Key="X"`, `{StaticResource X}`, `{DynamicResource ResourceKey=X}` en `<StaticResource ResourceKey="X"/>`. Na de key in een markup extension moet een spatie, komma of `}` komen. Zo blijft `{StaticResource AccentBrush}` staan als je `Accent` hernoemt. Tekst in commentaar en gewone attributen als `Tag="Accent"` blijven ook staan.
+
+**Welke namen mogen niet?** Een spatie, aanhalingsteken, accolade, komma of `< > = &` maakt de XAML stuk. Een naam die al bestaat, weigert de dialoog ook: dan zouden twee resources dezelfde key krijgen, en wint er stilletjes één (sectie 15).
+
+**De dialoog.** `RenameDialog` erft van `DialogWindow` uit `Microsoft.VisualStudio.PlatformUI`. Dat is de basisklasse van VS voor modale vensters: VS zet zelf de eigenaar, en `ShowModal()` blokkeert de rest van VS op de juiste manier. De kleuren komen uit `ThemedDialogColors`, en de tekstvakken en knoppen krijgen de VS-stijlen `VsResourceKeys.TextBoxStyleKey` en `ButtonStyleKey`. Bij elke toetsaanslag controleert de dialoog de naam opnieuw en zet hij de knop Hernoemen aan of uit.
+
+**Wijzigen via de editor, niet via het bestand.** Rechtstreeks naar schijf schrijven zou mis gaan bij een bestand dat open staat met onopgeslagen wijzigingen: VS vraagt dan om opnieuw te laden, en die wijzigingen ben je kwijt. Daarom gaan alle wijzigingen via de tekstbuffer van VS:
+
+1. `IVsInvisibleEditorManager.RegisterInvisibleEditor` geeft voor elk bestand de documentdata. Staat het bestand open, dan is dat dezelfde buffer als die in de editor. Zo niet, dan laadt VS het onzichtbaar.
+2. `IVsEditorAdaptersFactoryService.GetDocumentBuffer` maakt van die `IVsTextLines` (de oude COM-kant) een `ITextBuffer` (de nieuwe editor-API, sectie 6).
+3. Alle vervangingen in één bestand gaan in één `ITextEdit`. Dat is één stap in de undo-geschiedenis van dat bestand.
+4. Stond het bestand open, dan blijft het onopgeslagen. Je ziet de wijziging en kunt hem met Ctrl+Z terugdraaien. Stond het niet open, dan slaat `IVsPersistDocData.SaveDocData` het direct op; anders zou de wijziging verdwijnen zodra de onzichtbare editor sluit.
+
+Er is geen Ctrl+Z voor alle bestanden tegelijk. Daarvoor heeft VS geen eenvoudige publieke API. Voor bestanden die niet open waren, is je versiebeheer de weg terug.
+
+**Geen standaard-sneltoets.** Ctrl+R, Ctrl+R is van de hernoem-functie van VS zelf. In de `.vsct` staat daarom geen `KeyBinding`; je kunt er zelf een toekennen. De menuversie is nu 4.
+
 ## Hoe het zoeken werkt
 
 VS heeft geen publieke API om te vragen waar een resource gedefinieerd is. `ResourceIndex` bouwt dat zelf op:
@@ -782,7 +810,7 @@ Aanpassingen die de builder doet voor de preview:
 
 ### Unit tests
 
-`tests\ResourcePreview.Tests` bevat 500 tests die zonder Visual Studio draaien. Open Test Explorer (Test > Test Explorer) en klik op Run All. Dat duurt een paar seconden.
+`tests\ResourcePreview.Tests` bevat 512 tests die zonder Visual Studio draaien. Open Test Explorer (Test > Test Explorer) en klik op Run All. Dat duurt een paar seconden.
 
 | Bestand | Wat het test |
 |---|---|
@@ -798,6 +826,7 @@ Aanpassingen die de builder doet voor de preview:
 | `ReferenceCheckerTests` | verwijzingen vinden (ook in commentaar en element-syntax), ontbrekende keys met hoofdlettersuggestie, keys die verderop staan, keys in een niet-geladen bestand, geen meldingen bij externe dictionaries, zonder App.xaml of in een UserControl, en precies de bekende problemen in de SampleApp |
 | `UsageFinderTests` | alle verwijzingen naar een key, welke definitie elke verwijzing krijgt, een key zonder definities, en `InfoBrush` uit de SampleApp |
 | `UnusedResourceTests` | ongebruikte keys, gebruik vanuit code, keys in Window.Resources, geen meldingen in niet-gemergde dictionaries, themabestanden, ThemeDictionaries en zonder App.xaml, en alleen `UnusedBrush` in de SampleApp |
+| `KeyRenamerTests` | alle vormen van definitie en verwijzing hernoemen, andere keys, gewone tekst en commentaar ongemoeid laten, keys met punten, welke bestanden veranderen, en welke namen geweigerd worden |
 | `NoExceptionTests` | welke types VS niet kan laden, in elementen, attributen en waarden, ook via afhankelijkheden; elke resource uit de SampleApp zonder één exceptie; `ColorParser` tegen alle WPF-kleurnamen |
 | `StyleTests` | `TargetType` in alle schrijfwijzen, de `BasedOn`-keten met overschreven setters, de soorten waarden, triggers en binding-paden, en de weergave van de tabel |
 | `SettingsAndLanguageTests` | kleuren en getallen, taalcodes van VS, de converters van de Opties-pagina, `Localizer` |
@@ -858,6 +887,7 @@ Wat VS zelf doet, kun je niet met unit tests afdekken. Loop dit na vóór een re
    Rechtsklik op `{StaticResource PrimaryButton}`: **Go To Resource Definition** staat in het menu en springt naar `Styles.xaml`. Op een regel zonder verwijzing staat het item er niet. Ctrl+Alt+F12 doet hetzelfde, en opent geen "Find Symbol Results".
    Rechtsklik op `x:Key="InfoBrush"` in `Brushes.xaml` en kies Find Resource References (of Shift+Alt+F12): het venster toont twee definities en één verwijzing in `MainWindow.xaml`, met "gebruikt de definitie in Values.xaml". Dubbelklik op de verwijzing opent `MainWindow.xaml` op die regel.
    In de Error List (met Messages aan) staat ook een bericht voor `UnusedBrush` in `Brushes.xaml`, en niet voor `CodeOnlyBrush`.
+   Rechtsklik op `InfoBrush` in `MainWindow.xaml` en kies Rename Resource Key...: de dialoog noemt 2 definities en 1 verwijzing in 3 bestanden. Probeer `AccentBrush` (bestaat al) en `Info Brush` (spatie): de knop blijft uit. Hernoem naar `NoticeBrush`, controleer de drie bestanden, en draai het terug (Ctrl+Z in de open bestanden, versiebeheer voor de rest).
    Hover over `InfoBrush` in `MainWindow.xaml`: bovenaan `Values.xaml` met "WPF gebruikt hier deze definitie.", eronder `Brushes.xaml` met "overschreven door Values.xaml". Bij `Check` staat achter `IconsLegacy.xaml` "in geen enkele MergedDictionaries".
    Open de Error List: één waarschuwing voor `InfoBrush` in `Brushes.xaml`. Dubbelklik springt naar de definitie. Haal `InfoBrush` weg uit `Values.xaml` en sla op: na een paar seconden is de waarschuwing weg. Zet hem daarna terug.
 8. Typ in `Icons.xaml` een nieuwe `<Geometry x:Key="Nieuw">` zonder op te slaan, en hover erover in hetzelfde bestand: de preview werkt al.
