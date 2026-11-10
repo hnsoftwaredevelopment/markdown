@@ -37,7 +37,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Testing/RC-Testing/RC-4.33 Other team alerts.md",
+                "file": "Development/Projects/ResourcePreview/Handleiding extension bouwen.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -52,7 +52,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "RC-4.33 Other team alerts"
+              "title": "Handleiding extension bouwen"
             }
           }
         ],
@@ -391,8 +391,10 @@
       "cmdr:Omnisearch: Vault search": false
     }
   },
-  "active": "a76ab09dac4b2700",
+  "active": "1982f7e044b7c34a",
   "lastOpenFiles": [
+    "Development/Projects/ResourcePreview/README.md",
+    "Testing/RC-Testing/RC-4.33 Other team alerts.md",
     "Testing/RC-Testing/RC-4.33 Test cases.md",
     "Testing/RC-Testing/RC-4.33 Testplan.md",
     "Testing/RC-Testing/RC-4.33 Analysis.md",
@@ -418,8 +420,6 @@
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/Parked.md",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E09-ObjectManagement.md",
     "Testing/BT1-2161 - Testing VB_StandardStandalone templates using DNA/3. Test plan.md",
-    "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E08-ViewData.md",
-    "Testing/BT1-1788 Pieces that exceed stick through length does not require detection.md",
     "Testing/BT1-1788 Pieces that exceed stick through length does not require detection.md.tmp.17616.de6e442c7a0e",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs",

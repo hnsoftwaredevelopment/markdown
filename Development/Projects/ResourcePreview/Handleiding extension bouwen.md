@@ -19,6 +19,7 @@ ResourcePreview/
 │  ├─ Resources/                    ← zoeken en XAML samenstellen (geen VS, geen WPF)
 │  ├─ Preview/                      ← WPF-weergave in de tooltip
 │  ├─ Navigation/                   ← springen, de menu-commands en het venster met verwijzingen
+│  ├─ Refactoring/                  ← het lampje: een waarde naar een resource verplaatsen
 │  ├─ IntelliSense/                 ← iconen en tooltip in de IntelliSense-lijst
 │  ├─ Diagnostics/                  ← waarschuwingen voor overschreven keys in de Error List
 │  ├─ Localization/                 ← teksten per taal (Strings.resx + 14 vertalingen)
@@ -774,6 +775,34 @@ Er is geen Ctrl+Z voor alle bestanden tegelijk. Daarvoor heeft VS geen eenvoudig
 
 **Geen standaard-sneltoets.** Ctrl+R, Ctrl+R is van de hernoem-functie van VS zelf. In de `.vsct` staat daarom geen `KeyBinding`; je kunt er zelf een toekennen. De menuversie is nu 4.
 
+### 22. Een vaste waarde naar een resource verplaatsen
+
+Zet de cursor in `Background="#FF2D7D9A"`, druk op **Ctrl+.** en kies **Naar resource verplaatsen...**. Kies een key en een dictionary; de waarde wordt een resource en het attribuut wordt `{StaticResource Key}`.
+
+**Het lampje.** Ctrl+. toont de "suggested actions" van VS: het lampje. Een extensie voegt daar iets aan toe met drie klassen:
+
+| Klasse | Rol |
+|---|---|
+| `ISuggestedActionsSourceProvider` | MEF-export voor content type XAML; maakt per editor een source |
+| `ISuggestedActionsSource` | VS vraagt bij elke cursorbeweging `HasSuggestedActionsAsync` en bij het openen van het lampje `GetSuggestedActions` |
+| `ISuggestedAction` | één regel in het menu; `Invoke` voert hem uit |
+
+`HasSuggestedActionsAsync` wordt heel vaak aangeroepen. Daarom kijkt hij alleen naar de tekst van de regel (`ExtractPlanner.TryFind`), zonder de index. Pas `Invoke` doet het echte werk: op een achtergrondthread de doelbestanden bepalen, dan op de UI-thread de dialoog en de wijzigingen.
+
+Een detail: `ThreadHelper.JoinableTaskFactory.RunAsync(...)` gaf de analyzer-waarschuwing VSSDK007, ook met `FileAndForget`. Het lampje is een MEF-onderdeel, dus het importeert de `JoinableTaskContext` van de editor en gebruikt `context.Factory`, net als de Quick Info (sectie 6).
+
+**Welk type resource?** XAML-tekst heeft geen types. `ExtractPlanner.ResourceTypeFor` kijkt daarom naar de naam van de property en controleert of de waarde past: `Background` met een kleur wordt `SolidColorBrush`, `Margin` met 1, 2 of 4 getallen wordt `Thickness`, `FontSize` met een getal wordt `sys:Double`. Een onbekende property, of een waarde die niet past (`Width="Auto"`), krijgt geen lampje.
+
+Voor `sys:Double` en `sys:String` moet het doelbestand de namespace kennen. Staat er al een `xmlns` voor `clr-namespace:System` (ook met `assembly=System.Runtime`), dan wordt dat voorvoegsel gebruikt. Anders voegt de extensie `xmlns:sys="clr-namespace:System;assembly=mscorlib"` toe aan het root-element. `mscorlib` werkt ook in .NET 8, via type forwarding.
+
+**Waar komt de resource?** De keuzelijst bevat de dictionaries die het bestand kan zien: eigen merges en die van `App.xaml` (dezelfde opzoekvolgorde als in sectie 15), en `App.xaml` zelf. De laatste keuze wordt onthouden.
+
+- In een dictionary komt de resource onderaan, vóór de laatste `</ResourceDictionary>`.
+- In `App.xaml` vóór de `</ResourceDictionary>` binnen `Application.Resources`, of vóór `</Application.Resources>` als daar geen dictionary in staat.
+- Staat de waarde in dezelfde dictionary als het doel, dan komt de resource boven het element dat hem gebruikt. Anders zou de StaticResource naar beneden moeten kijken, en dat doet hij niet (sectie 18).
+
+**Eén plek voor bufferwijzigingen.** Hernoemen (sectie 21) en verplaatsen wijzigen allebei bestanden via de editor. Die code staat nu in `BufferEditor.Apply(path, text => changes)`: open bestanden blijven onopgeslagen met één undo-stap, gesloten bestanden worden opgeslagen. De wijzigingen zelf zijn `TextChange`-waarden (start, lengte, nieuwe tekst), die de tests op een gewone string kunnen toepassen.
+
 ## Hoe het zoeken werkt
 
 VS heeft geen publieke API om te vragen waar een resource gedefinieerd is. `ResourceIndex` bouwt dat zelf op:
@@ -810,7 +839,7 @@ Aanpassingen die de builder doet voor de preview:
 
 ### Unit tests
 
-`tests\ResourcePreview.Tests` bevat 512 tests die zonder Visual Studio draaien. Open Test Explorer (Test > Test Explorer) en klik op Run All. Dat duurt een paar seconden.
+`tests\ResourcePreview.Tests` bevat 535 tests die zonder Visual Studio draaien. Open Test Explorer (Test > Test Explorer) en klik op Run All. Dat duurt een paar seconden.
 
 | Bestand | Wat het test |
 |---|---|
@@ -827,6 +856,7 @@ Aanpassingen die de builder doet voor de preview:
 | `UsageFinderTests` | alle verwijzingen naar een key, welke definitie elke verwijzing krijgt, een key zonder definities, en `InfoBrush` uit de SampleApp |
 | `UnusedResourceTests` | ongebruikte keys, gebruik vanuit code, keys in Window.Resources, geen meldingen in niet-gemergde dictionaries, themabestanden, ThemeDictionaries en zonder App.xaml, en alleen `UnusedBrush` in de SampleApp |
 | `KeyRenamerTests` | alle vormen van definitie en verwijzing hernoemen, andere keys, gewone tekst en commentaar ongemoeid laten, keys met punten, welke bestanden veranderen, en welke namen geweigerd worden |
+| `ExtractPlannerTests` | welke waarden een lampje krijgen en welk type ze worden, de XAML van de resource, invoegen in een dictionary en in App.xaml, `xmlns:sys` toevoegen of hergebruiken, invoegen boven het gebruik in hetzelfde bestand, en de doelbestanden in de SampleApp |
 | `NoExceptionTests` | welke types VS niet kan laden, in elementen, attributen en waarden, ook via afhankelijkheden; elke resource uit de SampleApp zonder één exceptie; `ColorParser` tegen alle WPF-kleurnamen |
 | `StyleTests` | `TargetType` in alle schrijfwijzen, de `BasedOn`-keten met overschreven setters, de soorten waarden, triggers en binding-paden, en de weergave van de tabel |
 | `SettingsAndLanguageTests` | kleuren en getallen, taalcodes van VS, de converters van de Opties-pagina, `Localizer` |
@@ -888,6 +918,7 @@ Wat VS zelf doet, kun je niet met unit tests afdekken. Loop dit na vóór een re
    Rechtsklik op `x:Key="InfoBrush"` in `Brushes.xaml` en kies Find Resource References (of Shift+Alt+F12): het venster toont twee definities en één verwijzing in `MainWindow.xaml`, met "gebruikt de definitie in Values.xaml". Dubbelklik op de verwijzing opent `MainWindow.xaml` op die regel.
    In de Error List (met Messages aan) staat ook een bericht voor `UnusedBrush` in `Brushes.xaml`, en niet voor `CodeOnlyBrush`.
    Rechtsklik op `InfoBrush` in `MainWindow.xaml` en kies Rename Resource Key...: de dialoog noemt 2 definities en 1 verwijzing in 3 bestanden. Probeer `AccentBrush` (bestaat al) en `Info Brush` (spatie): de knop blijft uit. Hernoem naar `NoticeBrush`, controleer de drie bestanden, en draai het terug (Ctrl+Z in de open bestanden, versiebeheer voor de rest).
+   Zet de cursor in een vaste kleur of marge in `MainWindow.xaml` en druk Ctrl+.: kies Naar resource verplaatsen..., kies `Brushes.xaml` en controleer beide bestanden. Draai het daarna terug, ook in de bestanden die niet open stonden.
    Hover over `InfoBrush` in `MainWindow.xaml`: bovenaan `Values.xaml` met "WPF gebruikt hier deze definitie.", eronder `Brushes.xaml` met "overschreven door Values.xaml". Bij `Check` staat achter `IconsLegacy.xaml` "in geen enkele MergedDictionaries".
    Open de Error List: één waarschuwing voor `InfoBrush` in `Brushes.xaml`. Dubbelklik springt naar de definitie. Haal `InfoBrush` weg uit `Values.xaml` en sla op: na een paar seconden is de waarschuwing weg. Zet hem daarna terug.
 8. Typ in `Icons.xaml` een nieuwe `<Geometry x:Key="Nieuw">` zonder op te slaan, en hover erover in hetzelfde bestand: de preview werkt al.
