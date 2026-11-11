@@ -801,6 +801,27 @@ Voor `sys:Double` en `sys:String` moet het doelbestand de namespace kennen. Staa
 - In `App.xaml` vóór de `</ResourceDictionary>` binnen `Application.Resources`, of vóór `</Application.Resources>` als daar geen dictionary in staat.
 - Staat de waarde in dezelfde dictionary als het doel, dan komt de resource boven het element dat hem gebruikt. Anders zou de StaticResource naar beneden moeten kijken, en dat doet hij niet (sectie 18).
 
+**Meerdere attributen naar een Style.** Selecteer in een start-tag een paar attributen, bijvoorbeeld `Fill="White" Stretch="Uniform" Width="16"`, en druk Ctrl+. of gebruik het contextmenu:
+
+- **Naar stijl verplaatsen...** maakt een nieuwe `Style` met een `Setter` per attribuut en `TargetType` gelijk aan het element. De attributen worden vervangen door `Style="{StaticResource Key}"`. Had het element al een stijl, dan wordt de nieuwe `BasedOn` die stijl.
+- **Toevoegen aan stijl 'X'** verschijnt als het element al `Style="{StaticResource X}"` heeft. De attributen worden setters van die bestaande stijl, waar die ook gedefinieerd is. Welke definitie dat is, bepaalt dezelfde opzoekvolgorde als in de tooltip.
+
+`StylePlanner` doet het tekstwerk:
+
+| Stap | Hoe |
+|---|---|
+| welke attributen | de start-tag rond de selectie zoeken (een `>` binnen aanhalingstekens telt niet), en alle attributen die de selectie raakt |
+| wat niet mee mag | events (`Click`, `MouseEnter`, alles op `Changed` of `Click`), `x:Name`, `x:Key`, `Style` zelf; die horen niet in een setter |
+| het element aanpassen | de attributen weghalen inclusief de witruimte ervoor, zodat een tag over meerdere regels netjes blijft; het eerste wordt `Style="{StaticResource Key}"` |
+| setters toevoegen aan een bestaande stijl | na de laatste bestaande `Setter`: setters moeten aaneengesloten staan en mogen niet ná `<Style.Triggers>` komen, anders geeft XAML een fout; een `<Style ... />` zonder inhoud wordt opengemaakt |
+| bestaande setter | een stijl mag een property maar één keer zetten, dus die setter wordt vervangen |
+
+Voor die laatste twee is het einde van een element nodig. `XDocument` geeft alleen de beginpositie (`IXmlLineInfo`). `StylePlanner.ElementEnd` telt daarom zelf de tags vanaf het begin, met diepte: een open-tag gaat omhoog, een sluit-tag omlaag, een `/>` blijft gelijk.
+
+Elementen met een voorvoegsel (`local:MyControl`) worden overgeslagen: het doelbestand kent dat voorvoegsel misschien niet.
+
+**Ook in het contextmenu.** Drie menu-items doen hetzelfde als het lampje: Extract to Resource..., Extract to Style... en Add to style 'X'. Elk verschijnt alleen als het van toepassing is. Lampje en menu delen de code in `ResourceRefactorings`; het lampje maakt per actie een `RefactoringAction`, het menu roept dezelfde methoden aan vanuit `RefactoringCommands`. Menuversie 5.
+
 **Eén plek voor bufferwijzigingen.** Hernoemen (sectie 21) en verplaatsen wijzigen allebei bestanden via de editor. Die code staat nu in `BufferEditor.Apply(path, text => changes)`: open bestanden blijven onopgeslagen met één undo-stap, gesloten bestanden worden opgeslagen. De wijzigingen zelf zijn `TextChange`-waarden (start, lengte, nieuwe tekst), die de tests op een gewone string kunnen toepassen.
 
 ## Hoe het zoeken werkt
@@ -839,7 +860,7 @@ Aanpassingen die de builder doet voor de preview:
 
 ### Unit tests
 
-`tests\ResourcePreview.Tests` bevat 535 tests die zonder Visual Studio draaien. Open Test Explorer (Test > Test Explorer) en klik op Run All. Dat duurt een paar seconden.
+`tests\ResourcePreview.Tests` bevat 547 tests die zonder Visual Studio draaien. Open Test Explorer (Test > Test Explorer) en klik op Run All. Dat duurt een paar seconden.
 
 | Bestand | Wat het test |
 |---|---|
@@ -857,6 +878,7 @@ Aanpassingen die de builder doet voor de preview:
 | `UnusedResourceTests` | ongebruikte keys, gebruik vanuit code, keys in Window.Resources, geen meldingen in niet-gemergde dictionaries, themabestanden, ThemeDictionaries en zonder App.xaml, en alleen `UnusedBrush` in de SampleApp |
 | `KeyRenamerTests` | alle vormen van definitie en verwijzing hernoemen, andere keys, gewone tekst en commentaar ongemoeid laten, keys met punten, welke bestanden veranderen, en welke namen geweigerd worden |
 | `ExtractPlannerTests` | welke waarden een lampje krijgen en welk type ze worden, de XAML van de resource, invoegen in een dictionary en in App.xaml, `xmlns:sys` toevoegen of hergebruiken, invoegen boven het gebruik in hetzelfde bestand, en de doelbestanden in de SampleApp |
+| `StylePlannerTests` | geselecteerde attributen vinden (ook over meerdere regels), events en namen overslaan, de nieuwe stijl en het aangepaste element, `BasedOn` bij een bestaande stijl, setters toevoegen na de laatste setter, bestaande vervangen en een lege stijl openmaken |
 | `NoExceptionTests` | welke types VS niet kan laden, in elementen, attributen en waarden, ook via afhankelijkheden; elke resource uit de SampleApp zonder één exceptie; `ColorParser` tegen alle WPF-kleurnamen |
 | `StyleTests` | `TargetType` in alle schrijfwijzen, de `BasedOn`-keten met overschreven setters, de soorten waarden, triggers en binding-paden, en de weergave van de tabel |
 | `SettingsAndLanguageTests` | kleuren en getallen, taalcodes van VS, de converters van de Opties-pagina, `Localizer` |
@@ -919,6 +941,7 @@ Wat VS zelf doet, kun je niet met unit tests afdekken. Loop dit na vóór een re
    In de Error List (met Messages aan) staat ook een bericht voor `UnusedBrush` in `Brushes.xaml`, en niet voor `CodeOnlyBrush`.
    Rechtsklik op `InfoBrush` in `MainWindow.xaml` en kies Rename Resource Key...: de dialoog noemt 2 definities en 1 verwijzing in 3 bestanden. Probeer `AccentBrush` (bestaat al) en `Info Brush` (spatie): de knop blijft uit. Hernoem naar `NoticeBrush`, controleer de drie bestanden, en draai het terug (Ctrl+Z in de open bestanden, versiebeheer voor de rest).
    Zet de cursor in een vaste kleur of marge in `MainWindow.xaml` en druk Ctrl+.: kies Naar resource verplaatsen..., kies `Brushes.xaml` en controleer beide bestanden. Draai het daarna terug, ook in de bestanden die niet open stonden.
+   Selecteer in `MainWindow.xaml` bij een `Path` de attributen `Fill` tot en met `Margin` en kies Naar stijl verplaatsen...; controleer de nieuwe stijl. Selecteer daarna `Padding="0"` op een element met een stijl en kies Toevoegen aan stijl. Zet alles daarna terug, ook in bestanden die niet open stonden.
    Hover over `InfoBrush` in `MainWindow.xaml`: bovenaan `Values.xaml` met "WPF gebruikt hier deze definitie.", eronder `Brushes.xaml` met "overschreven door Values.xaml". Bij `Check` staat achter `IconsLegacy.xaml` "in geen enkele MergedDictionaries".
    Open de Error List: één waarschuwing voor `InfoBrush` in `Brushes.xaml`. Dubbelklik springt naar de definitie. Haal `InfoBrush` weg uit `Values.xaml` en sla op: na een paar seconden is de waarschuwing weg. Zet hem daarna terug.
 8. Typ in `Icons.xaml` een nieuwe `<Geometry x:Key="Nieuw">` zonder op te slaan, en hover erover in hetzelfde bestand: de preview werkt al.
