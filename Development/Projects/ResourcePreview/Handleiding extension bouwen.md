@@ -919,6 +919,48 @@ Geen vakje voor een `LinearGradientBrush` of een brush met `Opacity`: één vlak
 
 Een nieuwe instelling, **Kleurvakjes in de editor tonen** (`showColorSwatches`), zet het uit. De tagger luistert naar `SettingsService.Changed` en meldt `TagsChanged` voor het hele bestand, zodat de vakjes direct verdwijnen.
 
+### 25. Het venster XAML Resources
+
+**View > Other Windows > XAML Resources** toont alle resources van de solution, of alleen wat het actieve .xaml-bestand kan gebruiken. Per bestand of per type, met zoeken, een preview als tooltip, een contextmenu en slepen naar de editor.
+
+**Een tool window met een eigen menu-item.** Het venster van sectie 19 (verwijzingen) werd alleen geopend door een command in het contextmenu. Dit venster heeft een vaste plek in het View-menu:
+
+| Onderdeel | Waar |
+|---|---|
+| `ResourcesWindow : ToolWindowPane` met een eigen `[Guid]` | het venster |
+| `[ProvideToolWindow(typeof(ResourcesWindow), Window = "3AE79031-...")]` | registratie; die GUID is de Solution Explorer, dus het venster opent als tabblad daarnaast |
+| een `Button` met parent `IDG_VS_WNDO_OTRWNDWS1` in de .vsct | het menu-item in View > Other Windows; zonder `DynamicVisibility`, zodat het er altijd staat |
+| `InitializeCommandAsync` | koppelt het menu-item aan `ShowToolWindowAsync` |
+
+Een command dat altijd zichtbaar is, laadt het package als je erop klikt. Daarom hoeft er geen extra `ProvideAutoLoad` bij. Menuversie 7.
+
+**`Initialize()` in plaats van de constructor.** VS maakt het venster zelf aan: bij het eerste openen, maar ook bij het starten als het venster de vorige keer open stond. Er is dan geen command dat iets kan doorgeven. In de constructor is het package nog niet bekend; in `Initialize()` wel (`Package`). Daar haalt het venster zijn services op en begint het met laden.
+
+**Het actieve document volgen.** `IVsMonitorSelection.AdviseSelectionEvents` meldt wijzigingen in de selectie van VS. Het venster implementeert `IVsSelectionEvents` en kijkt naar `SEID_DocumentFrame`: het actieve documentvenster. Uit dat `IVsWindowFrame` komt het pad via `VSFPROPID_pszMkDocument`. Wordt een niet-.xaml-bestand actief, dan blijft het laatste .xaml-bestand staan; anders zou de lijst leeg worden zodra je een .cs-bestand opent. Bij `Dispose` volgt `UnadviseSelectionEvents`, anders blijft VS het gesloten venster aanroepen.
+
+**Wat erin staat: `ResourceCatalog`.** Net als bij de andere features zit de logica in een klasse zonder VS-code:
+
+| Methode | Wat |
+|---|---|
+| `Build` | alle resources in de hoofd-dictionary van elk bestand (niet die in `Grid.Resources` of `Style.Resources`), of met een actief bestand: één definitie per key, langs de opzoekvolgorde van sectie 15 |
+| `GroupByFile` | eerst de bestanden in de volgorde waarin WPF zoekt vanuit `App.xaml` (de laatst gemergde eerst), dan de rest op naam |
+| `GroupByType` | brushes, kleuren, afbeeldingen en geometrieën, stijlen, templates, waarden; op elementnaam (`...Brush`, `...Template`, `...Geometry`) |
+| `Filter` | key bevat de zoektekst, hoofdletterongevoelig |
+
+De notities komen van de scanners die de Error List al gebruikt (secties 15 en 20): `OverriddenKeyScanner`, `UnusedResourceScanner` en `MergeGraph.IsLoaded`. Het venster toont dus hetzelfde als de Error List, ook als je die meldingen in de instellingen uit hebt gezet.
+
+**Laden op de achtergrond, tekenen op de UI-thread.** Het lezen en scannen gebeurt met `await TaskScheduler.Default`. Een nieuwe lading annuleert de vorige via een `CancellationTokenSource`; de oude stopt met een `OperationCanceledException` die het venster stil opvangt. Zoeken en hergroeperen gebruiken de geladen lijst opnieuw. Dat is goedkoop genoeg om bij elke toetsaanslag te doen.
+
+**De preview pas bij het openen van de tooltip.** Honderden previews vooraf bouwen kost te veel tijd. Elk item krijgt een lege `ToolTip`; in `ToolTipOpening` komt de inhoud erin, met dezelfde `ResourcePreviewData` en `PreviewRenderer` als de tooltip in de editor. Het kleine icoon voor de key is dat van IntelliSense (sectie 17), met zijn cache.
+
+**Slepen naar de editor.** WPF-slepen begint met `DragDrop.DoDragDrop` en een `DataObject`. Het venster zet daar de tekst `{StaticResource Key}` in als `UnicodeText`. De editor van VS accepteert tekst die erop valt en zet hem op de plek waar je loslaat; daar is geen eigen code voor nodig. Slepen begint pas als de muis met ingedrukte knop een paar pixels verschuift (`SystemParameters.MinimumHorizontalDragDistance`), anders wordt elke klik een sleepactie.
+
+**Een gevangen exceptie is ook een probleem.** De eerste test in VS liep vast op `CaseStyle` uit `Broken\ReferenceProblems.xaml`: hover in het venster gaf een `XamlParseException` over `accentBrush`. Die exceptie werd wel gevangen, en de tooltip toonde netjes een melding. Maar een debugger die stopt bij elke gegooide exceptie, stopt daar toch. In de editor viel het nooit op, omdat je zelden over zo'n kapotte stijl hovert; het venster toont alles, dus daar wel.
+
+De oplossing: niet proberen. `PreviewXamlBuilder` weet al welke keys ontbreken (`MissingKeys`). Is die lijst niet leeg, dan slaat `PreviewRenderer` `XamlReader.Parse` over en toont direct "Niet gevonden in de solution". De test die controleert dat geen enkele SampleApp-resource een exceptie gooit (ook geen gevangen, via `AppDomain.FirstChanceException`), loopt nu ook de bestanden in `Broken\` langs.
+
+**Het contextmenu hergebruikt de commands.** Find Resource References en Rename Resource Key werkten vanaf de cursor in de editor. Ze kregen elk een ingang die met een definitie of key werkt (`FindFor(entry)`, `Rename(file, key)`), en een statische `Instance` zodat het venster ze kan vinden.
+
 ## Hoe het zoeken werkt
 
 VS heeft geen publieke API om te vragen waar een resource gedefinieerd is. `ResourceIndex` bouwt dat zelf op:
@@ -955,7 +997,7 @@ Aanpassingen die de builder doet voor de preview:
 
 ### Unit tests
 
-`tests\ResourcePreview.Tests` bevat 602 tests die zonder Visual Studio draaien. Open Test Explorer (Test > Test Explorer) en klik op Run All. Dat duurt een paar seconden.
+`tests\ResourcePreview.Tests` bevat 625 tests die zonder Visual Studio draaien. Open Test Explorer (Test > Test Explorer) en klik op Run All. Dat duurt een paar seconden.
 
 | Bestand | Wat het test |
 |---|---|
@@ -976,6 +1018,7 @@ Aanpassingen die de builder doet voor de preview:
 | `StylePlannerTests` | geselecteerde attributen vinden (ook over meerdere regels), events en namen overslaan, de nieuwe stijl en het aangepaste element, `BasedOn` bij een bestaande stijl, setters toevoegen na de laatste setter, bestaande vervangen en een lege stijl openmaken |
 | `ResourceMatcherTests` | stijlen die precies of deels passen, stijlen die meer zetten of andere waarden hebben, `TargetType` met overerving, `BasedOn` en triggers, setters met een verwijzing, attached properties, losse waarden in andere spellingen, de volgorde, het attribuut onder de cursor en welke resources een element ziet |
 | `ColorSwatchTests` | welke waarden een kleurvakje krijgen (attributen, setters, `<Color>`, verwijzingen) en welke niet (tekst, bindings, commentaar), en de kleur van een key: via een `Color`-resource, met `Opacity`, een gradient, een kring |
+| `ResourceCatalogTests` | welke resources het venster toont (hele solution of wat één bestand ziet), de notities overschreven, niet geladen en ongebruikt, de volgorde per bestand en per type, zoeken, en de bekende notities in de SampleApp |
 | `NoExceptionTests` | welke types VS niet kan laden, in elementen, attributen en waarden, ook via afhankelijkheden; elke resource uit de SampleApp zonder één exceptie; `ColorParser` tegen alle WPF-kleurnamen |
 | `StyleTests` | `TargetType` in alle schrijfwijzen, de `BasedOn`-keten met overschreven setters, de soorten waarden, triggers en binding-paden, en de weergave van de tabel |
 | `SettingsAndLanguageTests` | kleuren en getallen, taalcodes van VS, de converters van de Opties-pagina, `Localizer` |
@@ -1041,6 +1084,7 @@ Wat VS zelf doet, kun je niet met unit tests afdekken. Loop dit na vóór een re
    Selecteer in `MainWindow.xaml` bij een `Path` de attributen `Fill` tot en met `Margin` en kies Naar stijl verplaatsen...; controleer de nieuwe stijl. Selecteer daarna `Padding="0"` op een element met een stijl en kies Toevoegen aan stijl. Zet alles daarna terug, ook in bestanden die niet open stonden.
    Selecteer bij de knop "Plain" onderaan `MainWindow.xaml` de attributen `Padding` tot en met `Background` en kies Passende resource zoeken...: `BaseButton` staat bovenaan en neemt `Padding`, `FontSize` en `Background` over; daaronder `AccentBrush` voor `Background`. Kies `BaseButton` en controleer dat de drie attributen vervangen zijn door `Style="{StaticResource BaseButton}"`. Zet het terug.
    Open `Brushes.xaml` en `MainWindow.xaml`: voor elke kleur en elke verwijzing naar een kleur-brush staat een vakje. Verander de kleur van `AccentBrush` in `Brushes.xaml` en sla op: het vakje bij `{StaticResource AccentBrush}` in `Styles.xaml` past zich aan. Zet de instelling Kleurvakjes uit: de vakjes verdwijnen meteen.
+   Open View > Other Windows > XAML Resources. Per bestand staat `Values.xaml` boven `Brushes.xaml`; `InfoBrush` in `Brushes.xaml` heeft "overschreven door Values.xaml", `UnusedBrush` "ongebruikt" en `IconsLegacy.xaml` "in geen enkele MergedDictionaries". Zoek op `brush`, schakel naar Per type en zet Alleen wat het actieve bestand kan gebruiken aan. Hover voor de preview, dubbelklik om te openen, en sleep `AccentBrush` naar een attribuut in `MainWindow.xaml`.
    Hover over `InfoBrush` in `MainWindow.xaml`: bovenaan `Values.xaml` met "WPF gebruikt hier deze definitie.", eronder `Brushes.xaml` met "overschreven door Values.xaml". Bij `Check` staat achter `IconsLegacy.xaml` "in geen enkele MergedDictionaries".
    Open de Error List: één waarschuwing voor `InfoBrush` in `Brushes.xaml`. Dubbelklik springt naar de definitie. Haal `InfoBrush` weg uit `Values.xaml` en sla op: na een paar seconden is de waarschuwing weg. Zet hem daarna terug.
 8. Typ in `Icons.xaml` een nieuwe `<Geometry x:Key="Nieuw">` zonder op te slaan, en hover erover in hetzelfde bestand: de preview werkt al.
@@ -1062,4 +1106,5 @@ Wat VS zelf doet, kun je niet met unit tests afdekken. Loop dit na vóór een re
 
 ## Ideeën voor later
 
-Geen open punten. Nieuwe ideeën komen hier.
+- **Find Elements That Could Use This Style**: de omgekeerde richting van sectie 23. Rechtsklik op een stijl en zie de elementen die precies zijn setters als losse attributen hebben; jij kiest welke je omzet.
+- **Een nieuwe extensie: overlappende extensies vinden.** Vergelijk wat geïnstalleerde extensies registreren per content type (taggers, Quick Info-bronnen, completion-bronnen, lampjes) en laat zien waar twee extensies hetzelfde doen, zoals Color Preview en onze kleurvakjes.
