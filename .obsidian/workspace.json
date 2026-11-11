@@ -37,7 +37,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Development/Projects/ResourcePreview/Handleiding extension bouwen.md",
+                "file": "Development/Projects/ResourcePreview/README.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -52,7 +52,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "Handleiding extension bouwen"
+              "title": "README"
             }
           }
         ],
@@ -393,6 +393,7 @@
   },
   "active": "1982f7e044b7c34a",
   "lastOpenFiles": [
+    "Development/Projects/ResourcePreview/Handleiding extension bouwen.md",
     "Development/Projects/ResourcePreview/README.md",
     "Testing/RC-Testing/RC-4.33 Other team alerts.md",
     "Testing/RC-Testing/RC-4.33 Test cases.md",
@@ -419,7 +420,6 @@
     "Testing/BT1-1788 Pieces that exceed stick through length does not require detection.md.tmp.17616.57d05b776f55",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/Parked.md",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E09-ObjectManagement.md",
-    "Testing/BT1-2161 - Testing VB_StandardStandalone templates using DNA/3. Test plan.md",
     "Testing/BT1-1788 Pieces that exceed stick through length does not require detection.md.tmp.17616.de6e442c7a0e",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs",

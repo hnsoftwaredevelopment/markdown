@@ -820,6 +820,12 @@ Voor die laatste twee is het einde van een element nodig. `XDocument` geeft alle
 
 Elementen met een voorvoegsel (`local:MyControl`) worden overgeslagen: het doelbestand kent dat voorvoegsel misschien niet.
 
+**Niet elk element kan een stijl hebben.** In een test selecteerde je `Value="White"` in een `<Setter>` en koos je de stijl-actie. Het resultaat: een `Style` met `TargetType="Setter"` en een `Setter` met een `Style`-attribuut. WPF weigert dat: alleen een `FrameworkElement` of `FrameworkContentElement` kan een stijl hebben. `AttributeSelection.CanHaveStyle` zoekt het type van het element op met reflectie (dezelfde `FindWpfType` als in sectie 23) en de stijl-acties verschijnen alleen als het antwoord ja is. Voor `Setter`, `Trigger` en `GradientStop` dus niet meer. Losse waarden kunnen daar wel nog een resource worden.
+
+**Een waarde in een setter.** `<Setter Property="Background" Value="White" />` was eerst geen kandidaat voor "Naar resource verplaatsen": de property heet `Value`, en daarvan weet je het type niet. Nu leest `ExtractPlanner` de `Property` van dezelfde setter en kiest daarmee het type (`SolidColorBrush`). De voorgestelde key komt van de `TargetType` van de stijl eromheen: `ButtonBackground`. Een setter in `<Style.Triggers>` vindt ook de juiste stijl, omdat het zoeken naar `<Style` een spatie of `>` erachter eist en dus `<Style.Triggers>` overslaat.
+
+En als zo'n verkeerde stijl toch in een bestand staat, probeert de preview hem niet meer live te laden: de settertabel staat er, het voorbeeld niet.
+
 **Ook in het contextmenu.** Drie menu-items doen hetzelfde als het lampje: Extract to Resource..., Extract to Style... en Add to style 'X'. Elk verschijnt alleen als het van toepassing is. Lampje en menu delen de code in `ResourceRefactorings`; het lampje maakt per actie een `RefactoringAction`, het menu roept dezelfde methoden aan vanuit `RefactoringCommands`. Menuversie 5.
 
 **Eén plek voor bufferwijzigingen.** Hernoemen (sectie 21) en verplaatsen wijzigen allebei bestanden via de editor. Die code staat nu in `BufferEditor.Apply(path, text => changes)`: open bestanden blijven onopgeslagen met één undo-stap, gesloten bestanden worden opgeslagen. De wijzigingen zelf zijn `TextChange`-waarden (start, lengte, nieuwe tekst), die de tests op een gewone string kunnen toepassen.
@@ -932,7 +938,7 @@ Een nieuwe instelling, **Kleurvakjes in de editor tonen** (`showColorSwatches`),
 | een `Button` met parent `IDG_VS_WNDO_OTRWNDWS1` in de .vsct | het menu-item in View > Other Windows; zonder `DynamicVisibility`, zodat het er altijd staat |
 | `InitializeCommandAsync` | koppelt het menu-item aan `ShowToolWindowAsync` |
 
-Een command dat altijd zichtbaar is, laadt het package als je erop klikt. Daarom hoeft er geen extra `ProvideAutoLoad` bij. Menuversie 7.
+Een command dat altijd zichtbaar is, laadt het package als je erop klikt. Daarom hoeft er geen extra `ProvideAutoLoad` bij.
 
 **`Initialize()` in plaats van de constructor.** VS maakt het venster zelf aan: bij het eerste openen, maar ook bij het starten als het venster de vorige keer open stond. Er is dan geen command dat iets kan doorgeven. In de constructor is het package nog niet bekend; in `Initialize()` wel (`Package`). Daar haalt het venster zijn services op en begint het met laden.
 
@@ -958,6 +964,17 @@ De notities komen van de scanners die de Error List al gebruikt (secties 15 en 2
 **Een gevangen exceptie is ook een probleem.** De eerste test in VS liep vast op `CaseStyle` uit `Broken\ReferenceProblems.xaml`: hover in het venster gaf een `XamlParseException` over `accentBrush`. Die exceptie werd wel gevangen, en de tooltip toonde netjes een melding. Maar een debugger die stopt bij elke gegooide exceptie, stopt daar toch. In de editor viel het nooit op, omdat je zelden over zo'n kapotte stijl hovert; het venster toont alles, dus daar wel.
 
 De oplossing: niet proberen. `PreviewXamlBuilder` weet al welke keys ontbreken (`MissingKeys`). Is die lijst niet leeg, dan slaat `PreviewRenderer` `XamlReader.Parse` over en toont direct "Niet gevonden in de solution". De test die controleert dat geen enkele SampleApp-resource een exceptie gooit (ook geen gevangen, via `AppDomain.FirstChanceException`), loopt nu ook de bestanden in `Broken\` langs.
+
+**Bijwerken zonder opslaan.** De eerste versie laadde opnieuw bij `ResourceIndex.FilesChanged`, en dat komt van een `FileSystemWatcher`: alleen bij opslaan. Maak je met "Naar resource verplaatsen" een resource in een bestand dat open staat, dan blijft dat bestand onopgeslagen (sectie 22) en zag het venster hem niet. Daarom nu:
+
+- `LiveTextTracker`, een `IWpfTextViewCreationListener` voor .xaml-editors. Na een wijziging en een halve seconde stilte gaat de tekst naar `ResourceIndex.SetLiveText`, op een achtergrondthread. Sluit de editor, dan telt het bestand op schijf weer (`ClearLiveText`), tenzij er nog een tweede venster op hetzelfde bestand open is.
+- `SetLiveText` slaat tekst over die hij al kent. Quick Info en de kleurvakjes geven vaak dezelfde tekst door; die hoeft niet opnieuw geparsed te worden.
+- Is de tekst nieuw, dan meldt de index `LiveTextChanged`. Het venster luistert daarnaar, en naar `FilesChanged`, met een pauze van 0,7 seconde: tien wijzigingen achter elkaar geven één keer laden.
+- Een venster op een verborgen tabblad laadt niet bij elke wijziging. Het onthoudt dat er iets veranderd is en laadt opnieuw zodra het zichtbaar wordt (`IsVisibleChanged`).
+
+**Geselecteerde tekst in een donker thema.** De tekst in de boom had een vaste kleur: `EnvironmentColors.ToolWindowTextBrushKey`, wit in een donker thema. De themed TreeViewItem-stijl kleurt een geselecteerd item licht, en verwacht dat de tekst zijn eigen voorgrondkleur volgt. Met een vaste kleur werd het wit op wit. Nu krijgen de `TextBlock`s geen eigen kleur en erven ze die van het `TreeViewItem`. Hetzelfde gold voor het venster met verwijzingen.
+
+**Een icoon in het menu.** VS heeft een catalogus met duizenden iconen, de image monikers. In de .vsct haal je ze binnen met `<Include href="KnownImageIds.vsct" />`, en een knop krijgt er een met `<Icon guid="ImageCatalogGuid" id="ResourceView" />` plus `<CommandFlag>IconIsMoniker</CommandFlag>`. Het tabblad van het venster gebruikt hetzelfde icoon via `BitmapImageMoniker = KnownMonikers.ResourceView`. Welke namen er zijn, staat in `KnownImageIds.vsct` in de VSSDK-map van je VS-installatie. Menuversie 8.
 
 **Het contextmenu hergebruikt de commands.** Find Resource References en Rename Resource Key werkten vanaf de cursor in de editor. Ze kregen elk een ingang die met een definitie of key werkt (`FindFor(entry)`, `Rename(file, key)`), en een statische `Instance` zodat het venster ze kan vinden.
 
@@ -997,7 +1014,7 @@ Aanpassingen die de builder doet voor de preview:
 
 ### Unit tests
 
-`tests\ResourcePreview.Tests` bevat 625 tests die zonder Visual Studio draaien. Open Test Explorer (Test > Test Explorer) en klik op Run All. Dat duurt een paar seconden.
+`tests\ResourcePreview.Tests` bevat 634 tests die zonder Visual Studio draaien. Open Test Explorer (Test > Test Explorer) en klik op Run All. Dat duurt een paar seconden.
 
 | Bestand | Wat het test |
 |---|---|
