@@ -978,6 +978,36 @@ De oplossing: niet proberen. `PreviewXamlBuilder` weet al welke keys ontbreken (
 
 **Het contextmenu hergebruikt de commands.** Find Resource References en Rename Resource Key werkten vanaf de cursor in de editor. Ze kregen elk een ingang die met een definitie of key werkt (`FindFor(entry)`, `Rename(file, key)`), en een statische `Instance` zodat het venster ze kan vinden.
 
+### 26. Een review: valkuilen die tests niet vinden
+
+Na zeven nieuwe features volgde een review van de hele code. De logica was goed getest; de valkuilen zaten in wat tests niet zien: beveiliging, threads, geheugen en snelheid in grote solutions.
+
+**1. XAML kan code uitvoeren.** `XamlReader` maakt objecten, en sommige WPF-objecten doen iets zodra ze bestaan. `ObjectDataProvider` roept een methode aan, elke methode:
+
+```xml
+<ObjectDataProvider x:Key="Evil" ObjectType="{x:Type diag:Process}" MethodName="Start">
+    <ObjectDataProvider.MethodParameters><sys:String>calc.exe</sys:String></ObjectDataProvider.MethodParameters>
+</ObjectDataProvider>
+```
+
+De oude controle liet namespaces door als VS die assembly al geladen had, zoals `System` met `System.Diagnostics.Process`. Hoveren was genoeg, en sinds het venster XAML Resources zelfs dat niet: een `DrawingImage` die naar `Evil` verwijst krijgt een icoon, en het icoon laadt zijn afhankelijkheden mee. Een gekloonde repo openen kon dus code uitvoeren.
+
+Nu weigert `PreviewXamlBuilder` vier types altijd (`ObjectDataProvider`, `XmlDataProvider`, `Frame`, `WebBrowser`), ook diep in een stijl of als afhankelijkheid, en staat hij van `clr-namespace` alleen nog `System` (voor `sys:Double`) en `System.Windows.*` uit de WPF-assemblies toe. De test bewijst het: een provider die `Environment.SetEnvironmentVariable` zou aanroepen, gaat door de tooltip en het IntelliSense-icoon, en de variabele blijft leeg.
+
+Les: alles wat gebruikersbestanden met `XamlReader`, `BinaryFormatter` of een andere "maak objecten uit tekst"-API laadt, is een ingang voor code. Werk met een lijst van wat mag, niet met een lijst van wat niet mag.
+
+**2. Een tweede watcher.** Na een buffer-overflow van de `FileSystemWatcher` (een grote `git checkout`) scant de index opnieuw en start een nieuwe watcher, maar de oude bleef draaien. `StartWatching` stopt nu eerst de oude.
+
+**3. Snel genoeg, ook met tienduizend bestanden.** Elke verversing van het venster zocht voor "ongebruikt" de hele mappenboom af naar .cs- en .vb-bestanden. `CodeStrings` bewaart die lijst nu per solution, met een eigen watcher die hem alleen leegmaakt als er een codebestand of map bijkomt, verdwijnt of hernoemd wordt. Een versienummer voorkomt dat een lijst die tijdens zo'n wijziging gelezen werd, toch bewaard blijft.
+
+**4. Niet parsen op de UI-thread.** IntelliSense las bij elke lijst de hele editortekst in de index, op de UI-thread. Sinds `LiveTextTracker` (sectie 25) dat op de achtergrond doet, is die regel weg.
+
+**5 en 6. Opruimen bij het sluiten van de solution.** Indexen leefden de hele VS-sessie, elk met een watcher. `ResourceIndex.ReleaseAll` ruimt ze op als de solution sluit, en het venster XAML Resources maakt zijn lijst leeg en laadt opnieuw als er een solution opent.
+
+**7. Error List en venster gelijk.** De Error List luistert nu ook naar `LiveTextChanged`, zodat een nieuwe resource zonder opslaan ook daar meetelt.
+
+**8. Opslaan kan mislukken.** `BufferEditor` slaat een gesloten bestand stil op. Bij een alleen-lezen bestand mislukte dat zonder melding, en de wijziging verdween met de onzichtbare editor. Nu opent hij het bestand: de editor toont dezelfde buffer, gewijzigd en niet opgeslagen. En hij meldt waarom.
+
 ## Hoe het zoeken werkt
 
 VS heeft geen publieke API om te vragen waar een resource gedefinieerd is. `ResourceIndex` bouwt dat zelf op:
@@ -1014,7 +1044,7 @@ Aanpassingen die de builder doet voor de preview:
 
 ### Unit tests
 
-`tests\ResourcePreview.Tests` bevat 634 tests die zonder Visual Studio draaien. Open Test Explorer (Test > Test Explorer) en klik op Run All. Dat duurt een paar seconden.
+`tests\ResourcePreview.Tests` bevat 648 tests die zonder Visual Studio draaien. Open Test Explorer (Test > Test Explorer) en klik op Run All. Dat duurt een paar seconden.
 
 | Bestand | Wat het test |
 |---|---|
@@ -1120,6 +1150,9 @@ Wat VS zelf doet, kun je niet met unit tests afdekken. Loop dit na vóór een re
 - **Een UserControl** ziet tijdens runtime ook de resources van het venster waar hij in staat. Dat venster kennen we niet; we volgen alleen de UserControl zelf en `App.xaml`.
 - **Excepties die blijven.** Twee situaties gooien nog een exceptie die we zelf opvangen: een XAML-bestand dat tijdens het typen even geen geldige XML is (`XmlException` in `ResourceIndex`), en een template die wel laadt maar pas bij het tekenen faalt (in `LiveSampleRenderer`). Het eerste valt niet vooraf te controleren zonder een eigen XML-parser. Zie je ze in de debugger, dan is dat geen fout.
 - **Verwijzingen over meerdere regels** worden niet herkend. De finder kijkt per regel.
+- **Keys die in code worden samengesteld** (`$"{naam}Brush"`) ziet de extensie niet. Zo'n resource krijgt ten onrechte "ongebruikt"; dat is een bericht, geen waarschuwing.
+- **Afbeeldingen met een http-adres** (`BitmapImage UriSource="https://..."`) worden voor de preview gedownload.
+- **Twee threads met verschillende tekst** voor `SetLiveText` tegelijk: de oudere kan winnen. De volgende wijziging herstelt het.
 
 ## Ideeën voor later
 
