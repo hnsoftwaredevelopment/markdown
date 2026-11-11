@@ -824,6 +824,55 @@ Elementen met een voorvoegsel (`local:MyControl`) worden overgeslagen: het doelb
 
 **Eén plek voor bufferwijzigingen.** Hernoemen (sectie 21) en verplaatsen wijzigen allebei bestanden via de editor. Die code staat nu in `BufferEditor.Apply(path, text => changes)`: open bestanden blijven onopgeslagen met één undo-stap, gesloten bestanden worden opgeslagen. De wijzigingen zelf zijn `TextChange`-waarden (start, lengte, nieuwe tekst), die de tests op een gewone string kunnen toepassen.
 
+### 23. Een bestaande resource zoeken
+
+Je typt `Fill="White"`, maar er bestaat al een `WhiteBrush`. Of je zet vijf attributen op een `Path`, terwijl er al een `IconStyle` is die precies dat doet. **Passende resource zoeken...** (contextmenu of Ctrl+.) zoekt die resources op en laat je kiezen. Er verandert niets tot je op Toepassen klikt.
+
+Wat je selecteert bepaalt waar gezocht wordt:
+
+- een selectie van attributen in één start-tag: stijlen en losse waarden voor die attributen;
+- geen selectie: het attribuut onder de cursor, ook als de cursor net achter het sluitende aanhalingsteken staat (`StylePlanner.TryFindAt`).
+
+**Wanneer past een stijl?** `ResourceMatcher.MatchStyle` verzamelt de setters van de stijl, inclusief de `BasedOn`-keten. Eigen setters winnen van die van de basis, net als in WPF. Daarna:
+
+| Geval | Resultaat |
+|---|---|
+| elke setter is een geselecteerd attribuut met dezelfde waarde | past; de geselecteerde attributen die de stijl niet zet blijven op het element |
+| de stijl zet een property die niet in de selectie zit | valt af: hij zou het uiterlijk ongemerkt veranderen |
+| een setter met een andere waarde, of met `<Setter.Value>` | valt af |
+| een `EventSetter`, of een `BasedOn` die we niet kunnen lezen | valt af: die stijl doet meer dan we kunnen zien |
+| het element heeft al een `Style` | geen stijlen, alleen losse waarden: twee stijlen combineren gaat niet |
+
+Triggers laten een stijl niet afvallen, maar staan wel in de lijst ("Triggers: 2"). Je ziet dan dat de stijl meer doet dan de setters.
+
+**TargetType.** Een stijl voor `Shape` past op een `Path`, want `Path` erft van `Shape`. Om dat te weten zoekt `ResourceMatcher.FindWpfType` het type op in de WPF-assemblies (`PresentationFramework`, `PresentationCore`, `WindowsBase`) onder de gangbare namespaces, en vraagt `IsAssignableFrom`. Dat kan, omdat de extensie zelf op .NET Framework met WPF draait. Een eigen type (`local:IconPath`) kennen we niet; dat past alleen op zichzelf.
+
+**Waarden vergelijken.** XAML-tekst kent veel spellingen voor dezelfde waarde. `ResourceMatcher.Normalize` maakt er één van, met hetzelfde type-gissen als sectie 22 (`ExtractPlanner.ResourceTypeFor`):
+
+| Soort | Voorbeeld | Wordt |
+|---|---|---|
+| kleur bij een brush- of kleur-property | `White`, `#FFF`, `#FFFFFF` | `#FFFFFFFF` |
+| `Thickness` | `8`, `8,8`, `8 8 8 8` | `8,8,8,8` |
+| getal | `16`, `16.0` | `16` |
+| `True`/`False`, `FontWeight` | `semibold` | hoofdletterongevoelig |
+| markup extension | `{StaticResource  X }` | witruimte weg |
+
+Een kleur alleen normaliseren bij een brush-property is bewust: `Content="Red"` is tekst, geen kleur.
+
+Een setter met `Value="{StaticResource AccentBrush}"` wordt vergeleken met de waarde van `AccentBrush`, als dat een eenvoudige resource is (`ResourceMatcher.Dereference`). Zo past `BaseButton` op een knop met `Background="#FF002BBD"`.
+
+Attribuutwaarden in het bestand zijn nog XML-escaped (`&amp;`), setterwaarden uit `XElement` niet. `WebUtility.HtmlDecode` trekt dat gelijk.
+
+**Property-namen.** `Shape.Fill` in een setter is hetzelfde als `Fill`. `Grid.Row` is een attached property en moet `Grid.Row` blijven. Het verschil: `Shape` heeft een gewone instance-property `Fill`, `Grid` heeft geen property `Row` (alleen `GetRow`/`SetRow`). Let op: `Type.GetProperty(naam)` gooit een `AmbiguousMatchException` als een subklasse een property verbergt met `new`. Daarom zoekt de code in `GetProperties()`.
+
+**Welke resources ziet het element?** `ResourceMatcher.VisibleEntries` loopt de opzoekvolgorde van sectie 15 af en houdt per key de eerste definitie. In het bestand zelf tellen alleen resources boven het element, omdat een StaticResource niet vooruit kijkt (sectie 18).
+
+**Toepassen.** Een losse waarde wordt `{StaticResource Key}`. Bij een stijl verdwijnen de attributen die de stijl overneemt, en komt `Style="{StaticResource Key}"` op de plek van de eerste. Dat is `StylePlanner.PointElementAtStyle` uit sectie 22, met alleen de overgenomen attributen.
+
+**De keuzelijst.** `MatchResourceDialog` is een `DialogWindow` met een `ListBox`. Elke regel toont de key, wat hij overneemt, wat er op het element verandert en het bestand. De `ItemTemplate` is in code gebouwd met `FrameworkElementFactory`; dat is de oude manier om een `DataTemplate` te maken zonder XAML-bestand. Dubbelklik of Enter past de gekozen resource toe.
+
+**Rekenwerk van de UI-thread af.** Het zoeken gebruikt de index en kan bij de eerste keer alle `.xaml`-bestanden lezen. Daarom gebeurt het in `ResourceRefactorings.FindMatchingAsync` op een achtergrondthread; pas de dialoog gaat naar de UI-thread. Het menu-item zelf kijkt alleen naar de tekst (staat er een attribuut?), net als de andere menu-items. Menuversie 6.
+
 ## Hoe het zoeken werkt
 
 VS heeft geen publieke API om te vragen waar een resource gedefinieerd is. `ResourceIndex` bouwt dat zelf op:
@@ -860,7 +909,7 @@ Aanpassingen die de builder doet voor de preview:
 
 ### Unit tests
 
-`tests\ResourcePreview.Tests` bevat 547 tests die zonder Visual Studio draaien. Open Test Explorer (Test > Test Explorer) en klik op Run All. Dat duurt een paar seconden.
+`tests\ResourcePreview.Tests` bevat 584 tests die zonder Visual Studio draaien. Open Test Explorer (Test > Test Explorer) en klik op Run All. Dat duurt een paar seconden.
 
 | Bestand | Wat het test |
 |---|---|
@@ -879,6 +928,7 @@ Aanpassingen die de builder doet voor de preview:
 | `KeyRenamerTests` | alle vormen van definitie en verwijzing hernoemen, andere keys, gewone tekst en commentaar ongemoeid laten, keys met punten, welke bestanden veranderen, en welke namen geweigerd worden |
 | `ExtractPlannerTests` | welke waarden een lampje krijgen en welk type ze worden, de XAML van de resource, invoegen in een dictionary en in App.xaml, `xmlns:sys` toevoegen of hergebruiken, invoegen boven het gebruik in hetzelfde bestand, en de doelbestanden in de SampleApp |
 | `StylePlannerTests` | geselecteerde attributen vinden (ook over meerdere regels), events en namen overslaan, de nieuwe stijl en het aangepaste element, `BasedOn` bij een bestaande stijl, setters toevoegen na de laatste setter, bestaande vervangen en een lege stijl openmaken |
+| `ResourceMatcherTests` | stijlen die precies of deels passen, stijlen die meer zetten of andere waarden hebben, `TargetType` met overerving, `BasedOn` en triggers, setters met een verwijzing, attached properties, losse waarden in andere spellingen, de volgorde, het attribuut onder de cursor en welke resources een element ziet |
 | `NoExceptionTests` | welke types VS niet kan laden, in elementen, attributen en waarden, ook via afhankelijkheden; elke resource uit de SampleApp zonder één exceptie; `ColorParser` tegen alle WPF-kleurnamen |
 | `StyleTests` | `TargetType` in alle schrijfwijzen, de `BasedOn`-keten met overschreven setters, de soorten waarden, triggers en binding-paden, en de weergave van de tabel |
 | `SettingsAndLanguageTests` | kleuren en getallen, taalcodes van VS, de converters van de Opties-pagina, `Localizer` |
@@ -942,6 +992,7 @@ Wat VS zelf doet, kun je niet met unit tests afdekken. Loop dit na vóór een re
    Rechtsklik op `InfoBrush` in `MainWindow.xaml` en kies Rename Resource Key...: de dialoog noemt 2 definities en 1 verwijzing in 3 bestanden. Probeer `AccentBrush` (bestaat al) en `Info Brush` (spatie): de knop blijft uit. Hernoem naar `NoticeBrush`, controleer de drie bestanden, en draai het terug (Ctrl+Z in de open bestanden, versiebeheer voor de rest).
    Zet de cursor in een vaste kleur of marge in `MainWindow.xaml` en druk Ctrl+.: kies Naar resource verplaatsen..., kies `Brushes.xaml` en controleer beide bestanden. Draai het daarna terug, ook in de bestanden die niet open stonden.
    Selecteer in `MainWindow.xaml` bij een `Path` de attributen `Fill` tot en met `Margin` en kies Naar stijl verplaatsen...; controleer de nieuwe stijl. Selecteer daarna `Padding="0"` op een element met een stijl en kies Toevoegen aan stijl. Zet alles daarna terug, ook in bestanden die niet open stonden.
+   Selecteer bij de knop "Plain" onderaan `MainWindow.xaml` de attributen `Padding` tot en met `Background` en kies Passende resource zoeken...: `BaseButton` staat bovenaan en neemt `Padding`, `FontSize` en `Background` over; daaronder `AccentBrush` voor `Background`. Kies `BaseButton` en controleer dat de drie attributen vervangen zijn door `Style="{StaticResource BaseButton}"`. Zet het terug.
    Hover over `InfoBrush` in `MainWindow.xaml`: bovenaan `Values.xaml` met "WPF gebruikt hier deze definitie.", eronder `Brushes.xaml` met "overschreven door Values.xaml". Bij `Check` staat achter `IconsLegacy.xaml` "in geen enkele MergedDictionaries".
    Open de Error List: één waarschuwing voor `InfoBrush` in `Brushes.xaml`. Dubbelklik springt naar de definitie. Haal `InfoBrush` weg uit `Values.xaml` en sla op: na een paar seconden is de waarschuwing weg. Zet hem daarna terug.
 8. Typ in `Icons.xaml` een nieuwe `<Geometry x:Key="Nieuw">` zonder op te slaan, en hover erover in hetzelfde bestand: de preview werkt al.
