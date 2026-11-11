@@ -873,6 +873,50 @@ Attribuutwaarden in het bestand zijn nog XML-escaped (`&amp;`), setterwaarden ui
 
 **Rekenwerk van de UI-thread af.** Het zoeken gebruikt de index en kan bij de eerste keer alle `.xaml`-bestanden lezen. Daarom gebeurt het in `ResourceRefactorings.FindMatchingAsync` op een achtergrondthread; pas de dialoog gaat naar de UI-thread. Het menu-item zelf kijkt alleen naar de tekst (staat er een attribuut?), net als de andere menu-items. Menuversie 6.
 
+### 24. Kleurvakjes in de code
+
+Voor elke kleurwaarde in een .xaml-bestand staat een klein vierkantje met die kleur. Ook bij `{StaticResource AccentBrush}`: dan zoekt de extensie op welke kleur die brush heeft.
+
+**Iets tussen de tekst zetten: een intra-text adornment.** De editor kent drie manieren om iets extra's te tekenen:
+
+| Manier | Wat | Voorbeeld |
+|---|---|---|
+| classifier | tekst kleuren | syntax-kleuren |
+| adornment layer | iets over of onder de tekst tekenen, zonder dat de tekst opschuift | de kronkellijn onder een fout |
+| intra-text adornment | een WPF-element *tussen* de tekens, de tekst schuift op | de kleurvakjes, inlay hints |
+
+Voor de laatste geef je de editor `IntraTextAdornmentTag`s via een tagger. Een tag met een lengte van nul op de plek waar de waarde begint, zet het vakje vóór de waarde. `PositionAffinity.Successor` zegt dat het vakje bij de tekst erna hoort: typ je ervoor, dan blijft het bij de waarde staan.
+
+| Klasse | Rol |
+|---|---|
+| `ColorSwatchTaggerProvider` | MEF-export, `IViewTaggerProvider` met `[TagType(typeof(IntraTextAdornmentTag))]`, voor `XAML` en `XML` (een .xaml-bestand kan ook in de XML-editor openen) |
+| `ColorSwatchTagger` | `ITagger<IntraTextAdornmentTag>`: `GetTags` krijgt de zichtbare stukken tekst en geeft per kleur een tag met een `Border` |
+| `ColorSwatchFinder` | het tekstwerk en het opzoeken van de kleur, zonder VS-code, dus getest |
+
+Waarom een *view*-tagger? Een adornment hoort bij één editorvenster. Open je hetzelfde bestand in twee vensters, dan krijgt elk venster zijn eigen tagger. `textView.Properties.GetOrCreateSingletonProperty` zorgt dat er per venster maar één is, ook als VS het twee keer vraagt.
+
+**Welke waarden krijgen een vakje?** `ColorSwatchFinder.Find` werkt per regel, net als de andere finders:
+
+- een attribuut waarvan de property een brush of kleur is. Dat bepaalt dezelfde code als bij "Naar resource verplaatsen" (sectie 22): `ExtractPlanner.ResourceTypeFor(naam, "White")` geeft `SolidColorBrush` of `Color`. Zo krijgt `Text="Red"` geen vakje;
+- `Value="..."` in een `<Setter>`: de property staat in `Property="..."` van dezelfde tag;
+- de inhoud van `<Color>...</Color>`;
+- commentaar wordt eerst leeggemaakt, met spaties, zodat de posities blijven kloppen.
+
+**Een key opzoeken zonder de editor te vertragen.** `GetTags` draait op de UI-thread, elke keer als de editor tekent. Daar mag de index niet aan het werk, want de eerste keer leest die alle .xaml-bestanden. Daarom:
+
+1. Een letterlijke kleur (`White`) is meteen bekend.
+2. Voor een key kijkt de tagger in zijn eigen tabel. Staat hij er niet in, dan zet de tagger de key in een wachtrij en tekent nog geen vakje.
+3. Een achtergrondtaak zoekt de keys in de wachtrij op met `ColorSwatchFinder.Resolve`: dezelfde opzoekvolgorde als de tooltip (sectie 15), en een `SolidColorBrush` met `Color="{StaticResource Accent}"` wordt gevolgd tot de kleur.
+4. Daarna meldt de tagger `TagsChanged`, en de editor vraagt de tags opnieuw. Nu staat de kleur in de tabel.
+
+Een kleur kan veranderen: je past de definitie aan in dit bestand (`ITextBuffer.Changed`) of in een ander bestand (`ResourceIndex.FilesChanged`). Dan markeert de tagger alle keys als verouderd, en zoekt ze opnieuw op zodra ze zichtbaar zijn. Bij typen gebeurt dat pas na een halve seconde stilte. Het oude vakje blijft tot het nieuwe er is, zodat er niets knippert.
+
+**Het vakje zelf.** Een `Border` met een grijze rand, leesbaar in een licht en een donker thema. Een half doorzichtige kleur staat op een schaakbord (een `DrawingBrush` met `TileMode.Tile`), anders zie je het verschil met een volle kleur niet. De grootte volgt `ITextView.LineHeight`, zodat het vakje meegroeit als je inzoomt. Een tooltip toont de kleurcode.
+
+Geen vakje voor een `LinearGradientBrush` of een brush met `Opacity`: één vlak zou dan de verkeerde kleur tonen.
+
+Een nieuwe instelling, **Kleurvakjes in de editor tonen** (`showColorSwatches`), zet het uit. De tagger luistert naar `SettingsService.Changed` en meldt `TagsChanged` voor het hele bestand, zodat de vakjes direct verdwijnen.
+
 ## Hoe het zoeken werkt
 
 VS heeft geen publieke API om te vragen waar een resource gedefinieerd is. `ResourceIndex` bouwt dat zelf op:
@@ -909,7 +953,7 @@ Aanpassingen die de builder doet voor de preview:
 
 ### Unit tests
 
-`tests\ResourcePreview.Tests` bevat 584 tests die zonder Visual Studio draaien. Open Test Explorer (Test > Test Explorer) en klik op Run All. Dat duurt een paar seconden.
+`tests\ResourcePreview.Tests` bevat 602 tests die zonder Visual Studio draaien. Open Test Explorer (Test > Test Explorer) en klik op Run All. Dat duurt een paar seconden.
 
 | Bestand | Wat het test |
 |---|---|
@@ -929,6 +973,7 @@ Aanpassingen die de builder doet voor de preview:
 | `ExtractPlannerTests` | welke waarden een lampje krijgen en welk type ze worden, de XAML van de resource, invoegen in een dictionary en in App.xaml, `xmlns:sys` toevoegen of hergebruiken, invoegen boven het gebruik in hetzelfde bestand, en de doelbestanden in de SampleApp |
 | `StylePlannerTests` | geselecteerde attributen vinden (ook over meerdere regels), events en namen overslaan, de nieuwe stijl en het aangepaste element, `BasedOn` bij een bestaande stijl, setters toevoegen na de laatste setter, bestaande vervangen en een lege stijl openmaken |
 | `ResourceMatcherTests` | stijlen die precies of deels passen, stijlen die meer zetten of andere waarden hebben, `TargetType` met overerving, `BasedOn` en triggers, setters met een verwijzing, attached properties, losse waarden in andere spellingen, de volgorde, het attribuut onder de cursor en welke resources een element ziet |
+| `ColorSwatchTests` | welke waarden een kleurvakje krijgen (attributen, setters, `<Color>`, verwijzingen) en welke niet (tekst, bindings, commentaar), en de kleur van een key: via een `Color`-resource, met `Opacity`, een gradient, een kring |
 | `NoExceptionTests` | welke types VS niet kan laden, in elementen, attributen en waarden, ook via afhankelijkheden; elke resource uit de SampleApp zonder één exceptie; `ColorParser` tegen alle WPF-kleurnamen |
 | `StyleTests` | `TargetType` in alle schrijfwijzen, de `BasedOn`-keten met overschreven setters, de soorten waarden, triggers en binding-paden, en de weergave van de tabel |
 | `SettingsAndLanguageTests` | kleuren en getallen, taalcodes van VS, de converters van de Opties-pagina, `Localizer` |
@@ -993,6 +1038,7 @@ Wat VS zelf doet, kun je niet met unit tests afdekken. Loop dit na vóór een re
    Zet de cursor in een vaste kleur of marge in `MainWindow.xaml` en druk Ctrl+.: kies Naar resource verplaatsen..., kies `Brushes.xaml` en controleer beide bestanden. Draai het daarna terug, ook in de bestanden die niet open stonden.
    Selecteer in `MainWindow.xaml` bij een `Path` de attributen `Fill` tot en met `Margin` en kies Naar stijl verplaatsen...; controleer de nieuwe stijl. Selecteer daarna `Padding="0"` op een element met een stijl en kies Toevoegen aan stijl. Zet alles daarna terug, ook in bestanden die niet open stonden.
    Selecteer bij de knop "Plain" onderaan `MainWindow.xaml` de attributen `Padding` tot en met `Background` en kies Passende resource zoeken...: `BaseButton` staat bovenaan en neemt `Padding`, `FontSize` en `Background` over; daaronder `AccentBrush` voor `Background`. Kies `BaseButton` en controleer dat de drie attributen vervangen zijn door `Style="{StaticResource BaseButton}"`. Zet het terug.
+   Open `Brushes.xaml` en `MainWindow.xaml`: voor elke kleur en elke verwijzing naar een kleur-brush staat een vakje. Verander de kleur van `AccentBrush` in `Brushes.xaml` en sla op: het vakje bij `{StaticResource AccentBrush}` in `Styles.xaml` past zich aan. Zet de instelling Kleurvakjes uit: de vakjes verdwijnen meteen.
    Hover over `InfoBrush` in `MainWindow.xaml`: bovenaan `Values.xaml` met "WPF gebruikt hier deze definitie.", eronder `Brushes.xaml` met "overschreven door Values.xaml". Bij `Check` staat achter `IconsLegacy.xaml` "in geen enkele MergedDictionaries".
    Open de Error List: één waarschuwing voor `InfoBrush` in `Brushes.xaml`. Dubbelklik springt naar de definitie. Haal `InfoBrush` weg uit `Values.xaml` en sla op: na een paar seconden is de waarschuwing weg. Zet hem daarna terug.
 8. Typ in `Icons.xaml` een nieuwe `<Geometry x:Key="Nieuw">` zonder op te slaan, en hover erover in hetzelfde bestand: de preview werkt al.
