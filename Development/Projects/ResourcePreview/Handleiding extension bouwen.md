@@ -911,7 +911,9 @@ Waarom een *view*-tagger? Een adornment hoort bij één editorvenster. Open je h
 
 Een kleur kan veranderen: je past de definitie aan in dit bestand (`ITextBuffer.Changed`) of in een ander bestand (`ResourceIndex.FilesChanged`). Dan markeert de tagger alle keys als verouderd, en zoekt ze opnieuw op zodra ze zichtbaar zijn. Bij typen gebeurt dat pas na een halve seconde stilte. Het oude vakje blijft tot het nieuwe er is, zodat er niets knippert.
 
-**Het vakje zelf.** Een `Border` met een grijze rand, leesbaar in een licht en een donker thema. Een half doorzichtige kleur staat op een schaakbord (een `DrawingBrush` met `TileMode.Tile`), anders zie je het verschil met een volle kleur niet. De grootte volgt `ITextView.LineHeight`, zodat het vakje meegroeit als je inzoomt. Een tooltip toont de kleurcode.
+**Het vakje zelf.** Een `Border` met een grijze rand, leesbaar in een licht en een donker thema. Een half doorzichtige kleur staat op een schaakbord (een `DrawingBrush` met `TileMode.Tile`), anders zie je het verschil met een volle kleur niet. Een tooltip toont de kleurcode. Meeschalen met de zoom hoeft niet: de editor zoomt met een transform op de hele view, adornments inbegrepen.
+
+Een eerste versie zette de grootte op basis van `ITextView.LineHeight`. Dat gaf een `NullReferenceException` bij het openen van een solution: de tagger wordt al gevraagd voordat de view zijn eerste layout heeft gedaan, en `LineHeight` leest dan iets wat nog niet bestaat. Les: lees in `GetTags` zo weinig mogelijk van de view, en zeker geen layout-eigenschappen.
 
 Geen vakje voor een `LinearGradientBrush` of een brush met `Opacity`: één vlak zou dan de verkeerde kleur tonen.
 
