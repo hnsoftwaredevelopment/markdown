@@ -121,3 +121,91 @@ Lessen:
 - Deploy niet vanuit twee solutions tegelijk naar dezelfde Experimental Instance, en niet terwijl die draait.
 - Staat je menu-item er niet, kijk dan eerst of de map van je extensie in `...Exp\Extensions\` staat. Zo niet, dan zit het probleem in de deploy en niet in je `.vsct`.
 - Zoek in die map naar bestanden van 0 bytes: `Get-ChildItem -Recurse -File | Where-Object Length -eq 0`.
+
+**Een tweede oorzaak, direct daarna.** Na het herstel stond de map er wel, en Manage Extensions noemde de extensie actief. Toch ontbrak het menu-item. Via DTE bleek dat de Experimental Instance het command `View.ShortcutCheatsheet` niet kende: de `.pkgdef` was niet ingelezen.
+
+VS leest de `.pkgdef`-bestanden niet bij elke start. Het houdt een samengevoegde configuratie bij en bouwt die alleen opnieuw op als het bestand `Extensions\extensions.configurationchanged` nieuwer is dan de vorige keer. De deploy raakt dat bestand aan in de laatste stap, en juist die stap was mislukt (VSSDK1031). Na het bijwerken van de datum van dat bestand en een herstart stond het menu-item er.
+
+Zelf doen: `(Get-Item "$env:LOCALAPPDATA\Microsoft\VisualStudio\18.0_<id>Exp\Extensions\extensions.configurationchanged").LastWriteTime = Get-Date`, of `devenv /rootsuffix Exp /updateconfiguration`.
+
+## Stap 2: de command table van een extensie lezen
+
+Doel: per command weten welke extensie hem levert, en welke sneltoetsen die extensie standaard meebrengt. Die informatie staat in de gecompileerde command table van het package. De code staat in `src\ShortcutCheatsheet\CommandTables\` en heeft geen Visual Studio nodig.
+
+### Waar de tabel staat
+
+1. In de `.pkgdef` van de extensie staat welk package een command table heeft, en onder welke naam:
+
+   ```
+   [$RootKey$\Menus]
+   "{4c82e17d-927e-42d2-8460-b473ac7df316}"=", Menus.ctmenu, 1"
+   ```
+
+   De waarde is "satellite-DLL, resourcenaam, versie". Bijna altijd is de naam `Menus.ctmenu`; Advanced Installer gebruikt `1000`. `PkgdefMenus` leest dit.
+2. De tabel is een byte-array in een `.resources`-bestand, en dat zit als resource in de DLL. Bij de meeste extensies in de DLL zelf (`VSPackage.resources`), bij CodeMaid in `en-US\SteveCadwallader.CodeMaid.VS2022.resources.dll` (`VSPackage.en-US.resources`). `CommandTableResource` zoekt in die volgorde: de DLL, de en-US-satellite, de andere satellites.
+
+**Lezen zonder te laden.** `PEReader` (uit `System.Reflection.Metadata`) leest de DLL als bytes. Een embedded resource staat op "resources-directory plus offset", met eerst 4 bytes lengte. `ResourceReader.GetResourceData` geeft daarna de ruwe bytes van één resource, zonder objecten te maken. Er draait dus geen code van de extensie, net als in ExtensionOverlap. Een byte-array krijgt van `ResourceReader` nog 4 bytes lengte vooraan; die halen we eraf.
+
+### Het formaat
+
+Niet gedocumenteerd. Uitgezocht met een eigen testtabel en met VSCT zelf:
+
+- **VSCT kan terugvertalen.** `VSCT.exe Menus.cto uit.vsct` maakt van een gecompileerde tabel weer XML. Dat is wat VS zelf in de tabel ziet, en dus het antwoordmodel voor de tests.
+- **Een eigen fixture.** `tests\Fixtures\CommandTables\Fixture.vsct` heeft vier commands in twee command sets, een command van VS (Cut) dat alleen in een menu geplaatst wordt, en vier sneltoetsen: een gewone, een akkoord in de Text Editor, een met Alt, en een voor Cut. `tools\build-fixtures.ps1` compileert hem met de VSCT uit de NuGet-cache en vertaalt hem meteen terug.
+
+Gecomprimeerd:
+
+| Deel | Inhoud |
+|---|---|
+| 20 bytes kop | `CFCT`, versie 5, totale grootte na uitpakken, 20, 0 |
+| per blok | 16 bytes kop (4 bytes, grootte uitgepakt, 4 bytes, grootte gecomprimeerd), dan de data |
+
+Een blok is maximaal 64 KB. Onze eigen tabel is 137 KB uitgepakt, omdat hij `KnownImageIds.vsct` insluit voor het icoon, en heeft dus drie blokken. De eerste versie van `CtoDecompressor` ging uit van één blok: de fixture en CodeMaid (40 KB) werkten, onze eigen tabel gaf fout `0xC0000242` (STATUS_BAD_COMPRESSION_BUFFER). De test die onze eigen DLL leest, vond dat.
+
+Elk blok is Xpress Huffman. Windows pakt dat zelf uit: `RtlDecompressBufferEx` in `ntdll.dll`, formaat 4.
+
+Uitgepakt:
+
+| Deel | Inhoud |
+|---|---|
+| kop | `CFCT`, versie 5, 0, offset van de GUID-tabel, 0 |
+| `Symb` | per GUID de naam uit de `.vsct` en de namen van zijn ID's |
+| GUID-tabel | alle GUID's achter elkaar; de rest van het bestand verwijst ernaar met een index die bij 1 begint |
+| `Menu`, `Grup` | menu's en groepen |
+| `Cmmd` | de commands die deze tabel definieert, met knoptekst en canonieke naam |
+| `Bimp` | iconen |
+| `Plac` | commands die alleen in een menu geplaatst worden, ook die van VS |
+| `Keys` | de standaardsneltoetsen |
+
+Een `Cmmd`-regel: GUID-index, parent-index, ID, parent-ID, 16 bytes prioriteit, icoon en vlaggen, type, lengte van de teksten, en dan zes teksten (knoptekst, menutekst, tooltip, command-well-tekst, canonieke naam, gelokaliseerde canonieke naam), elk afgesloten met een 0-teken.
+
+Een `Keys`-regel is 16 bytes: command-GUID, emulatie-GUID, command-ID, editor-GUID (de scope: `guidVSStd97` is Global), 2 bytes, en dan toets 1, modifiers 1, toets 2, modifiers 2. De toetsen zijn Windows virtual-key-codes (`0x70` is F1). De modifiers zijn bits: Alt 1, Shift 2, Ctrl 4.
+
+**Het belangrijkste verschil voor de herkomst.** CodeMaid noemt GUID's van VS (XAML Designer, JSON Editor, HTML) omdat het zich aan die menu's hangt. Die staan in `Symb` en in `Plac`, maar nooit in `Cmmd`. Alle 30 commands in `Cmmd` van CodeMaid hebben CodeMaids eigen command set. Daarmee is het probleem van de GUID-zoekmethode uit het voorstel opgelost.
+
+### Secties vinden zonder lengte
+
+Een sectie heeft een naam en een aantal, maar geen lengte in bytes, en de regels zijn per sectie anders. Een onbekende sectie kun je dus niet overslaan. `Bimp` bevat zelfs de pixels van de iconen.
+
+Daarom leest `CommandTableReader` `Symb` direct (die staat altijd op byte 20), en zoekt hij `Cmmd` en `Keys` op hun naam. Een treffer telt alleen als elke regel klopt (geldige GUID-indexen, een lengte die past) en de sectie precies eindigt waar de volgende naam begint of waar de data ophoudt. Een toevallige reeks `Keys` in de pixels van een icoon haalt die controle niet.
+
+### Tests
+
+| Test | Wat |
+|---|---|
+| `Reads_the_commands_the_table_defines` | de vier commands, met knoptekst, symboolnaam en canonieke naam |
+| `A_command_that_is_only_placed_is_not_defined` | Cut staat in `Plac` en heeft een sneltoets, maar is van VS |
+| `Reads_key_bindings_with_scope_and_chords` | Ctrl+Shift+F1, het akkoord Ctrl+K, Ctrl+Q in de Text Editor, Alt+D |
+| `Matches_what_VSCT_decompiles` | voor elke fixture: dezelfde commands en sneltoetsen als VSCT terugvertaalt |
+| `Reads_the_table_of_this_extension_from_its_dll` | de hele keten op onze eigen DLL: resource, drie blokken, tabel |
+| `Reads_CodeMaid_from_its_satellite_when_installed` | een echte extensie met de tabel in een satellite; slaat over als CodeMaid er niet is |
+| `Every_installed_command_table_can_be_read` | alle geïnstalleerde extensies van VS 2026 op deze machine: 125 tabellen, 188 sneltoetsen, ongeveer een seconde |
+| `Rejects_data_that_is_not_a_command_table` | geen CFCT, afgekapt, andere versie: altijd `FormatException` |
+
+De test over alle geïnstalleerde extensies vond de tabel met de naam `1000` van Advanced Installer. Zonder `PkgdefMenus` was die gemist.
+
+### Valkuilen
+
+- **VSCT schrijft bij terugvertalen een `.h` in de huidige map.** De eerste keer stonden er twee losse bestanden in de root van de repo. `build-fixtures.ps1` draait VSCT nu vanuit de fixturemap.
+- **Een test buiten vstest.** Een PowerShell-script dat de reader via reflection aanriep, vond in geen enkele extensie een tabel; de echte test vond ze allemaal. Waarschijnlijk laadt PowerShell 5.1 een andere `System.Reflection.Metadata`. Controleer zoiets dus in een test, niet in een los script.
+- **Automatic Versions.** Bij bouwen in VS zet die extensie de versie in `AssemblyInfo.cs` en in de `.csproj` van de tests op de datum (`2026.11.13.2`). Dat komt mee in de commits.
