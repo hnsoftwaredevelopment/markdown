@@ -100,3 +100,24 @@ Dat is dezelfde regel waarmee deze extensie straks bij andere extensies de comma
 ### Werken via Desktop Commander
 
 Desktop Commander weigert opdrachten met bepaalde woorden, waaronder `init`. `git init` kon dus niet. De omweg: de lege GitHub-repo klonen naar een tijdelijke map en de map `.git` verplaatsen naar de projectmap. Het resultaat is hetzelfde als `git init` plus `git remote add origin`.
+
+### Bekend probleem: het menu-item verschijnt niet
+
+Na F5 stond Shortcut Cheatsheet niet onder View > Other Windows. De extensie was nooit in de Experimental Instance gezet: in `%LocalAppData%\Microsoft\VisualStudio\18.0_3fdcf796Exp\Extensions\` ontbrak de map.
+
+De oorzaak zat bij een andere extensie. Bij het deployen leest de VSSDK eerst de manifesten van alle extensies die al in de Experimental Instance staan (taak `FindInstalledExtension`). In de map van XAML Resource Preview waren `extension.vsixmanifest`, `catalog.json` en `manifest.json` 0 bytes groot. Die waren om 11:27:42 opnieuw geschreven, terwijl de Experimental Instance draaide en de DLL van ResourcePreview in gebruik was. Die deploy is halverwege gestopt. Daarna faalt elke deploy met:
+
+```
+error MSB4018: The "FindInstalledExtension" task failed unexpectedly.
+InvalidExtensionManifestException: This VSIX does not apply to any product installed on this machine.
+```
+
+Het lastige is dat de melding de schuld bij je eigen VSIX legt, terwijl een ander manifest kapot is. In Visual Studio zie je hem alleen in het Output-venster bij Build; de Experimental Instance start gewoon, zonder je extensie.
+
+Opgelost door de drie bestanden opnieuw uit `ResourcePreview.vsix` te halen (een VSIX is een zip-bestand). Daarna lukte de deploy.
+
+Lessen:
+
+- Deploy niet vanuit twee solutions tegelijk naar dezelfde Experimental Instance, en niet terwijl die draait.
+- Staat je menu-item er niet, kijk dan eerst of de map van je extensie in `...Exp\Extensions\` staat. Zo niet, dan zit het probleem in de deploy en niet in je `.vsct`.
+- Zoek in die map naar bestanden van 0 bytes: `Get-ChildItem -Recurse -File | Where-Object Length -eq 0`.
