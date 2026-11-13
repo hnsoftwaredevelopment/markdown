@@ -224,13 +224,13 @@ Global (370)
 ```
 
    Bovenaan: zoeken (op naam en op toets, dus ook "wat doet Ctrl+D?"), filters (alleen extensies, alleen door mij aangepast, alleen conflicten, een scope), en de knop Exporteren.
-6. **Exporteren.** JSON, XML, PNG, PDF, plus HTML. De export volgt de filters en indeling van het venster: wie alleen de Text Editor wil, krijgt een cheat sheet van één pagina.
+6. **Exporteren.** JSON, XML, PNG, PDF, HTML, Markdown en CSV. De export volgt de filters en indeling van het venster: wie alleen de Text Editor wil, krijgt een cheat sheet van één pagina.
 7. **Instellingen** in beide Opties-vensters: taal, standaardindeling, VS-sneltoetsen tonen, papierformaat (A4, Letter), licht of donker thema voor PNG en PDF, akkoorden tonen.
 8. **Strings.resx** in 15 talen, zoals ResourcePreview.
 
 ### Wat er niet in zit
 
-- Sneltoetsen wijzigen. De extensie toont en exporteert; aanpassen doe je in VS zelf.
+- Sneltoetsen wijzigen. De extensie toont en exporteert; aanpassen doe je in VS zelf. Staat bij de ideeën voor later.
 - Extensies in het VisualStudio.Extensibility-model herkennen.
 - PDF met selecteerbare tekst.
 - De lagen Default, Scheme en Profile via de private API. Eerst kijken of dat nodig is naast "aangepast door jou".
@@ -240,6 +240,7 @@ Global (370)
 - Een sneltoets voorstellen voor commands die je vaak via het menu gebruikt. Dat vraagt meten wat je klikt; apart project.
 - Twee exports vergelijken, bijvoorbeeld voor en na een VS-update of tussen twee laptops.
 - Een cheat sheet van één venster: rechtsklik in Solution Explorer en alleen die scope plus Global afdrukken.
+- Sneltoetsen wijzigen vanuit het venster, bijvoorbeeld bij een conflict direct een andere toets kiezen. Schrijven gaat via `environment.keyboardShortcuts.customizations` in Unified Settings, of via `Command.Bindings` in DTE.
 
 ### Opbouw van de repo
 
@@ -302,3 +303,10 @@ Een Shared Project heeft geen eigen uitvoer. De bestanden worden meegecompileerd
 - Een extra DLL in elke VSIX die ondertekend en meegeleverd moet worden.
 
 Nadeel: de klassen moeten `internal` blijven, anders botsen ze met dezelfde klasse in een andere extensie. Dat is bij Shared Projects de gewoonte.
+
+### Aanvullend akkoord (13 november 2026)
+
+- Conflicten markeren hoort in v1.
+- HTML, Markdown en CSV komen in v1, naast JSON, XML, PNG en PDF.
+- Positionering: een aanvulling op Show Keybindings van Mads Kristensen, geen vervanging. De README noemt die extensie en zegt waar Shortcut Cheatsheet anders is (herkomst per sneltoets, aangepast door jou, conflicten, afdrukbaar cheat sheet).
+- Sneltoetsen wijzigen staat bij de ideeën voor later.

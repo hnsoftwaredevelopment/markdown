@@ -367,7 +367,7 @@ Geen voorbeeld bij:
 
 **ControlTemplate.** Voor een standaard control werkt dit net zo: een `Button` met jouw template, normaal, en per toestand waar de template op reageert. Zonder `TargetType` gebruiken we een `ContentControl`, zodat een `ContentPresenter` iets toont. Lukt het niet (eigen type), dan tonen we de boom hieronder, plus de reden.
 
-**DataTemplate: de boom als tekst.** Een DataTemplate heeft data nodig. Zonder data blijft elk `{Binding}`-veld leeg en zie je een leeg kader. Daarom toont de preview wat erin zit:
+**DataTemplate: de boom als tekst.** Een DataTemplate heeft data nodig. Zonder data blijft elk `{Binding}`-veld leeg en zie je een leeg kader. Daarom toont de preview wat erin zit. (Sinds sectie 29 staat er ook een gerenderde versie met voorbeelddata boven de boom.)
 
 ```
 DataType local:Book
@@ -388,7 +388,7 @@ Border
 | `x:Name` en `Name` | property-elementen: `<Grid.ColumnDefinitions>`, `<Border.Background>`, `<ControlTemplate.Triggers>` |
 | vaste tekst in `Text`, `Content` en `Header`, en tekst als inhoud (`<TextBlock>Boek</TextBlock>`) | `{StaticResource}` in `Text` of `Content` |
 
-Na 20 regels of 10 niveaus diep stopt de boom, met een regel "… nog 6 elementen". `ItemsPanelTemplate` en `HierarchicalDataTemplate` tonen we ook als boom.
+Na 20 regels of 10 niveaus diep stopt de boom, met een regel "… nog 6 elementen". `ItemsPanelTemplate` en `HierarchicalDataTemplate` tonen we ook als boom; een `ItemsPanelTemplate` krijgt sinds sectie 29 ook voorbeelditems.
 
 **Eerst controleren, dan pas laden.** Een type uit je project (`local:Book`) of uit een NuGet-pakket (`mah:MetroWindow`) kent VS niet. `XamlReader.Parse` gooit dan gegarandeerd een `XamlParseException`. Die vingen we wel op, maar de debugger van de Experimental Instance stopte er toch op. Daarom zoekt `PreviewXamlBuilder.FindUnloadableType` zulke types vooraf op, in de resource en in al zijn afhankelijkheden:
 
@@ -405,7 +405,7 @@ Een valkuil onderweg: de index bewaart een losse kopie van elk element, zonder d
 Wordt er zo'n type gevonden, dan:
 
 - toont een Style de tabel, met de regel "Geen live voorbeeld: local:FancyControl is geen WPF-type, dus Visual Studio kan het niet laden";
-- toont een ControlTemplate de boom met diezelfde regel, en een DataTemplate alleen de boom;
+- toont een ControlTemplate de boom met diezelfde regel; een DataTemplate maakt van eigen types een vak (sectie 29);
 - toont een andere resource "Geen preview: ..." met het type;
 - krijgt een setter die naar zo'n resource verwijst geen icoontje, alleen de tekst.
 
@@ -1068,6 +1068,57 @@ De accolade aan het begin zorgt dat een statische key nooit gelijk is aan een ge
 
 **De les.** Toen de keys op tien plekken met een eigen regex gelezen werden, betekende een nieuwe vorm van key tien aanpassingen. Nu is het er één. Zoek bij een nieuwe feature eerst waar dezelfde tekst al gelezen wordt, en maak er één functie van voordat je hem uitbreidt.
 
+### 29. Een DataTemplate renderen met voorbeelddata
+
+**De vraag.** Dezelfde gebruiker als in sectie 28 wilde de layout van zijn templates zien (controls, afstanden, uitlijning) zonder de app te starten of een tijdelijke UserControl te maken. Tot nu toe toonden we bij een DataTemplate alleen de boom, omdat bindings zonder data leeg blijven.
+
+**Drie keuzes,** samen met jou gemaakt:
+
+| Vraag | Keuze |
+|---|---|
+| Waar komen de waarden voor bindings vandaan? | Automatisch, en `d:Text="120"` voor een eigen waarde |
+| Wat gebeurt er met eigen controls en converters? | Een eigen control wordt een gestreept vak, een eigen converter valt weg |
+| Welke templates? | DataTemplate en ItemsPanelTemplate; HierarchicalDataTemplate houdt alleen de boom |
+
+**Twee stappen, twee klassen.** Net als bij de rest van de extensie staat het werk met tekst en XML los van het werk met WPF:
+
+1. `TemplateSampleBuilder` (in `Resources`, alleen XML) maakt een kopie van de template die kan laden. Dat draait op een achtergrondthread, samen met de rest van `ResourcePreviewData.Create`.
+2. `TemplateSampleRenderer` (in `Preview`, WPF) zet die template op het scherm met voorbeelddata. Dat draait op de UI-thread.
+
+**Stap 1: de kopie schoonmaken.** Per element en attribuut:
+
+| In de template | Wordt |
+|---|---|
+| `<local:Rating Grid.Column="1" Margin="4" />` | een `Grid` met een gestreepte `Rectangle` en de tekst `local:Rating`, met dezelfde `Grid.Column` en `Margin` |
+| `{Binding Price, Converter={StaticResource PriceConverter}}` | `{Binding Price}` als de converter een eigen type is |
+| `Click="OnOpen"`, `Loaded="OnLoaded"` | weg: `XamlReader` kan een event niet koppelen zonder code-behind |
+| `Command="{x:Static local:Commands.Open}"`, `local:Help.Text="..."` | weg |
+| `DataType="{x:Type local:Book}"` | weg |
+| `d:Text="120"` | `Text="120"`, zoals de XAML-designer doet |
+| `<Setter TargetName="Stars" ...>` op een element dat een vak werd | weg, anders faalt het laden |
+
+Om een converter uit een binding te halen moet je de markup kunnen splitsen. Een komma scheidt de delen, maar niet binnen accolades of aanhalingstekens: in `{Binding Price, StringFormat='{}{0}, net'}` zit een komma die bij de StringFormat hoort. `SplitMarkup` telt daarom de diepte van de accolades en onthoudt of hij binnen quotes zit.
+
+Of iets een event is, vraagt de builder aan WPF zelf: `typeof(Button).GetEvent("Click")`. Dat is gewone reflectie op WPF-types die VS al geladen heeft, dus dat mag op een achtergrondthread.
+
+**Een valkuil.** De eerste versie zette de typenaam in het vak als `Text="local:Rating"`. De veiligheidscontrole uit sectie 26 leest alle attributen en zag daar een verwijzing naar een eigen type. Het vak blokkeerde zo zijn eigen preview. Nu staat de naam als inhoud: `<TextBlock>local:Rating</TextBlock>`.
+
+**Stap 2: voorbeelddata.** De builder geeft ook een lijst van bindings mee: het pad, het element en de property. Per binding kiest de renderer een waarde:
+
+| Property | Waarde |
+|---|---|
+| tekst (`string` of `object`, zoals `Text`, `Content`, `ToolTip`) | de naam van het pad: `{Binding Title}` toont "Title" |
+| een lijst (`ItemsSource`) | drie items: "Chapters 1", "Chapters 2", "Chapters 3" |
+| iets anders (`IsReadOnly`, `FontSize`) | de standaardwaarde van die property, zodat het eruitziet alsof er geen binding is |
+
+`Author.Name` maakt een genest object. Wordt één pad voor tekst en voor iets anders gebruikt, dan wint de tekst.
+
+**Waarom geen ExpandoObject.** WPF kan binden aan een `ExpandoObject`, maar gaat daarvoor via de DLR. Die gooit en vangt intern een exceptie voor elk member dat hij opzoekt. De test die alle SampleApp-resources rendert, staat geen enkele exceptie toe (ook geen opgevangen), omdat een debugger met "break when thrown" er anders op stopt. `SampleObject` implementeert daarom `ICustomTypeDescriptor`: WPF vraagt de properties op via `TypeDescriptor`, net als bij een `DataRowView` uit een `DataTable`. Geen DLR, geen excepties.
+
+**ItemsPanelTemplate.** Een `ItemsControl` met de template als `ItemsPanel` en zes omrande items, 260 pixels breed. Zo zie je of een `WrapPanel` ze over regels verdeelt.
+
+**Testen.** `TemplateSampleTests` controleert de kopie (vakken, converters, events, `d:`-waarden, triggers) en het renderen: de `TextBox` uit het voorbeeld van de gebruiker toont "Value" en is niet read-only. De SampleApp kreeg `PropertyRowTemplate` met een eigen converter, `FancyControl` en `d:Text`. De bestaande test die elke resource rendert, doet nu ook `Measure` en `Arrange`, zoals de tooltip. Zo vallen ook fouten op die pas optreden als WPF de template toepast.
+
 ## Hoe het zoeken werkt
 
 VS heeft geen publieke API om te vragen waar een resource gedefinieerd is. `ResourceIndex` bouwt dat zelf op:
@@ -1104,7 +1155,7 @@ Aanpassingen die de builder doet voor de preview:
 
 ### Unit tests
 
-`tests\ResourcePreview.Tests` bevat 664 tests die zonder Visual Studio draaien. Open Test Explorer (Test > Test Explorer) en klik op Run All. Dat duurt een paar seconden.
+`tests\ResourcePreview.Tests` bevat 683 tests die zonder Visual Studio draaien. Open Test Explorer (Test > Test Explorer) en klik op Run All. Dat duurt een paar seconden.
 
 | Bestand | Wat het test |
 |---|---|
@@ -1130,6 +1181,7 @@ Aanpassingen die de builder doet voor de preview:
 | `StyleTests` | `TargetType` in alle schrijfwijzen, de `BasedOn`-keten met overschreven setters, de soorten waarden, triggers en binding-paden, en de weergave van de tabel |
 | `SettingsAndLanguageTests` | kleuren en getallen, taalcodes van VS, de converters van de Opties-pagina, `Localizer` |
 | `StaticKeyTests` | keys als `{x:Static ...}`: normaliseren met en zonder prefix, de index met `KeyText`, verwijzingen en hover, Find References met een andere prefix, geen meldingen voor `SystemColors`, wel voor een typfout in een bekende klasse, nooit "ongebruikt", de preview die laadt, en `BasedOn` met de tekst zoals geschreven |
+| `TemplateSampleTests` | de kopie voor de gerenderde DataTemplate: eigen controls als vak op dezelfde plek, eigen converters weg en WPF-converters niet, events, `x:Static` en `DataType` weg, `d:Text`, triggers op een vak, welke bindings meetellen, `SplitMarkup`; en het renderen: tekst, geneste paden, lijsten, standaardwaarden, een `WrapPanel` met zes items, en de templates uit de SampleApp |
 | `ConsistencyTests` | alle vertalingen hebben dezelfde keys en placeholders, elke `@Naam` in `registration.json` bestaat, monikers en standaardwaarden in C# en JSON zijn gelijk, elk `.cs`-bestand staat in de `.csproj` |
 
 Een paar dingen die je in de tests terugziet:
@@ -1219,5 +1271,5 @@ Wat VS zelf doet, kun je niet met unit tests afdekken. Loop dit na vóór een re
 ## Ideeën voor later
 
 - **Find Elements That Could Use This Style**: de omgekeerde richting van sectie 23. Rechtsklik op een stijl en zie de elementen die precies zijn setters als losse attributen hebben; jij kiest welke je omzet.
-- **Een gerenderde preview van een DataTemplate**, met voorbeeldwaarden voor de bindings (`Value`, `IsReadOnly`), zodat je de layout ziet zonder de app te starten. Gevraagd door dezelfde gebruiker als sectie 28. Eigen controls en converters kunnen niet laden, die worden een placeholder.
+- **HierarchicalDataTemplate renderen**, net als een DataTemplate in sectie 29, met een paar kinderen uit `ItemsSource`.
 - **Een nieuwe extensie: overlappende extensies vinden.** Vergelijk wat geïnstalleerde extensies registreren per content type (taggers, Quick Info-bronnen, completion-bronnen, lampjes) en laat zien waar twee extensies hetzelfde doen, zoals Color Picker Tool, de eigen kleurvakjes van VS en de onze.
