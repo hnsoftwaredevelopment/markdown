@@ -37,7 +37,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Development/Projects/ResourcePreview/README.md",
+                "file": "Development/Projects/VisualStudioShortcutCheatsheet/Haalbaarheid en voorstel v1.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -52,7 +52,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "README"
+              "title": "Haalbaarheid en voorstel v1"
             }
           }
         ],
@@ -393,8 +393,8 @@
   },
   "active": "1982f7e044b7c34a",
   "lastOpenFiles": [
-    "Development/Projects/ResourcePreview/Handleiding extension bouwen.md",
     "Development/Projects/ResourcePreview/README.md",
+    "Development/Projects/ResourcePreview/Handleiding extension bouwen.md",
     "Testing/RC-Testing/RC-4.33 Other team alerts.md",
     "Testing/RC-Testing/RC-4.33 Test cases.md",
     "Testing/RC-Testing/RC-4.33 Testplan.md",

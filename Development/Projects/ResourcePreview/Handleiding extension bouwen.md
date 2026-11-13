@@ -604,7 +604,7 @@ Ingedrukt zet ook `IsMouseOver` op waar. Een knop indrukken kan alleen met de mu
 
 ### 17. Previews in IntelliSense
 
-Typ je `{StaticResource `, dan toont de XAML-editor een lijst met keys. De extensie zet daar een icoontje bij (een plaatje, geometrie of kleurvakje), en de tooltip van het geselecteerde item toont dezelfde preview als bij hoveren.
+Typ je `{StaticResource `, dan toont de XAML-editor een lijst met keys. De tooltip van het geselecteerde item toont dezelfde preview als bij hoveren. Eerst zette de extensie er ook een icoontje bij; waarom dat eruit ging, staat aan het eind van deze sectie.
 
 **Eerst uitzoeken welke API de XAML-editor gebruikt.** VS heeft twee completion-API's:
 
@@ -650,7 +650,9 @@ Dat gebeurt alleen als het stuk regel vóór de cursor eruitziet als `{StaticRes
 
 De preview zelf is dezelfde als bij hoveren. De code die de gegevens verzamelt (XAML met afhankelijkheden, stijltabel, templateboom) stond in `ResourceQuickInfoSource` en staat nu in `ResourcePreviewData.Create`, zodat Quick Info en IntelliSense hem allebei gebruiken.
 
-**Wat nog onzeker is.** De XAML-items kunnen ook een `IconMoniker` hebben (de nieuwere manier om iconen aan te geven). Als VS die voorrang geeft boven `IconSource`, zie je geen icoon maar werkt de tooltip wel. Dat kan alleen in VS zelf getest worden.
+**Wat onzeker was, en hoe het afliep.** De XAML-items hebben ook een `IconMoniker` (de nieuwere manier om iconen aan te geven, uit de image catalog). Bij de screenshots voor de release bleek het: VS 2026 toont die moniker, en negeert `Completion.IconSource` helemaal. De tooltip werkt wel, want die loopt via de property bag.
+
+Een moniker kan geen eigen plaatje per resource zijn, dus de iconen zijn eruit gegaan. Dat scheelt ook werk: voor elk icoon werd XAML geladen, op de UI-thread, tijdens het typen. `CompletionIconFactory` bestaat nog, voor het venster XAML Resources (sectie 25). Les: een uitbreidingspunt dat compileert en geen fout geeft, doet nog niet wat je denkt. Kijk het na in de echte omgeving.
 
 De instelling "Previews tonen in IntelliSense" (standaard aan) zet dit uit.
 
@@ -923,6 +925,8 @@ Een eerste versie zette de grootte op basis van `ITextView.LineHeight`. Dat gaf 
 
 Geen vakje voor een `LinearGradientBrush` of een brush met `Opacity`: één vlak zou dan de verkeerde kleur tonen.
 
+**Visual Studio doet het zelf ook.** De XAML-editor van VS heeft een eigen optie: **Languages > XAML > Advanced > Show inline color previews**. Staan beide aan, dan zie je twee vakjes per kleur: dat van VS vóór de aanhalingstekens, het onze erna. Dat bleek pas bij de screenshots, toen de Experimental Instance (waar alleen onze extensie in stond) toch twee vakjes toonde. De gebruiker kiest welke hij uitzet; de README zegt het.
+
 Een nieuwe instelling, **Kleurvakjes in de editor tonen** (`showColorSwatches`), zet het uit. De tagger luistert naar `SettingsService.Changed` en meldt `TagsChanged` voor het hele bestand, zodat de vakjes direct verdwijnen.
 
 ### 25. Het venster XAML Resources
@@ -957,7 +961,7 @@ De notities komen van de scanners die de Error List al gebruikt (secties 15 en 2
 
 **Laden op de achtergrond, tekenen op de UI-thread.** Het lezen en scannen gebeurt met `await TaskScheduler.Default`. Een nieuwe lading annuleert de vorige via een `CancellationTokenSource`; de oude stopt met een `OperationCanceledException` die het venster stil opvangt. Zoeken en hergroeperen gebruiken de geladen lijst opnieuw. Dat is goedkoop genoeg om bij elke toetsaanslag te doen.
 
-**De preview pas bij het openen van de tooltip.** Honderden previews vooraf bouwen kost te veel tijd. Elk item krijgt een lege `ToolTip`; in `ToolTipOpening` komt de inhoud erin, met dezelfde `ResourcePreviewData` en `PreviewRenderer` als de tooltip in de editor. Het kleine icoon voor de key is dat van IntelliSense (sectie 17), met zijn cache.
+**De preview pas bij het openen van de tooltip.** Honderden previews vooraf bouwen kost te veel tijd. Elk item krijgt een lege `ToolTip`; in `ToolTipOpening` komt de inhoud erin, met dezelfde `ResourcePreviewData` en `PreviewRenderer` als de tooltip in de editor. Het kleine icoon voor de key komt van `CompletionIconFactory`, met zijn cache; die was eerst voor IntelliSense gemaakt (sectie 17).
 
 **Slepen naar de editor.** WPF-slepen begint met `DragDrop.DoDragDrop` en een `DataObject`. Het venster zet daar de tekst `{StaticResource Key}` in als `UnicodeText`. De editor van VS accepteert tekst die erop valt en zet hem op de plek waar je loslaat; daar is geen eigen code voor nodig. Slepen begint pas als de muis met ingedrukte knop een paar pixels verschuift (`SystemParameters.MinimumHorizontalDragDistance`), anders wordt elke klik een sleepactie.
 
@@ -992,7 +996,7 @@ Na zeven nieuwe features volgde een review van de hele code. De logica was goed 
 
 De oude controle liet namespaces door als VS die assembly al geladen had, zoals `System` met `System.Diagnostics.Process`. Hoveren was genoeg, en sinds het venster XAML Resources zelfs dat niet: een `DrawingImage` die naar `Evil` verwijst krijgt een icoon, en het icoon laadt zijn afhankelijkheden mee. Een gekloonde repo openen kon dus code uitvoeren.
 
-Nu weigert `PreviewXamlBuilder` vier types altijd (`ObjectDataProvider`, `XmlDataProvider`, `Frame`, `WebBrowser`), ook diep in een stijl of als afhankelijkheid, en staat hij van `clr-namespace` alleen nog `System` (voor `sys:Double`) en `System.Windows.*` uit de WPF-assemblies toe. De test bewijst het: een provider die `Environment.SetEnvironmentVariable` zou aanroepen, gaat door de tooltip en het IntelliSense-icoon, en de variabele blijft leeg.
+Nu weigert `PreviewXamlBuilder` vier types altijd (`ObjectDataProvider`, `XmlDataProvider`, `Frame`, `WebBrowser`), ook diep in een stijl of als afhankelijkheid, en staat hij van `clr-namespace` alleen nog `System` (voor `sys:Double`) en `System.Windows.*` uit de WPF-assemblies toe. De test bewijst het: een provider die `Environment.SetEnvironmentVariable` zou aanroepen, gaat door de tooltip en het icoon van het venster XAML Resources, en de variabele blijft leeg.
 
 Les: alles wat gebruikersbestanden met `XamlReader`, `BinaryFormatter` of een andere "maak objecten uit tekst"-API laadt, is een ingang voor code. Werk met een lijst van wat mag, niet met een lijst van wat niet mag.
 
@@ -1007,6 +1011,62 @@ Les: alles wat gebruikersbestanden met `XamlReader`, `BinaryFormatter` of een an
 **7. Error List en venster gelijk.** De Error List luistert nu ook naar `LiveTextChanged`, zodat een nieuwe resource zonder opslaan ook daar meetelt.
 
 **8. Opslaan kan mislukken.** `BufferEditor` slaat een gesloten bestand stil op. Bij een alleen-lezen bestand mislukte dat zonder melding, en de wijziging verdween met de onzichtbare editor. Nu opent hij het bestand: de editor toont dezelfde buffer, gewijzigd en niet opgeslagen. En hij meldt waarom.
+
+### 27. Een release maken
+
+**Versie 1.5.0.** Na zeven nieuwe features is dit meer dan een kleine update, dus de versie springt van 1.0.0 naar 1.5.0. Het nummer staat op één plek: `Identity Version` in `source.extension.vsixmanifest`. De release-workflow (`.github/workflows/release.yml`) zet bij het bouwen de versie uit de tag of de invoer in het manifest; in de repository staat hij ook op 1.5.0, zodat een lokale build hetzelfde nummer heeft.
+
+**De beschrijving en de tags** in het manifest zijn wat de Marketplace in de zoekresultaten toont. De README is de pagina zelf (`"overview": "README.md"` in `publishManifest.json`). De afbeeldingen in de README staan met een volledige `raw.githubusercontent.com`-URL, omdat de Marketplace relatieve paden niet altijd goed toont; `assetFiles` in `publishManifest.json` uploadt ze daarnaast mee.
+
+**De changelog.** `CHANGELOG.md` heeft per versie een kop `## 1.5.0`. De workflow knipt die sectie eruit en geeft hem aan `gh release create --notes-file`. Is er geen sectie, dan maakt GitHub zelf notities uit de commits (`--generate-notes`).
+
+**Screenshots maken met een script.** De afbeeldingen in de README zijn gemaakt zonder iets met de hand aan te klikken:
+
+| Stap | Hoe |
+|---|---|
+| VS starten | `devenv.exe /rootsuffix Exp SampleApp.sln` |
+| VS besturen | het DTE-object uit de Running Object Table (`!VisualStudio.DTE.18.0:<pid>`): bestanden openen, de cursor plaatsen, commands uitvoeren zoals `View.XamlResources` en `ResourcePreview.FindMatchingResource` |
+| knoppen en keuzelijsten | Windows UI Automation (`System.Windows.Automation`): het element zoeken op naam of type en `SelectionItemPattern` of `TogglePattern` gebruiken |
+| tooltip en lampje | met de focus in de editor `Ctrl+K, Ctrl+I` (Quick Info) en `Ctrl+.` sturen met `SendKeys` |
+| vastleggen | `Graphics.CopyFromScreen`, na `SetProcessDPIAware`, zodat de pixels kloppen op een scherm met schaling |
+
+Valkuilen: een DTE-command is "niet beschikbaar" zolang de editor geen toetsenbordfocus heeft; één klik in de editor lost dat op. En wie tijdens het script typt, typt in VS: zo kwam er een stukje chattekst in `Brushes.xaml` terecht (niet opgeslagen).
+
+### 28. Keys uit een klasse (x:Static)
+
+**De vraag.** Een gebruiker schreef na versie 1.5.0 dat zijn templates geen preview kregen. Hij zet de keys in een klasse, zodat zijn code en de XAML dezelfde naam gebruiken:
+
+```xml
+<DataTemplate x:Key="{x:Static res:TemplateKeys.ValueEditor}"> ... </DataTemplate>
+<ContentControl ContentTemplate="{StaticResource {x:Static res:TemplateKeys.ValueEditor}}" />
+```
+
+De index sloeg elke key over die met `{` begint. Zo'n resource bestond voor de extensie dus niet.
+
+**Het probleem: wat is de key?** WPF gebruikt als key de *waarde* van `TemplateKeys.ValueEditor`. Die waarde staat in een assembly die we niet laden (zie de veilige preview in sectie 26). We kunnen de waarde dus niet lezen. Wat we wel weten: twee keys zijn hetzelfde als ze dezelfde klasse en hetzelfde member noemen. De prefix tellen we niet mee, want het ene bestand kan `res:` gebruiken en het andere `keys:` voor dezelfde namespace.
+
+**Eén plek die keys leest.** `ResourceKeys.Normalize` maakt van de tekst de key die de index gebruikt:
+
+| In de XAML | Key in de index |
+|---|---|
+| `AccentBrush` | `AccentBrush` (ongewijzigd, ook met spaties) |
+| `{x:Static res:TemplateKeys.ValueEditor}` | `{x:Static TemplateKeys.ValueEditor}` |
+| `{x:Static Member=keys:TemplateKeys.ValueEditor}` | `{x:Static TemplateKeys.ValueEditor}` |
+| `{x:Type Button}` | `null`: niet ondersteund, overslaan |
+
+De accolade aan het begin zorgt dat een statische key nooit gelijk is aan een gewone key. Alle regexen die een key lezen (de index, de hover, de preview, de stijlen, de kleurvakjes) gebruiken nu hetzelfde stukje patroon, `ResourceKeys.KeyPattern`, en roepen daarna `Normalize` aan. Daardoor werkten hover, Go To Definition, Find References en de Error List in één keer, zonder dat we die code aanpasten.
+
+**Twee keer de key.** `ResourceEntry` heeft nu `Key` (voor vergelijken) en `KeyText` (zoals hij in het bestand staat, met prefix). Overal waar we tekst invoegen, zoals slepen uit het venster XAML Resources, Find Matching Resource en `BasedOn` bij Extract to Style, gebruiken we `KeyText`. Anders zou er `{StaticResource {x:Static TemplateKeys.ValueEditor}}` zonder prefix in je XAML komen, en dat compileert niet.
+
+**De preview.** `XamlReader` kan `x:Key="{x:Static res:...}"` niet lezen, want daarvoor moet hij het type laden. `PreviewXamlBuilder` maakt er daarom in de losse preview-dictionary een gewone key van: `xStatic.TemplateKeys.ValueEditor`. Verwijzingen naar die key binnen de preview krijgen dezelfde tekst. Een verwijzing naar een statische key die we niet vinden, zoals `{x:Static SystemColors.ControlBrushKey}`, blijft staan: die levert WPF zelf. De controle op eigen types draait nu op de aangepaste kopie, anders zou de oude `res:` in de key de preview alsnog blokkeren.
+
+**Geen valse meldingen.** Drie keuzes:
+
+- Een ontbrekende statische key melden we alleen als dezelfde klasse elders in XAML keys heeft. `SystemColors.ControlBrushKey` krijgt dus geen waarschuwing, `TemplateKeys.NumberEditor` (typfout, terwijl `TemplateKeys.ValueEditor` wel bestaat) wel.
+- Statische keys krijgen nooit "ongebruikt". Ze bestaan juist om vanuit code gebruikt te worden, via het member en niet als tekst. Dat kunnen we niet volgen.
+- Rename Resource Key verschijnt niet bij een statische key. De key is de naam van een member in C#; hernoemen hoort bij de C#-refactoring van VS.
+
+**De les.** Toen de keys op tien plekken met een eigen regex gelezen werden, betekende een nieuwe vorm van key tien aanpassingen. Nu is het er één. Zoek bij een nieuwe feature eerst waar dezelfde tekst al gelezen wordt, en maak er één functie van voordat je hem uitbreidt.
 
 ## Hoe het zoeken werkt
 
@@ -1044,7 +1104,7 @@ Aanpassingen die de builder doet voor de preview:
 
 ### Unit tests
 
-`tests\ResourcePreview.Tests` bevat 648 tests die zonder Visual Studio draaien. Open Test Explorer (Test > Test Explorer) en klik op Run All. Dat duurt een paar seconden.
+`tests\ResourcePreview.Tests` bevat 664 tests die zonder Visual Studio draaien. Open Test Explorer (Test > Test Explorer) en klik op Run All. Dat duurt een paar seconden.
 
 | Bestand | Wat het test |
 |---|---|
@@ -1056,7 +1116,7 @@ Aanpassingen die de builder doet voor de preview:
 | `TemplateTests` | de boom (bindings, property-elementen, prefixen, maximum aan regels en diepte), het live voorbeeld bij Style en ControlTemplate, eigen types, welke controls we kunnen maken, `FillContent` per control |
 | `MergeGraphTests` | `MergedDictionaries` lezen, `Source` in alle schrijfwijzen, de opzoekvolgorde (laatste merge wint, eigen keys eerst, geneste merges, kringen), niet-gemergde bestanden, de Error List-scan, en `InfoBrush` en `Check` uit de SampleApp |
 | `StateSimulatorTests` | Muis erover en Ingedrukt: setters met `TargetName`, de volgorde van triggers, `MultiTrigger` met andere condities, `BasedOn`, `DataTrigger` op `IsMouseOver`, de `VisualStateManager` |
-| `IntelliSenseTests` | wanneer de cursor op een key-plek staat, welke types een icoon krijgen, iconen uit de SampleApp en de cache |
+| `IntelliSenseTests` | wanneer de cursor op een key-plek staat, en de iconen van `CompletionIconFactory` (nu voor het venster XAML Resources): welke types er een krijgen, iconen uit de SampleApp en de cache |
 | `ReferenceCheckerTests` | verwijzingen vinden (ook in commentaar en element-syntax), ontbrekende keys met hoofdlettersuggestie, keys die verderop staan, keys in een niet-geladen bestand, geen meldingen bij externe dictionaries, zonder App.xaml of in een UserControl, en precies de bekende problemen in de SampleApp |
 | `UsageFinderTests` | alle verwijzingen naar een key, welke definitie elke verwijzing krijgt, een key zonder definities, en `InfoBrush` uit de SampleApp |
 | `UnusedResourceTests` | ongebruikte keys, gebruik vanuit code, keys in Window.Resources, geen meldingen in niet-gemergde dictionaries, themabestanden, ThemeDictionaries en zonder App.xaml, en alleen `UnusedBrush` in de SampleApp |
@@ -1069,6 +1129,7 @@ Aanpassingen die de builder doet voor de preview:
 | `NoExceptionTests` | welke types VS niet kan laden, in elementen, attributen en waarden, ook via afhankelijkheden; elke resource uit de SampleApp zonder één exceptie; `ColorParser` tegen alle WPF-kleurnamen |
 | `StyleTests` | `TargetType` in alle schrijfwijzen, de `BasedOn`-keten met overschreven setters, de soorten waarden, triggers en binding-paden, en de weergave van de tabel |
 | `SettingsAndLanguageTests` | kleuren en getallen, taalcodes van VS, de converters van de Opties-pagina, `Localizer` |
+| `StaticKeyTests` | keys als `{x:Static ...}`: normaliseren met en zonder prefix, de index met `KeyText`, verwijzingen en hover, Find References met een andere prefix, geen meldingen voor `SystemColors`, wel voor een typfout in een bekende klasse, nooit "ongebruikt", de preview die laadt, en `BasedOn` met de tekst zoals geschreven |
 | `ConsistencyTests` | alle vertalingen hebben dezelfde keys en placeholders, elke `@Naam` in `registration.json` bestaat, monikers en standaardwaarden in C# en JSON zijn gelijk, elk `.cs`-bestand staat in de `.csproj` |
 
 Een paar dingen die je in de tests terugziet:
@@ -1149,6 +1210,7 @@ Wat VS zelf doet, kun je niet met unit tests afdekken. Loop dit na vóór een re
 - **Resources uit code** (`Application.Current.Resources.MergedDictionaries.Add(...)`) volgen we niet. Zo'n bestand krijgt "in geen enkele MergedDictionaries".
 - **Een UserControl** ziet tijdens runtime ook de resources van het venster waar hij in staat. Dat venster kennen we niet; we volgen alleen de UserControl zelf en `App.xaml`.
 - **Excepties die blijven.** Twee situaties gooien nog een exceptie die we zelf opvangen: een XAML-bestand dat tijdens het typen even geen geldige XML is (`XmlException` in `ResourceIndex`), en een template die wel laadt maar pas bij het tekenen faalt (in `LiveSampleRenderer`). Het eerste valt niet vooraf te controleren zonder een eigen XML-parser. Zie je ze in de debugger, dan is dat geen fout.
+- **Andere markup als key**, zoals `x:Key="{x:Type Button}"` of `{ComponentResourceKey ...}`, slaan we over. Alleen `{x:Static ...}` wordt ondersteund (sectie 28).
 - **Verwijzingen over meerdere regels** worden niet herkend. De finder kijkt per regel.
 - **Keys die in code worden samengesteld** (`$"{naam}Brush"`) ziet de extensie niet. Zo'n resource krijgt ten onrechte "ongebruikt"; dat is een bericht, geen waarschuwing.
 - **Afbeeldingen met een http-adres** (`BitmapImage UriSource="https://..."`) worden voor de preview gedownload.
@@ -1157,4 +1219,5 @@ Wat VS zelf doet, kun je niet met unit tests afdekken. Loop dit na vóór een re
 ## Ideeën voor later
 
 - **Find Elements That Could Use This Style**: de omgekeerde richting van sectie 23. Rechtsklik op een stijl en zie de elementen die precies zijn setters als losse attributen hebben; jij kiest welke je omzet.
-- **Een nieuwe extensie: overlappende extensies vinden.** Vergelijk wat geïnstalleerde extensies registreren per content type (taggers, Quick Info-bronnen, completion-bronnen, lampjes) en laat zien waar twee extensies hetzelfde doen, zoals Color Preview en onze kleurvakjes.
+- **Een gerenderde preview van een DataTemplate**, met voorbeeldwaarden voor de bindings (`Value`, `IsReadOnly`), zodat je de layout ziet zonder de app te starten. Gevraagd door dezelfde gebruiker als sectie 28. Eigen controls en converters kunnen niet laden, die worden een placeholder.
+- **Een nieuwe extensie: overlappende extensies vinden.** Vergelijk wat geïnstalleerde extensies registreren per content type (taggers, Quick Info-bronnen, completion-bronnen, lampjes) en laat zien waar twee extensies hetzelfde doen, zoals Color Picker Tool, de eigen kleurvakjes van VS en de onze.

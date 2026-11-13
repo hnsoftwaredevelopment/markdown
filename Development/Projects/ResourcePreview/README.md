@@ -8,6 +8,8 @@ Click the preview or the file name to jump to the definition.
 
 Works in Visual Studio 2022 (17.14 and later) and Visual Studio 2026.
 
+Version 1.5 adds checks in the Error List, refactorings, color swatches and a window with all resources. See the [changelog](https://github.com/hnsoftwaredevelopment/ResourcePreview/blob/main/CHANGELOG.md).
+
 ## Icons, brushes and images
 
 Geometries, drawings, `DrawingImage`, `BitmapImage` and brushes are drawn on a light and a dark tile, so a white icon stays visible in a light theme and a black one in a dark theme. Below the tiles you see the type and size.
@@ -70,6 +72,20 @@ when loaded through App.xaml. WPF does not use this definition.
 ```
 
 Double-click the warning to open the definition. The list is updated after you save a `.xaml` file. It is not reported when a window overrides a key from `App.xaml` on purpose, or when the same dictionary is merged twice. You can turn the warnings off in the settings.
+
+## Keys from a class (x:Static)
+
+Keys can also be static members of a class, so code and XAML share them:
+
+```xml
+<DataTemplate x:Key="{x:Static res:TemplateKeys.ValueEditor}">
+    <TextBox Text="{Binding Value}" />
+</DataTemplate>
+
+<ContentControl ContentTemplate="{StaticResource {x:Static res:TemplateKeys.ValueEditor}}" />
+```
+
+The preview, the XAML Resources window, Go To Resource Definition, Find Resource References and the Error List work with these keys as well. Two keys are the same when they name the same class and member, also when files use another prefix for the namespace. The extension does not load your assembly, so it cannot read the value of the member. A lookup from code, such as `FindResource(TemplateKeys.ValueEditor)`, is therefore not linked to the definition, and these keys are never reported as unused. A missing key is only reported when other keys of that class are defined in XAML, so WPF keys such as `{x:Static SystemColors.ControlBrushKey}` are left alone. Rename Resource Key is not available for them: the key is the name of a member in your code.
 
 ## References WPF will not find
 
@@ -199,7 +215,7 @@ The window refreshes when a .xaml file is saved, or with the refresh button.
 | Warn about overridden keys | On | Warnings in the Error List for definitions WPF never uses. |
 | Check resource references | On | Error List entries for references WPF will not resolve. |
 | Report unused resources | On | Error List messages for resources nothing uses. |
-| Show previews in IntelliSense | On | Icons and the preview tooltip in the IntelliSense list. |
+| Show previews in IntelliSense | On | The preview tooltip in the IntelliSense list. |
 | Tile size | 64 | Size of a preview tile in pixels, 16 to 256. |
 | Tiles | Light and dark | Both tiles, or only one of them. |
 | Tile colors | | Foreground and background of each tile. The foreground is used for geometries, which have no color of their own. |
@@ -216,6 +232,7 @@ The window refreshes when a .xaml file is saved, or with the refresh button.
 - **References that span several lines** are not recognized.
 - **Safe preview.** The preview never creates types that run code or load content when they are created (`ObjectDataProvider`, `XmlDataProvider`, `Frame`, `WebBrowser`), and only loads types from WPF itself and the `System` namespace (`sys:Double`, `sys:String`). A .xaml file from a repository you just cloned cannot run code in Visual Studio through this extension.
 - **Keys built in code** (`$"{name}Brush"`) are not seen, so such a resource is reported as unused.
+- **Other markup as a key**, such as `x:Key="{x:Type Button}"` or `{ComponentResourceKey ...}`, is not supported. `{x:Static ...}` keys are; see above.
 
 ## Building from source
 
