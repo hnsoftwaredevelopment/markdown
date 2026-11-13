@@ -209,3 +209,84 @@ De test over alle geïnstalleerde extensies vond de tabel met de naam `1000` van
 - **VSCT schrijft bij terugvertalen een `.h` in de huidige map.** De eerste keer stonden er twee losse bestanden in de root van de repo. `build-fixtures.ps1` draait VSCT nu vanuit de fixturemap.
 - **Een test buiten vstest.** Een PowerShell-script dat de reader via reflection aanriep, vond in geen enkele extensie een tabel; de echte test vond ze allemaal. Waarschijnlijk laadt PowerShell 5.1 een andere `System.Reflection.Metadata`. Controleer zoiets dus in een test, niet in een los script.
 - **Automatic Versions.** Bij bouwen in VS zet die extensie de versie in `AssemblyInfo.cs` en in de `.csproj` van de tests op de datum (`2026.11.13.2`). Dat komt mee in de commits.
+
+## Stap 3: alle sneltoetsen verzamelen, met herkomst
+
+Het resultaat is een `CheatSheet`: een lijst `Shortcut`-objecten plus een regel per extensie. Het venster toont voorlopig alleen een samenvatting en een knop Export to JSON, zodat je de gegevens kunt controleren voordat de echte weergave er is (stap 4).
+
+### De keten
+
+| Stap | Klasse | Thread | Doet |
+|---|---|---|---|
+| 1 | `DteBindingReader` | UI | elk command uit `DTE.Commands` met zijn `Bindings` ("Text Editor::Ctrl+E, V") |
+| 2 | `InstalledExtensions` (ExtensionCommon) | UI, dan achtergrond | de mappen van de ingeschakelde extensies |
+| 3 | `ExtensionCommands` | achtergrond | per extensie de `.pkgdef`, de DLL van het package en de command table |
+| 4 | `Customizations` | achtergrond | jouw eigen sneltoetsen uit `settings.json` |
+| 5 | `CheatSheetBuilder` | achtergrond | naam, categorie, extensie, conflicten, sortering |
+
+`CheatSheetCollector` zet deze stappen achter elkaar. Alleen stap 1 heeft DTE nodig; stap 3 tot en met 5 hebben geen VS nodig en zijn daarom direct getest.
+
+**DTE en de threading-analyzer.** `DTE` is COM en hoort op de UI-thread. Elke property van een `Command` kan een `COMException` geven. De eerste versie ving dat af met een hulpfunctie die een lambda kreeg (`SafeGet(() => command.Name)`). De analyzer VSTHRD010 kan niet zien dat die lambda op de UI-thread draait, en gaf drie waarschuwingen. Nu is er per property een kleine methode met `ThreadHelper.ThrowIfNotOnUIThread()`. Hetzelfde bij de knop: `_export.Click += (s, e) => { ThreadHelper.ThrowIfNotOnUIThread(); Export(); };`.
+
+**Een await naar de achtergrond.** `await TaskScheduler.Default;` werkt alleen met `using Microsoft.VisualStudio.Threading;`. Zonder die regel zoekt de compiler een `GetAwaiter` en vindt hij alleen die voor `IVsTask` (fout CS1929). De melding wijst niet naar de ontbrekende `using`.
+
+### Welk DLL hoort bij een package
+
+In de `.pkgdef` staat per package:
+
+```
+[$RootKey$\Packages\{acf2e531-...}]
+"Assembly"="ShortcutCheatsheet, Version=..., Culture=neutral, PublicKeyToken=null"
+"CodeBase"="$PackageFolder$\ShortcutCheatsheet.dll"
+```
+
+`PkgdefPackages` neemt `CodeBase` als die er is (dat is het exacte bestand), anders de naam uit `Assembly` plus `.dll`. Ontbreken beide, dan de DLL met dezelfde naam als de `.pkgdef`. Een pad met een ander token dan `$PackageFolder$`, zoals `$RootFolder$`, wijst buiten de extensie en wordt overgeslagen.
+
+Een command dat in geen enkele command table van een extensie staat, telt als Visual Studio. Daarmee krijgen ook ingebouwde onderdelen zoals GitHub Copilot en SQL Server Data Tools geen extensienaam, zoals afgesproken.
+
+### Jouw eigen sneltoetsen
+
+VS 2026 bewaart ze in `%LocalAppData%\Microsoft\VisualStudio\18.0_<id>\settings.json`, onder `environment.keyboardShortcuts.customizations`:
+
+```json
+{ "scheme": "default", "command": "Debug.Autos.Search", "shortcut": "Ctrl+E",
+  "scope": "Autos Window", "scopeId": "{F2E84780-...}", "isRemoval": true }
+```
+
+Op deze laptop: 181 verwijderingen en 1 toevoeging. Een verwijderde sneltoets staat niet meer in DTE; het cheat sheet telt ze alleen (`removedByYou`).
+
+Twee keuzes:
+
+- **Het bestand lezen, niet `ISettingsManager`.** De waarde is een lijst van objecten. Hoe `ISettingsReader.GetValue<T>` zo'n lijst teruggeeft, is niet gedocumenteerd. Het bestand is gewone JSON. De map komt uit `ShellSettingsManager.GetApplicationDataFolder(ApplicationDataFolder.LocalSettings)`, zodat de Experimental Instance zijn eigen bestand leest. Wordt het formaat later anders, dan raakt dat alleen deze ene klasse.
+- **Het begint met een commentaar.** De eerste regel is `/* Visual Studio Settings File */`. `ConvertFrom-Json` in PowerShell weigert dat; Newtonsoft leest het met `CommentHandling.Ignore`.
+
+### Namen en categorieën
+
+`CommandNames.Describe` maakt van de canonieke naam een categorie en een leesbare naam:
+
+| Canonieke naam | Categorie | Naam |
+|---|---|---|
+| `Edit.CommentSelection` | Edit | Comment Selection |
+| `EditorContextMenus.CodeWindow.Markdown.MakeBold` | Markdown | Make Bold |
+| `OtherContextMenus.LeftMarginContextMenu.ToggleBookmark` | Context Menu | Toggle Bookmark |
+| `CodeMaid.CleanupActiveDocument` (knoptekst `&Cleanup Active Document`) | CodeMaid | Cleanup Active Document |
+
+Het pad van een contextmenu (`EditorContextMenus.CodeWindow`) zegt waar het item in een menu staat, niet wat het doet, dus dat valt weg. Bij een command van een extensie is de knoptekst uit de command table de naam; de `&` voor de sneltoetsletter en de `...` aan het eind gaan eraf.
+
+### Conflicten
+
+Twee verschillende commands met dezelfde toetsen in dezelfde scope. `Ctrl+E, V` en `Ctrl+E,V` tellen als dezelfde toetsen. Een toets in `Global` en dezelfde toets in bijvoorbeeld de Text Editor is geen conflict: in de Text Editor wint de specifieke. Hetzelfde command twee keer met dezelfde toets is ook geen conflict; die dubbele regel wordt weggelaten.
+
+### JSON
+
+`DataContractJsonSerializer` uit .NET Framework, dus geen extra pakket. De veldnamen staan in de `[DataMember]`-attributen op het model; `EmitDefaultValue = false` laat `extension`, `custom` en `conflictsWith` weg als ze leeg zijn. `formatVersion` staat erin, zodat een latere versie van de extensie oude exports kan herkennen. Dezelfde attributen dienen straks voor de XML-export.
+
+### Het icoon
+
+`src\ShortcutCheatsheet\Resources\` bevat de SVG en vier PNG-exports. In het manifest is `Icon-128.png` het icoon en `Icon-256.png` het voorbeeldplaatje; die twee gaan als `Content` met `IncludeInVSIX` mee in de VSIX. De rest staat als `None` in het project, zodat je ze in Solution Explorer ziet zonder dat ze in het pakket komen.
+
+### Tests
+
+`CheatSheetTests` (15 tests): scope en toetsen splitsen, namen en categorieën, `settings.json` met commentaar en ongeldige JSON, `CodeBase` en `Assembly` in een `.pkgdef`, conflicten alleen binnen een scope, sortering met Global eerst, jouw eigen sneltoetsen, en een JSON-export die weer ingelezen kan worden.
+
+De herkomst wordt getest met de eigen build-uitvoer: `Builds\ShortcutCheatsheet\Debug\` heeft een manifest, een `.pkgdef` en de DLL, en is daarmee een complete extensiemap. Een sneltoets op `View.ShortcutCheatsheet` krijgt dan "Shortcut Cheatsheet" als extensie.
