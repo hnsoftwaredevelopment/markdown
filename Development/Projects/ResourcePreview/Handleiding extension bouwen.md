@@ -1115,6 +1115,13 @@ Of iets een event is, vraagt de builder aan WPF zelf: `typeof(Button).GetEvent("
 
 **Waarom geen ExpandoObject.** WPF kan binden aan een `ExpandoObject`, maar gaat daarvoor via de DLR. Die gooit en vangt intern een exceptie voor elk member dat hij opzoekt. De test die alle SampleApp-resources rendert, staat geen enkele exceptie toe (ook geen opgevangen), omdat een debugger met "break when thrown" er anders op stopt. `SampleObject` implementeert daarom `ICustomTypeDescriptor`: WPF vraagt de properties op via `TypeDescriptor`, net als bij een `DataRowView` uit een `DataTable`. Geen DLR, geen excepties.
 
+**Kleuren: tegels, net als bij iconen.** De eerste versie zette de sample direct in de tooltip. Bij het testen bleek dat op twee manieren fout te gaan:
+
+- Tekst zonder eigen kleur (het vak "local:FancyControl", de voorbeelditems) was zwart, ook in het donkere thema. Onze eigen teksten krijgen de themakleur expliciet met `SetResourceReference(TextBlock.ForegroundProperty, EnvironmentColors.ToolTipTextBrushKey)`. Die kleur erft dus niet door naar wat eronder hangt, en WPF valt terug op zwart.
+- Een template met `Foreground="White"` (gemaakt voor een donkere app) was onleesbaar in het lichte thema. Dat los je niet op met een themakleur: de template kiest die kleur zelf.
+
+Nu staat elke sample op de tegels uit de instellingen (licht, donker of beide), zoals een icoon. Elke tegel zet `TextElement.Foreground`, een *attached property die erft*: elke `TextBlock` en elk `Control` in de sample zonder eigen kleur neemt hem over. Een kleur die de template zelf zet, blijft staan; dat is ook wat je wilt zien.
+
 **ItemsPanelTemplate.** Een `ItemsControl` met de template als `ItemsPanel` en zes omrande items, 260 pixels breed. Zo zie je of een `WrapPanel` ze over regels verdeelt.
 
 **Testen.** `TemplateSampleTests` controleert de kopie (vakken, converters, events, `d:`-waarden, triggers) en het renderen: de `TextBox` uit het voorbeeld van de gebruiker toont "Value" en is niet read-only. De SampleApp kreeg `PropertyRowTemplate` met een eigen converter, `FancyControl` en `d:Text`. De bestaande test die elke resource rendert, doet nu ook `Measure` en `Arrange`, zoals de tooltip. Zo vallen ook fouten op die pas optreden als WPF de template toepast.
