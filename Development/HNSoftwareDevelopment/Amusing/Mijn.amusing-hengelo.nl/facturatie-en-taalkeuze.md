@@ -4,13 +4,13 @@
 
 Beheer beheert één btw-percentage op de festivaleditie en één rij per deelnemersstaffel in de gekoppelde tabel. De staffel geldt vanaf de opgegeven ondergrens tot de volgende ondergrens. Bij nieuwe edities neemt Beheer de staffels en btw over van de laatst voorafgaande editie. Migratie 007 initialiseert bestaande edities met de waarden uit migratie 006. Die waarden zijn startwaarden voor oudere edities waarvan de oorspronkelijke tarieven ontbreken.
 
-Podiumprijzen blijven uit de bestaande podiumtabel komen. Beheer kiest dezelfde prijsversie als Mijn, namelijk de laatste versie tot en met de editie. De gedeelde berekening leidt per regel het bedrag exclusief btw af uit het bedrag inclusief btw en rondt af op centen. Het verschil met het totaal inclusief btw vormt het te tonen btw-bedrag. Beheer gebruikt die berekening voor het voorbeeld en opnieuw verzenden. Mijn kan dezelfde berekening gebruiken zodra de nota daar wordt getoond.
+Podiumprijzen blijven uit de bestaande podiumtabel komen. Beheer kiest dezelfde prijsversie als Mijn, namelijk de laatste versie tot en met de editie. De gedeelde berekening leidt per regel het bedrag exclusief btw af uit het bedrag inclusief btw en rondt af op centen. Het verschil met het totaal inclusief btw vormt het te tonen btw-bedrag. Beheer gebruikt die berekening voor het voorbeeld en opnieuw verzenden. Mijn gebruikt dezelfde prijsselectie en berekening om bij een opgeslagen inschrijving de deelnemerskosten, podiumkosten, btw en het totaal te tonen. Bij ontbrekende tarieven toont Mijn een melding.
 
 ## Factuurtekst en kopieën
 
 Beheer krijgt een bewerkbare factuurtekst met variabelen zoals bij mailings, bijvoorbeeld koornaam, editie en totaalbedrag. Ook voor een kopiefactuur gebruiken we de laatst opgeslagen tekst. Variabelen verwijzen naar de gegevens van de betreffende factuur. Bij uitgifte moeten we de berekende bedragen vastleggen zodat een latere tariefwijziging een al uitgegeven nota niet wijzigt. Voor historische edities zonder vastgelegde nota gebruikt de berekening de tarieven van die editie.
 
-Het beheerscherm, het sjabloon, de koppeling in Mijn en de PDF volgen in afzonderlijke stappen. De huidige PHP-site blijft tijdens deze stap haar bestaande factuurroute gebruiken.
+Tariefbeheer is uitgesteld. Het factuursjabloon komt bij Mailinglayouts. De definitieve nota, bevestigingsmail en PDF volgen afzonderlijk. De huidige PHP-site blijft tijdens deze stap haar bestaande factuurroute gebruiken.
 
 ## Vormgeving en taal
 

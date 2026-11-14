@@ -13,3 +13,5 @@ Optredens komen uit dezelfde planningstabellen als in Beheer. Mijn leest alleen 
 De testgegevens komen uit `database/mijn/history-dev-fixtures.sql`. Voor geïsoleerde databases levert `history-dev-schema.sql` de drie benodigde planningstabellen. Het applicatieaccount krijgt daarop uitsluitend SELECT. De bestaande gedeelde database in productie heeft deze tabellen al. Bij de productie-omschakeling moet het Mijn-account daarop ook leesrecht hebben.
 
 De testversie is op 14 november 2026 gepubliceerd en via HTTPS met beide testaccounts gecontroleerd. De publicatievlag is daarnaast met een teruggedraaide SQL-transactie gecontroleerd. Productie Mijn is bij deze stap niet gewijzigd.
+
+Herbert heeft de deelnamehistorie en optredens op dev.mijn getest en akkoord gegeven. MIJN-14 is afgerond.

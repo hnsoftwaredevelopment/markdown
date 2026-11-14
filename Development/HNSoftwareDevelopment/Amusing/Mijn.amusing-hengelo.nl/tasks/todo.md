@@ -257,7 +257,7 @@ Stand 5 november: productiepatch vastgelegd en API-route hersteld; Herbert beves
 
 ## MIJN-14 — Deelnamehistorie en gepubliceerde optredens bekijken
 
-- [ ] Uitvoering en verificatie afgerond.
+- [x] Uitvoering en verificatie afgerond.
 - Gebied: Festival.
 - Afhankelijkheden: MIJN-08.
 
@@ -271,7 +271,7 @@ Stand 5 november: productiepatch vastgelegd en API-route hersteld; Herbert beves
 
 - [x] Deelnamestatus per editie en gepubliceerde optredens beschikbaar in dev.mijn. Zie [deelnamehistorie](../deelnamehistorie.md).
 - [x] HTTPS-controle met beide testaccounts, inclusief toegang tot een ander koor en de wachtlijst.
-- [ ] Praktijkacceptatie door Herbert.
+- [x] Praktijkacceptatie door Herbert.
 
 ## MIJN-15 — Deelnamebedrag centraal berekenen
 
@@ -296,7 +296,9 @@ Migratie `database/mijn/006-deelnemerstarieven.sql` is toegepast en gecontroleer
 - [x] Opslag per editie en gedeelde rekenregels voorbereid. Zie [facturatie en taalkeuze](../facturatie-en-taalkeuze.md).
 - [ ] Staffels en btw bewerken in Beheer. Uitgesteld zolang de overgenomen tarieven volstaan.
 - [ ] De factuurtekst met variabelen beheren via de bestaande Mailinglayouts. Ook kopieën gebruiken de laatst opgeslagen tekst.
-- [ ] Mijn gebruikt dezelfde bedragen voor het kooroverzicht, de bevestiging en de PDF.
+- [x] Mijn toont de bedragen bij een opgeslagen inschrijving op dev.mijn.
+- [ ] Praktijkacceptatie van de bedragweergave.
+- [ ] De bevestigingsmail en PDF gebruiken dezelfde bedragen (MIJN-16 en MIJN-17).
 - [ ] Bij uitgifte de berekende bedragen per nota vastleggen en kopieën met de actuele factuurtekst genereren.
 
 ## MIJN-16 — Inschrijfbevestiging betrouwbaar versturen

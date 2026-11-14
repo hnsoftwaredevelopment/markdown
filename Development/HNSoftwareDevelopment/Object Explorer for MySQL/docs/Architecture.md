@@ -87,7 +87,7 @@ Each tree level loads with one query per level, only when the node is expanded (
 
 - **Unit tests (xUnit, .NET 10):** Core library: SQL generation, quoting of identifiers, drag & drop text formats, parsing of metadata rows, settings serialization, privilege detection logic.
 - **Integration tests (optional):** Metadata queries against a real MySQL 8 server in Docker via Testcontainers. These run when Docker is available and are skipped otherwise.
-- **Manual tests (Herbert):** Everything that needs a running Visual Studio: tool window, tree behavior, drag & drop into the editor, Properties window, theming (light/dark/blue), localization.
+- **Manual tests:** Everything that needs a running Visual Studio: tool window, tree behavior, drag & drop into the editor, Properties window, theming (light/dark/blue), localization.
 
 ## ADR-008 Minimum supported version: MySQL 8.0
 
@@ -143,7 +143,7 @@ Integration tests run against MySQL 8.0 and 8.4.
 
 **Decision.**
 
-- The editor factory reports its own GUID as command UI context. That GUID is a key binding scope *MySQL Query Editor* (`ProvideKeyBindingTable`) with Ctrl+Shift+E (Execute) and Alt+Break (Cancel Query).
+- The editor factory reports its own GUID as command UI context. That GUID is a key binding scope *MySQL Query Editor* (`ProvideKeyBindingTable`) with Ctrl+Shift+E (Execute), Ctrl+L (Explain, US-1301) and Alt+Break (Cancel Query).
 - Each window of the editor inherits the Text Editor bindings (`VSFPROPID_InheritKeyBindings`, set when the window is first shown), so all editing shortcuts stay.
 - While the keyboard is in the results pane, a command filter on the text view reports editor commands (VSStd2K, and Copy, Cut, Paste, Select All, Delete, Undo, Redo) as not supported, so Visual Studio passes the keys on to the grid.
 

@@ -182,3 +182,52 @@ As a developer, I want to save a result set as a file, so I can use it in Excel 
 4. Run `SELECT * FROM rental;` and choose *Save Results As...* Expected: the question that only 1000 of 16044 rows are saved; *No* saves nothing, *Yes* opens the save dialog.
 5. With two result sets (`SELECT * FROM category; SELECT * FROM language;`): *Save Results As...* on the second grid saves only the languages.
 6. Save to a read-only file or a folder without write access. Expected: an error message; Visual Studio keeps running.
+
+## US-0705 Export the full result
+
+**Status:** Done (accepted 2026-11-03)
+
+As a developer, I want to export all rows of a query result, also beyond the 1000 rows the results pane shows, so that an export is complete. From P-05 (decision D-20).
+
+**Acceptance criteria**
+
+- [x] When a result was cut off at the row limit, *Save Results As...* asks: *Save the 1000 rows shown* or *Run the statement again and save all rows*.
+- [x] Running again is only offered for statements without side effects: SELECT, SHOW, DESCRIBE, EXPLAIN and WITH ... SELECT. Other statements only save the rows shown.
+- [x] The rows go straight from the server to the CSV or JSON file, without keeping them in memory; same format as US-0704.
+- [x] Progress with the number of rows and Cancel (the Visual Studio wait dialog, as in Script Database). A cancelled export removes the incomplete file. Changed at the build: the criterion said *Visual Studio stays usable*, but the wait dialog blocks Visual Studio while it is open, as with Script Database and Generate Documentation; the export itself runs in the background, so Visual Studio does not freeze.
+- [x] The statement runs on its own connection, not in the session of the document (D-11), so temporary tables and variables of the session are not available: the message says so when the statement fails.
+- [x] A result that was not cut off is saved as before, without running anything.
+
+**Tasks**
+
+- [x] T-0705-01 `ExportStatement.CanRunAgain` + tests
+- [x] T-0705-02 `QueryRunner` keeps the statement, connection and database of a result that was cut off (`QueryResultSet.Source`) + tests
+- [x] T-0705-03 `QueryResultExporter` writes rows as they come; `FullResultExporter` runs the statement on its own connection and streams the rows + tests
+- [x] T-0705-04 *Save Results As...*: the question, the wait dialog with row count and Cancel, the messages
+
+**Implementation notes**
+
+- When a statement returns one result set that is cut off and the statement may run again, the runner keeps the statement text, the connection and the current database of the session (read with `SELECT DATABASE()` right after the statement, so a `USE` earlier in the script counts). Nothing else changes for a normal run.
+- *Save Results As...* on such a result asks with Yes / No / Cancel: *Yes* runs the statement again and saves all rows, *No* saves the rows shown, *Cancel* stops. The save dialog comes after the answer.
+- A result that was cut off but may not run again keeps the old question, which now also says why: only SELECT, SHOW, DESCRIBE and EXPLAIN run again.
+- May run again: SELECT, TABLE, VALUES, a parenthesized SELECT with UNION, SHOW, DESCRIBE/DESC, EXPLAIN, and WITH whose main statement is not INSERT, UPDATE, DELETE or REPLACE. Not: anything with INTO at the top level (`SELECT ... INTO OUTFILE`, `INTO @var`), `EXPLAIN ANALYZE` and MariaDB `ANALYZE` (they run the statement), CALL and all other statements. Words in strings, quoted names, comments and subqueries do not count. A stored function called in a SELECT can still change data; the text does not show that.
+- The export opens its own connection (no pooling, the same value settings as the results pane), switches to the database of the session and runs the statement without a time limit. Every row goes from the server to the file right away, so memory use stays flat for millions of rows. CSV and JSON are written by the same code as US-0704, so the format is identical.
+- The wait dialog shows *n rows saved*, updated every 1000 rows. Cancel stops the statement on the server (KILL QUERY through MySqlConnector) and removes the file. When the export is done a message shows the row count and the file.
+- When the statement fails on the new connection (for example a temporary table of the document), the message shows the server error and explains that the statement runs on its own connection.
+- The rows saved can differ from the count shown in the grid when the data changed in between; the export saves what the server returns now.
+
+**Manual test**
+
+Use *sakila*.
+
+1. Run `SELECT * FROM rental;` (16044 rows, 1000 shown). Right-click the grid > *Save Results As...* Expected: a question with *Yes* (run again, all rows), *No* (the 1000 rows shown) and *Cancel*.
+2. Choose *Yes*, save as `rental.csv`. Expected: the wait dialog with the row count; then the message *16044 rows are saved to: ...*. Open the file: a header line and 16044 data lines; the first lines match the grid.
+3. Repeat with `rental.json`: valid JSON with 16044 objects; numbers stay numbers.
+4. Choose *No*: 1000 rows are saved, as in US-0704. Choose *Cancel*: nothing happens.
+5. Run `SELECT 1;`: *Save Results As...* goes straight to the save dialog, no question.
+6. A larger result, for example `SELECT r.*, p.* FROM rental r CROSS JOIN payment p LIMIT 3000000;`: press *Cancel* in the wait dialog. Expected: the dialog closes quickly, no file is left, Visual Studio keeps running.
+7. If the *world* sample database is installed: run `USE world; SELECT * FROM city;` in a document linked to *sakila* (4079 rows): *Yes* saves the cities, so the export runs in *world*.
+8. `CREATE TEMPORARY TABLE t AS SELECT * FROM rental; SELECT * FROM t;` then *Yes*. Expected: an error message that the table does not exist, with the note about the own connection; no file is left.
+9. A statement that may not run again, for example `CALL` of a procedure that returns more than 1000 rows: the old question, which says only SELECT, SHOW, DESCRIBE or EXPLAIN run again.
+10. `SHOW GLOBAL STATUS;` or another SHOW over the row limit (if available): *Yes* saves all rows.
+11. Save to a read-only file: an error message; Visual Studio keeps running.
