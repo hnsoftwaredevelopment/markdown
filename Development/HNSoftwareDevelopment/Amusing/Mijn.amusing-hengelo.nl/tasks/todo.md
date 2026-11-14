@@ -386,6 +386,8 @@ MIJN-19: beveiligingsgebeurtenissen worden duurzaam opgeslagen; brede koormutati
 
 Uitgestelde UX-punten uit acceptatie: wachtwoord tonen/verbergen bij MIJN-04; wachtwoord vergeten bij MIJN-06 (bestaande scope); look & feel bij de verdere UI-uitwerking en MIJN-20-acceptatie. Geen blokkade voor de bevestigde basislogin.
 
+**Vormgeving:** De bovenbalk van Mijn Blazor gebruikt het geel van de PHP-site ( #ffc107 ). Dev.mijn gebruikt dezelfde donkerrode kleuren als dev.beheer, met de testmelding onder de balk.
+
 ## MIJN-21 — Beoordeling/competitie per festival configureerbaar
 
 Status: Backlog, bewust uitgesteld tot het einde van de kernfunctionaliteit op verzoek van Herbert. Raakt zowel Beheer als Mijn en dezelfde database.
