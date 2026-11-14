@@ -388,7 +388,7 @@ Uitgestelde UX-punten uit acceptatie: wachtwoord tonen/verbergen bij MIJN-04; wa
 
 **Vormgeving:** De bovenbalk van Mijn Blazor gebruikt het geel van de PHP-site ( #ffc107 ). Dev.mijn gebruikt dezelfde donkerrode kleuren als dev.beheer, met de testmelding onder de balk.
 
-**Mijn koren:** Accountopties achter het tandwiel, uitlogknop bovenaan, uitnodigingsbadge voor ongelezen open uitnodigingen en koorknoppen met logo indien aanwezig. Per kooraccount is Nederlands, Duits of Engels instelbaar. De voorkeur vertaalt Mijn koren. Vertaling van de overige pagina's en taalkeuze bovenaan de site volgen.
+**Mijn koren:** Accountopties achter het tandwiel, uitlogknop bovenaan, uitnodigingsbadge voor ongelezen open uitnodigingen en koorknoppen met logo indien aanwezig. Per kooraccount is Nederlands, Duits of Engels instelbaar. De voorkeur vertaalt Mijn koren, Mijn contactgegevens en Wachtwoord wijzigen. Beide accountschermen gebruiken de opmaak van de login. Herbert heeft de taalkeuze op beide schermen getest en goedgekeurd. Wachtwoord wijzigen gebruikt het oogje per wachtwoordveld. De overige pagina's en de taalkeuze bovenaan de site volgen.
 
 ## MIJN-21 — Beoordeling/competitie per festival configureerbaar
 
