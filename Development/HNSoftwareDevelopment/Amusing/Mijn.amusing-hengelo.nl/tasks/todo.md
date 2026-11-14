@@ -297,13 +297,13 @@ Migratie `database/mijn/006-deelnemerstarieven.sql` is toegepast en gecontroleer
 - [ ] Staffels en btw bewerken in Beheer. Uitgesteld zolang de overgenomen tarieven volstaan.
 - [ ] De factuurtekst met variabelen beheren via de bestaande Mailinglayouts. Ook kopieën gebruiken de laatst opgeslagen tekst.
 - [x] Mijn toont de bedragen bij een opgeslagen inschrijving op dev.mijn.
-- [ ] Praktijkacceptatie van de bedragweergave.
+- [x] Herbert heeft staffels en podiumtarief op dev.mijn getest en goedgekeurd.
 - [ ] De bevestigingsmail en PDF gebruiken dezelfde bedragen (MIJN-16 en MIJN-17).
 - [ ] Bij uitgifte de berekende bedragen per nota vastleggen en kopieën met de actuele factuurtekst genereren.
 
 ## MIJN-16 — Inschrijfbevestiging betrouwbaar versturen
 
-- [ ] Uitvoering en verificatie afgerond.
+- [x] Testversie uitgevoerd, geverifieerd en door Herbert geaccepteerd.
 - Gebied: Festival.
 - Afhankelijkheden: MIJN-12, MIJN-15.
 
@@ -313,7 +313,9 @@ Migratie `database/mijn/006-deelnemerstarieven.sql` is toegepast en gecontroleer
 - herhaalde aanvraag verstuurt geen dubbele bevestiging
 - verzendfouten zijn zichtbaar en kunnen veilig opnieuw verwerkt worden.
 
-**Verificatie:** Mailopvangtest met geslaagde verzending, fout en retry.
+- [ ] Twee koorsjablonen in Mailinglayouts, met automatische keuze op basis van de wachtlijststatus.
+
+**Verificatie:** Mailopvangtest met geslaagde verzending, fout en retry. Zie [inschrijfmail](../inschrijfmail.md).
 
 ## MIJN-17 — Deelname-nota als PDF beschikbaar maken
 
