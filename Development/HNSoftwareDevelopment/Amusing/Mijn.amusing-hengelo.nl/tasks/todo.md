@@ -102,7 +102,7 @@ Stand 5 november: productiepatch vastgelegd en API-route hersteld; Herbert beves
 
 ## MIJN-06 — Wachtwoord herstellen en wijzigen
 
-- [ ] Uitvoering en verificatie afgerond.
+- [x] Wachtwoordherstel voor kooraccounts op dev.mijn geaccepteerd.
 - Gebied: Accounts.
 - Afhankelijkheden: MIJN-04.
 
@@ -112,7 +112,9 @@ Stand 5 november: productiepatch vastgelegd en API-route hersteld; Herbert beves
 - ongeldige en verlopen links werken niet
 - wijziging respecteert de afgesproken sessie- en hashstrategie.
 
-**Stand:** Wachtwoord vergeten en wijzigen staan op dev.mijn. De herstellink is één uur geldig en het wachtwoord opslaan maakt andere herstellinks en bestaande sessies ongeldig. Herstel via mailopvang, weigeren van hergebruik, oude en nieuwe inloggegevens en wijzigen na inloggen zijn via HTTPS gecontroleerd. Praktijkacceptatie, productie-SMTP en opschoning van verlopen aanvragen staan open.
+**Stand:** Wachtwoord vergeten en wijzigen staan op dev.mijn. De herstellink is één uur geldig en het wachtwoord opslaan maakt andere herstellinks en bestaande sessies ongeldig. Herstel via mailopvang, weigeren van hergebruik, oude en nieuwe inloggegevens en wijzigen na inloggen zijn via HTTPS gecontroleerd. Productie-SMTP en opschoning van verlopen aanvragen staan open.
+
+- Beheeraccounts krijgen een privéhersteladres per account. Herstel vereist gebruikersnaam en hersteladres. Het veld in Beheer volgt bij de Beheer-publicatie.
 
 ## MIJN-07 — Eigen contactgegevens onderhouden
 
