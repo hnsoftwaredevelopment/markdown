@@ -7,3 +7,5 @@ Actief gekoppelde koorleden kunnen de nota downloaden. Een afgemelde inschrijvin
 De testnota staat op https://dev.mijn.amusing-hengelo.nl/koor/8/inschrijven (testaccount 1). Verwacht EUR 75,00 inclusief btw. Het bestand is visueel gecontroleerd en testaccount 2 krijgt geen toegang. Een integratietest controleert ook dat een tariefwijziging de vastgelegde bedragen niet wijzigt.
 
 Voor de productie-omschakeling zijn migratie 009, SELECT en INSERT op de notatabel en de Syncfusion-licentie in de Mijn-configuratie nodig.
+
+Herbert heeft de PDF op dev.mijn goedgekeurd. Mijn gebruikt Syncfusion 31.2.4 voor PDF-generatie. Het lokale bestand SyncfusionLicense.txt valt onder .gitignore.
