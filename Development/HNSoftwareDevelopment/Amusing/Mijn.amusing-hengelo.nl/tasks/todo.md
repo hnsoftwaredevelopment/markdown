@@ -126,7 +126,7 @@ Stand 5 november: productiepatch vastgelegd en API-route hersteld; Herbert beves
 - verplichte velden en telefoon worden gevalideerd
 - wijziging krijgt een auditregistratie.
 
-**Verificatie:** Opslaan en teruglezen; poging tot wijzigen van een andere persoon weigeren.
+**Stand:** Mijn contactgegevens biedt naam en telefoonnummers op dev.mijn. De identiteit van de ingelogde gebruiker bepaalt welk account wordt aangepast. Het log bewaart de gewijzigde veldnamen. Wijzigen van het inlogadres volgt apart bij de accountfunctionaliteit. Praktijkacceptatie staat open.
 
 ## MIJN-08 — Een koor aanmaken en eigen koren kiezen
 
@@ -140,7 +140,7 @@ Stand 5 november: productiepatch vastgelegd en API-route hersteld; Herbert beves
 - gebruiker kan tussen eigen koren wisselen
 - koppeling aan een bestaand koor volgt een goedgekeurde uitnodigingsprocedure.
 
-**Verificatie:** Test nieuw koor, meerdere koren en ongeautoriseerde koor-ID.
+**Stand:** Nieuw koor aanmaken staat op dev.mijn. Beide testaccounts hebben via HTTPS een koor aangemaakt. De koppeling als eerste contactpersoon, het logboek, blokkering van een dubbel koor en koorscheiding zijn gecontroleerd. Herbert heeft het aanmaken van een nieuw koor op dev.mijn getest en goedgekeurd.
 
 ## MIJN-09 — Koorprofiel en bankgegevens onderhouden
 
@@ -333,7 +333,7 @@ Migratie `database/mijn/006-deelnemerstarieven.sql` is toegepast en gecontroleer
 
 ## MIJN-18 — Beheerder kan een koor ondersteunen
 
-- [ ] Uitvoering en verificatie afgerond.
+- [x] Uitvoering en verificatie afgerond.
 - Gebied: Ondersteuning.
 - Afhankelijkheden: MIJN-03, MIJN-09.
 
@@ -343,7 +343,7 @@ Migratie `database/mijn/006-deelnemerstarieven.sql` is toegepast en gecontroleer
 - dezelfde koorschermen tonen duidelijk de ondersteuningsmodus
 - wijzigingen registreren de echte beheerder en het doelkoor zonder identiteitsovername.
 
-**Verificatie:** Test toegang, wisselen/verlaten koorcontext en auditspoor van beheerwijzigingen.
+**Stand:** Ondersteuningsmodus gebouwd. Integratietest voor koorkeuze, URL-scheiding, profielwijziging met beheeridentiteit en intrekken van toegang geslaagd. Zie [beheerondersteuning](../beheerondersteuning.md). Herbert heeft koorwissel en wijzigingen op dev.mijn getest. De logregels voor Buitenblik zijn gecontroleerd op beheeraccount, doelkoor en gewijzigde velden. Inzage voor koren valt onder MIJN-19.
 
 ## MIJN-19 — Wijzigingen herleidbaar loggen
 
@@ -357,7 +357,7 @@ Migratie `database/mijn/006-deelnemerstarieven.sql` is toegepast en gecontroleer
 - beheerder en koorlid blijven onderscheidbaar
 - toegang en bewaartermijn van historische en nieuwe logs zijn afgesproken.
 
-**Verificatie:** Test meerdere mutaties en ondersteuning; controleer ontbreken van wachtwoorden/tokens in logs.
+**Stand:** Logboek op dev.mijn gepubliceerd. Eigen koor, beheerwijzigingen en uitsluiting van andere koorgegevens zijn gecontroleerd. Drie jaar is voorgesteld voor nieuwe koorwijzigingen, met vijf jaar als alternatief. Herbert heeft het koorlogboek geaccepteerd. Intern overleg, automatische opschoning en het besluit over historische PHP-logs staan open. Een beheerinstelling is uitgesteld. Zie [koorlogboek](../koorlogboek.md).
 
 ## MIJN-20 — Acceptatie en omschakeling voorbereiden
 
