@@ -8,9 +8,9 @@ tags: [testplan, templates]
 
 | Template | Use for | Output per item |
 |---|---|---|
-| [[TPL User Story Testplan]] | One Jira story (BT1, BT2) | Test cases per behaviour, machine modules, AC coverage |
-| [[TPL Epic Testplan]] | One Jira epic | Story overview, coverage matrix, end-to-end scenarios, cycle time, upgrade, release advice |
-| [[TPL SWMS Support Issue Testplan]] | One SWMS support ticket | Reproduction, fix verification, regression, backport check |
+| [[Testing/TestPlans/TPL User Story Testplan]] | One Jira story (BT1, BT2) | Test cases per behaviour, machine modules, AC coverage |
+| [[Testing/TestPlans/TPL Epic Testplan]] | One Jira epic | Story overview, coverage matrix, end-to-end scenarios, cycle time, upgrade, release advice |
+| [[Testing/TestPlans/TPL SWMS Support Issue Testplan]] | One SWMS support ticket | Reproduction, fix verification, regression, backport check |
 | RC test plan | A full release candidate | Use the `rc-risk-testplan` skill, not these templates |
 
 ## Setup in Obsidian

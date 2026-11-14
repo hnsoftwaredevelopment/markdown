@@ -43,7 +43,64 @@
         "opus",
         "fable"
       ],
-      "selectedModels": []
+      "selectedModels": [
+        {
+          "value": "opus",
+          "label": "Opus 5.5",
+          "description": "For complex work and everyday tasks",
+          "resolvedModel": "claude-opus-5-5",
+          "reasoningMetadataResolved": true,
+          "supportedEffortLevels": [
+            "low",
+            "medium",
+            "high",
+            "xhigh",
+            "max"
+          ]
+        },
+        {
+          "value": "sonnet",
+          "label": "Sonnet 5.5",
+          "description": "Most efficient for simpler tasks",
+          "resolvedModel": "claude-sonnet-5-5",
+          "reasoningMetadataResolved": true,
+          "supportedEffortLevels": [
+            "low",
+            "medium",
+            "high",
+            "xhigh",
+            "max"
+          ]
+        },
+        {
+          "value": "fable",
+          "label": "Fable 5.1",
+          "description": "For your toughest challenges",
+          "resolvedModel": "claude-fable-5-1",
+          "reasoningMetadataResolved": true,
+          "supportedEffortLevels": [
+            "low",
+            "medium",
+            "high",
+            "xhigh",
+            "max"
+          ]
+        },
+        {
+          "value": "haiku",
+          "label": "Haiku 5.5",
+          "description": "Fastest for quick answers",
+          "resolvedModel": "claude-haiku-5-5",
+          "reasoningMetadataResolved": true,
+          "supportedEffortLevels": [
+            "low",
+            "medium",
+            "high",
+            "xhigh",
+            "max"
+          ]
+        }
+      ]
     },
     "codex": {
       "enabled": true,

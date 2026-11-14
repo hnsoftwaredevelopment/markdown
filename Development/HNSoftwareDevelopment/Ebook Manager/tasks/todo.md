@@ -1,3 +1,93 @@
+# Milestone 63 — serie wijzigen
+
+- [x] Afbakening goedgekeurd. Bestaande en nieuwe bestemming, met behoud van nummers.
+- [x] Voorstel, overlapcontrole, opslag en directe actualisatie gebouwd.
+- [x] Eigen review, 1.255 tests en 34 WPF-proeven geslaagd. Debug **2026.11.11.3** heeft 0 waarschuwingen en 0 fouten.
+- [x] Checklist en documentatie gespiegeld naar Obsidian. M63 staat in Excel op Done / Afgerond.
+- [x] Gebruiker heeft het verplaatsen getest en één invoerveld gevraagd voor bestaande en nieuwe series.
+- [x] Gebruiker heeft op 11 november 2026 de versie met één invoerveld geaccepteerd. Zie de [checklist](../docs/manual-tests/milestone-63-checklist.md).
+- [x] Gebruiker heeft PR #65 op 11 november 2026 gemerged.
+
+## Historie — Milestone 62 geaccepteerd en gemerged
+
+### Milestone 62 — tags toevoegen aan geselecteerde boeken
+
+- [x] Afbakening goedgekeurd. P26 wordt M62.
+- [x] Selectie, zoeken, voorstel en opslag gebouwd.
+- [x] Invoer per regel, verwijderen van chips, zoeken op beginletters en meerregelig plakken gebouwd en geverifieerd.
+- [x] Eigen code-review, 1.254 geautomatiseerde tests, 34 WPF-proeven en controle van beide thema’s. Debug **2026.11.10.28** met 0 waarschuwingen en 0 fouten.
+- [x] Checklist en documentatie gespiegeld naar Obsidian. Excel toont M62 als Done / Afgerond.
+- [x] Gebruiker heeft de oorspronkelijke [checklist](../docs/manual-tests/milestone-62-checklist.md) met build 2026.11.10.24 uitgevoerd. Alle tests zijn geslaagd.
+- [x] Gebruiker heeft de herziene invoer op 10 november 2026 geaccepteerd.
+- [x] Gebruiker heeft PR #64 op 10 november 2026 gemerged.
+
+## Historie — Milestone 60 geaccepteerd en gemerged
+
+### Milestone 60 — een serie afsplitsen
+
+- [x] Afbakening door de gebruiker goedgekeurd.
+- [x] Veilige selectie, opslagtransactie, voorstel en directe actualisatie gebouwd.
+- [x] Eigen code-review, 1.246 geautomatiseerde tests, 33 WPF-proeven en visuele controle in beide thema’s afgerond. Debug **2026.11.10.9** met 0 waarschuwingen en 0 fouten.
+- [x] Documentatie en Obsidian bijgewerkt.
+- [x] Gebruiker bevestigde op 10 november 2026 dat alle tests uit de [checklist](../docs/manual-tests/milestone-60-checklist.md) zijn geslaagd en dat de werkwijze duidelijk is.
+- [x] Gebruiker heeft PR #62 op 10 november 2026 gemerged.
+
+## Historie — Milestone 59 geaccepteerd en gemerged
+
+### Milestone 59 — geselecteerde series samenvoegen
+
+- [x] Concrete afbakening goedgekeurd; basis/branch en specificatie vastgelegd.
+- [x] Nieuwe naam en niet-geselecteerde doelnaam eerst falend getest; veilige bestaande merge-transactie uitgebreid.
+- [x] Meervoudige serielijstselectie met paging/zoeken, veilige één-serieacties en expliciete bestaande/nieuwe doelkeuze gebouwd.
+- [x] Gerichte repository-, dialog-, management- en lokalisatietests; echte sidecars en WPF-route toegevoegd.
+- [x] Volledige suite, definitieve WPF/buildcontrole en eigen vijfassige review afgerond: 1237 tests, 32 WPF-proeven, Debug 2026.11.3.53, 0 waarschuwingen/fouten.
+- [x] Checklist/documentatie/Obsidian en Excel bijgewerkt; gewone niet-draft PR #61 geopend en gekoppeld.
+- [x] Gebruiker heeft op 3 november 2026 alle checklisttests uitgevoerd en Milestone 59 geaccepteerd: alles werkt zoals beschreven.
+- [x] Gebruiker heeft PR #61 op 10 november 2026 gemerged.
+
+Verificatie: **1237 geautomatiseerde tests en 32 echte WPF-proeven geslaagd**, 0 mislukt/overgeslagen. Schone enige Debug-build **2026.11.3.53**, **3 november 2026 16:41:41 Europe/Amsterdam**, 0 waarschuwingen/fouten. Eigen vijfassige review uitgevoerd; licht/donker op minimale venstergrootte gerenderd en bekeken. Nieuwe doelnaam en niet-geselecteerde bestaande doelnaam eerst falend getest; 503 boeken over drie series, behoud nummers/overige metadata, echte metadata.json, bestaande rollback/conflict/bestandsroute, paging/selectie/focus en oude duplicaatroute gecontroleerd. De gebruiker heeft op 3 november 2026 alle tests uit checklist 59 uitgevoerd en bevestigd dat alles werkt zoals beschreven. Milestone 59 is afgerond. PR #61 is op 10 november 2026 gemerged.
+
+Gewone niet-draft PR #61 is geopend naar main en aan deze chat gekoppeld: https://github.com/hnsoftwaredevelopment/saga/pull/61. Acht Markdown-bestanden exact naar Obsidian gespiegeld en met SHA256 gecontroleerd. Het bestaande Excel-overzicht is native gecontroleerd: M58 Afgerond, M59 Done/Afgerond, 62 Done en 40 Todo.
+
+Reviewcorrectie PR #61, 3 november 2026: opmerkingen 4455095425 en 4455095443 zijn verwerkt. De bestemming wordt ook na de eerste 200 series in de index opgenomen, geselecteerd en bij handmatig samenvoegen in beeld gebracht. Meer laden gebruikt het aantal werkelijk gelezen repositoryrijen, zodat de extra doelrij geen series laat overslaan of verdubbelen. Eerst falende regressie met 205 series toegevoegd; de WPF-proef gebruikt nu een bestemming achter de eerste pagina. De sidecartest gebruikt verschillende nummers per boek en leest iedere sidecar via het betreffende boek-ID. Opnieuw 1237 tests en 32 WPF-proeven geslaagd; Debug 2026.11.3.53 van 3 november 2026 16:41:41 Europe/Amsterdam, 0 waarschuwingen/fouten. De gebruikersacceptatie betreft build 2026.11.3.48; deze reviewcorrecties zijn geautomatiseerd gecontroleerd in de nieuwe build.
+
+## Historie: Milestone 58
+
+### Milestone 58: meerdere serievolgnummers toekennen
+
+- [x] Gebruiker keurt slice goed; actuele basis/branch en specificatie vastgelegd.
+- [x] Readonly geselecteerde snapshots, SQL-batches en transactionele nummeropslag gebouwd; stale preview, rollback, annulering en behoud andere metadata getest.
+- [x] Preview/volgorde/startnummer met validatie, decimale invoer en doublure-informatie gebouwd.
+- [x] Meervoudige beheerselectie, Meer laden, gewijzigde IDs en bestandswaarschuwingen aangesloten; zes talen en WPF-route beschikbaar.
+- [x] Volledige suite, definitieve WPF/buildcontrole en eigen review afgerond: 1219 tests, 31 WPF-proeven, Debug 2026.11.3.33 en 0 waarschuwingen/fouten.
+- [x] Checklist/documentatie/Obsidian en Excel bijgewerkt; gewone niet-draft PR #60 geopend en gekoppeld.
+- [x] Gebruiker heeft de slice op 3 november 2026 geaccepteerd; twee handmatige controles (bestandswaarschuwing en conflict/rollback) niet uitgevoerd, geautomatiseerd afgedekt.
+- [x] De gebruiker heeft PR #60 op 3 november 2026 gemerged; GitHub bevestigt merge 086e291.
+
+Verificatie: **1219 geautomatiseerde tests en 31 echte WPF-proeven geslaagd**, 0 mislukt/overgeslagen. Schone enige Debug-build **2026.11.3.33**, **3 november 2026 11:57:01 Europe/Amsterdam**, 0 waarschuwingen/fouten. Eigen vijfassige review uitgevoerd; licht/donker op minimale venstergrootte gerenderd en bekeken. SQL-batches boven 500 IDs, rollback, annulering, behoud overige metadata, echte metadata.json, bestandswaarschuwingen, paging/selectie/focus en bestaande één-boekroute gecontroleerd. De gebruiker heeft Milestone 58 op 3 november 2026 geaccepteerd: de uitgevoerde handmatige tests werken goed. Twee handmatige controles zijn niet uitgevoerd: bestandswaarschuwingen en conflict/rollback. Deze scenario's zijn geautomatiseerd afgedekt; de twee checklistvakjes blijven bewust open. PR #60 is op 3 november 2026 gemerged; Milestone 58 is afgerond.
+
+Gewone niet-draft PR #60 is geopend naar main en aan deze chat gekoppeld: https://github.com/hnsoftwaredevelopment/saga/pull/60. Mergeable bij opening; CodeQL loopt nog. Negen Markdown-bestanden exact gespiegeld en met SHA256 gecontroleerd. Bestaand Excel-overzicht gericht bijgewerkt en native gecontroleerd: M58 Done/Afgerond, 61 Done en 41 Todo. Gebruikersacceptatie met twee niet-uitgevoerde handmatige controles is bevestigd; PR #60 is op 3 november 2026 gemerged en Milestone 58 is afgerond.
+
+## Historie: Milestone 57
+
+### Milestone 57: meervoudige export
+
+- [x] Gebruiker keurt export goed; PR #58 gemerged en basis/spec vastgelegd.
+- [x] Readonly preview en veilige kopie met naamconflicten/annulering testen en bouwen.
+- [x] Batchorkestratie en dialoogmodel met voortgang/resultaten testen.
+- [x] Werkbalk, WPF en zes talen aansluiten en controleren.
+- [x] Volledige suite, WPF, schone build en eigen review: 1189 tests en 30 WPF-proeven groen, Debug 2026.11.3.18, 0 waarschuwingen/fouten.
+- [x] Checklist/documentatie/Obsidian en Excel bijgewerkt; gewone niet-draft PR #59 geopend en gekoppeld.
+- [x] Gebruiker heeft de checklist en aanvullende tests zonder issues uitgevoerd en de slice op 3 november 2026 geaccepteerd.
+- [x] De gebruiker heeft PR #59 op 3 november 2026 gemerged; GitHub bevestigt merge 14ed4dd.
+
+Verificatie: 1189 geautomatiseerde tests en 30 echte WPF-proeven geslaagd, 0 mislukt/overgeslagen. Debug-build **2026.11.3.18** van **3 november 2026 om 10:27:08 Europe/Amsterdam**, 0 waarschuwingen/fouten en precies één Saga.exe onder Builds. Eigen review op correctheid, leesbaarheid, architectuur, veiligheid en prestaties uitgevoerd. Licht/donker op minimale venstergrootte gerenderd en bekeken. De gebruiker heeft op 3 november 2026 de teststappen en aanvullende tests uitgevoerd zonder issues en de gehele slice geaccepteerd. PR #59 is op 3 november 2026 gemerged; Milestone 57 is afgerond.
+
+Gewone niet-draft PR #59 is geopend naar main en aan deze chat gekoppeld: https://github.com/hnsoftwaredevelopment/saga/pull/59. Mergeable bij opening; GitGuardian groen en CodeQL nog bezig. Negen Markdown-bestanden zijn exact naar Obsidian gespiegeld en met SHA256 gecontroleerd. Het bestaande Excel-bestand is gericht bijgewerkt en in Excel gecontroleerd. Gebruikersacceptatie is bevestigd; PR #59 is op 3 november 2026 gemerged; Milestone 57 is afgerond.
+
+Reviewcorrectie PR #59, 3 november 2026: opmerkingen 4452983445 en 4452983461 zijn verwerkt. Telteksten gebruiken in alle zes talen neutrale labels met aantallen, zodat 0, 1 en meerdere boeken/bestanden grammaticaal correct blijven. De lokalisatietest controleert per sleutel alle verplichte placeholders en formatteert aantallen 0, 1 en 2. Geen wijziging aan de exportverwerking. Opnieuw 1189 tests en 30 WPF-proeven geslaagd; licht/donker op minimale grootte bekeken. Nieuwe enige Debug-build **2026.11.3.21** van **3 november 2026 11:28:50 Europe/Amsterdam**, 0 waarschuwingen/fouten. De gebruikersacceptatie van build 2026.11.3.18 blijft vastgelegd; alleen de teksten en testcontrole zijn aangescherpt.
+
+## Historie: Milestone 56
 # Milestone 56: volgnummer wijzigen in Series beheren
 
 Goedgekeurd door de gebruiker. Basis main 373d45f met afrondingsnotitie a18571b; branch codex/milestone-56-series-number. Specificatie: docs/superpowers/specs/2026-10-31-saga-milestone-56-series-number-design.md.
@@ -9,9 +99,9 @@ Goedgekeurd door de gebruiker. Basis main 373d45f met afrondingsnotitie a18571b;
 - [x] Volledige suite, schone build en eigen review.
 - [x] Checklist/status/documentatie exact gespiegeld (11 bestanden, SHA256 gelijk); gewone niet-draft PR #58 geopend en aan deze chat gekoppeld: https://github.com/hnsoftwaredevelopment/saga/pull/58. Mergeable bij opening; GitGuardian groen, CodeQL nog bezig.
 - [x] Gebruiker heeft de checklist uitgevoerd en de gehele slice op 3 november 2026 geaccepteerd: alles werkt zoals verwacht.
-- [ ] Alleen de gebruiker mergt PR #58.
+- [x] De gebruiker heeft PR #58 op 3 november 2026 gemerged; GitHub bevestigt merge dbce6d1.
 
-Verificatie: 1166 tests en 29 echte WPF-proeven groen, 0 mislukt/overgeslagen. Debug 2026.10.31.17 van 31 oktober 00:54:49 Europe/Amsterdam, 0 waarschuwingen/fouten en precies één Saga.exe onder Builds. Eigen vijfassige review, zes talen, 600 geladen boeken en licht/donker op minimumgrootte gecontroleerd. Gebruikersacceptatie is op 3 november 2026 bevestigd; PR #58 is nog open.
+Verificatie: 1166 tests en 29 echte WPF-proeven groen, 0 mislukt/overgeslagen. Debug 2026.11.3.1 van 3 november 08:52:17 Europe/Amsterdam, 0 waarschuwingen/fouten en precies één Saga.exe onder Builds. Eigen vijfassige review, zes talen, 600 geladen boeken en licht/donker op minimumgrootte gecontroleerd. Gebruikersacceptatie is op 3 november 2026 bevestigd; PR #58 is op 3 november 2026 gemerged.
 
 ## Historie: Milestone 55
 # Milestone 55: seriesvarianten vinden en samenvoegen

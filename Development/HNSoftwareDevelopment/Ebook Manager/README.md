@@ -4,7 +4,37 @@ Native Windows desktop ebook library manager built with .NET 10, WPF, SQLite, Co
 
 ## Current Status
 
-Milestone 56 adds **Change series number** for one selected book in **Manage series**. Enter a local decimal or clear the number, with immediate input feedback and non-blocking information about repeated numbers. Only the selected book's number and update timestamp change; titles, authors, series names and other data remain intact. Existing file synchronization follows after commit. The loaded book list is re-sorted, selection is restored by ID when visible, and the main library/details reconcile when the manager closes. **1166 tests and 29 interactive WPF scenarios pass**. Clean Debug build **2026.10.31.17**, 31 October **00:54:49 Europe/Amsterdam**, has 0 warnings/errors and is the only Saga.exe under Builds. The user tested and accepted Milestone 56 on 3 November 2026: everything works as expected. The [manual checklist](docs/manual-tests/milestone-56-checklist.md) records the completed checks. PR #58 awaits merge. The historical verification results below describe earlier slices; Milestones 54 and 55 are accepted and merged.
+Milestone 63 adds **Change series** in **Manage series**. Use the destination field to search for an existing series or enter a new name. Review the selected titles and numbers before saving. Saga flags numbers already used in the destination and preserves the numbers when moving. The user accepted the single-field workflow and merged PR #65 on 11 November 2026. See the [manual checklist](docs/manual-tests/milestone-63-checklist.md).
+
+### Milestone 62 — accepted and merged in PR #64
+
+Milestone 62 adds **Add tags** in **Manage tags**. Select books, choose an existing tag by prefix or enter a new name, and confirm each line with Enter. You can paste one tag per line. Review the removable chips and the number of books before saving. Existing book tags are preserved and duplicate links are skipped. The user accepted the revised input on 10 November 2026 and PR #64 merged the same day. See the [manual checklist](docs/manual-tests/milestone-62-checklist.md).
+
+### Milestone 60 — accepted and merged in PR #62
+
+Milestone 60 adds **Split selected books** in **Manage series**. Select a subset of a series, review the book titles and series numbers, then enter a unique new series name. The original series keeps its remaining books and all numbers are preserved. The user passed the [manual checklist](docs/manual-tests/milestone-60-checklist.md) and accepted the slice on 10 November 2026. PR #62 merged on 10 November 2026.
+
+### Milestone 59 — accepted and merged in PR #61
+
+Milestone 59 adds **Merge selected series** in **Manage series**. Explicitly select two or more series, compare all their books and choose a selected existing name or type a new one. Numbers and other metadata stay unchanged. A name belonging to an unselected series is refused; no books outside the comparison are silently included. Selection survives paging and clears on a new search. Existing single-series actions and duplicate suggestions retain their behavior. See the [manual checklist](docs/manual-tests/milestone-59-checklist.md). The user completed all Milestone 59 checklist tests and accepted the slice on 3 November 2026: everything works as described. PR #61 merged on 10 November 2026. All **1237 automated tests and 32 interactive WPF scenarios pass**. Clean Debug build **2026.11.3.53**, 3 November **16:41:41 Europe/Amsterdam**, has 0 warnings/errors and is the only Saga.exe under Builds. Both themes at minimum size and the own five-axis review are checked.
+
+Review follow-up: the merged destination remains selected even beyond the first 200 series; subsequent paging skips no rows and deduplicates the extra destination row. Sidecar tests verify different numbers by book ID. User acceptance was recorded for build 2026.11.3.48; the review corrections passed the automated and WPF checks in the current build.
+
+### Milestone 58 — accepted and merged in PR #60
+
+Milestone 58 adds **Assign series numbers** in **Manage series**. Select multiple books, set their order and a starting number, and review current/proposed values before saving. Only those selected books are updated; existing numbers on other books are retained and overlaps are informational. Saving validates all selected snapshots and commits all changed numbers in one transaction, then follows existing file synchronization. The loaded book list is re-sorted with selection restored by ID; main library/details refresh when the manager closes. The [accepted numbering checklist](docs/manual-tests/milestone-58-checklist.md) covers this workflow. The user accepted Milestone 58 on 3 November 2026. Two manual checks (file warnings and conflict/rollback) were not performed; automated coverage exists and those checklist boxes remain open. PR #60 was merged on 3 November 2026; Milestone 58 is complete. The progress workbook now has 61 Done and 41 Todo slices; M58 is Done / Afgerond. All **1219 automated tests and 31 interactive WPF scenarios pass**. Clean Debug build **2026.11.3.33**, 3 November **11:57:01 Europe/Amsterdam**, has 0 warnings/errors and is the only Saga.exe under Builds. The proposal was rendered and inspected in light/dark at minimum size; own five-axis review is complete.
+
+### Milestone 57 — accepted and merged in PR #59
+
+Milestone 57 adds **Export selected books** to the main toolbar, using the existing selection in Bookshelf, List and Detailed views. Choose one existing format and a destination folder; the preview shows available files and skipped books. Export keeps source files and existing destination files, assigns unique names, supports cancellation with temporary-file cleanup and shows per-file results. No conversion or e-reader is required. **1189 automated tests pass**. The [accepted export checklist](docs/manual-tests/milestone-57-checklist.md) and [feature description](docs/feature-requests/bulk-export.md) cover this workflow; the user completed the checklist and additional tests without issues and accepted this slice on 3 November 2026. PR #59 was merged on 3 November 2026; Milestone 57 is complete. Clean Debug build **2026.11.3.21**, 3 November **11:28:50 Europe/Amsterdam**, has 0 warnings/errors and is the only Saga.exe under Builds; all **30 interactive WPF scenarios pass**. The existing progress workbook has been updated in place: M56 is merged, M57 is **Done / Afgerond**; the overview now contains 60 Done and 42 Todo slices.
+
+Review follow-up: count messages now use neutral labels in all six languages, valid for zero, one and multiple items. Localization tests require every placeholder per key and format counts 0, 1 and 2. Export behavior is unchanged; all 1189 tests and 30 WPF scenarios pass again.
+
+The locally maintained Excel roadmap and its status conventions are described in [project progress](docs/project-progress.md). Keep the existing workbook updated alongside each slice.
+
+### Milestone 56 — accepted and merged in PR #58
+
+Milestone 56 adds **Change series number** for one selected book in **Manage series**. Enter a local decimal or clear the number, with immediate input feedback and non-blocking information about repeated numbers. Only the selected book's number and update timestamp change; titles, authors, series names and other data remain intact. Existing file synchronization follows after commit. The loaded book list is re-sorted, selection is restored by ID when visible, and the main library/details reconcile when the manager closes. **1166 tests and 29 interactive WPF scenarios pass**. Clean Debug build **2026.11.3.1**, 3 November **08:52:17 Europe/Amsterdam**, has 0 warnings/errors and is the only Saga.exe under Builds. The user tested and accepted Milestone 56 on 3 November 2026: everything works as expected. The [manual checklist](docs/manual-tests/milestone-56-checklist.md) records the completed checks. PR #58 is merged. The historical verification results below describe earlier slices; Milestones 54 and 55 are accepted and merged.
 
 ### Milestone 55 — accepted and merged in PR #57
 
@@ -115,7 +145,7 @@ Milestone 47's final quality reliability improvements are manually checked and a
 - import diagnostics with phase timings for hashing, metadata, duplicate checks, copying, database save, and cleanup
 - aggregate import phase summaries in import result details
 
-The current manual acceptance steps are in the [Milestone 56 checklist](docs/manual-tests/milestone-56-checklist.md). Accepted series-merging checks remain in the [Milestone 55 checklist](docs/manual-tests/milestone-55-checklist.md). Accepted author discovery/comparison checks remain in the [Milestone 54 checklist](docs/manual-tests/milestone-54-checklist.md). User-tested manual author merging is recorded in the [Milestone 53 checklist](docs/manual-tests/milestone-53-checklist.md). Accepted tag-management checks remain in the [Milestone 52 checklist](docs/manual-tests/milestone-52-checklist.md). Accepted multi-selection checks remain in the [Milestone 51 checklist](docs/manual-tests/milestone-51-checklist.md). Accepted series-management checks remain in the [Milestone 50 checklist](docs/manual-tests/milestone-50-checklist.md). Accepted bulk-edit checks remain in the [Milestone 49 checklist](docs/manual-tests/milestone-49-checklist.md); accepted author-management checks remain in the [author rename checklist](docs/manual-tests/author-rename-checklist.md) and [Milestone 48 checklist](docs/manual-tests/milestone-48-checklist.md).
+For the current manual acceptance steps, see [Manual Verification](#manual-verification). Accepted single-number checks remain in the [Milestone 56 checklist](docs/manual-tests/milestone-56-checklist.md). Accepted bulk-export checks remain in the [Milestone 57 checklist](docs/manual-tests/milestone-57-checklist.md). Accepted series-merging checks remain in the [Milestone 55 checklist](docs/manual-tests/milestone-55-checklist.md). Accepted author discovery/comparison checks remain in the [Milestone 54 checklist](docs/manual-tests/milestone-54-checklist.md). User-tested manual author merging is recorded in the [Milestone 53 checklist](docs/manual-tests/milestone-53-checklist.md). Accepted tag-management checks remain in the [Milestone 52 checklist](docs/manual-tests/milestone-52-checklist.md). Accepted multi-selection checks remain in the [Milestone 51 checklist](docs/manual-tests/milestone-51-checklist.md). Accepted series-management checks remain in the [Milestone 50 checklist](docs/manual-tests/milestone-50-checklist.md). Accepted bulk-edit checks remain in the [Milestone 49 checklist](docs/manual-tests/milestone-49-checklist.md); accepted author-management checks remain in the [author rename checklist](docs/manual-tests/author-rename-checklist.md) and [Milestone 48 checklist](docs/manual-tests/milestone-48-checklist.md).
 
 ## Prerequisites
 
@@ -191,7 +221,7 @@ Native write-back into ebook files remains a later opt-in feature per format, st
 
 ## Manual Verification
 
-Use these manual test checklists:
+Use the [current Milestone 63 checklist](docs/manual-tests/milestone-63-checklist.md) for moving books between series. Earlier checklists retain their historical test results:
 
 - [docs/manual-tests/milestone-1-checklist.md](docs/manual-tests/milestone-1-checklist.md)
 - [docs/manual-tests/milestone-2-checklist.md](docs/manual-tests/milestone-2-checklist.md)
@@ -249,6 +279,9 @@ Use these manual test checklists:
 - [docs/manual-tests/milestone-54-checklist.md](docs/manual-tests/milestone-54-checklist.md)
 - [docs/manual-tests/milestone-55-checklist.md](docs/manual-tests/milestone-55-checklist.md)
 - [docs/manual-tests/milestone-56-checklist.md](docs/manual-tests/milestone-56-checklist.md)
+- [docs/manual-tests/milestone-57-checklist.md](docs/manual-tests/milestone-57-checklist.md)
+- [docs/manual-tests/milestone-58-checklist.md](docs/manual-tests/milestone-58-checklist.md)
+- [docs/manual-tests/milestone-59-checklist.md](docs/manual-tests/milestone-59-checklist.md)
 
 ## Later-Version Candidates
 
