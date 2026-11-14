@@ -329,7 +329,7 @@ Migratie `database/mijn/006-deelnemerstarieven.sql` is toegepast en gecontroleer
 - nummering, betaalgegevens en wijzigingsbeleid zijn vastgesteld
 - herdownload reproduceert dezelfde vastgelegde nota.
 
-**Verificatie:** PDF-visuele controle, bedragvergelijking en toegang tot andermans document testen.
+**Stand:** PDF beschikbaar op dev.mijn. Bedragbehoud, downloadrechten en weergave zijn gecontroleerd. Praktijkacceptatie staat open. Zie [deelname-nota](../deelname-nota.md).
 
 ## MIJN-18 — Beheerder kan een koor ondersteunen
 

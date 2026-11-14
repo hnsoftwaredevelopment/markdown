@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Development/HNSoftwareDevelopment/Amusing/Mijn.amusing-hengelo.nl/testomgeving.md",
+                "file": "Development/HNSoftwareDevelopment/Amusing/Mijn.amusing-hengelo.nl/tasks/todo.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "testomgeving"
+              "title": "todo"
             }
           }
         ],
@@ -380,8 +380,15 @@
       "modalforms:Edit forms": false
     }
   },
-  "active": "a76ab09dac4b2700",
+  "active": "7becbd544497fa16",
   "lastOpenFiles": [
+    "Development/HNSoftwareDevelopment/Amusing/Mijn.amusing-hengelo.nl/deelname-nota.md",
+    "Development/HNSoftwareDevelopment/Amusing/Mijn.amusing-hengelo.nl/tasks/plan.md",
+    "Development/HNSoftwareDevelopment/Amusing/Mijn.amusing-hengelo.nl/inventarisatie.md",
+    "Development/HNSoftwareDevelopment/Amusing/Mijn.amusing-hengelo.nl/README.md",
+    "Development/HNSoftwareDevelopment/Amusing/Mijn.amusing-hengelo.nl/testomgeving.md",
+    "Development/HNSoftwareDevelopment/Amusing/Mijn.amusing-hengelo.nl/rechtenmatrix.md",
+    "Development/HNSoftwareDevelopment/Amusing/Mijn.amusing-hengelo.nl/architectuur.md",
     "Testing/V631 met VACAM develop 4.3x (leverbaarheid).md",
     "Testing/MCPL-3418 Vasim fix late and out-of-order PLC feedback on ADS v7 (Bundle1Candidate regressie).md",
     "Testing/BT1-2334 Add configuration error if the Too low oil level digital input is not referenced for the saw.md",
@@ -405,13 +412,6 @@
     "Development/HNSoftwareDevelopment/ExtensionCommon",
     "Development/Environment/Visual Studio Extension Marketplace/Update Marketplace Extension.md",
     "Development/Environment/Visual Studio Extension Marketplace",
-    "Development/HNSoftwareDevelopment/Amusing/Mijn.amusing-hengelo.nl/databasekoppeling.md",
-    "Development/HNSoftwareDevelopment/Amusing/Mijn.amusing-hengelo.nl/festivalinschrijving.md",
-    "Development/HNSoftwareDevelopment/Amusing/Mijn.amusing-hengelo.nl/koorprofiel.md",
-    "Development/HNSoftwareDevelopment/Amusing/Mijn.amusing-hengelo.nl/eerste-blazor-login.md",
-    "Development/HNSoftwareDevelopment/Amusing/Mijn.amusing-hengelo.nl/wachtwoordcompatibiliteit.md",
-    "Development/HNSoftwareDevelopment/Amusing/Mijn.amusing-hengelo.nl/personen-en-rollen.md",
-    "Development/HNSoftwareDevelopment/Amusing/Mijn.amusing-hengelo.nl/afbeeldingen.md",
     "Development/HNSoftwareDevelopment/Amusing/Mijn.amusing-hengelo.nl/evidence/password-probe/Probe.csproj",
     "Development/HNSoftwareDevelopment/Amusing/Mijn.amusing-hengelo.nl/evidence/wachtwoordcompatibiliteit-1.sql",
     "Development/HNSoftwareDevelopment/Amusing/Mijn.amusing-hengelo.nl/decisions",

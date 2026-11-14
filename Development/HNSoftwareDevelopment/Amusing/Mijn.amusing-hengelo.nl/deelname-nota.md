@@ -1,0 +1,9 @@
+# Deelname-nota (MIJN-17)
+
+Bij definitieve bevestiging in Mijn worden de naam, festivaldatum, deelnemers, podiumtype, uitgiftedatum en kosten in dezelfde transactie vastgelegd. De deelnamekosten op het scherm en de PDF gebruiken daarna de opgeslagen bedragen. Een herdownload toont de actuele betaalstatus. De referentie is voorlopig AM-festival-id-koor-id. De nota gebruikt dezelfde bankrekening als de bestaande Beheer-mail. De testnota bevat een instructie om niets over te maken.
+
+Actief gekoppelde koorleden kunnen de nota downloaden. Een afgemelde inschrijving is uitgesloten. Eerder bevestigde inschrijvingen krijgen in deze stap geen nota achteraf. Bij ontbrekende tarieven blijft bevestigen mogelijk en verschijnt er geen download. Historische uitgifte, correcties, eventuele formele factuurnummering en de bewerkbare factuurtekst in Mailinglayouts volgen afzonderlijk.
+
+De testnota staat op https://dev.mijn.amusing-hengelo.nl/koor/8/inschrijven (testaccount 1). Verwacht EUR 75,00 inclusief btw. Het bestand is visueel gecontroleerd en testaccount 2 krijgt geen toegang. Een integratietest controleert ook dat een tariefwijziging de vastgelegde bedragen niet wijzigt.
+
+Voor de productie-omschakeling zijn migratie 009, SELECT en INSERT op de notatabel en de Syncfusion-licentie in de Mijn-configuratie nodig.
