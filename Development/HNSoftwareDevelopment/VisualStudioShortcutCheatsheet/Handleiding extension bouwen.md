@@ -501,3 +501,43 @@ De test controleert wat een PDF-lezer nodig heeft: `startxref` wijst naar de tab
 ### Valkuil: tijdelijke bestanden
 
 Desktop Commander mag alleen in `C:\DevOps` en een paar andere mappen schrijven, niet in `%TEMP%`. Het commitbericht staat daarom in `obj\commit-msg.txt`; `obj` staat in `.gitignore`.
+
+## Stap 5b: instellingen
+
+Tools > Options > Shortcut Cheatsheet, in beide Options-vensters van VS 2026: het nieuwe (Unified Settings) en het klassieke. Dezelfde opzet als XAML Resource Preview.
+
+| Groep | Instelling | Standaard |
+|---|---|---|
+| General | Language | Automatic (de taal van VS, anders Engels) |
+| General | Group by: de indeling waarmee het venster opent | Where it works |
+| Export | Paper size voor PDF en PNG | Automatic |
+| Export | Colors voor PDF en PNG: light of dark | Light |
+| Export | Columns per page, 1 tot 4 | 3 |
+
+### Twee vensters, één bron
+
+- **`Options\registration.json`** beschrijft de instellingen voor het nieuwe venster. VS vindt het bestand via `[ProvideSettingsManifest]`; in de `.pkgdef` wordt dat `[$RootKey$\SettingsManifests\{package-guid}]` met `ManifestPath`. Het bestand moet als `Content` met `IncludeInVSIX` in de VSIX.
+- **`GeneralOptionsPage`** is een `DialogPage` voor het klassieke venster. `IsInUnifiedSettings = true` op `[ProvideOptionPage]` houdt hem uit het nieuwe venster, en `legacyOptionPageId` in registration.json koppelt de categorie aan de pagina.
+- **`SettingsService`** leest Unified Settings als VS dat aan heeft, en anders de DialogPage. Slaat iemand op in het klassieke venster, dan schrijft de pagina naar Unified Settings. Zo tonen beide vensters dezelfde waarden. Wijzigingen komen binnen via `SubscribeToChanges`; het venster neemt een nieuwe standaardindeling meteen over.
+
+### Teksten uit de resources
+
+In registration.json staat `"@OptionsLanguageName;{package-guid}"`: VS zoekt die naam in de resources van het package. Die heten `VSPackage.resources`. Daarom krijgt `Localization\Strings.resx` in de `.csproj` `LogicalName` `VSPackage.resources`, met `MergeWithCTO`: de gecompileerde command table (`Menus.ctmenu`) gaat in dezelfde resource. De test die onze eigen command table uit de DLL leest, bevestigt dat dat nog werkt.
+
+De klassieke pagina toont enums via `LocalizedEnumConverter<T>`. Die zoekt de tekst op als typenaam plus waarde: `Grouping.Scope` wordt resource `GroupingScope`, "Where it works". Eén klasse voor alle drie de keuzelijsten, in plaats van een converter per enum zoals in ResourcePreview.
+
+Nu staat alleen Engels in Strings.resx. De vertalingen en de teksten van het venster volgen in stap 5c.
+
+### Papierformaat automatisch
+
+`RegionInfo.IsMetric` lijkt de vraag te beantwoorden, maar Canada is metrisch en drukt op Letter. `ExtensionSettings.ResolvePaper` gebruikt daarom een lijst landen met Letter: de Verenigde Staten, Canada, Mexico en een paar landen in Latijns-Amerika en Azië. Overal anders A4.
+
+### De datum in een export
+
+Die volgde de taal van Windows en gaf "16 november 2026" in een Engelse export. Nu volgt hij de taal van de extensie (`Localizer.Culture`), in de lange notatie van die taal.
+
+### Valkuilen
+
+- **Een `DialogPage` kun je niet testen zonder VS.** De constructor vraagt `Microsoft.Internal.VisualStudio.Interop` op, en die staat alleen in VS. De test op de pagina is daarom vervallen; de tests controleren registration.json tegen de code (monikers, standaardwaarden, keuzes, de koppeling met de pagina) en of elke tekst in Strings.resx staat.
+- **De `Grouping`-enum moest `public` worden**, omdat de pagina `public` is en een eigenschap van dat type heeft.
+- **registration.json staat niet in `Builds\`.** `Content` gaat alleen in de VSIX en de deploy. `check-exp-deploy.ps1` kopieert alleen de DLL, `.pkgdef` en het manifest; na een nieuw bestand dus echt deployen: `MSBuild ... -p:DeployExtension=true`.
