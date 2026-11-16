@@ -41,5 +41,6 @@
   "showViewHeader": true,
   "nativeMenus": true,
   "monospaceFontFamily": "",
-  "baseFontSizeAction": true
+  "baseFontSizeAction": true,
+  "showRibbon": true
 }

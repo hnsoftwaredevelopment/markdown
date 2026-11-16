@@ -1030,6 +1030,8 @@ Les: alles wat gebruikersbestanden met `XamlReader`, `BinaryFormatter` of een an
 | tooltip en lampje | met de focus in de editor `Ctrl+K, Ctrl+I` (Quick Info) en `Ctrl+.` sturen met `SendKeys` |
 | vastleggen | `Graphics.CopyFromScreen`, na `SetProcessDPIAware`, zodat de pixels kloppen op een scherm met schaling |
 
+**Previews zonder VS.** De afbeeldingen van iconen, stijlen en templates komen niet uit VS, maar uit `tools\render-previews.ps1`. Dat script laadt `ResourcePreview.dll` uit de Debug-build, roept `ResourcePreviewData.Create` en `PreviewRenderer.Render` aan zoals de tooltip, en slaat het resultaat op als PNG, met `-Theme Dark` of `-Theme Light`. Sinds de gerenderde DataTemplates (sectie 29) zet het script ook de achtergrondkleur van de tooltip in de resources van een `Application`: de renderer zoekt die daar op, net als binnen VS, om te bepalen of de eigen kleuren van een template leesbaar zijn.
+
 Valkuilen: een DTE-command is "niet beschikbaar" zolang de editor geen toetsenbordfocus heeft; één klik in de editor lost dat op. En wie tijdens het script typt, typt in VS: zo kwam er een stukje chattekst in `Brushes.xaml` terecht (niet opgeslagen).
 
 ### 28. Keys uit een klasse (x:Static)
@@ -1120,7 +1122,13 @@ Of iets een event is, vraagt de builder aan WPF zelf: `typeof(Button).GetEvent("
 - Tekst zonder eigen kleur (het vak "local:FancyControl", de voorbeelditems) was zwart, ook in het donkere thema. Onze eigen teksten krijgen de themakleur expliciet met `SetResourceReference(TextBlock.ForegroundProperty, EnvironmentColors.ToolTipTextBrushKey)`. Die kleur erft dus niet door naar wat eronder hangt, en WPF valt terug op zwart.
 - Een template met `Foreground="White"` (gemaakt voor een donkere app) was onleesbaar in het lichte thema. Dat los je niet op met een themakleur: de template kiest die kleur zelf.
 
-Nu staat elke sample op de tegels uit de instellingen (licht, donker of beide), zoals een icoon. Elke tegel zet `TextElement.Foreground`, een *attached property die erft*: elke `TextBlock` en elk `Control` in de sample zonder eigen kleur neemt hem over. Een kleur die de template zelf zet, blijft staan; dat is ook wat je wilt zien.
+De tweede poging zette de sample op een lichte en een donkere tegel, zoals een icoon. Jouw reactie: VS heeft veel meer thema's dan licht en donker, dus twee tegels dekken de lading niet; toon de sample in het huidige thema, en zorg dat tekst altijd leesbaar is. Dat werd de derde versie:
+
+1. **Het thema.** Het kader rond de sample zet `TextElement.Foreground` met `SetResourceReference` op de tekstkleur van de VS-tooltip. `TextElement.Foreground` is een *attached property die erft*: elke `TextBlock` en elk `Control` in de sample zonder eigen kleur neemt hem over, en hij volgt een themawissel vanzelf.
+2. **De eigen kleuren van de template.** Na `Measure` loopt `OwnColors` door de visuele boom en verzamelt de kleuren die de template zelf zet: `Foreground` van tekst, `Fill` en `Stroke` van vormen. `DependencyPropertyHelper.GetValueSource` vertelt waar een waarde vandaan komt; alleen `Local`, `ParentTemplate` en `Style` tellen. Een geërfde kleur of de standaardstijl van een `TextBox` telt niet. Tekst op een eigen achtergrond van de template (een donkere kaart) slaan we over, want die hangt niet af van wat erachter staat.
+3. **Het contrast.** `ChooseBackground` berekent het WCAG-contrast van elke eigen kleur met de achtergrond van het thema. Is het slechtste contrast minstens 3 (de WCAG-grens voor grote tekst en iconen), dan blijft het thema. Anders krijgt de sample de donkere of lichte tegelkleur uit de instellingen, met witte of zwarte tekst erbij, maar alleen als de eigen kleuren daarop wél een contrast van minstens 3 halen. Een template met witte én zwarte tekst blijft in het thema: geen achtergrond maakt beide leesbaar. (De eerste versie wisselde zodra een achtergrond iets beter scoorde, 1,2 tegen 1,0; de test ving dat af.)
+
+Zo staat `Foreground="White"` in een licht thema op een donkere achtergrond, en blijft een template met donkere tekst gewoon in het lichte thema.
 
 **ItemsPanelTemplate.** Een `ItemsControl` met de template als `ItemsPanel` en zes omrande items, 260 pixels breed. Zo zie je of een `WrapPanel` ze over regels verdeelt.
 

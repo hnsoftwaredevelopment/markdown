@@ -290,3 +290,212 @@ Twee verschillende commands met dezelfde toetsen in dezelfde scope. `Ctrl+E, V` 
 `CheatSheetTests` (15 tests): scope en toetsen splitsen, namen en categorieën, `settings.json` met commentaar en ongeldige JSON, `CodeBase` en `Assembly` in een `.pkgdef`, conflicten alleen binnen een scope, sortering met Global eerst, jouw eigen sneltoetsen, en een JSON-export die weer ingelezen kan worden.
 
 De herkomst wordt getest met de eigen build-uitvoer: `Builds\ShortcutCheatsheet\Debug\` heeft een manifest, een `.pkgdef` en de DLL, en is daarmee een complete extensiemap. Een sneltoets op `View.ShortcutCheatsheet` krijgt dan "Shortcut Cheatsheet" als extensie.
+
+### Na de eerste export: vier verbeteringen
+
+De eerste JSON-export uit de Experimental Instance (1120 sneltoetsen) liet vier dingen zien.
+
+**1. Onderdelen van VS die als extensie meetelden.** `View.Containers` kreeg "Visual Studio Container Tools Extensions" als extensie. Die staat in `Common7\IDE\Extensions\<willekeurige naam>\`, precies zoals een extensie van derden die voor alle gebruikers is geïnstalleerd, en `InstalledExtensions` rekent zo'n map dus niet tot VS. Het manifest zegt het wel:
+
+```xml
+<Installation AllUsers="true" SystemComponent="true">
+```
+
+`ManifestInfo.IsSystemComponent` leest dat, en `ExtensionCommands` slaat zo'n map over. Deze regel hoort eigenlijk in `InstalledExtensions` in ExtensionCommon, zodat ExtensionOverlap hem ook krijgt. Dat doe ik als de branch van ExtensionOverlap gemerged is.
+
+**2. Commands zonder naam.** 73 commands had DTE geen naam voor, zoals die van de Graphics Designers en de merge-editor. VS heeft zelf ook command tables, in de `.pkgdef`-bestanden onder `Common7\IDE`. Dezelfde lezer leest er 96 van de 163; de rest is native (C++) en staat in Win32-resources. Ze geven 68 van de 73 een naam ("Take Incoming", "Pencil", "Lock X Axis"). Dat kost ongeveer 4 seconden, en het resultaat blijft bewaard zolang VS draait (`ExtensionCommands.VisualStudioNames`). Sommige tabellen zetten een identifier in de knoptekst (`VsGraphics.MRE.Select`); die wordt gelezen als canonieke naam.
+
+Bij het lezen van al die tabellen kwam een fout boven: een `.resources`-bestand van Team Foundation heeft een eigen reader-type (`GzipResourceReader`). `ResourceReader` gooit dan een `NotSupportedException`, en die werd niet afgevangen. Een extensie van derden kan hetzelfde doen, dus nu wordt zo'n bestand overgeslagen.
+
+**3. "Other" als categorie bij extensies.** Bookmark Studio noemt zijn commands `BookmarkShortcut1` en `GoToNextBookmark`, zonder punt, en die kwamen in "Other". Bij een command van een extensie wordt een categorie "Other" of "Context Menu" nu de naam van de extensie.
+
+**4. Conflicten waar je niets aan kunt doen.** Alle 14 conflicten zaten in Merge Editor Window: telkens twee commands van VS zelf (de oude en de nieuwe merge-editor) op dezelfde toets. Herbert koos: alleen melden als minstens één van de commands van een extensie komt of door jou is toegevoegd.
+
+### Hulpscript: klopt de deploy?
+
+`tools\check-exp-deploy.ps1` vergelijkt de DLL, de `.pkgdef` en het manifest in `Builds\` met die in de Experimental Instance, en zoekt bestanden van 0 bytes in alle extensies daar. Met `-Repair` kopieert het de build en raakt het `extensions.configurationchanged` aan. Gebruik het als het venster na F5 nog de oude versie laat zien.
+
+### Meldingen waar de gebruiker niets mee kan
+
+Het venster toonde "Extension Manager not available, read the folders instead: InvalidOperationException: Sequence contains no matching element." Twee lessen.
+
+**De oorzaak.** `InstalledExtensions` roept `IVsExtensionManagerAsync.GetEnabledExtensionsAsync` aan via reflection, en zocht een overload waarvan alle parameters optioneel zijn. In VS 2026 18.13 is de signatuur:
+
+```csharp
+Task<...> GetEnabledExtensionsAsync(CancellationToken cancellationToken)
+```
+
+zonder standaardwaarde. `First(...)` vond dus niets en gooide een exceptie; de terugval (de mappen zelf lezen) werkte wel, daarom zag de export er goed uit. De fix in ExtensionCommon accepteert ook een `CancellationToken`-parameter en geeft `CancellationToken.None` mee. Dit is het risico van een ongedocumenteerde API: de signatuur kan zonder aankondiging veranderen. De terugval is daarom geen luxe.
+
+ExtensionOverlap heeft dezelfde code en dus dezelfde fout. Die krijgt de fix zodra zijn submodule naar de nieuwe commit van ExtensionCommon wijst.
+
+**De melding.** Een melding die de gebruiker niet kan oplossen, maakt alleen ongerust. Zulke problemen (een interne API die anders is, een command table die niet te lezen is) gaan nu naar het ActivityLog van VS via `ActivityLog.TryLogWarning`. Start VS met `devenv /log` om ze te zien in `%AppData%\Microsoft\VisualStudio\18.0_<id>\ActivityLog.xml`. In de JSON-export blijft `problem` per extensie staan, voor wie het wil uitzoeken.
+
+### Werkwijze: sluit de Experimental Instance vóór je bouwt
+
+Twee keer liet het venster na F5 nog de oude versie zien. `check-exp-deploy.ps1` gaf beide keren hetzelfde beeld: de DLL in de Experimental Instance was ouder dan die in `Builds\`. De build was gelukt, de deploy niet. Een draaiende Experimental Instance houdt `ShortcutCheatsheet.dll` vast, en dan kan de deploy hem niet overschrijven. F5 start daarna gewoon een nieuwe instance, met de oude DLL. De melding van de mislukte deploy staat alleen in het Output-venster bij Build.
+
+Dus: eerst de Experimental Instance sluiten (of de debugsessie stoppen), dan bouwen of F5. Twijfel je, draai dan `tools\check-exp-deploy.ps1`: staat er DIFFERENT bij de DLL, dan draait de oude versie.
+
+### MSTEST0044
+
+MSTest 4 markeert `[DataTestMethod]` als verouderd. `[TestMethod]` met `[DataRow(...)]` doet hetzelfde. Zoek bij het nakijken van de build op `warning` in het algemeen, niet alleen op `warning CS`: de analyzers van MSTest hebben hun eigen codes.
+
+### Het ActivityLog
+
+VS schrijft het naar `%AppData%\Microsoft\VisualStudio\18.0_<id>\ActivityLog.xml`, voor de Experimental Instance naar de map met `Exp` erachter. Start VS met `/log` (`devenv /rootsuffix Exp /log`) om zeker te zijn dat ook waarschuwingen van extensies erin komen. Het bestand opent in een browser; zoek op "Shortcut Cheatsheet".
+
+## Stap 4: het venster
+
+Het venster toont nu het cheat sheet zelf. Drie lagen, zodat alleen de bovenste WPF en VS nodig heeft:
+
+| Laag | Klasse | Doet |
+|---|---|---|
+| Logica | `ShortcutView`, `KeyChord` (in `Model`) | filteren, groeperen, sorteren, toetsen splitsen; getest zonder WPF |
+| Toestand | `CheatsheetViewModel` | zoektekst, filters, indeling; bouwt de lijst opnieuw op als iets verandert |
+| Weergave | `CheatsheetControl.xaml` | tekent; knoppen gaan naar `CheatsheetWindow`, dat VS en de export doet |
+
+### XAML in een klassiek VSIX-project
+
+Een `.xaml`-bestand komt als `<Page>` in de `.csproj` met `<Generator>MSBuild:Compile</Generator>`, en de code-behind als `<Compile>` met `<DependentUpon>`. De kleuren en stijlen van VS komen uit `Microsoft.VisualStudio.Shell.15.0`:
+
+```xml
+Foreground="{DynamicResource {x:Static platformUI:EnvironmentColors.ToolWindowTextBrushKey}}"
+Style="{DynamicResource {x:Static vsshell:VsResourceKeys.TextBoxStyleKey}}"
+```
+
+`DynamicResource`, niet `StaticResource`: dan volgt het venster een themawissel (licht, donker) zonder herstart.
+
+### Toetsen als toetsen
+
+`KeyChord.Parse` maakt van "Ctrl+K, Ctrl+C" twee stappen met elk twee toetsen. Splitsen op `+` gaat mis bij "Ctrl+Num +" en "Ctrl++". Daarom haalt de parser de bekende modifiers (Ctrl, Shift, Alt, Win) van de voorkant af; wat overblijft is de toets, welke tekens er ook in staan. Stappen worden gescheiden door ", " (komma plus spatie), zodat "Ctrl+," één toets blijft.
+
+Een toets is een `Grid` met twee afgeronde rechthoeken en de tekst. Twee rechthoeken, omdat een brush uit `DynamicResource` geen eigen doorzichtigheid heeft: de ene vult met de tekstkleur op 8%, de andere tekent de rand op 45%.
+
+### Groeperen zonder traag te worden
+
+`ListCollectionView` met twee `PropertyGroupDescription`s (bijvoorbeeld scope en categorie). Met groepen zet WPF virtualisatie standaard uit; `VirtualizingPanel.IsVirtualizingWhenGrouping="True"` zet hem weer aan. Bij 70 scopes zijn alle groepen dicht, anders is het een muur van 1100 regels. Zodra je zoekt of filtert, of als er hooguit 150 regels zijn, gaan ze open (`ExpandGroups`).
+
+Zoeken wacht 200 ms na de laatste toets (`DispatcherTimer`), anders wordt de lijst bij elke letter opnieuw opgebouwd en hapert het typen.
+
+### Een smal venster
+
+Op de eerste screenshot ontbrak het zoekvak: in een `DockPanel` met `LastChildFill` namen de keuzelijst en de knoppen alle breedte, en het zoekvak kreeg 0 pixels. Nu staat het zoekvak op een eigen regel, en de rest in een `WrapPanel`, dat naar de volgende regel gaat als het niet past. Het extensielabel in een regel verschijnt alleen als de groep of categorie de extensie niet al noemt; anders duwt het de naam weg.
+
+### Een eigen icoon: image manifest
+
+Het menu-item en het venster gebruiken het eigen icoon via een image manifest (`ShortcutCheatsheet.imagemanifest`):
+
+1. Het manifest koppelt een GUID en ID aan `Resources/Icon-32.png`, met een pack-URI (`/ShortcutCheatsheet;component/Resources`).
+2. `Icon-32.png` staat daarom als `<Resource>` in de `.csproj`: het zit in de DLL.
+3. Het manifest gaat als `Content` met `IncludeInVSIX` mee; VS vindt `.imagemanifest`-bestanden in de extensiemap zelf.
+4. De `.vsct` gebruikt dezelfde GUID en ID met `IconIsMoniker`; het venster zet `BitmapImageMoniker`.
+
+Drie plekken met dezelfde GUID: een test (`Image_manifest_vsct_and_code_agree`) houdt ze gelijk.
+
+Door het eigen icoon is `KnownImageIds.vsct` niet meer nodig, en daarmee is onze command table klein: één blok. De test op meerdere blokken gebruikt nu een eigen fixture, `Large.vsct`, die `KnownImageIds.vsct` insluit.
+
+### Screenshots maken zonder het scherm te pakken
+
+De eerste poging met `Graphics.CopyFromScreen` legde een ander programma vast dat vooraan stond: een achtergrondproces mag een venster niet naar voren halen. `PrintWindow` met `PW_RENDERFULLCONTENT` (2) vraagt het venster zelf om zich te tekenen, ook als het erachter ligt; er komt niets anders op de afbeelding. De Experimental Instance blijft op het startscherm staan als je hem zonder bestand start; met een bestand als argument (`devenv /rootsuffix Exp README.md`) opent hij meteen. Het zoekvak vul je met UI Automation (`ValuePattern.SetValue`), zonder toetsenbord. De scripts staan in `obj\research\`: `print-window.ps1`, `run-command.ps1`, `set-search.ps1`.
+
+### Alleen tonen wat iets kan vinden
+
+Na de eerste test, op verzoek van Herbert:
+
+- **Filters die niets vinden, verdwijnen.** "Only added by you" en "Only conflicts" staan er alleen als er eigen sneltoetsen of conflicten zijn (`HasCustom`, `HasConflicts` in het viewmodel). Staat zo'n filter aan als hij verdwijnt, bijvoorbeeld na Refresh, dan gaat hij uit; anders is de lijst leeg zonder zichtbare reden.
+- **De samenvatting laat nullen weg.** "0 added by you" is ruis.
+- **Pijltoetsen als pijlen.** `KeyChord.Display` maakt van "Up Arrow" een ↑, en zo ook ↓, ← en →. Alleen op de toetsen in het venster: de gegevens, de export en het zoeken houden de tekst van VS, zodat zoeken op "arrow" ze blijft vinden.
+
+### Uitlijnen met labels
+
+Regels met een label ("yours", extensie, conflict) begonnen hun naam verder naar rechts. Het raster had drie kolommen: toetsen `2*`, naam `3*` en labels `Auto`. Een `Auto`-kolom neemt eerst zijn ruimte, en de rest wordt 2:3 verdeeld. Een regel met een label had dus een smallere toetsenkolom dan een regel zonder. Nu heeft elke regel dezelfde twee kolommen, en de labels staan rechts binnen de naamkolom (`DockPanel.Dock="Right"`).
+
+Een akkoord dat niet op één regel past, liep door met de komma vooraan. De komma hoort nu bij de eerste stap (`StrokeView.HasNext`), zodat de regel eindigt met "Ctrl R ," en de volgende begint met de toets.
+
+Enter staat als ⏎ op de toets: dat symbool staat op vrijwel elk toetsenbord. Backspace en de andere toetsen houden hun tekst.
+
+### VS 2026 lost conflicten zelf op
+
+Herbert kon geen conflict maken via de sneltoetsen-instellingen. Een proef in de Experimental Instance: de `.vsct` van deze extensie kreeg tijdelijk twee standaardsneltoetsen voor `View.ShortcutCheatsheet`, Ctrl+Shift+B (bezet door Build Solution) en Ctrl+Shift+Alt+F9 (vrij). Na de deploy gaf DTE:
+
+```
+View.ShortcutCheatsheet -> Global::Ctrl+Shift+Alt+F9
+Build.BuildSolution     -> Global::Ctrl+Shift+B
+```
+
+VS paste de vrije sneltoets toe en sloeg de botsende stil over. Een conflict met een extensie of een eigen sneltoets in dezelfde scope ontstaat in VS 2026 dus niet; wat overblijft zijn conflicten binnen VS zelf, en die toont het venster niet (keuze a).
+
+Twee bijzaken uit de proef:
+
+- Een standaardsneltoets die eenmaal is toegepast, blijft staan als je hem uit de `.vsct` haalt. Ctrl+Shift+Alt+F9 bleef na het terugzetten bestaan, tot hij via DTE werd weggehaald (`command.Bindings = new object[0]`).
+- Na een gewijzigde `.vsct` moet `extensions.configurationchanged` worden bijgewerkt, anders leest VS de nieuwe command table niet.
+
+### Van conflicten naar "not applied"
+
+Omdat VS 2026 zelf geen conflicten toelaat (zie hierboven), had het filter "Only conflicts" nooit iets te tonen. Wat wel gebeurt: een extensie brengt een standaardsneltoets mee die al bezet is, en VS slaat hem stil over. De gebruiker weet dan niet dat de extensie een sneltoets voor die functie had.
+
+**Hoe het herkend wordt.** De command table van de extensie (sectie `Keys`) zegt welke sneltoetsen hij wil. `CheatSheetBuilder.NotApplied` loopt die langs:
+
+1. `KeyText.Format` schrijft de sneltoets zoals DTE dat doet: virtual-key `0x42` met Ctrl en Shift wordt "Ctrl+Shift+B". De volgorde van de modifiers is die van DTE: Ctrl, Shift, Alt, Win. Een toets zonder bekende naam geeft `null`, en zo'n sneltoets wordt overgeslagen.
+2. De scope komt uit de editor-GUID: `guidVSStd97` is Global, de text editor factory is Text Editor. Andere editor-scopes hebben een naam die we niet weten; die worden niet gemeld in plaats van geraden.
+3. Heeft DTE het command met deze toetsen in deze scope, dan is hij toegepast.
+4. Zo niet, dan alleen melden als een ander command de toetsen in die scope heeft. Ontbreekt de sneltoets om een andere reden, bijvoorbeeld omdat je het command zelf andere toetsen gaf, dan zwijgt het venster.
+5. Heb je de sneltoets zelf verwijderd (`isRemoval` in `settings.json`), dan is dat je eigen keuze en geen melding waard.
+
+**In het venster** staat zo'n regel gedimd, met een waarschuwingsicoon en een tweede regel onder de naam: "Shortcut Cheatsheet wants these keys, but they are used by Build Solution." Eerst stond "not applied" als label naast de naam, maar in een smal venster duwden de labels de naam helemaal weg. De uitleg onder de naam past altijd. In de samenvatting staat "1 not applied", en het filter heet nu "Only not applied". In de JSON vervangen `notApplied` en `usedBy` het oude `conflictsWith`.
+
+**Getest** met dezelfde tijdelijke Ctrl+Shift+B in de `.vsct` als bij de proef, en daarna weer teruggezet. Eén keer terugzetten was niet genoeg: de gedeployde DLL had nog de tijdelijke command table. Na het terugzetten van de `.vsct` dus opnieuw deployen.
+
+## Stap 5a: exporteren
+
+De knop heet nu "Export..." en biedt zeven formaten: PDF, PNG, HTML, Markdown, CSV, JSON en XML. De export volgt het venster: dezelfde zoektekst, filters en indeling. Wie alleen de extensies wil afdrukken, vinkt "Only extensions" aan en exporteert.
+
+### Eén document, zeven schrijvers
+
+`ExportDocument.Create` filtert, sorteert en groepeert met dezelfde `ShortcutView` als het venster. Het resultaat heeft twee vormen:
+
+- `Groups` (groep, subgroep, regels) voor de leesbare formaten: PDF, PNG, HTML en Markdown.
+- `Sheet`, een gefilterde `CheatSheet`, voor de dataformaten: JSON, XML en CSV.
+
+Elke schrijver is daardoor kort en apart te testen. `Exporter` kiest de schrijver op extensie (`.htm` en `.markdown` mogen ook) en levert het filter voor het opslagvenster.
+
+### PDF en PNG: tekenen zonder venster
+
+`SheetRenderer` tekent pagina's met `DrawingVisual` en `FormattedText`, niet met XAML-controls. Dat heeft twee voordelen: het draait in een test zonder venster, en de opmaak ligt vast. Alleen een STA-thread is nodig; de test start er zelf een.
+
+De opbouw:
+
+1. **Meten.** Elke kop en elke regel wordt een blok met een hoogte en een tekenfunctie. Een kop krijgt `KeepWithNext`, zodat hij nooit los onderaan een kolom staat.
+2. **Plaatsen.** Blokken vullen drie kolommen per pagina (A4 liggend, 1123 x 794 WPF-eenheden). Begint een kolom midden in een groep, dan komt er een grijze regel boven: "Global · Build (continued)". Zo is elke kolom los te lezen.
+3. **Tekenen** op schaal 2, dus 192 dpi: scherp op papier.
+
+De breedte van de toetsenkolom volgt de gegevens: genoeg voor 9 van de 10 sneltoetsen op één regel, tussen 30 en 45 procent van de kolom. De eerste versie nam de breedste sneltoets, en dan stonden alle namen halverwege de kolom voor een paar lange regels. Nu loopt een akkoord als "Ctrl+K, Ctrl+→" door naar een tweede regel, en zet een heel lange toets ("Ctrl+Shift+Alt+F7") de naam eronder.
+
+Sneltoetsen die VS niet heeft toegepast, staan niet in PDF en PNG. Ze werken niet, en op papier is geen ruimte om uit te leggen waarom. In de andere formaten staan ze wel, gemarkeerd.
+
+PNG schrijft één bestand per pagina: "Shortcuts-1.png", "Shortcuts-2.png". Alle sneltoetsen van een normale installatie (ruim 1100) passen op 17 pagina's.
+
+### Een eigen PDF-schrijver
+
+PDFsharp 6.5 en iText zijn AGPL. Een PDF met alleen afbeeldingen is klein genoeg om zelf te schrijven (`PdfWriter`, ongeveer 150 regels):
+
+- Per pagina een afbeelding (`/XObject /Image`, RGB, 8 bits) en een korte content stream die hem over de hele pagina zet: `q 842 0 0 595 0 0 cm /Im0 Do Q`.
+- Compressie met `/FlateDecode`. Dat is zlib, en .NET heeft alleen `DeflateStream`, dus raw deflate. Zlib is raw deflate met 2 bytes ervoor (`78 9C`) en een Adler-32-controlegetal erachter. Die drie stukken schrijft `PdfWriter.Zlib` zelf.
+- Daarna de catalogus, de pagina-lijst en een cross-reference-tabel met de byte-positie van elk object. Elke regel in die tabel is precies 20 bytes, inclusief de spatie voor de regelovergang.
+
+De test controleert wat een PDF-lezer nodig heeft: `startxref` wijst naar de tabel, elke positie wijst naar zijn object, en elke `/Length` klopt met de data. Ter controle opende `qpdf --check` het resultaat zonder fouten.
+
+### HTML, Markdown en CSV
+
+- **HTML** is één bestand zonder iets van buiten: CSS-toetsen met `<kbd>`, een zoekveld (ook "ctrl+e,v" zonder spaties), donker als Windows donker staat, en een printopmaak in drie kolommen.
+- **Markdown** zet de toetsen als code in de tabel: `` `Ctrl+K, Ctrl+→` ``. De eerste versie gebruikte `<kbd>`, wat GitHub en Markdig als toetsen tekenen. Obsidian toont HTML aan het begin van een tabelcel echter als tekst, en daar stond "<kbd>Ctrl+K, Ctrl+→". Een code span ziet er in elke viewer hetzelfde uit. Twee randgevallen: een `|` splitst de cel ook binnen code en wordt dus `\|`, en een toets met een backtick ("Ctrl+`") krijgt dubbele backticks met spaties. Les: test een export in de viewer die de gebruiker echt gebruikt, niet alleen in een referentie-implementatie.
+- **CSV** opent direct goed in Excel als aan twee dingen is voldaan: UTF-8 met BOM (anders worden de pijltjes onleesbaar) en het lijstscheidingsteken van de landinstelling. In Nederland is dat een puntkomma. Met een komma als scheidingsteken krijgt "Ctrl+," aanhalingstekens.
+
+### Tests
+
+12 nieuwe tests, 68 in totaal. Eén test schrijft alle formaten uit `tools\Shortcuts.json` (een echte export, niet in de repo) naar `obj\export-samples`. Zo kun je het resultaat bekijken zonder VS te starten. Staat het bestand er niet, dan meldt de test "Inconclusive" en faalt hij niet.
+
+### Valkuil: tijdelijke bestanden
+
+Desktop Commander mag alleen in `C:\DevOps` en een paar andere mappen schrijven, niet in `%TEMP%`. Het commitbericht staat daarom in `obj\commit-msg.txt`; `obj` staat in `.gitignore`.
