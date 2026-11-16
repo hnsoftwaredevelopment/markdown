@@ -541,3 +541,98 @@ Die volgde de taal van Windows en gaf "16 november 2026" in een Engelse export. 
 - **Een `DialogPage` kun je niet testen zonder VS.** De constructor vraagt `Microsoft.Internal.VisualStudio.Interop` op, en die staat alleen in VS. De test op de pagina is daarom vervallen; de tests controleren registration.json tegen de code (monikers, standaardwaarden, keuzes, de koppeling met de pagina) en of elke tekst in Strings.resx staat.
 - **De `Grouping`-enum moest `public` worden**, omdat de pagina `public` is en een eigenschap van dat type heeft.
 - **registration.json staat niet in `Builds\`.** `Content` gaat alleen in de VSIX en de deploy. `check-exp-deploy.ps1` kopieert alleen de DLL, `.pkgdef` en het manifest; na een nieuw bestand dus echt deployen: `MSBuild ... -p:DeployExtension=true`.
+
+## Stap 5c: vertalingen
+
+Dezelfde 15 talen als XAML Resource Preview: Engels, en Chinees (vereenvoudigd en traditioneel), Duits, Frans, Italiaans, Japans, Koreaans, Nederlands, Pools, Portugees (Brazilië), Russisch, Spaans, Tsjechisch en Turks.
+
+**Wat wel en niet vertaald is.** Het venster, de opties en de leesbare exports (PDF, PNG, HTML, Markdown) volgen de taal. JSON, XML en CSV blijven Engels: een script of Excel-formule moet altijd dezelfde kolomnamen zien. De namen van commands en scopes ("Build Solution", "Text Editor") komen van Visual Studio zelf, en staan dus in de taal van VS.
+
+**Afspraak: termen van Visual Studio blijven Engels.** Wat direct of indirect naar Visual Studio verwijst (Command, Tools > Options > Environment > Keyboard, scopes) staat ook in een vertaling in het Engels, net als de UI van VS. Getest door Herbert: Nederlands leest goed, wisselen van taal werkt meteen, en Automatisch kiest de taal van VS.
+
+### Eén bron voor alle teksten
+
+`Localization\Strings.resx` heeft 71 namen; elke taal een eigen `Strings.<taal>.resx`. In de `.csproj` krijgt elk bestand `LogicalName` `VSPackage.<taal>.resources`. MSBuild maakt er satellite-assemblies van (`nl\ShortcutCheatsheet.resources.dll`), en de VSIX neemt ze vanzelf mee. Zo vindt VS de vertaalde optieteksten ook voor registration.json.
+
+De resx-bestanden zijn gemaakt met een script: één Engelse lijst en per taal een lijst in dezelfde volgorde. Het script controleerde dat elke vertaling dezelfde plaatshouders (`{0}`, `{1}`) heeft. Daarna gingen de bestanden naar de projectmap, met een MD5-controle.
+
+### Teksten in XAML
+
+Een `{x:Static}` naar een resource werkt niet, omdat de taal tijdens het draaien kan wisselen. Het viewmodel heeft daarom een eigenschap `Texts` van het type `LocalizedTexts`, met alleen een indexer:
+
+```xml
+<Button Content="{Binding Texts[WindowRefresh]}" />
+```
+
+Wisselt de taal in de opties, dan zet het viewmodel een nieuw `LocalizedTexts`-object. WPF leest dan elke binding opnieuw. In de rijen, waar de DataContext een sneltoets is, loopt de binding via de ListBox: `{Binding DataContext.Texts[Yours], RelativeSource={RelativeSource AncestorType=ListBox}}`.
+
+**De keuzelijst Group by** houdt dezelfde items en krijgt alleen nieuwe labels (`GroupingOption.Refresh`). Met een nieuwe lijst zou de ComboBox even geen selectie hebben, en via de two-way binding de indeling terugzetten.
+
+### Meervoud en zinsbouw
+
+"1 shortcut" en "{0} shortcuts" zijn twee namen. Talen met meer meervoudsvormen (Pools, Russisch, Tsjechisch) gebruiken een vorm die altijd klopt: "Skróty: {0}" in plaats van een vervoeging die alleen bij sommige getallen past. De opsomming in de samenvatting heeft een eigen scheidingsteken (`SummaryListSeparator`), omdat Japans en Chinees "、" en "，" gebruiken en de zin met "。" afsluiten.
+
+### Tests
+
+5 nieuwe tests, 81 in totaal:
+
+- Elke taal uit de opties heeft een vertaling, met dezelfde namen en dezelfde plaatshouders als het Engels.
+- De XAML vraagt alleen namen die bestaan, en bevat geen vaste Engelse tekst meer (gecontroleerd met een reguliere expressie op `Content=`, `Text=`, `ToolTip=` en `AutomationProperties.Name=`).
+- Een Nederlandse export heeft de Nederlandse titel, kolomkoppen en datum, `<html lang="nl">`, en een Engelse CSV.
+- De voorbeeldtest maakt ook `Extensions-ja.png`. Daarop staat de Japanse titel goed: Segoe UI heeft geen Japanse tekens, en WPF valt dan vanzelf terug op een lettertype dat ze wel heeft.
+
+### Valkuil: VSSDK006
+
+De analyzer eist een controle op `null` na `GetServiceAsync`, maar herkent die alleen op een lokale variabele. `_settingsManager = await ...` gevolgd door `if (_settingsManager != null)` gaf toch de waarschuwing. Eerst in een lokale variabele zetten en die controleren lost het op.
+
+## Stap 6: uitbrengen
+
+Versie 1.0.0, met README, CHANGELOG, een release-workflow en de gegevens voor de Marketplace.
+
+### README met screenshots
+
+De README (Engels) heeft per functie een screenshot in `docs\images\`. Die zijn gemaakt met `tools\readme-shots.ps1`, zonder toetsenbord of muis:
+
+```
+tools\readme-shots.ps1 -Start
+tools\readme-shots.ps1 -Open
+tools\readme-shots.ps1 -Group 'Where it works' -Search 'debug'
+tools\readme-shots.ps1 -Shot docs\images\search.png
+```
+
+- **DTE** opent het venster en zet het zwevend op 900 x 700. Het venster wordt gezocht op de GUID van `CheatsheetWindow`; de titel kan in een andere taal staan.
+- **UI Automation** vult het zoekvak, kiest de indeling en zet de filters. De items van de keuzelijst Group by bestaan pas als de lijst open is geweest, en hun naam was de klassenaam (`GroupingOption`). `ToString()` geeft nu het label; dat helpt ook schermlezers.
+- **PrintWindow** legt alleen het zwevende venster vast. Dat venster heeft als titel de naam van de solution ("Solution1"), niet "Shortcut Cheatsheet"; het script zoekt daarom het venster van devenv zonder "Microsoft Visual Studio" in de titel.
+- **Het Opties-venster**: `Tools.Options` met de GUID van de klassieke pagina als argument opent het nieuwe venster meteen op Shortcut Cheatsheet > General.
+- De PDF-pagina en de HTML-export komen uit de voorbeeldtest (`obj\export-samples`).
+
+Voor "not applied" is geen screenshot: in een normale installatie was er geen voorbeeld. De README legt het uit met tekst.
+
+### Een fout die bijna meeging
+
+Tijdens de screenshots stond er "1 not applied" in de samenvatting: Shortcut Cheatsheet wilde Ctrl+Shift+B. Dat was de proefsneltoets uit stap 4. De `.vsct` was teruggezet uit een kopie met de datum van vóór de proef, en de gecompileerde `.cto` in `obj\` was nieuwer. MSBuild zag dus geen reden om opnieuw te compileren, en de VSIX had nog de oude command table.
+
+Opgelost:
+
+- De `.vsct` een nieuwe datum gegeven, zodat hij opnieuw gecompileerd werd.
+- `[ProvideMenuResource("Menus.ctmenu", 2)]`: met een hogere versie leest VS de command table opnieuw in.
+- Een extra controle in `Reads_the_table_of_this_extension_from_its_dll`: onze eigen command table heeft geen standaardsneltoetsen. Die test faalde eerst, zoals hij moest, en slaagde na de nieuwe build.
+
+Les: zet je een bestand terug uit een kopie, geef het dan een nieuwe datum, of maak de build schoon.
+
+### Release-workflow
+
+`.github\workflows\release.yml` is die van XAML Resource Preview, met andere namen en `submodules: true` bij het uitchecken (zonder ExtensionCommon bouwt het project niet). Starten kan op twee manieren:
+
+- Actions > Release > Run workflow, met versie `1.0.0`. De workflow maakt tag `v1.0.0`.
+- Zelf een tag pushen: `git tag v1.0.0` en `git push origin v1.0.0`.
+
+De workflow bouwt Release, draait de tests, maakt een GitHub Release met de sectie "## 1.0.0" uit CHANGELOG.md als notes, en hangt `ShortcutCheatsheet-1.0.0.vsix` eraan. Met de optie publish gaat hij ook naar de Marketplace, met `publishManifest.json` (publisher hnsoftwaredevelopment, de screenshots als assets) en het secret `VS_MARKETPLACE_TOKEN`.
+
+Op een build-server zonder VS 2026 slaan twee tests over (Inconclusive): die over alle geïnstalleerde command tables, en de voorbeeldtest zonder `tools\Shortcuts.json`.
+
+### Gecontroleerd
+
+- Release-build met 81 geslaagde tests.
+- De VSIX bevat de DLL, 14 satellites, de `.pkgdef`, de iconen, het image manifest en `Options\registration.json`.
+- Versie 1.0.0 in het manifest; de beschrijving noemt geen conflicten meer.
