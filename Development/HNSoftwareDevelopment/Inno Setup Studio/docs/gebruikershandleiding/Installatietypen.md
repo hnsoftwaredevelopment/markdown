@@ -2,11 +2,11 @@
 
 Met installatietypen bied je de gebruiker een paar begrijpelijke keuzes aan. Denk aan **Volledig** voor je programma met alle extra onderdelen, **Compact** voor alleen de basis en **Aangepast** voor zelf onderdelen kiezen. Voor een klein programma zonder optionele onderdelen heb je dit niet nodig; je mag de lijst leeg laten.
 
-Typen verschijnen op de componentenpagina zodra er ook [componenten](Componenten.md) zijn ingesteld. Alleen een type toevoegen verandert niet welke bestanden worden geïnstalleerd. Koppelingen tussen componenten en installatiebestanden volgen in een latere stap.
+Typen verschijnen op de componentenpagina zodra er ook [componenten](Componenten.md) zijn ingesteld. Alleen een type toevoegen verandert niet welke bestanden worden geïnstalleerd. Via **Koppelen aan keuzes** koppel je bestanden, mappen en snelkoppelingen aan componenten. De typekeuze bepaalt dan indirect welke regels worden uitgevoerd.
 
 ## Een type toevoegen
 
-1. Open **Installatietypen → Installatietypen beheren** en klik op **Toevoegen**.
+1. Open **Installatie → Installatietypen** en klik op **Toevoegen**.
 2. Vul bij **Standaardbeschrijving** bijvoorbeeld `Volledige installatie` in. Dit is de tekst die de gebruiker straks ziet.
 3. Geef het type een unieke **Interne naam**, bijvoorbeeld `full`. Die naam gebruik je later om onderdelen aan dit type te koppelen. Hij hoeft niet te worden vertaald.
 4. Voeg eventueel een tweede type toe, bijvoorbeeld `compact` met de beschrijving `Compacte installatie`.
@@ -20,7 +20,7 @@ De geselecteerde rij blijft bij opslaan en heropenen geselecteerd. Dat is je ple
 
 Vink **Aangepast type** aan voor bijvoorbeeld de beschrijving `Aangepaste installatie` met de interne naam `custom`. Daarmee geef je aan welk type hoort bij het zelf aan- en uitzetten van afzonderlijke componenten. Er mag maar één aangepast type zijn.
 
-Zonder aangepast type kan de gebruiker straks wel een vooraf ingesteld type kiezen, maar niet zelf vrij onderdelen aan- en uitvinken. De onderdelen en hun typekoppelingen stel je in bij Componenten. De koppeling aan bestanden volgt later.
+Zonder aangepast type kan de gebruiker straks wel een vooraf ingesteld type kiezen, maar niet zelf vrij onderdelen aan- en uitvinken. De onderdelen en hun typekoppelingen stel je in bij Componenten. Koppel daarna de bestandsregels aan de juiste componenten.
 
 ## Beschrijvingen vertalen
 

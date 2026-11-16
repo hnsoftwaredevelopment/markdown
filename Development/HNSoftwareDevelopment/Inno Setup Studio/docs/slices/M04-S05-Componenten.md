@@ -1,6 +1,6 @@
 # M04-S05 — Componenten
 
-Status: geïmplementeerd, wacht op gebruikerscontrole; nog niet gecommit/gepusht op m04-installatiekeuzes na geaccepteerde S04 (e78e830).
+Status: geaccepteerd op 11 november 2026 op m04-installatiekeuzes na geaccepteerde S04 (e78e830).
 
 ## Resultaat en scope
 

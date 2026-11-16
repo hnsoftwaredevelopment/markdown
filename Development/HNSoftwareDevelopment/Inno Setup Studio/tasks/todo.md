@@ -79,9 +79,9 @@ Bestandsgroepen: Core/installatieregels/referenties; App/regeloverzichten/keuzep
 | [x] | M04-S02 Mapregels | Losse mapregels zijn te beheren; relevante opties worden gevalideerd; regels volgen projectreferenties en opslag. | B/T/C/U; S01 |
 | [x] | M04-S03 Snelkoppelingen | Naam, doel, parameters en map zijn instelbaar; ontbrekende verwijzingen worden gemeld; gebruiker controleert een startmenusnelkoppeling. | B/T/C/I; S02; door gebruiker geaccepteerd |
 | [x] | M04-S04 Installatietypen | Typen hebben unieke identifiers en vertaalbare beschrijvingen; selectie wordt bewaard in ontwerpgegevens; export compileert. | B/T/C/U; S03; door gebruiker geaccepteerd |
-| [ ] | M04-S05 Componenten | Componenten hebben gecontroleerde structuur en typekoppeling; componentpagina werkt in de preview; ongeldige referenties worden gemeld. | B/T/C/U; S04; geïmplementeerd, wacht op gebruikerscontrole |
-| [ ] | M04-S06 Taken | Taken hebben beginselectie en relevante opties; takenpagina past bij projectinhoud; vertalingen en opslag werken. | B/T/C/U; S05 |
-| [ ] | M04-S07 Regels koppelen en keuzes bewijzen | Bestanden/mappen/icons volgen typen, componenten en taken; verwijderen toont afhankelijke regels; gebruiker vergelijkt twee verschillende echte installatiekeuzes. | B/T/C/I, milestonecheck; S06 |
+| [x] | M04-S05 Componenten | Componenten hebben gecontroleerde structuur en typekoppeling; componentpagina werkt in de preview; ongeldige referenties worden gemeld. | B/T/C/U; S04; geaccepteerd |
+| [x] | M04-S06 Taken | Taken hebben beginselectie en relevante opties; takenpagina past bij projectinhoud; vertalingen en opslag werken. | B/T/C/U; S05; door gebruiker geaccepteerd |
+| [ ] | M04-S07 Regels koppelen en keuzes bewijzen | Bestanden/mappen/icons volgen typen, componenten en taken; verwijderen toont afhankelijke regels; gebruiker vergelijkt twee verschillende echte installatiekeuzes. | B/T/C/I, milestonecheck; S06; wacht op gebruikerscontrole |
 
 ## M05 — m05-systeemintegratie
 
@@ -95,7 +95,7 @@ Bestandsgroepen: Core/installatiebeleid/configuratieregels; App/beleid/regelbewe
 | [ ] | M05-S04 INI-regels | Bestand/sectie/sleutel/waarde zijn bewerkbaar; quoting en voorwaarden zijn correct; gebruiker controleert testconfiguratie. | B/T/C/I; S03 |
 | [ ] | M05-S05 Programma-acties | Run/UninstallRun hebben heldere uitvoermomenten en parameters; export behoudt volgorde/opties; preview voert geen acties uit. | B/T/C/U; S04 |
 | [ ] | M05-S06 Opruimregels | InstallDelete/UninstallDelete zijn apart zichtbaar; doel en moment zijn duidelijk; gebruiker controleert beperkte eigen testbestanden. | B/T/C/I; S05 |
-| [ ] | M05-S07 Update en deïnstallatie | Stabiele applicatie-identiteit blijft behouden; verse installatie/update/deïnstallatie zijn gecontroleerd; niet geteste architecturen zijn niet als bewezen gemarkeerd. | B/T/C/I, milestonecheck; S06 |
+| [ ] | M05-S07 Update en deïnstallatie | Stabiele applicatie-identiteit blijft behouden; verse installatie/update/deïnstallatie zijn gecontroleerd; niet geteste architecturen zijn niet als bewezen gemarkeerd. | B/T/C/I, milestonecheck; S06; wacht op gebruikerscontrole |
 
 ## M06 — m06-vormgeving
 
@@ -123,7 +123,7 @@ Vooraf is de omvang nog niet per richtlijn bekend. S02–S06 worden na S01 opges
 | [ ] | M07-S04 Build- en runtimebeleid | Uitvoer/compressie/schijfverdeling en reguliere herstart-/bestandsgebruik-/wachtwoordopties hebben geregistreerde bediening; export volgt keuzes; silent gedrag krijgt een gebruikersscenario. | B/T/C/I; S03 |
 | [ ] | M07-S05 Native downloads en archieven | Ondersteunde native bronopties en vereiste parameters zijn instelbaar; regels worden gevalideerd; gebruiker test een klein gecontroleerd voorbeeld. | B/T/C/I; S04 |
 | [ ] | M07-S06 Ondertekening en verificatie | Door gebruiker ingerichte signing en publieke verificatiesleutels passen in export/build; ontbrekend hulpmiddel geeft uitleg; gevoelige lokale gegevens worden niet ongemerkt projectinhoud. | B/T/C, gebruikerstest waar middelen beschikbaar; S05 |
-| [ ] | M07-S07 Dekkingscontrole | Iedere in-scope catalogusregel is beschikbaar en gecontroleerd of expliciet uit scope besloten; voorbeeldexports compileren; matrix weerspiegelt werkelijk bewijs. | D/B/T/C/I, milestonecheck; S06 |
+| [ ] | M07-S07 Dekkingscontrole | Iedere in-scope catalogusregel is beschikbaar en gecontroleerd of expliciet uit scope besloten; voorbeeldexports compileren; matrix weerspiegelt werkelijk bewijs. | D/B/T/C/I, milestonecheck; S06; wacht op gebruikerscontrole |
 
 ## M08 — m08-scripting
 
@@ -222,4 +222,8 @@ M04-S02 is geaccepteerd en gepusht als d03dfd2. M04-S03 is geïmplementeerd: sne
 
 M04-S03 is geaccepteerd en gepusht als e1e8660. M04-S04 is op verzoek geïmplementeerd: geordende installatietypen met unieke interne naam, standaardbeschrijving, vertalingen, één aangepast type en bewaarde ontwerpselectie. Formaat 13 migreert eerdere projecten. Release-build zonder fouten/waarschuwingen; volledige regressie met 274 geslaagde tests, daarna 13 gerichte tests inclusief twee aanvullingen, plus niet-visuele WPF-proef in NL/EN/DE en een native compilerproef. [Scope en handmatige controle](../docs/slices/M04-S04-Installatietypen.md). S04 is op 21 oktober 2026 door de gebruiker geaccepteerd, inclusief de verbeterde plaatsing en uitleg van vertalingen. De gebruiker heeft opdracht gegeven voor S05. Componenten en de bijbehorende wizardpagina volgen in S05, inhoudskoppelingen in S07.
 
-M04-S04 is geaccepteerd en gepusht als e78e830. M04-S05 is op verzoek geïmplementeerd: componenten met hiërarchie, typekoppelingen, vertalingen, fixed/checkablealone, verwijzingsbescherming en tijdelijke componentkeuze in de wizardproef. Projectformaat 14 migreert eerdere projecten. Volledige regressie met 282 geslaagde tests, daarna negen gerichte tests inclusief drie aanvullingen, twee nieuwe native compilerproeven en niet-visuele WPF-controle in NL/EN/DE. [Handmatige controles en grenzen](../docs/slices/M04-S05-Componenten.md). S05 wacht op gebruikersacceptatie; S06 is niet gestart. Bestanden en snelkoppelingen reageren pas in S07 op componenten.
+M04-S04 is geaccepteerd en gepusht als e78e830. M04-S05 is op verzoek geïmplementeerd: componenten met hiërarchie, typekoppelingen, vertalingen, fixed/checkablealone, verwijzingsbescherming en tijdelijke componentkeuze in de wizardproef. Projectformaat 14 migreert eerdere projecten. Volledige regressie met 282 geslaagde tests, daarna negen gerichte tests inclusief drie aanvullingen, twee nieuwe native compilerproeven en niet-visuele WPF-controle in NL/EN/DE. [Handmatige controles en grenzen](../docs/slices/M04-S05-Componenten.md). S05 is op 11 november 2026 getest en geaccepteerd; de gebruiker heeft opdracht gegeven voor S06. Bestanden en snelkoppelingen reageren pas in S07 op componenten.
+
+M04-S05 is geaccepteerd en gepusht als 471e026. M04-S06 voegt Taken beheren, native export, projectformaat 15 en tijdelijke taakselectie in de wizardproef toe. [Handmatige teststappen](../docs/slices/M04-S06-Taken.md). Op 11 november 2026 volledig geaccepteerd, inclusief het compacte hoofdmenu. S07 is niet gestart.
+
+M04-S07 is geïmplementeerd met regelkoppelingen, bescherming van gebruikte keuzes en controle van snelkoppelingsdoelen. [Twee installatiekeuzes vergelijken](../docs/slices/M04-S07-Regels-koppelen.md). Wacht op gebruikersacceptatie.
