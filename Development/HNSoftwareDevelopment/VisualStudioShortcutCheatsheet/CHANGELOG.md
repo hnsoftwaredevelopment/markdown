@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.1
+
+No changes to the extension itself.
+
+- The images on the Marketplace page load from GitHub.
+- The package no longer contains debug symbols.
+
 ## 1.0.0
 
 First release: a cheat sheet of every keyboard shortcut in your own Visual Studio 2026.

@@ -4,7 +4,7 @@ A Visual Studio 2026 extension that shows every keyboard shortcut of your own Vi
 
 Open it with **View > Other Windows > Shortcut Cheatsheet**.
 
-![The Shortcut Cheatsheet window](docs/images/window.png)
+![The Shortcut Cheatsheet window](https://raw.githubusercontent.com/hnsoftwaredevelopment/VisualStudioShortcutCheatsheet/main/docs/images/window.png)
 
 ## What it shows
 
@@ -17,13 +17,13 @@ Open it with **View > Other Windows > Shortcut Cheatsheet**.
 
 Search by name, command, category or keys. Keys work with or without spaces: `ctrl+e,v` finds Ctrl+E, V. Every word must match, so `debug f10` finds Step Over in the Debug category.
 
-![Searching for "debug"](docs/images/search.png)
+![Searching for "debug"](https://raw.githubusercontent.com/hnsoftwaredevelopment/VisualStudioShortcutCheatsheet/main/docs/images/search.png)
 
 ## Which extension adds a shortcut
 
 Shortcuts from an extension carry its name; shortcuts of Visual Studio itself have no label. Group by Extension, or tick **Only extensions**, to see what each extension brings.
 
-![Shortcuts grouped by extension](docs/images/extensions.png)
+![Shortcuts grouped by extension](https://raw.githubusercontent.com/hnsoftwaredevelopment/VisualStudioShortcutCheatsheet/main/docs/images/extensions.png)
 
 The extension is found in the compiled command table of each installed extension, the same data Visual Studio loads its menus from. Nothing of the extension is loaded or run.
 
@@ -31,7 +31,7 @@ The extension is found in the compiled command table of each installed extension
 
 Shortcuts you added yourself are marked **yours**. **Only added by you** lists them; the filter only appears when you have any.
 
-![Shortcuts you added](docs/images/yours.png)
+![Shortcuts you added](https://raw.githubusercontent.com/hnsoftwaredevelopment/VisualStudioShortcutCheatsheet/main/docs/images/yours.png)
 
 ## Shortcuts that were not applied
 
@@ -50,9 +50,9 @@ An extension can bring a default shortcut whose keys another command already use
 | CSV | Excel, with the list separator of your Windows region |
 | JSON, XML | scripts and other tools |
 
-![A PDF page](docs/images/export-pdf.png)
+![A PDF page](https://raw.githubusercontent.com/hnsoftwaredevelopment/VisualStudioShortcutCheatsheet/main/docs/images/export-pdf.png)
 
-![The HTML export](docs/images/export-html.png)
+![The HTML export](https://raw.githubusercontent.com/hnsoftwaredevelopment/VisualStudioShortcutCheatsheet/main/docs/images/export-html.png)
 
 Shortcuts that were not applied are left out of PDF and PNG, and marked in the other formats.
 
@@ -68,7 +68,7 @@ Tools > Options > Shortcut Cheatsheet, in the new and in the legacy Options dial
 | Colors for PDF and PNG: light or dark | Light |
 | Columns per page, 1 to 4 | 3 |
 
-![The settings](docs/images/options.png)
+![The settings](https://raw.githubusercontent.com/hnsoftwaredevelopment/VisualStudioShortcutCheatsheet/main/docs/images/options.png)
 
 The window, the settings, and the PDF, PNG, HTML and Markdown exports follow the language. JSON, XML and CSV stay English, so scripts and formulas always see the same names. Command and scope names come from Visual Studio and keep its language.
 
