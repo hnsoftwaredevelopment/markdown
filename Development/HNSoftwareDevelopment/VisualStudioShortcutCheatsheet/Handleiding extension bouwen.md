@@ -489,7 +489,9 @@ De test controleert wat een PDF-lezer nodig heeft: `startxref` wijst naar de tab
 ### HTML, Markdown en CSV
 
 - **HTML** is één bestand zonder iets van buiten: CSS-toetsen met `<kbd>`, een zoekveld (ook "ctrl+e,v" zonder spaties), donker als Windows donker staat, en een printopmaak in drie kolommen.
-- **Markdown** zet de toetsen als code in de tabel: `` `Ctrl+K, Ctrl+→` ``. De eerste versie gebruikte `<kbd>`, wat GitHub en Markdig als toetsen tekenen. Obsidian toont HTML aan het begin van een tabelcel echter als tekst, en daar stond "<kbd>Ctrl+K, Ctrl+→". Een code span ziet er in elke viewer hetzelfde uit. Twee randgevallen: een `|` splitst de cel ook binnen code en wordt dus `\|`, en een toets met een backtick ("Ctrl+`") krijgt dubbele backticks met spaties. Les: test een export in de viewer die de gebruiker echt gebruikt, niet alleen in een referentie-implementatie.
+- **Markdown** zet toetsen in `<kbd>`, wat GitHub, Obsidian en de Markdown-preview van Visual Studio als toetsen tonen. Binnen `<kbd>` moet je HTML-coderen en toch nog `|`, `\`, `*`, `_` en `` ` `` escapen, anders breekt de tabel.
+
+  De editor Zed kan dat niet: daar staat de eerste `<kbd>` van een cel als tekst, en de rest zonder toetsvorm. Even zijn de toetsen code geworden (`` `Ctrl+K, Ctrl+→` ``), op de aanname dat Obsidian het probleem was. Dat bleek niet zo, en die wijziging is teruggedraaid: voor een weinig gebruikte editor wordt de export elders niet slechter. Les: vraag eerst in welk programma het probleem zich voordoet, en test daar.
 - **CSV** opent direct goed in Excel als aan twee dingen is voldaan: UTF-8 met BOM (anders worden de pijltjes onleesbaar) en het lijstscheidingsteken van de landinstelling. In Nederland is dat een puntkomma. Met een komma als scheidingsteken krijgt "Ctrl+," aanhalingstekens.
 
 ### Tests
