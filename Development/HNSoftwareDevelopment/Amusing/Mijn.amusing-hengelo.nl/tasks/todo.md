@@ -118,7 +118,8 @@ Stand 5 november: productiepatch vastgelegd en API-route hersteld; Herbert beves
 
 ## MIJN-07 — Eigen contactgegevens onderhouden
 
-- [ ] Laat de ingelogde gebruiker onder Mijn contactgegevens het bestaande e-mailveld van het eigen account invullen of wijzigen. Controleer bij uitwerking waarvoor dit veld wordt gebruikt, waaronder inloggen en wachtwoordherstel.
+- [x] Toon het huidige e-mailadres onder Mijn contactgegevens en laat de gebruiker een nieuw adres aanvragen. Het nieuwe adres wordt na bevestiging het inlog- en hersteladres. Een bestaand adres bij een ander account wordt geweigerd. De link is één uur geldig en kan door het ingelogde account één keer worden gebruikt. Dev.mijn plaatst de mail in de afgeschermde mailopvang. Voor productie is migratie 020 nodig.
+- [ ] Praktijktest op dev.mijn voor aanvragen, bevestigen en inloggen met het nieuwe adres.
 
 - [ ] Uitvoering en verificatie afgerond.
 - Gebied: Accounts.
@@ -130,7 +131,7 @@ Stand 5 november: productiepatch vastgelegd en API-route hersteld; Herbert beves
 - verplichte velden en telefoon worden gevalideerd
 - wijziging krijgt een auditregistratie.
 
-**Stand:** Mijn contactgegevens biedt naam en telefoonnummers op dev.mijn. De identiteit van de ingelogde gebruiker bepaalt welk account wordt aangepast. Het log bewaart de gewijzigde veldnamen. Wijzigen van het inlogadres volgt apart bij de accountfunctionaliteit. Praktijkacceptatie staat open.
+**Stand:** Mijn contactgegevens biedt naam, telefoonnummers en de aparte bevestigingsstap voor het inlogadres op dev.mijn. De identiteit van de ingelogde gebruiker bepaalt welk account wordt aangepast. Het log bewaart de gewijzigde veldnamen. Na bevestiging vervallen herstelcodes die aan het oude e-mailadres zijn gekoppeld. Praktijkacceptatie staat open.
 
 ## MIJN-08 — Een koor aanmaken en eigen koren kiezen
 
