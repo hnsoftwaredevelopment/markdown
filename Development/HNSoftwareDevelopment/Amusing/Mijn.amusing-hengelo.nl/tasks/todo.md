@@ -118,6 +118,8 @@ Stand 5 november: productiepatch vastgelegd en API-route hersteld; Herbert beves
 
 ## MIJN-07 — Eigen contactgegevens onderhouden
 
+- [ ] Laat de ingelogde gebruiker onder Mijn contactgegevens het bestaande e-mailveld van het eigen account invullen of wijzigen. Controleer bij uitwerking waarvoor dit veld wordt gebruikt, waaronder inloggen en wachtwoordherstel.
+
 - [ ] Uitvoering en verificatie afgerond.
 - Gebied: Accounts.
 - Afhankelijkheden: MIJN-04.
@@ -240,6 +242,8 @@ Stand 5 november: productiepatch vastgelegd en API-route hersteld; Herbert beves
 
 ## MIJN-13 — Inschrijving wijzigen en bevestigen
 
+- [ ] Laat een koor zich vanuit Mijn opnieuw inschrijven voor dezelfde editie nadat de vorige inschrijving in Beheer is afgemeld. Pas de actuele inschrijfperiode en wachtlijststatus toe. Werk bij de uitwerking uit hoe de eerdere afmelding zichtbaar blijft en hoe we omgaan met een bestaande nota of betaling.
+
 - [ ] Uitvoering en verificatie afgerond.
 - Gebied: Festival.
 - Afhankelijkheden: MIJN-12.
@@ -315,11 +319,28 @@ Migratie `database/mijn/006-deelnemerstarieven.sql` is toegepast en gecontroleer
 - herhaalde aanvraag verstuurt geen dubbele bevestiging
 - verzendfouten zijn zichtbaar en kunnen veilig opnieuw verwerkt worden.
 
-- [ ] Twee koorsjablonen in Mailinglayouts, met automatische keuze op basis van de wachtlijststatus.
+- [x] De inschrijfbevestiging gaat naar de eerste actieve contactpersoon 1 met een geldig e-mailadres. Op dev.mijn staan de tekst op basis van de PHP-bevestiging en een aparte wachtlijsttekst.
+- [x] Dev.mijn verstuurt de PDF-nota apart naar de penningmeester of de eerste contactpersoon. Het koorlogboek registreert na geslaagde verzending de ontvangersrol.
+- [x] De bevestiging wacht op de notaverzending en vermeldt daarna ‘De nota voor deze inschrijving is separaat verstuurd naar de penningmeester’ of ‘De nota voor deze inschrijving is separaat naar u verstuurd’.
+- [ ] Praktijktest op dev.mijn voor beide ontvangersroutes, de PDF-bijlage, het logboek en de wachtlijst.
+- Uitgangspunten voor de teksten: de bestaande PHP-inschrijfmail gebruikt `api/group/enroll-group` voor het koor en `api/group/enroll` voor de organisatie. Gebruik voor de afzonderlijke nota de tekst en tabel van Kopie factuur in Beheer, aangepast voor een eerste verzending.
+- [x] Mailinglayouts en het beheer van ontvangerslijsten gebruiken op dev.beheer de ingestelde database `amusingdev`. Een tijdelijke layout is met de aangepaste queries aangemaakt, gewijzigd, gelezen en verwijderd. De controle vond geen overeenkomstige record in `amusing`.
+- [ ] Zet goedgekeurde mailinglayouts gericht over naar productie. Neem naam, onderwerp, inhoud en eventuele koppeling met de juiste productie-ontvangerslijst mee.
+- [ ] Controleer de overige Beheer-queries op expliciete verwijzingen naar `amusing` en geef dev.beheer een databaseaccount met alleen toegang tot `amusingdev`.
+- [x] Testmailroutering per ingelogde aanvrager en een vast testadres voor registratie en herstel. Zie [mailroutering](../mailroutering.md).
+- [x] De gewone inschrijfbevestiging en de wachtlijstbevestiging volgen de taalvoorkeur van contactpersoon 1. Nederlands is de standaard, met Duits en Engels als opties.
+- [x] Beide bevestigingen zijn op dev.beheer bewerkbaar via **Mailinglayouts → Inschrijfbevestigingen van Mijn**. Mijn leest de opgeslagen teksten uit `amusingdev` en valt bij een lege Duitse of Engelse versie terug op Nederlands. De e-mailtests en de databasecontrole op de VPS zijn geslaagd.
+- [ ] Controleer het bewerken en opslaan via het scherm van dev.beheer met een nieuwe testinschrijving. De keuze tussen de drie talen is in het scherm getest.
+- [x] De twee Mijn-sjablonen staan in het gewone Mailinglayouts-overzicht op dev.beheer, met taalkeuze, de bestaande opmaakeditor en behoud van opgeslagen teksten. De opmaak en tekstversie zijn automatisch gecontroleerd met de mailopvang.
+- [x] Herbert heeft bevestigd dat de opmaak uit Mailinglayouts correct in de mail aankomt. Het variabelenmenu werkt voor Mijn en de bestaande sjablonen.
+- [ ] Controleer op dev.beheer bij normale zoom dat Opslaan boven de berichteditor bereikbaar is. Herbert meldde dat verticaal scrollen alleen onvoldoende was. De knop en de terugmelding zijn daarom boven de editor geplaatst.
 
 **Verificatie:** Mailopvangtest met geslaagde verzending, fout en retry. Zie [inschrijfmail](../inschrijfmail.md).
 
 ## MIJN-17 — Deelname-nota als PDF beschikbaar maken
+
+- [ ] Bied contactpersoon 1, contactpersoon 2 en penningmeester bij de deelnamehistorie per editie de actie **Kopie-nota versturen**. Verstuur de PDF naar de actieve penningmeester van het koor en leg de verzending vast in het koorlogboek. Gebruik de laatst opgeslagen inschrijfgegevens en de tarieven en btw van de gekozen editie, ook voor eerdere jaren. Werk bij aanvang uit hoe een bijgewerkte nota zich verhoudt tot een eventueel bewaarde definitieve nota en wat het scherm toont als er geen bereikbaar penningmeester is.
+- Een wijziging van de inschrijving leidt op zichzelf niet tot nieuwe mail. Het koor vraagt de bijgewerkte nota expliciet aan.
 
 - [ ] Uitvoering en verificatie afgerond.
 - Gebied: Nota.
@@ -359,11 +380,14 @@ Migratie `database/mijn/006-deelnemerstarieven.sql` is toegepast en gecontroleer
 - beheerder en koorlid blijven onderscheidbaar
 - toegang en bewaartermijn van historische en nieuwe logs zijn afgesproken.
 
-**Stand:** Logboek op dev.mijn gepubliceerd. Eigen koor, beheerwijzigingen en uitsluiting van andere koorgegevens zijn gecontroleerd. Drie jaar is voorgesteld voor nieuwe koorwijzigingen, met vijf jaar als alternatief. Herbert heeft het koorlogboek geaccepteerd. Intern overleg, automatische opschoning en het besluit over historische PHP-logs staan open. Een beheerinstelling is uitgesteld. Zie [koorlogboek](../koorlogboek.md).
+**Stand:** Logboek op dev.mijn gepubliceerd. Eigen koor, beheerwijzigingen en uitsluiting van andere koorgegevens zijn gecontroleerd. Herbert heeft het koorlogboek geaccepteerd en stelt na intern overleg vijf jaar voor nieuwe koorwijzigingen voor. De volledige deelnamehistorie blijft beschikbaar vanuit de festivalinschrijvingen. Automatische opschoning en het besluit over historische PHP-logs staan open. Een beheerinstelling is uitgesteld. Zie [koorlogboek](../koorlogboek.md).
 
 ## MIJN-20 — Acceptatie en omschakeling voorbereiden
 
 - [ ] Uitvoering en verificatie afgerond.
+- [x] Dev.mijn en dev.beheer delen `amusingdev`. Dev.mijn opent direct de gewone inlogpagina en gebruikt aparte sessiesleutels voor deze database. Inloggen, koorlijst, koorprofiel en auditregistratie zijn op de gedeelde database gecontroleerd.
+- [ ] Samen met Beheer testen dat een inschrijving in beide omgevingen zichtbaar is, dat wijzigingen terugkomen in Mijn en dat de testmail naar de juiste tester gaat.
+- [ ] Bij de productieomschakeling de Blazor-versie van Mijn koppelen aan `amusing`.
 - Gebied: Oplevering.
 - Afhankelijkheden: MIJN-04 t/m MIJN-19.
 
@@ -372,6 +396,8 @@ Migratie `database/mijn/006-deelnemerstarieven.sql` is toegepast en gecontroleer
 - Alle stories zijn getest met gescheiden testdata en mailopvang
 - mobiel, toetsenbord en Nederlands (standaard), Duits en Engels zijn geaccepteerd
 - deployment, monitoring, back-up en terugval zijn aantoonbaar voorbereid.
+
+**Acceptatie:** Herbert heeft de koorpagina, de vijf tabbladen en de gezamenlijke opslagbalk voor foto en logo op dev.mijn goedgekeurd. De taalkeuze op de koorpagina is ook geaccepteerd.
 
 **Verificatie:** Doorloop koor- en beheerderreizen; staging smoke-test en terugvaloefening.
 
@@ -388,7 +414,11 @@ Uitgestelde UX-punten uit acceptatie: wachtwoord tonen/verbergen bij MIJN-04; wa
 
 **Vormgeving:** De bovenbalk van Mijn Blazor gebruikt het geel van de PHP-site ( #ffc107 ). Dev.mijn gebruikt dezelfde donkerrode kleuren als dev.beheer, met de testmelding onder de balk.
 
-**Mijn koren:** Accountopties achter het tandwiel, uitlogknop bovenaan, uitnodigingsbadge voor ongelezen open uitnodigingen en koorknoppen met logo indien aanwezig. Per kooraccount is Nederlands, Duits of Engels instelbaar. De voorkeur vertaalt Mijn koren, Mijn contactgegevens en Wachtwoord wijzigen. Beide accountschermen gebruiken de opmaak van de login. Herbert heeft de taalkeuze op beide schermen getest en goedgekeurd. Wachtwoord wijzigen gebruikt het oogje per wachtwoordveld. De overige pagina's en de taalkeuze bovenaan de site volgen.
+**Mijn koren:** Accountopties achter het tandwiel, uitlogknop bovenaan, uitnodigingsbadge voor ongelezen open uitnodigingen en koorknoppen met logo indien aanwezig. Per kooraccount is Nederlands, Duits of Engels instelbaar. De voorkeur vertaalt Mijn koren, Mijn contactgegevens en Wachtwoord wijzigen. Beide accountschermen gebruiken de opmaak van de login. Herbert heeft de taalkeuze op beide schermen getest en goedgekeurd. Wachtwoord wijzigen gebruikt het oogje per wachtwoordveld. De titelbalk biedt Nederlands, Duits en Engels vóór en na inloggen. Gasten bewaren hun keuze in de browser. Bij een kooraccount wordt dezelfde taalvoorkeur gebruikt als bij het tandwiel. De gewone inlogpagina is vertaald. Mijn uitnodigingen is vertaald, inclusief rollen, geldigheidsdatum en meldingen. Aanvragen en instellen van een nieuw wachtwoord zijn vertaald, inclusief de herstelmail. Herbert heeft beide schermen op dev.mijn getest en goedgekeurd. De Duitstalige herstelmail is in de testmailopvang gecontroleerd. Andere resterende schermen volgen.
+
+**Acceptatie festivalinschrijfpagina:** Herbert heeft de vernieuwde inschrijfpagina op dev.mijn goedgekeurd. De vaste teksten, meldingen en kostentabel volgen de taalvoorkeur. De podiumtoelichtingen worden getoond zoals ze in Beheer zijn ingevoerd.
+
+**Acceptatie taalkeuze in titelbalk:** Herbert heeft het vlagmenu op dev.mijn getest en goedgekeurd. Een taal kiezen past de voorkeur direct toe en behoudt de huidige pagina. De titelbalk en accountinstellingen gebruiken dezelfde voorkeur voor ingelogde koorleden.
 
 ## MIJN-21 — Beoordeling/competitie per festival configureerbaar
 
@@ -405,3 +435,5 @@ Status: Backlog, bewust uitgesteld tot het einde van de kernfunctionaliteit op v
 Herbert geeft aan dat er voor de editie van “dit jaar” geen competitie is. Het bedoelde festival-ID bij uitvoering controleren; niet aannemen dat de synthetische testeditie daarmee gelijk is. Deze toekomstige wens verandert nu geen festivalinstellingen of bestaande inschrijvingen.
 
 **Verificatie:** test twee edities met verschillende teksten, optie uit/aan en een vervalst verzoek bij een uitgeschakelde optie, in zowel Beheer als Mijn.
+
+De vaste teksten op alle koortabbladen volgen de taalvoorkeur per account. Deelnamestatussen, festivaldatums en logboekacties worden bij het tonen vertaald. De gegevens zelf worden niet per taal opgeslagen.
