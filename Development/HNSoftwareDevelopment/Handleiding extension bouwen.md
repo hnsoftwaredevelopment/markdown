@@ -1221,3 +1221,67 @@ Wat VS zelf doet, kun je niet met unit tests afdekken. Loop dit na vóór een re
 - **Find Elements That Could Use This Style**: de omgekeerde richting van sectie 23. Rechtsklik op een stijl en zie de elementen die precies zijn setters als losse attributen hebben; jij kiest welke je omzet.
 - **Een gerenderde preview van een DataTemplate**, met voorbeeldwaarden voor de bindings (`Value`, `IsReadOnly`), zodat je de layout ziet zonder de app te starten. Gevraagd door dezelfde gebruiker als sectie 28. Eigen controls en converters kunnen niet laden, die worden een placeholder.
 - **Een nieuwe extensie: overlappende extensies vinden.** Vergelijk wat geïnstalleerde extensies registreren per content type (taggers, Quick Info-bronnen, completion-bronnen, lampjes) en laat zien waar twee extensies hetzelfde doen, zoals Color Picker Tool, de eigen kleurvakjes van VS en de onze.
+
+## Lessen uit andere extensies
+
+Dit deel maakt de handleiding stap voor stap algemeen: wat een volgende extensie ook nodig heeft. Per extensie de lessen die niet specifiek voor die extensie zijn; de uitleg staat in de handleiding van het project zelf.
+
+### Shortcut Cheatsheet (november 2026)
+
+Uitgebreid: [[VisualStudioShortcutCheatsheet/Handleiding extension bouwen]].
+
+**Opzet**
+
+- **Gedeelde code als Shared Project in een git-submodule** (`external\ExtensionCommon`). Geen eigen DLL, dus geen versieconflict tussen twee extensies in hetzelfde VS-proces. Alle klassen `internal`. In GitHub Actions `actions/checkout` met `submodules: true`.
+- **Een ongedocumenteerde VS-API kan zonder aankondiging veranderen.** `IVsExtensionManagerAsync.GetEnabledExtensionsAsync` kreeg in 18.13 een verplichte `CancellationToken`. Houd altijd een terugval, en meld het probleem in het ActivityLog, niet aan de gebruiker.
+- **Meldingen waar de gebruiker niets mee kan, horen in het ActivityLog** (`ActivityLog.TryLogWarning`), niet in het venster.
+
+**Deployen naar de Experimental Instance**
+
+- Sluit de Experimental Instance vóór je bouwt. Een draaiende instance houdt de DLL vast; de deploy mislukt dan stil en F5 start de oude versie.
+- Bestanden van 0 bytes in de map van een andere extensie (na een onderbroken deploy) laten elke deploy falen met `FindInstalledExtension`, met een melding die je eigen VSIX de schuld geeft.
+- VS leest `.pkgdef`-bestanden alleen opnieuw als `Extensions\extensions.configurationchanged` nieuwer is.
+- `Content`-bestanden (zoals `registration.json`) staan niet in de build-uitvoer, alleen in de VSIX en de deploy. Na een nieuw bestand dus echt deployen: `MSBuild ... -p:DeployExtension=true`.
+- Een hulpscript dat de build met de deploy vergelijkt (`check-exp-deploy.ps1`) bespaart veel zoeken.
+
+**Command table en sneltoetsen**
+
+- **Een oude `.cto` kan meegaan in de VSIX.** Zet je een `.vsct` terug uit een kopie met een oudere datum, dan compileert MSBuild hem niet opnieuw. Zo ging een proefsneltoets bijna mee in 1.0.0. Een test die de eigen command table uit de DLL leest en controleert, vangt dat.
+- Verhoog de versie in `[ProvideMenuResource("Menus.ctmenu", n)]` na elke wijziging van de command table, anders houdt VS zijn cache.
+- VS 2026 past een standaardsneltoets van een extensie niet toe als de toetsen al bezet zijn, en meldt dat nergens. Een eenmaal toegepaste standaardsneltoets blijft staan als je hem uit de `.vsct` haalt.
+
+**Code en analyzers**
+
+- Zoek in de build-uitvoer op `warning` in het algemeen. MSTest (`MSTEST0044`, `MSTEST0017`) en de VSSDK-analyzers hebben eigen codes.
+- `VSTHRD010` ziet niet dat een lambda op de UI-thread draait: maak een kleine methode met `ThreadHelper.ThrowIfNotOnUIThread()`.
+- `VSSDK006` herkent de controle op `null` na `GetServiceAsync` alleen op een lokale variabele, niet op een veld.
+- Een `DialogPage` kun je niet maken buiten VS (de constructor vraagt een interne VS-assembly). Test de opties via `registration.json` en de code, niet via de pagina.
+
+**Vertalen**
+
+- XAML-teksten die tijdens het draaien van taal wisselen: een object met alleen een indexer (`{Binding Texts[WindowRefresh]}`), en na een taalwissel een nieuw object. WPF leest dan alle bindings opnieuw.
+- Eén `LocalizedEnumConverter<T>` voor alle keuzelijsten op een klassieke Opties-pagina: resource "typenaam + waarde".
+- Termen van Visual Studio blijven Engels, ook in een vertaling (Command, Tools > Options > ...), omdat de UI van VS Engels is.
+- Laat een test controleren dat elke vertaling dezelfde namen en plaatshouders heeft, en dat de XAML geen vaste tekst meer heeft.
+
+**Exports en bestanden**
+
+- PDFsharp 6.5 en iText zijn AGPL. Voor een PDF met alleen afbeeldingen is een eigen schrijver van ongeveer 150 regels genoeg (zlib = 2 bytes kop + `DeflateStream` + Adler-32).
+- Tekenen met `DrawingVisual` en `FormattedText` werkt zonder venster en dus in een test (op een STA-thread).
+- Excel opent een CSV alleen goed met UTF-8 plus BOM en het lijstscheidingsteken van de landinstelling.
+- Test een export in het programma dat de gebruiker echt gebruikt. Een probleem met `<kbd>` bleek in Zed te zitten, niet in Obsidian.
+
+**Screenshots zonder toetsenbord en muis** (`tools\readme-shots.ps1`)
+
+- DTE start commands en zet een tool window zwevend op een vaste maat (`Window.IsFloating`, `Width`, `Height`). Zoek het venster op zijn GUID, niet op de titel.
+- Een zwevend tool window heeft als venstertitel de naam van de solution, niet de caption.
+- UI Automation vult zoekvakken (`ValuePattern`), kiest in een ComboBox (eerst `ExpandCollapsePattern.Expand`, anders bestaan de items nog niet) en zet vinkjes (`TogglePattern`). Geef data-items een `ToString()`, anders is hun naam de klassenaam.
+- `PrintWindow` met `PW_RENDERFULLCONTENT` legt alleen dat venster vast, ook als het erachter ligt.
+- `Tools.Options` met de GUID van de pagina als argument opent het nieuwe Opties-venster meteen op die pagina.
+- PowerShell is niet hoofdlettergevoelig: een variabele `$expand` botst met een parameter `-Expand`.
+
+**Werken via Desktop Commander**
+
+- Opdrachten met het woord `init` worden geweigerd (`git init`): kloon de lege repo en verplaats de map `.git`.
+- Schrijven mag alleen in de toegestane mappen, niet in `%TEMP%`. Zet tijdelijke bestanden in `obj\`.
+- .NET-methodes als `[IO.File]::ReadAllText` gebruiken de map van het proces (`C:\Windows\System32`), niet die van PowerShell: geef altijd volledige paden.

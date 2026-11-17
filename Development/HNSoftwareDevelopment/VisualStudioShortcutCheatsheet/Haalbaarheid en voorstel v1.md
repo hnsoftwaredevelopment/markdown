@@ -310,3 +310,7 @@ Nadeel: de klassen moeten `internal` blijven, anders botsen ze met dezelfde klas
 - HTML, Markdown en CSV komen in v1, naast JSON, XML, PNG en PDF.
 - Positionering: een aanvulling op Show Keybindings van Mads Kristensen, geen vervanging. De README noemt die extensie en zegt waar Shortcut Cheatsheet anders is (herkomst per sneltoets, aangepast door jou, conflicten, afdrukbaar cheat sheet).
 - Sneltoetsen wijzigen staat bij de ideeën voor later.
+
+### Wijziging (16 november 2026): "not applied" in plaats van conflicten
+
+Een proef in de Experimental Instance liet zien dat VS 2026 geen twee commands op dezelfde toets in dezelfde scope toelaat. Een standaardsneltoets van een extensie waarvan de toetsen bezet zijn, wordt stil overgeslagen. Ook via de sneltoets-instellingen kun je geen conflict maken. Besloten: het cheat sheet toont in plaats van conflicten de standaardsneltoetsen die een extensie wilde maar die VS niet toepaste, met het command dat de toetsen heeft. Conflicten binnen VS zelf (twee VS-commands op één toets) worden niet gemeld.
