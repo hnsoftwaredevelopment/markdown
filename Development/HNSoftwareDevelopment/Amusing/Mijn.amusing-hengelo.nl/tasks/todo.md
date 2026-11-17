@@ -119,7 +119,7 @@ Stand 5 november: productiepatch vastgelegd en API-route hersteld; Herbert beves
 ## MIJN-07 — Eigen contactgegevens onderhouden
 
 - [x] Toon het huidige e-mailadres onder Mijn contactgegevens en laat de gebruiker een nieuw adres aanvragen. Het nieuwe adres wordt na bevestiging het inlog- en hersteladres. Een bestaand adres bij een ander account wordt geweigerd. De link is één uur geldig en kan door het ingelogde account één keer worden gebruikt. Dev.mijn plaatst de mail in de afgeschermde mailopvang. Voor productie is migratie 020 nodig.
-- [ ] Praktijktest op dev.mijn voor aanvragen, bevestigen en inloggen met het nieuwe adres.
+- [x] Herbert heeft op dev.mijn een nieuw e-mailadres aangevraagd, bevestigd en ermee ingelogd.
 
 - [ ] Uitvoering en verificatie afgerond.
 - Gebied: Accounts.
@@ -340,7 +340,8 @@ Migratie `database/mijn/006-deelnemerstarieven.sql` is toegepast en gecontroleer
 
 ## MIJN-17 — Deelname-nota als PDF beschikbaar maken
 
-- [ ] Bied contactpersoon 1, contactpersoon 2 en penningmeester bij de deelnamehistorie per editie de actie **Kopie-nota versturen**. Verstuur de PDF naar de actieve penningmeester van het koor en leg de verzending vast in het koorlogboek. Gebruik de laatst opgeslagen inschrijfgegevens en de tarieven en btw van de gekozen editie, ook voor eerdere jaren. Werk bij aanvang uit hoe een bijgewerkte nota zich verhoudt tot een eventueel bewaarde definitieve nota en wat het scherm toont als er geen bereikbaar penningmeester is.
+- [x] Contactpersoon 1, contactpersoon 2 en penningmeester kunnen op dev.mijn via Deelnamehistorie de actie **Kopie-nota versturen** kiezen. De kopie gebruikt de laatst opgeslagen inschrijfgegevens en de tarieven en btw van de gekozen editie. Bekijk de definitieve nota via de aparte download. Als er geen bereikbaar penningmeester is, verschijnt een melding.
+- [ ] Praktijktest voor een eerdere editie, inclusief PDF-bijlage, bedoelde ontvangersrol en koorlogboek.
 - Een wijziging van de inschrijving leidt op zichzelf niet tot nieuwe mail. Het koor vraagt de bijgewerkte nota expliciet aan.
 
 - [ ] Uitvoering en verificatie afgerond.
