@@ -41,12 +41,12 @@ Deze kunnen de test blokkeren. Ze staan ook bij de vragen.
 
 ### Feature flag (BT1-2481)
 
-| # | Geval | Verwacht |
-|---|---|---|
-| F1 | V912 zonder ingestelde eigenschap starten (AC1) | geen `.lis`-bestanden geschreven, `bCncImprovementsEnabled` FALSE in de PLC, referentierun en lijsten zoals nu |
-| F2 | Eigenschap op Yes, VACAM en CNC herstarten (AC2) | beide lijsten geladen en gecontroleerd voordat de referentierun verdergaat |
-| F3 | Machine-eigenschappen openen bij V912, en bij een machine buiten scope (bijv. V353 of V631) (AC3) | "Use CNC improvements" met helptekst alleen bij V912 (en LARS); de helptekst noemt dat een herstart nodig is |
-| F4 | Eigenschap wijzigen zonder herstart | geen effect tot VACAM en CNC herstart zijn |
+| #   | Geval                                                                                             | Verwacht                                                                                                       |
+| --- | ------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| F1  | V912 zonder ingestelde eigenschap starten (AC1)                                                   | geen `.lis`-bestanden geschreven, `bCncImprovementsEnabled` FALSE in de PLC, referentierun en lijsten zoals nu |
+| F2  | Eigenschap op Yes, VACAM en CNC herstarten (AC2)                                                  | beide lijsten geladen en gecontroleerd voordat de referentierun verdergaat                                     |
+| F3  | Machine-eigenschappen openen bij V912, en bij een machine buiten scope (bijv. V353 of V631) (AC3) | "Use CNC improvements" met helptekst alleen bij V912 (en LARS); de helptekst noemt dat een herstart nodig is   |
+| F4  | Eigenschap wijzigen zonder herstart                                                               | geen effect tot VACAM en CNC herstart zijn                                                                     |
 
 ### M-codes (BT1-2482)
 
