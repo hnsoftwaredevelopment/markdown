@@ -76,6 +76,14 @@ Bewerken van een koor:
 	* Inschrijving wijzigen: Wanneer een contactpersoon een inschrijving wijzigt (Aantal deelnemers of Podiumtype aanpast) dient een nieuwe factuur te worden verstuurd.
 	  Wanneer alleen de voorkeur voor optredens wordt aangepast hoeft dit niet
 
+Er is nog 1 onderdeel van amusing in PHP dat op onze vps draait en dat is de amusing-wordpress-plugin
+Repository: https://github.com/amusing-hengelo/amusing-wordpress-plugin.git
+
+Wat ik begrijp is dat deze plugin de brug vormt tussen de Amusing database, zoals die beruikt wordt door beheer en mijn, en de WordPress website waar gegevens uit de database worden getoond.
+
+Vraag 1: kun jij zien of deze plugin inderdaad wordt gebruikt of dat WordPress de data rechtstreeks uit de database haalt
+Vraag 2: is het zinvol deze API ook om te zetten naar C#
+
   
 	
 	
