@@ -43,7 +43,7 @@ Voorgestelde werkvolgorde is M00 tot en met M09. M06 heeft technisch minder afha
 
 1. Controleer actuele main, remote en gebruikerswijzigingen; maak de branch met de milestonenaam.
 2. Lees relevante producteisen, matrixregels en reeds gecontroleerde voorbeelden.
-3. Concretiseer de eerste slice uit [todo](todo.md), inclusief bestandsverwachting en testscenario.
+3. Concretiseer de eerste slice uit [todo](Development/HNSoftwareDevelopment/Inno%20Setup%20Studio/tasks/todo.md), inclusief bestandsverwachting en testscenario.
 4. Controleer eventuele nieuwe opties tegen de lokale 7.1-help en compiler.
 5. Bouw en lever alleen die slice ter acceptatie op.
 
