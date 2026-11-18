@@ -40,7 +40,7 @@
       "shortcuts": [
         {
           "type": "note",
-          "path": "Development/HNSoftwareDevelopment/Inno Setup Studio/tasks/todo.md"
+          "path": "Development/HNSoftwareDevelopment/Inno Setup Studio/tasks/todo Inno Setup Studio.md"
         },
         {
           "type": "note",
@@ -49,6 +49,14 @@
         {
           "type": "note",
           "path": "Development/HNSoftwareDevelopment/Inno Setup Studio/docs/Feature-Checklist.md"
+        },
+        {
+          "type": "note",
+          "path": "Development/HNSoftwareDevelopment/Amusing/Mijn.amusing-hengelo.nl/README.md"
+        },
+        {
+          "type": "note",
+          "path": "Development/HNSoftwareDevelopment/Amusing/Mijn.amusing-hengelo.nl/Todo mijn,amusing-hengelo.nl.md"
         }
       ],
       "navRainbow": {
@@ -561,7 +569,12 @@
       "tag": false,
       "property": false
     },
-    "Development/HNSoftwareDevelopment/Inno Setup Studio/tasks/todo.md": {
+    "Development/HNSoftwareDevelopment/Inno Setup Studio/tasks/todo Inno Setup Studio.md": {
+      "folder": true,
+      "tag": false,
+      "property": false
+    },
+    "Development/HNSoftwareDevelopment/Amusing/Mijn.amusing-hengelo.nl/Todo mijn,amusing-hengelo.nl.md": {
       "folder": true,
       "tag": false,
       "property": false

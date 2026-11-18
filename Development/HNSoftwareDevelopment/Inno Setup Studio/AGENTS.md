@@ -6,7 +6,7 @@ Projectroot: C:\Devops\hnsoftwaredevelopment\Inno Setup Studio.
 Product: afzonderlijke add-on voor Inno Setup 7.1.
 Het oude InnoSetupStudio is een ander project.
 
-Lees bij werkzaamheden de relevante delen van [Productspecificatie](docs/Productspecificatie.md), [ondersteuningsmatrix](docs/InnoSetup-ondersteuning.md), [Milestones](docs/Milestones.md), [Werkwijze](docs/Werkwijze.md) en de actieve slice in [todo](tasks/todo.md).
+Lees bij werkzaamheden de relevante delen van [Productspecificatie](docs/Productspecificatie.md), [ondersteuningsmatrix](docs/InnoSetup-ondersteuning.md), [Milestones](docs/Milestones.md), [Werkwijze](docs/Werkwijze.md) en de actieve slice in [todo Inno Setup Studio](todo%20Inno%20Setup%20Studio.md).
 
 Een conceptplanning is geen toestemming om alle functies te bouwen. De gebruiker kiest de volgende milestone/slice.
 

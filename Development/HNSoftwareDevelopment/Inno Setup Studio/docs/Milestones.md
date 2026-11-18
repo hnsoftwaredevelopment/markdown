@@ -2,7 +2,7 @@
 
 Status: geaccepteerd op 8 oktober 2026. Geen tijdschema of automatische bouwopdracht. De gebruiker kiest telkens welke milestone we oppakken.
 
-De technische milestonenaam is exact de branchnaam. De titel achter die naam beschrijft het resultaat. Slice-ID's staan in [tasks/todo.md](../tasks/todo.md). Elke milestone wordt afgerond volgens [Werkwijze](Werkwijze.md).
+De technische milestonenaam is exact de branchnaam. De titel achter die naam beschrijft het resultaat. Slice-ID's staan in [tasks/todo.md](todo%20Inno%20Setup%20Studio.md). Elke milestone wordt afgerond volgens [Werkwijze](Werkwijze.md).
 
 ## Overzicht
 

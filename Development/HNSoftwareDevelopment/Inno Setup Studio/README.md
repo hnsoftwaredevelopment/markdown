@@ -55,7 +55,7 @@ M02-S03 voegt eigen teksten per installertaal toe in het bestaande eigenschappen
 | [Productspecificatie](docs/Productspecificatie.md) | Eindproduct, huidige basis, grenzen en reviewpunten |
 | [Ondersteuningsmatrix](docs/InnoSetup-ondersteuning.md) | Koppeling naar Inno Setup en werkelijk verificatieniveau |
 | [Milestones](docs/Milestones.md) | Resultaten en afhankelijkheden per milestone |
-| [Slices](tasks/todo.md) | Testbare stappen en acceptatiestatus |
+| [Slices](todo%20Inno%20Setup%20Studio.md) | Testbare stappen en acceptatiestatus |
 | [Ontwikkelplan](tasks/plan.md) | Technische richting en risico's |
 | [Werkwijze](docs/Werkwijze.md) | Review, tests, commit/push en merge |
 | [Meertaligheid](docs/Meertaligheid.md) | Huidige resx-/ResXManager-opzet |

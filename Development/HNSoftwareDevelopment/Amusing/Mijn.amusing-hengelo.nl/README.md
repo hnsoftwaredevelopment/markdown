@@ -23,7 +23,7 @@ Nieuwe wensen: beheerder kiest een koor en kan namens de ondersteuning wijziging
 - [Wachtwoordcompatibiliteit: testresultaten](wachtwoordcompatibiliteit.md)
 - [Besluit: opslag en migratie koorwachtwoorden](decisions/001-koorwachtwoorden.md)
 - [Plan en beslispunten](tasks/plan.md)
-- [Stories, acceptatiecriteria en verificatie](tasks/todo.md)
+- [Stories, acceptatiecriteria en verificatie](Development/HNSoftwareDevelopment/Amusing/Mijn.amusing-hengelo.nl/tasks/todo.md)
 - [Productie-incident en herstel](api-herstel-2026-11-05.md)
 
 ## Bronnen en locaties
