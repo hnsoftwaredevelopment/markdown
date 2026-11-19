@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "7d7cac82261fb600",
+        "id": "3ddcac3e843ec01e",
         "type": "tabs",
         "children": [
           {
-            "id": "74ccfcdd7539b7ab",
+            "id": "7becbd544497fa16",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Development/HNSoftwareDevelopment/Amusing/Mijn.amusing-hengelo.nl/Todo mijn,amusing-hengelo.nl.md",
+                "file": "Development/HNSoftwareDevelopment/Amusing/Mijn.amusing-hengelo.nl/tasks/todo.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,10 +28,11 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "Todo mijn,amusing-hengelo.nl"
+              "title": "todo"
             }
           }
-        ]
+        ],
+        "stacked": true
       }
     ],
     "direction": "vertical"
@@ -56,7 +57,7 @@
                 "searchQuery": ""
               },
               "icon": "lucide-folder-closed",
-              "title": "Files"
+              "title": "Verkenner"
             }
           },
           {
@@ -93,7 +94,7 @@
               "type": "empty",
               "state": {},
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "Nieuw tabblad"
             }
           },
           {
@@ -121,7 +122,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 762.5
+    "width": 684.9285850524902
   },
   "right": {
     "id": "bc13cd1b6ba6f691",
@@ -254,10 +255,23 @@
             "id": "528118691c9a17f3",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
-              "icon": "lucide-file",
-              "title": "New tab"
+              "type": "claudian-view",
+              "state": {
+                "tabWorkspace": {
+                  "version": 1,
+                  "openTabs": [
+                    {
+                      "tabId": "tab-1784716095777-2xepuoa",
+                      "conversationId": null,
+                      "draftModel": "haiku",
+                      "providerId": "claude"
+                    }
+                  ],
+                  "activeTabId": "tab-1784716095777-2xepuoa"
+                }
+              },
+              "icon": "bot",
+              "title": "Claudian"
             }
           },
           {
@@ -337,18 +351,18 @@
       }
     ],
     "direction": "horizontal",
-    "width": 204.699951171875
+    "width": 202.2142333984375
   },
   "left-ribbon": {
     "hiddenItems": {
-      "switcher:Open quick switcher": false,
-      "graph:Open graph view": false,
-      "canvas:Create new canvas": false,
-      "daily-notes:Open today's daily note": false,
-      "templates:Insert template": false,
-      "command-palette:Open command palette": false,
-      "workspaces:Manage workspace layouts": false,
-      "bases:Create new base": false,
+      "switcher:Open snel wisselen": false,
+      "graph:Open grafiek weergave": false,
+      "canvas:Nieuw doek aanmaken": false,
+      "daily-notes:Open de notitie van vandaag": false,
+      "templates:Sjabloon invoegen": false,
+      "command-palette:Open opdrachtenpaneel": false,
+      "workspaces:Beheer werkblad lay-outs": false,
+      "bases:Nieuwe basis maken": false,
       "smart-table:Insert Smart Table": false,
       "quickadd:QuickAdd": false,
       "iconic:Open rulebook": false,
@@ -361,49 +375,49 @@
       "obsidian-excalidraw-plugin:New drawing": false,
       "obsidian-kanban:Create new board": false,
       "templater-obsidian:Templater": false,
-      "modalforms:Edit forms": false,
       "cmdr:Toggle stacked tabs": false,
-      "cmdr:Omnisearch: Vault search": false
+      "cmdr:Omnisearch: Vault search": false,
+      "modalforms:Edit forms": false
     }
   },
-  "active": "74ccfcdd7539b7ab",
+  "active": "a76ab09dac4b2700",
   "lastOpenFiles": [
     "Testing/TestPlans/CNCI-23 Auto config G-code interface.md",
-    "Development/HNSoftwareDevelopment/Amusing/Mijn.amusing-hengelo.nl/Todo mijn,amusing-hengelo.nl.md",
+    "ICT/Office/Word/tips.md",
+    "ICT/Office/Excel/R1C1_or_R1K1.md",
+    "ICT/Office/Word",
+    "ICT/Office/Excel",
+    "ICT/Office",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/tasks/todo Inno Setup Studio.md",
-    "Testing/CNCI-23 Auto config G-code interface.md.tmp.37540.11cbc288d10f",
-    "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E11-Release.md",
-    "Development/HNSoftwareDevelopment/Amusing/Mijn.amusing-hengelo.nl/mailroutering.md",
-    "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/Shortcuts.md",
-    "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E10-Security.md",
+    "Development/HNSoftwareDevelopment/Amusing/Mijn.amusing-hengelo.nl/Todo mijn,amusing-hengelo.nl.md",
+    "Development/HNSoftwareDevelopment/Amusing/Mijn.amusing-hengelo.nl/evidence/password-probe/Haalbaarheid en voorstel v1-1.csproj",
+    "Development/HNSoftwareDevelopment/Amusing/Mijn.amusing-hengelo.nl/evidence/password-probe/Haalbaarheid en voorstel v1-1.cs",
+    "Development/HNSoftwareDevelopment/Amusing/Mijn.amusing-hengelo.nl/evidence/Haalbaarheid en voorstel v1-1.sql",
+    "Development/HNSoftwareDevelopment/Amusing/Mijn.amusing-hengelo.nl/evidence/Haalbaarheid en voorstel v1-1.patch",
+    "Development/HNSoftwareDevelopment/Amusing/Mijn.amusing-hengelo.nl/tasks/plan.md",
+    "Development/HNSoftwareDevelopment/Amusing/Mijn.amusing-hengelo.nl/tasks/todo.md",
+    "Development/HNSoftwareDevelopment/Amusing/Mijn.amusing-hengelo.nl/beheerondersteuning.md",
+    "Development/HNSoftwareDevelopment/Amusing/Mijn.amusing-hengelo.nl/deelname-nota.md",
+    "Development/HNSoftwareDevelopment/Amusing/Mijn.amusing-hengelo.nl/inventarisatie.md",
+    "Development/HNSoftwareDevelopment/Amusing/Mijn.amusing-hengelo.nl/README.md",
+    "Development/HNSoftwareDevelopment/Amusing/Mijn.amusing-hengelo.nl/testomgeving.md",
+    "Development/HNSoftwareDevelopment/Amusing/Mijn.amusing-hengelo.nl/rechtenmatrix.md",
+    "Development/HNSoftwareDevelopment/Amusing/Mijn.amusing-hengelo.nl/architectuur.md",
+    "Testing/V631 met VACAM develop 4.3x (leverbaarheid).md",
+    "Testing/MCPL-3418 Vasim fix late and out-of-order PLC feedback on ADS v7 (Bundle1Candidate regressie).md",
+    "Testing/BT1-2334 Add configuration error if the Too low oil level digital input is not referenced for the saw.md",
+    "Testing/BT1-2317 Delete base velocity generator from MachineControl.md",
+    "Testing/BT1-2291 Detected material is teleported to a high x position.md",
     "Development/HNSoftwareDevelopment/VisualStudioShortcutCheatsheet/README.md",
     "Development/HNSoftwareDevelopment/VisualStudioShortcutCheatsheet/Handleiding extension bouwen.md",
     "Development/HNSoftwareDevelopment/VisualStudioShortcutCheatsheet/Haalbaarheid en voorstel v1.md",
     "Development/HNSoftwareDevelopment/VisualStudioShortcutCheatsheet/CHANGELOG.md",
     "Development/HNSoftwareDevelopment/VisualStudioShortcutCheatsheet",
-    "Development/HNSoftwareDevelopment/Start new extension.md",
-    "Development/HNSoftwareDevelopment/Schrijfstijl/schrijfstijl_herbert.md",
-    "Development/HNSoftwareDevelopment/Schrijfstijl",
-    "Development/HNSoftwareDevelopment/SVGConverter/THIRD-PARTY-NOTICES.md",
-    "Development/HNSoftwareDevelopment/SVGConverter/README.md",
-    "Development/HNSoftwareDevelopment/SVGConverter",
-    "Development/HNSoftwareDevelopment/ResourcePreview/README.md",
-    "Development/HNSoftwareDevelopment/ResourcePreview/Handleiding extension bouwen.md",
-    "Development/HNSoftwareDevelopment/ResourcePreview/CHANGELOG.md",
-    "Development/HNSoftwareDevelopment/ResourcePreview",
-    "Development/HNSoftwareDevelopment/Music tools/Projecten die Music XML onders.md",
-    "Development/HNSoftwareDevelopment/Music tools/MusicXml.Net.md",
-    "Development/HNSoftwareDevelopment/Music tools",
-    "Development/HNSoftwareDevelopment/Modelbouwer/Database/Create Modelbuilder database.md",
-    "Development/HNSoftwareDevelopment/Modelbouwer/Database/Create and fill worktype table.md",
-    "Development/HNSoftwareDevelopment/Modelbouwer/Database/Create and fill unit table.md",
-    "Development/HNSoftwareDevelopment/Modelbouwer/Database/Create and fill supplier table.md",
-    "Development/HNSoftwareDevelopment/Modelbouwer/Database/Create and fill storagesupplie.md",
-    "Development/HNSoftwareDevelopment/Modelbouwer/Database/Create and fill storage table.md",
-    "Development/HNSoftwareDevelopment/Modelbouwer/Database",
-    "Development/HNSoftwareDevelopment/Modelbouwer",
-    "Development/HNSoftwareDevelopment/Jira/BT1-2321",
-    "Development/HNSoftwareDevelopment/Jira/BT2-3028",
+    "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E12-Documentation.md",
+    "Development/HNSoftwareDevelopment/Object Explorer for MySQL/Update Marketplace Extension.md",
+    "Development/HNSoftwareDevelopment/Object Explorer for MySQL/CHANGELOG.md",
+    "Development/HNSoftwareDevelopment/ExtensionOverlap",
+    "Development/HNSoftwareDevelopment/ExtensionCommon",
     "attachments/README-5.png",
     "attachments/README-4.png",
     "attachments/README-3.png",

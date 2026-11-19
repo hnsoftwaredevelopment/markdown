@@ -324,10 +324,13 @@ Migratie `database/mijn/006-deelnemerstarieven.sql` is toegepast en gecontroleer
 - [x] Dev.mijn verstuurt de PDF-nota apart naar de penningmeester of de eerste contactpersoon. Het koorlogboek registreert na geslaagde verzending de ontvangersrol.
 - [x] De bevestiging wacht op de notaverzending en vermeldt daarna ‘De nota voor deze inschrijving is separaat verstuurd naar de penningmeester’ of ‘De nota voor deze inschrijving is separaat naar u verstuurd’.
 - [ ] Praktijktest op dev.mijn voor beide ontvangersroutes, de PDF-bijlage, het logboek en de wachtlijst.
+  - De integratietests voor wachten op plaatsing, bevestigen en wachtlijstmail zonder nota zijn geslaagd. De praktijkproef op dev.mijn en de bedieningsroute voor plaatsing in dev.beheer staan open.
 - Uitgangspunten voor de teksten: de bestaande PHP-inschrijfmail gebruikt `api/group/enroll-group` voor het koor en `api/group/enroll` voor de organisatie. Gebruik voor de afzonderlijke nota de tekst en tabel van Kopie factuur in Beheer, aangepast voor een eerste verzending.
 - [x] Mailinglayouts en het beheer van ontvangerslijsten gebruiken op dev.beheer de ingestelde database `amusingdev`. Een tijdelijke layout is met de aangepaste queries aangemaakt, gewijzigd, gelezen en verwijderd. De controle vond geen overeenkomstige record in `amusing`.
+- [ ] Publiceer de goedgekeurde wijzigingen voor het beheer van Mijn-mailsjablonen vanuit dev.beheer op productie-Beheer. Controleer de taalkeuze, variabelen in de editor en opslaan. Rond dit af vóór de livegang van Mijn.
 - [ ] Zet goedgekeurde mailinglayouts gericht over naar productie. Neem naam, onderwerp, inhoud en eventuele koppeling met de juiste productie-ontvangerslijst mee.
-- [ ] Controleer de overige Beheer-queries op expliciete verwijzingen naar `amusing` en geef dev.beheer een databaseaccount met alleen toegang tot `amusingdev`.
+- [x] Dev.beheer gebruikt een eigen lokaal databaseaccount met uitsluitend rechten op `amusingdev`. Lezen en schrijven in `amusing` zijn met dat account geweigerd. Het account kon een testlayout bewerken, inschrijvingen lezen en een lokale procedure uitvoeren.
+- [ ] Test ingelogd via dev.beheer een layout opslaan en een testinschrijving inzien. Controleer dat de wijziging zichtbaar is op dev.mijn.
 - [x] Testmailroutering per ingelogde aanvrager en een vast testadres voor registratie en herstel. Zie [mailroutering](../mailroutering.md).
 - [x] De gewone inschrijfbevestiging en de wachtlijstbevestiging volgen de taalvoorkeur van contactpersoon 1. Nederlands is de standaard, met Duits en Engels als opties.
 - [x] Beide bevestigingen zijn op dev.beheer bewerkbaar via **Mailinglayouts → Inschrijfbevestigingen van Mijn**. Mijn leest de opgeslagen teksten uit `amusingdev` en valt bij een lege Duitse of Engelse versie terug op Nederlands. De e-mailtests en de databasecontrole op de VPS zijn geslaagd.
@@ -341,7 +344,8 @@ Migratie `database/mijn/006-deelnemerstarieven.sql` is toegepast en gecontroleer
 ## MIJN-17 — Deelname-nota als PDF beschikbaar maken
 
 - [x] Contactpersoon 1, contactpersoon 2 en penningmeester kunnen op dev.mijn via Deelnamehistorie de actie **Kopie-nota versturen** kiezen. De kopie gebruikt de laatst opgeslagen inschrijfgegevens en de tarieven en btw van de gekozen editie. Bekijk de definitieve nota via de aparte download. Als er geen bereikbaar penningmeester is, verschijnt een melding.
-- [ ] Praktijktest voor een eerdere editie, inclusief PDF-bijlage, bedoelde ontvangersrol en koorlogboek.
+- [x] Praktijktest voor een eerdere editie, inclusief PDF-bijlage, bedoelde ontvangersrol en koorlogboek.
+  - In amusingdev is een historische testinschrijving klaargezet voor Herbie's popkoor bij Amusing 2026 (25 deelnemers, podium B, € 100,00 inclusief 9% btw). De integratietest voor actuele inschrijfgegevens, historische tarieven en penningmeester is geslaagd. Herbert heeft de ontvangst van de kopienota van Amusing 2026 bevestigd. In amusingdev is één verzendregel in het koorlogboek bevestigd.
 - Een wijziging van de inschrijving leidt op zichzelf niet tot nieuwe mail. Het koor vraagt de bijgewerkte nota expliciet aan.
 
 - [ ] Uitvoering en verificatie afgerond.
@@ -387,6 +391,7 @@ Migratie `database/mijn/006-deelnemerstarieven.sql` is toegepast en gecontroleer
 ## MIJN-20 — Acceptatie en omschakeling voorbereiden
 
 - [ ] Uitvoering en verificatie afgerond.
+- [x] De Beheer-login op dev en productie maakt een sessie uitsluitend aan na wachtwoordcontrole via het serverformulier. Gebruikersnaam en rollen komen uit de database. De oude URL en browseropslag kunnen geen sessie meer autoriseren. Eerdere sessiecookies zijn ongeldig gemaakt. In- en uitloggen en rolcontrole zijn op dev via HTTPS getest. Op productie is gecontroleerd dat de oude route geen sessie afgeeft en het nieuwe formulier beschikbaar is.
 - [x] Dev.mijn en dev.beheer delen `amusingdev`. Dev.mijn opent direct de gewone inlogpagina en gebruikt aparte sessiesleutels voor deze database. Inloggen, koorlijst, koorprofiel en auditregistratie zijn op de gedeelde database gecontroleerd.
 - [ ] Samen met Beheer testen dat een inschrijving in beide omgevingen zichtbaar is, dat wijzigingen terugkomen in Mijn en dat de testmail naar de juiste tester gaat.
 - [ ] Bij de productieomschakeling de Blazor-versie van Mijn koppelen aan `amusing`.
@@ -439,3 +444,12 @@ Herbert geeft aan dat er voor de editie van “dit jaar” geen competitie is. H
 **Verificatie:** test twee edities met verschillende teksten, optie uit/aan en een vervalst verzoek bij een uitgeschakelde optie, in zowel Beheer als Mijn.
 
 De vaste teksten op alle koortabbladen volgen de taalvoorkeur per account. Deelnamestatussen, festivaldatums en logboekacties worden bij het tonen vertaald. De gegevens zelf worden niet per taal opgeslagen.
+
+## MIJN-22 — Wachtlijst beheren in Beheer
+
+- [ ] Toon per editie de actieve wachtlijstinschrijvingen in Beheer Inschrijvingen, met koornaam, deelnemersaantal, podiumtype en aanmelddatum.
+- [ ] Laat een beheerder gekozen koren plaatsen door de wachtlijststatus van hun bestaande inschrijving te wijzigen. De overige koren behouden hun wachtlijststatus.
+- [ ] Leg per plaatsing de beheerder, het koor, de editie en het tijdstip vast. Test op dev.beheer en dev.mijn dat het geplaatste koor de gewijzigde status ziet en volgens de bestaande regels kan bevestigen.
+- [ ] Zet direct bij plaatsing één plaatsingsbericht klaar voor contactpersoon 1 en één deelname-nota voor de penningmeester, met contactpersoon 1 als terugval. Gebruik de actuele inschrijfgegevens en de tarieven van de editie. Voorkom dubbele verzending bij herhaald plaatsen of opnieuw proberen. Controleer verzending en logging in de praktijktest, met de bestaande dev-mailroutering.
+
+De organisatie voert plaatsing momenteel handmatig uit in de database. De festivalinstelling Wachtlijst bepaalt de beginstatus van nieuwe inschrijvingen.
