@@ -163,9 +163,36 @@ Item 26532 rechtstreeks uit de database halen (zoals op 18-11) helpt niet: de bu
 
 ![VASIM materiaal](../attachments/BT1-1549-hertest-11-vasim-materiaal.png)
 
+## Hertest 2: zonder VASIM, met Buffer simulation enabled (11:30 tot 11:50)
+
+Vincent gaf aan dat VASIM deze stopflags ten onrechte zet en dat we met de simulatiemode van VACAM moeten testen.
+
+| Stap | Tijd | Actie | Wat we zien |
+|---|---|---|---|
+| H.1 | 11:32 | VACAM en VASIM netjes afgesloten (Shutdown: Yes) | Beide processen weg. |
+| H.2 | 11:34 | Launcher: Machine version, TwinCAT "Run without TwinCAT", Start; melding "Incorrect version" met OK gesloten | VACAM start, geen VASIM, TwinCAT blijft in Config. In `VACAM.exe.ini` staat `AdsPort=-1`: er is geen PLC. |
+| H.3 | 11:36 | Production > Buffers > menu Buffer | Het menu toont "Refresh" en "Buffer simulation enabled" (uit). Met VASIM ontbreekt die optie. |
+| H.4 | 11:40 | "Buffer simulation enabled" aangevinkt | Vinkje staat aan, nog geen beweging. |
+| H.5 | 11:43:22 | Buffer > Refresh | 11:43:23 `Conveyor[2] SearchAndMove bufferItem: 26532`, sourcePos 3915, targetPos -11777,5 (dezelfde waarden als met VASIM). 11:43:39 klaar, daarna 26532 naar buffer 15 en 16 (11:44:02 Ready). 26533 schuift van buffer 10 naar 14. Geen stopflag, geen fout. |
+| H.6 | 11:45 | Nog een Refresh | 26534 (buffer 11) en 26535 (buffer 12, raw material) blijven staan. |
+| H.7 | 11:47 | VACAM netjes afgesloten, in `VACAM.exe.ini` `[DEBUG] BufferEnabledForLogging=11,12,13,14,15,16` gezet (kopie: `VACAM.exe.ini.bak-bt1549`), VACAM.exe direct gestart | Het vinkje wordt niet onthouden: opnieuw aangezet. |
+| H.8 | 11:49:02 | Buffer > Refresh | `CheckBuffer for 11/12/13/14/15. AllowMove: True. Enabled: True; Transport Moving: False; Switched Off: False; Machine Part Stopped: False`. Er volgt geen beweging en geen reserveringsregel voor buffer 11 of 12. |
+
+Wat dit laat zien:
+
+- **Situatie 1 werkt in simulatie** van begin tot eind, zonder stopflags.
+- **Situatie 2: VACAM vindt geen beweging voor de raw material-items.** De buffers mogen bewegen (AllowMove True), maar `ConveyorBufferManager.CheckForNextItemMovement` beweegt een item alleen als `GetPreferedXPosition` meer dan 0,1 van de huidige X afwijkt. Voor 26534 en 26535 is dat niet zo (of het doel is NaN), dus er komt geen SearchAndMove en `DetermineCommonProfileType` wordt voor deze items niet aangeroepen. De blokkade zit nu niet meer in een stopflag, maar in het ontbreken van een doel voor raw material zonder batch.
+- **Het profiletype is in simulatie niet te zien.** Met Buffer simulation gaat het commando naar `ConveyorSimulation.StartMoving`, dat alleen de doelpositie (offset 4) gebruikt. Het profiletype (offset 18) wordt berekend, maar niet gelogd en niet naar een PLC gestuurd.
+
+Vraag aan Vincent: hoe komt raw material bij de klant in beweging? Wordt het door een batch of een zoekopdracht van de operator gevraagd, en welke handeling hoort daarbij in VACAM?
+
+![Buffers voor de simulatie](../attachments/BT1-1549-sim-01-buffers-voor.png)
+![Menu Buffer met Buffer simulation enabled](../attachments/BT1-1549-buffer-simulation-enabled.png)
+![Buffers na de simulatie](../attachments/BT1-1549-sim-02-buffers-na.png)
+
 ## Stand van de omgeving na de test
 
-- VACAM en VASIM draaien nog. VACAM stuurt 26532 elke 2 minuten opnieuw.
-- `DigitalInput[256]` (ThermalErrorMixer1) staat geforceerd op FALSE. De force verdwijnt bij een herstart van de PLC.
-- Database `VACAM_20230087`: 26532 (buffer 13), 26533 (buffer 10), 26534 (buffer 11, raw material), 26535 (buffer 12, raw material).
+- VACAM draait zonder VASIM en zonder TwinCAT, met Buffer simulation enabled. VASIM is afgesloten.
+- `VACAM.exe.ini` heeft een extra sectie `[DEBUG] BufferEnabledForLogging`. Het origineel staat in `VACAM.exe.ini.bak-bt1549`; de Launcher schrijft bij een volgende start zijn eigen ini.
+- Database `VACAM_20230087`: 26532 (buffer 16), 26533 (buffer 14), 26534 (buffer 11, raw material), 26535 (buffer 12, raw material).
 - Opruimen na afronding: databases 20230087, `C:\Temp\Vacam\4.11.37-alpha`, backupkopie in `C:\Temp\Customers\2023\20230087 VSB1500_6_VP Thyssenkrupp Materials Nederland BV`.
