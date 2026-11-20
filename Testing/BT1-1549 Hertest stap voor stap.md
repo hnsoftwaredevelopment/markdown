@@ -190,9 +190,35 @@ Vraag aan Vincent: hoe komt raw material bij de klant in beweging? Wordt het doo
 ![Menu Buffer met Buffer simulation enabled](../attachments/BT1-1549-buffer-simulation-enabled.png)
 ![Buffers na de simulatie](../attachments/BT1-1549-sim-02-buffers-na.png)
 
-## Stand van de omgeving na de test
+## Hertest 3: andere VSB-configuratie, zonder VASIM (14:45 tot 15:00)
 
-- VACAM draait zonder VASIM en zonder TwinCAT, met Buffer simulation enabled. VASIM is afgesloten.
-- `VACAM.exe.ini` heeft een extra sectie `[DEBUG] BufferEnabledForLogging`. Het origineel staat in `VACAM.exe.ini.bak-bt1549`; de Launcher schrijft bij een volgende start zijn eigen ini.
-- Database `VACAM_20230087`: 26532 (buffer 16), 26533 (buffer 14), 26534 (buffer 11, raw material), 26535 (buffer 12, raw material).
-- Opruimen na afronding: databases 20230087, `C:\Temp\Vacam\4.11.37-alpha`, backupkopie in `C:\Temp\Customers\2023\20230087 VSB1500_6_VP Thyssenkrupp Materials Nederland BV`.
+Vincent heeft het probleem dat het materiaal niet doorloopt nergens gezien en vroeg om een test met een andere VSB-configuratie.
+
+- Backup: `20250138_VSB1500-VP2500_261012_185500.zip` uit SWMS-11813 (VSB1500_6 met VP2500, backup op VACAM 4.11.35.2), gestart met setup 4.11.37-alpha.14721.
+- Launcher: backup naar de Launcher gesleept, Machine version, TwinCAT "Run without TwinCAT", Restore VACAM database aan.
+- Bufferopbouw: 6 buffers. 1 In Shot blast batches, 2 In Line, 3 Out Conveyor (transport 352), 4 Out Shot blast batches section 1, 5 Out Conveyor (385), 6 Out Shot blast batches section 2. Links 3 naar 4 en 5, 5 naar 6.
+
+| Stap | Tijd | Actie | Wat we zien |
+|---|---|---|---|
+| T.1 | 14:47 | Production > Buffers | Er ligt al raw material uit de backup: item 30, HE340B 5240 mm, op buffer 4, PieceId leeg, ProfileId 38. |
+| T.2 | 14:48:12 | "Buffer simulation enabled" aan, Buffer > Refresh | Item 30 blijft 5 minuten staan. Logisch: het ligt al op zijn plek in de shot blast batches-buffer. |
+| T.3 | 14:57:19 | Material > Add: buffer 3 (Out Conveyor), HE300B, 6000 mm, X 0, zonder piece | Item 31 aangemaakt (ProfileId 36, PieceId leeg). In dezelfde milliseconde: `Conveyor[1] SearchAndMove bufferItem: 31`, sourcePos 32080, targetPos 42582,5. |
+| T.4 | 14:57:30 | (automatisch) | `MoveItemCallback Conveyor[1], targetPosition: 42582.5`: de conveyor-beweging is klaar. |
+| T.5 | 14:57:31 tot 14:57:45 | (automatisch) | Item 31 gaat naar buffer 4 en TransverseTransport[2] schuift het in twee stappen naar Y 7630 en 8460 (beide `status: Ready`). |
+| T.6 | 14:58 | Database bekeken | Item 31 is op buffer 4 samengevoegd met item 30 tot één shot blast batch: item 30 heeft nu twee contents (HE340B en HE300B), SizeX 9170, Y 8460. |
+
+Wat dit laat zien:
+
+- **Met deze VSB-configuratie loopt raw material zonder piece gewoon door**: VACAM stuurt direct een SearchAndMove voor het raw material-item, de conveyor brengt het naar de shot blast batches-buffer en daar wordt het een batch. Er is geen stopflag en geen fout.
+- Het vastlopen in hertest 1 en 2 hoort dus bij de configuratie van 20230087 (veertien conveyorbuffers met reserveringen tussen de buffers), niet bij raw material in het algemeen. Dat sluit aan bij wat Vincent zegt.
+- Het profiletype dat de PLC zou krijgen is ook hier niet te zien: zonder PLC gaat het commando naar `ConveyorSimulation` in VACAM.
+
+![Buffers voor de test](../attachments/BT1-1549-sim2-01-buffers-voor.png)
+![Add material op buffer 3](../attachments/BT1-1549-sim2-02-add-buffer3.png)
+![Buffers na de test](../attachments/BT1-1549-sim2-03-buffers-na.png)
+
+## Afronding (20-11-2026, 15:10)
+
+- Test afgesloten. VACAM netjes afgesloten, VASIM draaide niet meer.
+- Opgeruimd: alle databases van 20230087 en 20250138 (VACAM, MC en PD, 14 stuks), de testinstallatie `C:\Temp\Vacam\4.11.37-alpha` en alle lokale backupkopieën (`C:\Temp\Customers\2023\20230087 ...`, `C:\Temp\Customers\2025\20250138 ...`, `C:\Temp\Customers\_jira\SWMS-6509` en `C:\Temp\Customers\_jira\SWMS-11813`).
+- Jira: comment in het Engels op BT1-1549 met de resultaten van hertest 1 en 2. Hertest 3 staat alleen in dit verslag.
