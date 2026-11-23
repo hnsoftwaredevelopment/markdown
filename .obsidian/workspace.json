@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Testing/BT1-2291 Detected material is teleported to a high x position.md",
+                "file": "Development/HNSoftwareDevelopment/Modelbouwer/DataView RowFilter Syntax [C ].md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "BT1-2291 Detected material is teleported to a high x position"
+              "title": "DataView RowFilter Syntax [C ]"
             }
           }
         ]
@@ -390,6 +390,9 @@
   },
   "active": "74ccfcdd7539b7ab",
   "lastOpenFiles": [
+    "Development/HNSoftwareDevelopment/Modelbouwer/Category database.md",
+    "Development/HNSoftwareDevelopment/Modelbouwer/Aanmaken tabellen met inhoud.md",
+    "Testing/BT1-2291 Detected material is teleported to a high x position.md",
     "Development/HNSoftwareDevelopment/Amusing/Mijn.amusing-hengelo.nl/Todo mijn,amusing-hengelo.nl.md",
     "attachments/BT1-1549-sim-02-buffers-na.png",
     "attachments/BT1-1549-sim-01-buffers-voor.png",
@@ -422,8 +425,6 @@
     "Development/HNSoftwareDevelopment/Modelbouwer/Database/Create Modelbuilder database.md",
     "Development/HNSoftwareDevelopment/Modelbouwer/Database/Create and fill worktype table.md",
     "Development/HNSoftwareDevelopment/Modelbouwer/Database/Create and fill unit table.md",
-    "Development/HNSoftwareDevelopment/Modelbouwer/Database/Create and fill supplier table.md",
-    "Development/HNSoftwareDevelopment/Modelbouwer/Database/Create and fill storagesupplie.md",
     "Development/HNSoftwareDevelopment/Modelbouwer/Database",
     "Development/HNSoftwareDevelopment/Modelbouwer",
     "Development/HNSoftwareDevelopment/Jira/BT1-2321",
