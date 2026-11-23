@@ -1,5 +1,3 @@
-# BT1-2291 Detected material is teleported to a high x position
-
 Ticket: [BT1-2291](https://voortman.atlassian.net/browse/BT1-2291) · status In Test · fix door Vincent Veluwenkamp
 
 ## Probleem en fix
@@ -56,4 +54,8 @@ Met de fix (T2): herhaal stap 4 t/m 10, maar start bij stap 6 `C:\Git\Vasim-BT1-
 | | | Cyclus 3 (14:02) in de volgorde van Vincent (VASIM en VACAM sluiten, PLC herstarten, VASIM en direct daarna VACAM starten): de balk liep gelijkmatig naar X 69, geen sprong bij de fotocel (~X -5800). Cyclus 1 volgde de saw-route (fc 1, trim cut); cycli 2 en 3 volgden de drill-route (fc 2, front detectie en breedtemeting). |
 | | | Cycli 1 en 2: 2026-11-10, VACAM 4.34.0-develop.2611091634, VASIM rc 2026.11.6.373. Per cyclus: VACAM en VASIM netjes gesloten, kernel TwinCAT Config en dan Run, VACAM en VASIM gestart zonder Launcher, referentierun, daarna de balk opnieuw gezet (6100 mm, voorkant X -10299,5, Y 0). Cyclus 1: de balk liep gelijkmatig naar X -3158 (trim cut). Cyclus 2: de balk liep gelijkmatig naar X 70 (daarna "Unable to measure the width", door het gesimuleerde profiel). Geen sprong in X. Beelden: `C:\Temp\Customers\_jira\BT1-2291\T1-cycle*-baseline-x.png` |
 | T2 | geen sprong, geen regressie gezien | 2026-11-11 11:49: VASIM rc 2026.11.10.377 (met fix), verder dezelfde stappen als T1 cyclus 4. X liep gelijkmatig van -10299,5 via -5574 en -5208 (frontdetectie) naar 71,5, daarna "Unable to measure the width". Omdat T1 niet reproduceert, laat dit alleen zien dat de fix het normale transport niet verstoort. Beeld: `T2-fix-x.png` |
-| T3 | | |
+| T3 | geslaagd, geen regressie | 2026-11-20 15:25: verse start via de VACAM Launcher RC (backup 20250031_V631_260526_104013, VACAM 4.35.0-develop.2611201119, VASIM rc 2026.11.20.396 met de fix, TwinCAT boot project uit de setup, Runtime Auto, "Delete existing databases" aan). Reset en Start in VASIM voor de referentierun (klaar 15:31:50), daarna de staaf geladen via Material > Open material file (M 20/10/70/10, 6100 mm, voorkant X -10299,5, Y 0) en de oude rij verwijderd. Start om 15:36. De staaf stond lang stil (VACAM wachtte op de keuze voor de trim cut), daarna kwam hij voor de zaag te liggen: in VACAM ging de X van het buffer-item van -16399,5 naar -9308,6 (achterkant; voorkant -10299,5 naar -3208,6, gelijk aan de trim-cut-positie -3158 uit cyclus 1). VACAM werkt die positie pas bij na afloop van de beweging, daarom lijkt het in VACAM een sprong. Geen te hoge X. Na "Skip trim cut" volgde de drill-route met "Unable to measure the width" (gesimuleerd profiel, zoals in cyclus 2 tot 4). |
+
+## Conclusie
+
+T1 is in 4 cycli niet gereproduceerd. T2 (herstart zonder Launcher, VASIM met fix) en T3 (verse start via de Launcher, VASIM rc met fix) laten zien dat het materiaal na de detectie op de juiste X blijft en voor de zaag stopt. De fix verstoort het normale transport niet. In overleg (2026-11-20) zijn T2 en T3 voldoende; geen extra T1-poging.

@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Development/HNSoftwareDevelopment/Amusing/Mijn.amusing-hengelo.nl/Todo mijn,amusing-hengelo.nl.md",
+                "file": "Testing/BT1-2291 Detected material is teleported to a high x position.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "Todo mijn,amusing-hengelo.nl"
+              "title": "BT1-2291 Detected material is teleported to a high x position"
             }
           }
         ]
@@ -359,7 +359,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 613.5
+    "width": 200
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -388,13 +388,13 @@
       "cmdr:Omnisearch: Vault search": false
     }
   },
-  "active": "d9ed1122d6a9a64e",
+  "active": "74ccfcdd7539b7ab",
   "lastOpenFiles": [
+    "Development/HNSoftwareDevelopment/Amusing/Mijn.amusing-hengelo.nl/Todo mijn,amusing-hengelo.nl.md",
     "attachments/BT1-1549-sim-02-buffers-na.png",
     "attachments/BT1-1549-sim-01-buffers-voor.png",
     "attachments/BT1-1549-buffer-simulation-enabled.png",
     "Testing/TestPlans/CNCI-23 Auto config G-code interface.md",
-    "Development/HNSoftwareDevelopment/Amusing/Mijn.amusing-hengelo.nl/Todo mijn,amusing-hengelo.nl.md",
     "Development/HNSoftwareDevelopment/Inno Setup Studio/tasks/todo Inno Setup Studio.md",
     "Testing/CNCI-23 Auto config G-code interface.md.tmp.37540.11cbc288d10f",
     "Development/HNSoftwareDevelopment/Object Explorer for MySQL/docs/backlog/E11-Release.md",
@@ -435,7 +435,6 @@
     "attachments/README-1.png",
     "attachments/Traktatielijst.xlsm-9.png",
     "attachments/Traktatielijst.xlsm-8.png",
-    "attachments/Traktatielijst.xlsm-7.png",
     "Untitled.canvas",
     "Naamloos.canvas"
   ]
