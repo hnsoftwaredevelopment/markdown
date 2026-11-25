@@ -63,6 +63,8 @@ Voor **Default**: de lijst is gelijk aan die van 4.11 zonder de PR, op deze beke
 
 Voor **Default with fallback**: als Default slaagt, dan precies de Default-lijst en geen fallback in de log. Als Default faalt met "take over not possible", dan een Minimize-lijst, een waarschuwing en een info-regel in de log, en alleen de bewerkingen die de tweede validatie annuleert zijn undoable.
 
+Volgens Wiebren (25-11) geeft Default with fallback in theorie voor 100% van de producten een lijst. Daarom is het een harde regel: elke batch die met Default with fallback wordt geannuleerd, is een bevinding. Daar staat tegenover dat Default nu vaker faalt dan voor de PR. Dat meten we in de vergelijking met 4.11.36.1: welke klantjobs plannen daar met Default en nu niet meer.
+
 ## 5. Niveau B: uitvoeren in VASIM
 
 1. Machine opstarten via de VACAM Launcher (kernel mode TwinCAT, VASIM rc). Zelf de batch, het bufferitem en de balk in VASIM klaarzetten.

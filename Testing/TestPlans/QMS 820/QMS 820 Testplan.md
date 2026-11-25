@@ -212,7 +212,7 @@ Volgorde: eerst I en R (snel beeld of de standaardinstelling de klantproblemen o
 | 4 | SWMS-11375: de freesbewerkingen van product 9 en 10 vallen af en de laatste 10 producten (300 mm) worden handmatig gezaagd. Nagaan of dit zonder de PR (zonder EF) ook zo was en of de operator het ziet | V631 | BT1-2440 | - | vraag | open |
 | 5 | Foutmelding bij een onmogelijke take over is veranderd ("The measure roll units can't take over the material where the plan needs it."); support kent de oude tekst | alle | BT1-2443 | - | laag | open |
 | 6 | Helptekst "Operation sorting" past niet in het beschrijvingsvak van het eigenschappenvenster | alle | BT1-2442 | - | laag | open |
-| 2 | 4.11-instelling wijkt af van BT1-2442 (naam, waarden, standaard Default with fallback, Operator-niveau, fallback alleen bij take over not possible) | alle | BT1-2442/2443 | - | vraag aan Wiebren | open |
+| 2 | 4.11-instelling wijkt af van BT1-2442 (naam, waarden, standaard Default with fallback, Operator-niveau, fallback alleen bij take over not possible) | alle | BT1-2442/2443 | - | - | gesloten 25-11: bewuste keuze (Wiebren). Default gaat nu vaker fout; Default + fallback hoort in theorie altijd een lijst te geven en is daarom de standaard |
 
 ## 11. Afronding
 

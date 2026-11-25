@@ -1,0 +1,115 @@
+---
+type: analyse
+jira: BT1-2432
+title: "QMS 820 Analyse"
+pr: vacam-twincat#23387
+vacam: 4.11 (Release-4.11, RC-4.11.36)
+machines: [V630Mk2, V631, V633]
+tester: Herbert Nijkamp
+created: 2026-11-25
+tags: [qms820, analyse]
+---
+
+# QMS 820 Analyse
+
+Bronnen:
+- Confluence [QMS 820](https://voortman.atlassian.net/wiki/spaces/BTD/pages/1615364185/QMS+820) met de subpagina's Tickets QMS 820, 2D Problem Definition, Differences EF and Non-EF, Measure Roll Unit Priority, Sorting (Tool Sorting/Operation Bundling Distance), Measure roll units: where can the material be positioned?, Where does the measure wheel measure the profile? en Reducing accumulated deviation by sorting operations from infeed to outfeed.
+- Epic [BT1-2432](https://voortman.atlassian.net/browse/BT1-2432) met BT1-2433 t/m BT1-2444 en bug BT1-2469.
+- PR [vacam-twincat#23387](https://github.com/voortman-steel-machinery/vacam-twincat/pull/23387) (port naar 4.11) en de Execution Planner PR's [#650](https://github.com/voortman-steel-machinery/ExecutionPlanner/pull/650) en [#654](https://github.com/voortman-steel-machinery/ExecutionPlanner/pull/654).
+
+## 1. Het probleem
+
+QMS 820 bundelt 11 supporttickets van V631- en V633-machines met measure rollers. De 2D-analyse onderscheidt twee problemen:
+
+| # | Probleem | Gevolg bij de klant | Tickets |
+|---|---|---|---|
+| 1 | **Batch cancellation.** De Execution Framework (EF) vindt geen take over path, omdat bewerkingen in het spoor van de measure wheel liggen. Hij annuleert dan de hele batch ("There should at least be one take over path"). | Productie staat stil, niets van de batch wordt gemaakt | SWMS-10421, -10455, -10635, -10725, -11058, -11118, -11375, BT1-2146 |
+| 2 | **Sequencing.** De volgorde wordt vooral door het gereedschap bepaald. Het materiaal gaat daardoor heen en weer over zijn hele lengte, en elke beweging over de measure wheel telt een kleine positiefout op. | Afwijkingen tot 6 mm (SWMS-10758), vooral bij flange removals op twee flenzen | SWMS-10576, -10758, -11000, -11017 |
+
+Achtergrond uit de Functional Evolution-pagina's:
+- Zonder EF koos de gebruiker tool sorting en een maximum group length. Met de EF verdwenen die instellingen en bundelde de EF eerst op 600 mm, later (BT1-1964) vast op 10 mm.
+- Flange removals aan de measure wheel-kant werden altijd naar het einde van de lijst geschoven. Juist dat zorgde bij flange removals op twee kanten voor een extra slag terug (SWMS-10576).
+- "Preferred measure roll unit" (SWMS-9597, vanaf 4.11.28.9) stuurt de EF naar één measure roll unit (MRU), bijvoorbeeld bij een kapot of groter measure wheel.
+
+## 2. De oplossing
+
+Een tweede manier van sorteren: **minimize material reversals**. De EF sorteert de stappen op de materiaalpositie die ze nodig hebben, niet op gereedschap. Zolang één MRU het materiaal vasthoudt, beweegt het materiaal maar één kant op. De measure wheel loopt dan altijd op materiaal dat nog niet bewerkt is.
+
+Volgorde per materiaal (BT1-2437):
+1. Eerst de divisions die een stuk maken dat detectie nodig heeft.
+2. **Outfeed MRU pass:** de outfeed MRU houdt vast. Alle stappen van de final pieces processed backwards, in **dalende** materiaalpositie. Elk stuk wordt afgezaagd zodra zijn zaagsnede bij de zaag (x = -3200) komt.
+3. **Infeed MRU pass:** de infeed MRU houdt vast. Alle stappen van het final piece processed forwards, in **stijgende** materiaalpositie. Stappen in het meetgebied aan de infeed-kant komen als laatste, met een take over naar de outfeed MRU op het laatst mogelijke moment.
+4. Voor de outfeed: een take over naar de outfeed MRU als dat kan, zodat het materiaal zo ver mogelijk naar buiten gaat en de outfeed het automatisch afvoert.
+
+Verder:
+- Automatische gereedschapswissels worden niet meer gegroepeerd; handmatige wissels wel. Na EP#654 laat minimize material reversals de tool sorting helemaal weg; de post processor voegt een handmatige wissel toe waar de volgorde een ander gereedschap vraagt.
+- Een standalone machine (zonder zaag) heeft alleen de infeed MRU pass: alle stappen in stijgende materiaalpositie.
+- **V633:** de x'-as-groepen volgen de passes (BT1-2438). Een groep bevat alleen stappen van één pass en één detected piece. Binnen een groep blijft de volgorde zoals nu.
+- **Validatie (BT1-2440, in 4.11 als "features in the last take over section"):** een feature die de meting blokkeert en in het meetgebied niet bereikbaar is, wordt vooraf verwijderd ("set undoable by execution framework") en gemeld. Na EP#654 worden de niet-blokkerende stappen in dat gebied (bijvoorbeeld een kopplaat-gatenpatroon) eerst gemaakt en verwijdert de validatie alleen nog wat echt op de blokkerende feature wacht.
+- **Measure wheel margin** (EP#630): de measure wheel heeft 5 mm marge tot weggenomen materiaal in plaats van de clamping margin van 60 mm. Daardoor zijn er grotere vensters en meer take overs mogelijk.
+- **Default sorting verandert ook** (EP#631, #650): flange removals aan de measure wheel-kant worden niet meer uitgesteld en niet meer apart gevalideerd. Dat raakt elke klant, ook met de oude sortering.
+
+## 3. Wat de 4.11-port (PR #23387) echt bevat
+
+De tickets beschrijven de develop-versie. De port naar 4.11 wijkt op een paar punten af. **Voor het testen geldt de PR.**
+
+| Onderwerp | Ticket (develop) | PR #23387 (4.11) |
+|---|---|---|
+| Naam instelling | "Sort operations to reduce accumulated deviation" op de measure unit | **"Operation sorting"** op de machine |
+| Waarden | Off / Fallback / Always | **Default / Default with fallback / Minimize material reversals** |
+| Standaardwaarde | Off | **Default with fallback** |
+| Gebruikersniveau, categorie | Config, Automatic | **Operator**, Automatic |
+| Machines | measure-roller subcategorieën | V630MK2, V631, V633 (verwijderd op machines zonder measure rollers) |
+| Wanneer fallback | elke exception behalve cancel | **alleen** `MaterialTakeOverNotPossibleException` (de take over is niet mogelijk) |
+| Extra instelling | - | **"Operation bundling distance"**, standaard 10 mm, minimum 0, alleen V630MK2 en V631 |
+| Preferred measure roll unit | geen effect bij Always | idem bij Minimize material reversals; wordt wel gebruikt bij Default en Default with fallback |
+| Fallback mislukt ook | originele exception | de exception van de eerste poging |
+
+Andere punten uit de PR:
+- GeometrySpace 1.0.160 naar 1.0.204 (cherry-pick uit #23376). Dat raakt meer dan alleen sortering.
+- Execution Planner prerelease `1.148.31-BT1-2432-support-1-148-x.7`. Die moet nog vervangen worden door de released versie.
+- Kleine wijziging in de `FlangeRemovalWizard` (rechthoek wordt een `BoundingBox2D`).
+- Unit tests 9819/9823 en AST-tests geslaagd. De Twincat-build en de installer zijn bij de laatste commit overgeslagen.
+
+> [!warning] Installer is niet actueel
+> De enige installer van deze branch (workflow "Create Installer", run 45181821593, 23-11) is gebouwd van commit `ed3c48d4` met planner `...-x.3`. De PR staat nu op `e7a8685d` met planner `...-x.7`. Daarin zitten de fixes van EP#654 (niet-blokkerende stappen eerst, piece processed forwards na zijn division, geen tool sorting bij minimize material reversals). **Voor het testen is een nieuwe installer van `e7a8685d` nodig** (of de branch lokaal bouwen).
+
+## 4. Begrippen die je bij het testen nodig hebt
+
+| Begrip | Betekenis |
+|---|---|
+| Front position (= material position) | plaats van de voorkant van het materiaal t.o.v. machine-nul (de boorunits). Infeed-kant negatief. |
+| MRU | measure roll unit: drive wheel + measure wheel + clamp. Infeed MRU (bv. wielen op -440/-210) en outfeed MRU (+210/+440). |
+| Regel 1 | de MRU heeft 350 mm materiaal nodig (beide wielen + 60 mm clamping margin). |
+| Regel 2 | de measure wheel moet op materiaal lopen: geen weggenomen materiaal aan de datum line-kant in de band van de wheel (± 5 mm marge). |
+| Window | front positions waar een MRU het materiaal kan vasthouden én meten. Twee overlappende windows van verschillende MRU's maken een take over mogelijk. |
+| Meetgebied (measuring area) | het stuk aan het einde van het stuk waar de MRU van het materiaal afloopt. Lengte ≈ outfeed MaxGrabbingOffset - infeed MinGrabbingOffset (≈ 1000 mm bij -500/+500). |
+| Band van de measure wheel | hoogte waarop de wheel meet, per profieltype (I: midden hoogte; RHS: Standard/Bottom/Top-instelling; L: laag op het liggende been; U: binnenkant lijf; C/T/plaat: midden dikte; special/bundle: geen band). |
+| Final piece processed forwards/backwards | hoe een stuk de machine verlaat; bepaalt de MRU pass van zijn stappen. |
+| Drive wheel | mag over een flange removal lopen (stitches houden het materiaal heel); alleen de measure wheel beperkt. |
+
+## 5. Risico's
+
+| # | Risico | Impact | Kans | Score | Waar te testen |
+|---|---|---|---|---|---|
+| R1 | Default sorting verandert ongemerkt (flange removals niet meer uitgesteld, GeometrySpace-update, nieuwe bundling-instelling): plannen of beweging anders dan in 4.11 nu | 3 | 2 | 6 | regressie op klantbackups, zonder VASIM |
+| R2 | Default with fallback is de standaard: na een update gedragen machines zich bij falende jobs anders, en dat is alleen in de log te zien | 2 | 3 | 6 | fallback-tests, log |
+| R3 | Een bewerking wordt geannuleerd zonder dat de operator het merkt, of er wordt te veel geannuleerd | 3 | 2 | 6 | validatietests, VACAM UI |
+| R4 | Measure wheel loopt in VASIM/op de machine toch over bewerkt materiaal (verkeerde band, verkeerde marge, verkeerd profieltype) | 3 | 2 | 6 | met VASIM, profielvarianten |
+| R5 | Take over in het meetgebied of voor de outfeed mislukt tijdens productie (exception in automatic) | 3 | 2 | 6 | met VASIM |
+| R6 | V633 x'-as-groepen: clamping (één of twee clamps) of force calculation fout bij divisions | 3 | 2 | 6 | V633 met VASIM |
+| R7 | Cyclustijd stijgt sterk door meer gereedschapswissels | 2 | 3 | 6 | vergelijking per job |
+| R8 | Handmatige gereedschapswissels op onverwachte momenten (operator vaker gestoord) | 2 | 2 | 4 | zonder VASIM (lijst) |
+| R9 | Herstart na stop: lijst wordt opnieuw gegenereerd met een andere volgorde of take over | 2 | 2 | 4 | met VASIM |
+| R10 | Bekende bug BT1-2469 (flange removals dicht bij elkaar bij de infeed-kant) blijft falen, ook met fallback | 3 | 3 | 9 | bekend, reproduceren en vastleggen |
+
+## 6. Openstaande vragen
+
+1. Welke machine is voor 4.11 de klantversie (RC-4.11.36)? Welke klanten krijgen dit als eerste?
+2. Klopt "Default with fallback" als standaard, en het gebruikersniveau Operator? Het ticket zegt Off en Config.
+   **Antwoord Wiebren (25-11):** bewuste keuze. Default gaat nu vaker fout; Default + fallback hoort in theorie altijd een lijst te geven en is daarom de standaard.
+3. Is BT1-2440 (cancellation) in 4.11 volledig, of alleen de "last take over section"-validatie? Het ticket staat nog op Ready to Develop.
+4. BT1-2469 is een bekende bug die volgens het ticket niet door BT1-2432 komt. Valt die binnen of buiten deze test?
+5. Wie start de nieuwe installer van `e7a8685d` (workflow "Create Installer")?
+6. Werkt VASIM met measure rollers op de V631/V633-backups (meet VASIM de measure wheel, en meldt het iets als de wheel over een gat loopt)? Dat bepaalt hoeveel we met VASIM kunnen.
+7. Is er machinetijd voor BT1-2444 (nauwkeurigheid meten op een echte machine)? Dat kan niet in simulatie.

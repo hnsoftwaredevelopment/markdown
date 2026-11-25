@@ -48,6 +48,7 @@ Verder:
 - **Validatie (BT1-2440, in 4.11 als "features in the last take over section"):** een feature die de meting blokkeert en in het meetgebied niet bereikbaar is, wordt vooraf verwijderd ("set undoable by execution framework") en gemeld. Na EP#654 worden de niet-blokkerende stappen in dat gebied (bijvoorbeeld een kopplaat-gatenpatroon) eerst gemaakt en verwijdert de validatie alleen nog wat echt op de blokkerende feature wacht.
 - **Measure wheel margin** (EP#630): de measure wheel heeft 5 mm marge tot weggenomen materiaal in plaats van de clamping margin van 60 mm. Daardoor zijn er grotere vensters en meer take overs mogelijk.
 - **Default sorting verandert ook** (EP#631, #650): flange removals aan de measure wheel-kant worden niet meer uitgesteld en niet meer apart gevalideerd. Dat raakt elke klant, ook met de oude sortering.
+  **Antwoord Wiebren (25-11):** klopt, en juist daarom wordt er zo uitgebreid getest: de nieuwe methode moet beter of minstens even goed werken.
 
 ## 3. Wat de 4.11-port (PR #23387) echt bevat
 
@@ -107,8 +108,9 @@ Andere punten uit de PR:
 
 1. Welke machine is voor 4.11 de klantversie (RC-4.11.36)? Welke klanten krijgen dit als eerste?
 2. Klopt "Default with fallback" als standaard, en het gebruikersniveau Operator? Het ticket zegt Off en Config.
+   **Antwoord Wiebren (25-11):** bewuste keuze. Default gaat nu vaker fout; Default + fallback hoort in theorie altijd een lijst te geven en is daarom de standaard.
 3. Is BT1-2440 (cancellation) in 4.11 volledig, of alleen de "last take over section"-validatie? Het ticket staat nog op Ready to Develop.
 4. BT1-2469 is een bekende bug die volgens het ticket niet door BT1-2432 komt. Valt die binnen of buiten deze test?
-5. Wie start de nieuwe installer van `e7a8685d` (workflow "Create Installer")?
+5. ~~Wie start de nieuwe installer van `e7a8685d` (workflow "Create Installer")?~~ Opgelost 25-11: installer gebouwd (run 45571260263).
 6. Werkt VASIM met measure rollers op de V631/V633-backups (meet VASIM de measure wheel, en meldt het iets als de wheel over een gat loopt)? Dat bepaalt hoeveel we met VASIM kunnen.
 7. Is er machinetijd voor BT1-2444 (nauwkeurigheid meten op een echte machine)? Dat kan niet in simulatie.
