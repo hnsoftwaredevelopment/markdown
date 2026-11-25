@@ -11,10 +11,24 @@
             "id": "072d2a090d1a74f8",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "Testing/TestPlans/QMS 820/QMS 820 Testplan.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": true,
+                "backlinkOpts": {
+                  "collapseAll": false,
+                  "extraContext": false,
+                  "sortOrder": "alphabetical",
+                  "showSearch": false,
+                  "searchQuery": "",
+                  "backlinkCollapsed": false,
+                  "unlinkedCollapsed": true
+                }
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "QMS 820 Testplan"
             }
           }
         ]
@@ -106,7 +120,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 1228.8000000000002
+    "width": 1070.5
   },
   "right": {
     "id": "bc13cd1b6ba6f691",
@@ -377,8 +391,11 @@
   },
   "active": "efa57b48cf581284",
   "lastOpenFiles": [
-    "Development/HNSoftwareDevelopment/Modelbouwer/DataView RowFilter Syntax [C ].md",
     "Development/HNSoftwareDevelopment/Modelbouwer/Statusanalyse 2026-11-23.md",
+    "Testing/TestPlans/QMS 820/QMS 820 Testplan.md.tmp.34244.a9e7b741aa7c",
+    "Testing/TestPlans/QMS 820/QMS 820 Testplan.md.tmp.34244.3a15c792776c",
+    "Testing/TestPlans/QMS 820/QMS 820 Testplan.md.tmp.34244.ea1fec796fc4",
+    "Development/HNSoftwareDevelopment/Modelbouwer/DataView RowFilter Syntax [C ].md",
     "Development/HNSoftwareDevelopment/Modelbouwer/Category database.md",
     "Development/HNSoftwareDevelopment/Modelbouwer/Aanmaken tabellen met inhoud.md",
     "Testing/BT1-2291 Detected material is teleported to a high x position.md",
@@ -411,11 +428,7 @@
     "Development/HNSoftwareDevelopment/Music tools/Projecten die Music XML onders.md",
     "Development/HNSoftwareDevelopment/Music tools/MusicXml.Net.md",
     "Development/HNSoftwareDevelopment/Music tools",
-    "Development/HNSoftwareDevelopment/Modelbouwer/Database/Create Modelbuilder database.md",
     "Development/HNSoftwareDevelopment/Modelbouwer/Database",
-    "Development/HNSoftwareDevelopment/Modelbouwer",
-    "Development/HNSoftwareDevelopment/Jira/BT1-2321",
-    "Development/HNSoftwareDevelopment/Jira/BT2-3028",
     "attachments/README-5.png",
     "attachments/README-4.png",
     "attachments/README-3.png",

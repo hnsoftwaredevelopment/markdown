@@ -87,8 +87,8 @@ Per testgeval: niveau, producten, en het resultaat later. "Min" = Minimize mater
 
 | # | Test | Verwacht | Resultaat |
 |---|---|---|---|
-| I-01 | "Operation sorting" op V630MK2, V631, V633 met measure rollers | aanwezig, 3 waarden, standaard **Default with fallback**, gebruikersniveau Operator, categorie Automatic, helptekst klopt | open |
-| I-02 | "Operation bundling distance" | V630MK2/V631 ja, V633 nee; standaard 10, min 0, eenheid mm | open |
+| I-01 | "Operation sorting" op V630MK2, V631, V633 met measure rollers | aanwezig, 3 waarden, standaard **Default with fallback**, gebruikersniveau Operator, categorie Automatic, helptekst klopt | deels geslaagd (V631, 25-11): zichtbaar als Experienced operator onder "Automatic production", waarde Default with fallback, helptekst gelijk aan de PR maar te lang voor het beschrijvingsvak (afgekapt). V633 en V630MK2 nog open. |
+| I-02 | "Operation bundling distance" | V630MK2/V631 ja, V633 nee; standaard 10, min 0, eenheid mm | deels geslaagd (V631, 25-11): 10.0 mm. V633 nog open. |
 | I-03 | Machine zonder measure rollers (feeder truck V631/V633, V630 oud, VB) | beide instellingen niet zichtbaar | open |
 | I-04 | Upgrade van een 4.11-backup (vóór de PR) | instellingen krijgen de standaardwaarde, geen fout bij starten | open |
 | I-05 | Instelling wijzigen en lijst opnieuw genereren | nieuwe sortering wordt gebruikt (zonder herstart, of melding dat herstart nodig is) | open |
@@ -141,21 +141,21 @@ Per testgeval: niveau, producten, en het resultaat later. "Min" = Minimize mater
 
 ### F. Fallback (A, één geval ook in B)
 
-| # | Test | Verwacht | Resultaat |
-|---|---|---|---|
-| F-01 | DwF, Default slaagt | lijst gelijk aan Default, niets in de log over fallback | open |
-| F-02 | DwF, Default faalt (take over), Min slaagt | job loopt; waarschuwing + info in de log; alleen undoable wat de tweede validatie annuleert | open |
-| F-03 | DwF, beide falen (P17) | de fout van de eerste poging; undoable zoals na de eerste poging | open |
-| F-04 | DwF, Default faalt met een andere exception | geen tweede poging (alleen bij take over not possible) | open |
-| F-05 | Default (zonder fallback), job die faalt | één poging, zelfde fout als voorheen | open |
-| F-06 | Planning annuleren tijdens het plannen | geen tweede poging | open |
-| F-07 | Een met DwF geredde job in VASIM draaien | loopt af, bewerkingen zoals gepland | open |
+| #    | Test                                        | Verwacht                                                                                    | Resultaat                                                                                                                                                                                                                                                |
+| ---- | ------------------------------------------- | ------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| F-01 | DwF, Default slaagt                         | lijst gelijk aan Default, niets in de log over fallback                                     | open                                                                                                                                                                                                                                                     |
+| F-02 | DwF, Default faalt (take over), Min slaagt  | job loopt; waarschuwing + info in de log; alleen undoable wat de tweede validatie annuleert | geslaagd (25-11, SWMS-11375): "Planning attempt 1 for 39473 failed MaterialTakeOverNotPossibleException", "2 out of 100 operation(s) could not be planned", "Planned 39473 with planning attempt 2". Undoable-weergave in VACAM nog niet bekeken (M-10). |
+| F-03 | DwF, beide falen (P17)                      | de fout van de eerste poging; undoable zoals na de eerste poging                            | open                                                                                                                                                                                                                                                     |
+| F-04 | DwF, Default faalt met een andere exception | geen tweede poging (alleen bij take over not possible)                                      | open                                                                                                                                                                                                                                                     |
+| F-05 | Default (zonder fallback), job die faalt    | één poging, zelfde fout als voorheen                                                        | geslaagd met opmerking (25-11, SWMS-11375): één poging, batch geannuleerd. De melding is nu "The measure roll units can't take over the material where the plan needs it." in plaats van "There should at least be one take over path."                  |
+| F-06 | Planning annuleren tijdens het plannen      | geen tweede poging                                                                          | open                                                                                                                                                                                                                                                     |
+| F-07 | Een met DwF geredde job in VASIM draaien    | loopt af, bewerkingen zoals gepland                                                         | open                                                                                                                                                                                                                                                     |
 
 ### R. Regressie en klantbatches (A, steekproef B)
 
 | # | Test | Verwacht | Resultaat |
 |---|---|---|---|
-| R-01 | Per QMS-backup (11 stuks): plannen met 4.11 zonder PR en met de PR (Default, DwF, Min) | DwF lost de cancellation-tickets op of het resultaat is verklaard; Min vermindert reversals bij de sequencing-tickets | open |
+| R-01 | Per QMS-backup (11 stuks): plannen met 4.11 zonder PR en met de PR (Default, DwF, Min) | DwF lost de cancellation-tickets op of het resultaat is verklaard; Min vermindert reversals bij de sequencing-tickets | bezig. SWMS-11118 (V631, SHS400x400x16): DwF en Min geven een lijst (identiek, één stuk); de oude fout was "Expected exactly one clamp" (andere bug). SWMS-11375 (V631, L200x100x15, 19 producten): Default faalt, DwF redt de job via Min (zie F-02). SWMS-10421 (V633 standalone, L10x10x1-3/8, 12192 mm): DwF redt de job via Min, 5 van 108 bewerkingen vallen af, 2 reversals in het laatste stuk (take over naar unit 1 en terug). Voor de simulatie: Tekla EPM-koppeling van de batches gewist (`CutListItemId = 0`) en de robotbatterij-waarschuwing met No beantwoord. SWMS-10635 (V633 standalone): DwF redt de job via Min, 4 van 108 bewerkingen vallen af, 2 reversals. SWMS-11058 (V633 B2B, backup 260519): DwF redt de job via Min, 1 van 33 bewerkingen valt af, 3 reversals. SWMS-10455 (V633, KK200/120/6, 11,2 m, zelfde materiaal als bij de klant: "22 out of 103"): plant nu al bij poging 1 met Default, 0 reversals, geen fallback nodig (waarschijnlijk door de 5 mm measure wheel margin en het niet meer uitstellen van flange removals). SWMS-10576 (V631, HE180A) en SWMS-10758 (V633, HE220A): DwF en Min geven identieke lijsten (10576: 1 reversal, 31,9 m verplaatsing, 54 automatische wissels; 10758: 0 reversals). Let op: de cycle tab neemt het eerste bufferitem; of dat het materiaal uit de klacht is (flange removals op twee flenzen) moet nog nagegaan worden. SWMS-11000: zip zonder index.xml (oud formaat), nog niet gestart. SWMS-11017: productielijn met de loading panel als hoofdmachine, cycle tab van de V631 niet direct bereikbaar, nog niet gelukt. SWMS-10725 kan niet: backup is VACAM 4.28. Bewijs: `C:\Temp\Customers\_jira\QMS820\R-*` |
 | R-02 | Bestaande backups zonder QMS-probleem (V631, V633) met Default | lijst gelijk aan 4.11 zonder PR, op de bekende verschillen na | open |
 | R-03 | Twee klantbatches met Min in VASIM volledig produceren (één V631, één V633) | loopt af zonder melding | open |
 
@@ -208,6 +208,10 @@ Volgorde: eerst I en R (snel beeld of de standaardinstelling de klantproblemen o
 | # | Bevinding | Machine | Story | Jira | Ernst | Status |
 |---|---|---|---|---|---|---|
 | 1 | De installer van de PR (23-11, `ed3c48d4`) loopt achter op de PR (`e7a8685d`, planner `-x.7`) | - | - | - | blokkerend voor testen | opgelost 25-11: nieuwe installer (run 45571260263) in `C:\Temp\BT1-2432\e7a8685d\`, planner `-x.7` gecontroleerd |
+| 3 | SWMS-11375 met Min (via fallback): na de infeed pass gaat het materiaal ~1300 mm terug voor 3 freesbewerkingen (DU2) en volgen 8 take overs om en om zonder bewerking ertussen (1880 → 944) voordat het stuk wordt losgelaten. Werkt, maar is dit de bedoeling? | V631 | BT1-2441 | - | vraag | open |
+| 4 | SWMS-11375: de freesbewerkingen van product 9 en 10 vallen af en de laatste 10 producten (300 mm) worden handmatig gezaagd. Nagaan of dit zonder de PR (zonder EF) ook zo was en of de operator het ziet | V631 | BT1-2440 | - | vraag | open |
+| 5 | Foutmelding bij een onmogelijke take over is veranderd ("The measure roll units can't take over the material where the plan needs it."); support kent de oude tekst | alle | BT1-2443 | - | laag | open |
+| 6 | Helptekst "Operation sorting" past niet in het beschrijvingsvak van het eigenschappenvenster | alle | BT1-2442 | - | laag | open |
 | 2 | 4.11-instelling wijkt af van BT1-2442 (naam, waarden, standaard Default with fallback, Operator-niveau, fallback alleen bij take over not possible) | alle | BT1-2442/2443 | - | vraag aan Wiebren | open |
 
 ## 11. Afronding
