@@ -207,7 +207,7 @@ Volgorde: eerst I en R (snel beeld of de standaardinstelling de klantproblemen o
 
 | # | Bevinding | Machine | Story | Jira | Ernst | Status |
 |---|---|---|---|---|---|---|
-| 1 | De installer van de PR (23-11, `ed3c48d4`) loopt achter op de PR (`e7a8685d`, planner `-x.7`) | - | - | - | blokkerend voor testen | open |
+| 1 | De installer van de PR (23-11, `ed3c48d4`) loopt achter op de PR (`e7a8685d`, planner `-x.7`) | - | - | - | blokkerend voor testen | opgelost 25-11: nieuwe installer (run 45571260263) in `C:\Temp\BT1-2432\e7a8685d\`, planner `-x.7` gecontroleerd |
 | 2 | 4.11-instelling wijkt af van BT1-2442 (naam, waarden, standaard Default with fallback, Operator-niveau, fallback alleen bij take over not possible) | alle | BT1-2442/2443 | - | vraag aan Wiebren | open |
 
 ## 11. Afronding

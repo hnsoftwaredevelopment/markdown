@@ -4,31 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "7d7cac82261fb600",
+        "id": "f384a6872a7e743b",
         "type": "tabs",
         "children": [
           {
-            "id": "74ccfcdd7539b7ab",
+            "id": "072d2a090d1a74f8",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Development/HNSoftwareDevelopment/Modelbouwer/Statusanalyse 2026-11-23.md",
-                "mode": "preview",
-                "source": false,
-                "backlinks": true,
-                "backlinkOpts": {
-                  "collapseAll": false,
-                  "extraContext": false,
-                  "sortOrder": "alphabetical",
-                  "showSearch": false,
-                  "searchQuery": "",
-                  "backlinkCollapsed": false,
-                  "unlinkedCollapsed": true
-                }
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "Statusanalyse 2026-11-23"
+              "title": "New tab"
             }
           }
         ]
@@ -120,7 +106,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 762.5
+    "width": 1228.8000000000002
   },
   "right": {
     "id": "bc13cd1b6ba6f691",
@@ -359,7 +345,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 200,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -388,7 +375,7 @@
       "cmdr:Omnisearch: Vault search": false
     }
   },
-  "active": "74ccfcdd7539b7ab",
+  "active": "efa57b48cf581284",
   "lastOpenFiles": [
     "Development/HNSoftwareDevelopment/Modelbouwer/DataView RowFilter Syntax [C ].md",
     "Development/HNSoftwareDevelopment/Modelbouwer/Statusanalyse 2026-11-23.md",
