@@ -98,9 +98,9 @@ Per testgeval: niveau, producten, en het resultaat later. "Min" = Minimize mater
 
 | # | Test | Producten | Verwacht | Resultaat |
 |---|---|---|---|---|
-| S-01 | Standalone, één stuk | P01, P05 | Min: alle stappen stijgend; Default: per gereedschap; minder reversals en meer automatische wissels met Min | open |
-| S-02 | B2B, nesting | P02 | controleregels 1 t/m 5 (Testwerkwijze §4) | open |
-| S-03 | Flange removal op twee flenzen | P03 | Min: één doorgang; Default: geen extra slag terug meer voor flange removals | open |
+| S-01 | Standalone, één stuk | P01, P05 | Min: alle stappen stijgend; Default: per gereedschap; minder reversals en meer automatische wissels met Min | deels 25-11, V631 KSH (20240105, zonder zaag in de lijst): P01 Default en Min gelijk, 51 bewerkingen, 0 reversals, 6003 mm, 16 automatische wissels. Default groepeert hier ook niet per gereedschap, dus de verwachting klopt niet voor deze machine. Herhalen op V633 B2B. P05 nog niet gemaakt |
+| S-02 | B2B, nesting | P02 | controleregels 1 t/m 5 (Testwerkwijze §4) | deels 25-11, V631 KSH: Default, DwF en Min gelijk, 29 bewerkingen, 0 reversals, 10816 mm, 38 wissels, stukken één voor één van voor naar achter. Geen zaagsneden in de V631-lijst (VB1050 zaagt), dus de regels voor divisions niet getest. Herhalen op V633 B2B |
+| S-03 | Flange removal op twee flenzen | P03 | Min: één doorgang; Default: geen extra slag terug meer voor flange removals | geslaagd voor Default 25-11, V631 KSH: Default, DwF en Min gelijk, 27 bewerkingen, 0 reversals. Elke flange removal is één freesbewerking van 4000 mm (DU3 bij 1053, DU2 bij 5037), niet meer naar het einde geschoven |
 | S-04 | Handmatige wissel | P04 | handmatige wissels gegroepeerd waar mogelijk, toegevoegd waar de volgorde dat vraagt; geen gat verschoven naar een ander stuk (job 5089) | open |
 | S-05 | Bundling distance 0 / 10 / 600 bij Default | P01 | 600: weer bundelen per gereedschap (meer reversals), 10 en 0: in X-volgorde | open |
 | S-06 | Korte stukken en schuine einden | P30, P31 | geen exception, regel 1 gerespecteerd, short parts forwarding werkt | open |
