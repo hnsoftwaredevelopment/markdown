@@ -56,12 +56,16 @@ Weergave uit het VACAM-venster "Add batch", van boven naar beneden: bovenflens, 
 
 ## Groep B: measure wheel, meetgebied en validatie
 
+> [!note] P12 t/m P16 overgeslagen (27-11)
+> Niet gemaakt: met P10L, P10Lz, P10N en P10M is aangetoond dat losse gaten in de band op een L-profiel altijd gepland worden. M-03 t/m M-06 zijn daarom overgeslagen (besluit Herbert 27-11).
+
 | # | Product | Profiel, lengte | Bewerkingen | Verwacht met Minimize |
 |---|---|---|---|---|
 | P10 | Gat in de band, meetgebied, take over onmogelijk | HEA300, 6000 | Ø22 in de achterste flens (datum line-kant) op halve hoogte op x 5850 en x 5500; Ø22 in het lijf om de 1000 | De gaten die de laatste take over blokkeren worden undoable en gemeld; de rest wordt gemaakt; geen exception (BT1-2440). |
 | P11 | Gat in de band, meetgebied, take over mogelijk | HEA300, 6000 | één Ø22 in de achterste flens op halve hoogte op x 5850 | Gemaakt, met take over naar de outfeed MRU op het laatste moment. |
 | P10N | Gaten in de band op elk stuk, meerdere stukken op één staaf (zoals SWMS-11375) | L150x14, 1000, aantal 6 op een staaf van 12000 | Ø22 in de band (y 42, beide benen) op x 100 en 900; Ø22 op y 105 op x 500 | Default faalt (take over niet mogelijk); DwF en Min plannen alles zonder iets weg te halen (27-11). Een single-product versie (P10L, 6000) blokkeert niet. |
 | P10M | Dichtere variant van P10N | L150x14, 500, aantal 12 op een staaf van 12000 | Ø22 in de band (y 42, beide benen) op x 40, 250 en 460; Ø22 op y 105 op x 150 | Default faalt; DwF en Min plannen alles zonder iets weg te halen (27-11). |
+| P10S | Slobgat in de band per stuk, naar SWMS-11375 (product mg-40) | L200x100x15, 300, aantal 19 op 6000 | slobgat Ø18, 30 verlengd, 90° op vlak u (view 2) midden y 50 (DSTV y 35, VACAM telt de halve verlenging erbij op); Ø18 op v y 120 bij x 50 en 250 | Niet te maken (27-11): "Milling not possible" in de Problemsolver, oriëntatie alleen Front:Z. Ook niet met de sleuf op vlak o of met Operation 25 zoals bij het klantproduct. |
 | P12 | Gat in de band buiten het meetgebied | HEA300, 6000 | Ø22 in de achterste flens op halve hoogte op x 3000 | Gemaakt. Measure wheel loopt er niet overheen terwijl hij meet. |
 | P13 | Gat buiten de band | HEA300, 6000 | Ø22 in de achterste flens 40 mm onder de bovenkant, op x 5850 | Blokkeert niet, wordt vroeg gemaakt. |
 | P14 | Gat in de voorste flens | HEA300, 6000 | Ø22 in de voorste flens op halve hoogte op x 5850 | Blokkeert niet (verkeerde kant). |
