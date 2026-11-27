@@ -60,6 +60,7 @@ Weergave uit het VACAM-venster "Add batch", van boven naar beneden: bovenflens, 
 |---|---|---|---|---|
 | P10 | Gat in de band, meetgebied, take over onmogelijk | HEA300, 6000 | Ø22 in de achterste flens (datum line-kant) op halve hoogte op x 5850 en x 5500; Ø22 in het lijf om de 1000 | De gaten die de laatste take over blokkeren worden undoable en gemeld; de rest wordt gemaakt; geen exception (BT1-2440). |
 | P11 | Gat in de band, meetgebied, take over mogelijk | HEA300, 6000 | één Ø22 in de achterste flens op halve hoogte op x 5850 | Gemaakt, met take over naar de outfeed MRU op het laatste moment. |
+| P10N | Gaten in de band op elk stuk, meerdere stukken op één staaf (zoals SWMS-11375) | L150x14, 1000, aantal 6 op een staaf van 12000 | Ø22 in de band (y 42, beide benen) op x 100 en 900; Ø22 op y 105 op x 500 | Default faalt (take over niet mogelijk); DwF en Min plannen alles zonder iets weg te halen (27-11). Een single-product versie (P10L, 6000) blokkeert niet. |
 | P12 | Gat in de band buiten het meetgebied | HEA300, 6000 | Ø22 in de achterste flens op halve hoogte op x 3000 | Gemaakt. Measure wheel loopt er niet overheen terwijl hij meet. |
 | P13 | Gat buiten de band | HEA300, 6000 | Ø22 in de achterste flens 40 mm onder de bovenkant, op x 5850 | Blokkeert niet, wordt vroeg gemaakt. |
 | P14 | Gat in de voorste flens | HEA300, 6000 | Ø22 in de voorste flens op halve hoogte op x 5850 | Blokkeert niet (verkeerde kant). |
