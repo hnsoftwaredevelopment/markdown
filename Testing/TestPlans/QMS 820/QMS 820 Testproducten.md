@@ -8,7 +8,24 @@ tags: [qms820, testdata]
 
 # QMS 820 Testproducten
 
-Producten om de sortering, de take overs en de validatie gericht te raken. Maten in mm; x gemeten vanaf de voorkant van het product (outfeed-kant), zoals in BT1-2469. Waar "band" staat: de band van de measure wheel aan de datum line-kant (zie [[QMS 820 Analyse]] §4).
+Producten om de sortering, de take overs en de validatie gericht te raken. Maten in mm. Waar "band" staat: de band van de measure wheel aan de datum line-kant (zie [[QMS 820 Analyse]] §4).
+
+> [!warning] Correctie 26-11: richting van x
+> In de eerste versie stond "x gemeten vanaf de voorkant van het product (outfeed-kant)". Dat klopt **niet** voor de NC1-bestanden. De x-waarden in de tabellen hieronder zijn bedoeld als **machinepositie** (machine-x, vanaf de outfeed-kant). Hoe een DSTV-x daar terechtkomt, hangt af van de rotatie die VACAM kiest:
+> - Regel: **machine-x = lengte − x in het opgeloste product** (na de rotatie die VACAM kiest; te zien als `SolvedRotation` en in het venster "Add batch", kolom Rotation).
+> - HEA300 (P10, P10b): rotatie None. DSTV x 150 kwam op machine-x ≈ 5850 (infeed-kant).
+> - L150x14 (P10L, P10Lz): VACAM staat alleen rotatie **Z** toe ("Permitted rotation: Front:Z"; de knop Z is grijs). Dat draait het stuk 180°: DSTV x 150 kwam op machine-x 150 (voorkant), DSTV x 5850 op machine-x 5850 (infeed-kant).
+> - Controleer daarom na het maken van de batch altijd waar de bewerkingen in de productielijst staan.
+
+> [!warning] Correctie 26-11: groep B werkt niet met een I-profiel
+> Een I-profiel ligt met het lijf horizontaal; de measure wheel loopt op de achterste flens **op halve hoogte**, precies waar het lijf aan de flens vastzit (HEA300: band 145–155). Een gat of uitsparing in die band is op een I-profiel niet te maken. Getest op de V631 van Overhalla (26-11):
+> - uitsparing 10 mm lang (y 0–145): "Milling not possible" (te smal voor een vingerfrees Ø16);
+> - uitsparing 40 mm lang tot y 145: maakbaar, maar raakt de band alleen op de rand en blokkeert niet. Default, DwF en Min plannen alle drie zonder fallback of undoable;
+> - uitsparing 40 mm lang tot y 160 (door de band): "Milling not possible" (frees kan niet door de aansluiting van het lijf).
+>
+> Daarom zijn P10 en P11 omgezet naar een **L-profiel**, zoals in de echte klantgevallen (SWMS-11375 L200x100x15, SWMS-10421 L-profiel). Bij een L ligt de band laag op het liggende been (0 tot 2 × dikte + 5); een gat laag in het staande been valt daarin en is gewoon te boren. P12 t/m P16 volgen dezelfde aanpak zodra ze aan de beurt zijn.
+>
+> **Uitkomst L150x14 (26-11, V631 Overhalla, met de PR):** NC1 in `C:\Temp\QMS820\NC1-BLz\` (gemaakt met `qms-nc1-blz.ps1`): Ø22 op y 42 in beide benen (rand op 31, band 0–33), aan de infeed-kant op machine-x 5500 en 5850, plus Ø22 op y 105 om de 1000. Default, DwF en Min plannen alle drie **zonder** fallback en zonder undoable. Default: take over naar MRU 2 bij 730, die houdt het materiaal tot het eind vast; de gaten in de band zijn de laatste bewerkingen. Min: eerst zagen (2800), één keer terug, take over naar MRU 2 bij 5316. Conclusie: een gat in de band aan de infeed-kant blokkeert alleen als daarna nog over dat stuk gemeten moet worden; bij één stuk zonder bewerkingen erachter is dat niet zo. Voor het blokkerende geval (take over onmogelijk) zijn de klantjobs SWMS-10421, -10635, -11058 en -11375 het bewijs: die worden zonder de PR geannuleerd en met DwF gered (zie testplan R-01).
 
 De maten gaan uit van een machine met wielen op ±440/±210 en een clamping margin van 60 mm (meetgebied ≈ 1000 mm). Vóór gebruik controleer ik de echte offsets in de backup (drive wheel x offset, measure wheel x offset, clamping margin) en schuif ik de posities in het meetgebied mee.
 
@@ -22,7 +39,20 @@ Ik maak de producten als DSTV-bestanden (NC1). Die kan ik zelf schrijven, zodat 
 | P02 | Nesting met 6 stukken | IPE300, 12000 staaf, 6 stukken van 1800 | per stuk: 2x Ø22 in het lijf, 2x Ø18 in elke flens, verdeeld over het stuk | B2B met zaag: detected pieces, outfeed MRU pass dalend, infeed MRU pass stijgend, afzagen bij de zaag (BT1-2437 happy flow). |
 | P03 | Flange removal op twee flenzen | HE160A, 6000 | flange removal over 4000 mm op beide flenzen (DU2 en DU3), plus Ø18 in het lijf om de 1000 | Herhaling van SWMS-10576/-11017: Default nu zonder uitstel van flange removals; Minimize: beide flenzen in één doorgang. |
 | P04 | Handmatige wissel | HEA200, 6000 | gaten die een gereedschap vragen dat niet in het magazijn staat (handmatige wissel), verspreid over de lengte, plus normale gaten | Handmatige wissels blijven gegroepeerd (BT1-2437) of worden waar nodig toegevoegd (EP#654, job 5089). |
-| P05 | Gat zonder positie / markering | HEA200, 4000 | layout marking + gaten | Stappen zonder positie, markeringen tussen gaten. |
+| P05 (nog niet gemaakt) | Gat zonder positie / markering | HEA200, 4000 | layout marking + gaten | Stappen zonder positie, markeringen tussen gaten. |
+
+### Zo zien P01 tot en met P03 eruit
+
+Weergave uit het VACAM-venster "Add batch", van boven naar beneden: bovenflens, lijf, onderflens. De NC1-bestanden staan in `C:\Temp\QMS820\NC1\` en worden gemaakt met `qms-nc1.ps1`. VACAM matcht de profielen als HE200A, IPE300 en HE160A. Bij P03 meldt de import "Outer contours not counter clockwise specified"; "Fix product" lost dat op en de block-outs blijven goed.
+
+**P01**: HE200A 6000, Ø18 en Ø22 om en om in het lijf, Ø18 in beide flenzen op 1000, 3000 en 5000.
+![[QMS820-P01.png]]
+
+**P02**: IPE300, 6 stuks van 1800 op een staaf van 12000.
+![[QMS820-P02.png]]
+
+**P03**: HE160A 6000, flange removal van 40 mm diep van 1000 tot 5000 op beide flenzen, Ø18 in het lijf om de 1000.
+![[QMS820-P03.png]]
 
 ## Groep B: measure wheel, meetgebied en validatie
 
